@@ -20,7 +20,7 @@ gas-report:
 # Usage: make compare <latest> <previous>
 # Example: make compare 94d46710 94d46728
 compare:
-	@./scripts/compare_reports.sh reports/commits/$(word 2,$(MAKECMDGOALS)).md reports/commits/$(word 3,$(MAKECMDGOALS)).md
+	@./scripts/compare_reports.sh reports/commits/$(shell echo "$(word 2,$(MAKECMDGOALS))" | cut -c1-8).md reports/commits/$(shell echo "$(word 3,$(MAKECMDGOALS))" | cut -c1-8).md
 
 compare-with-report:
 	make gas-report $(word 2,$(MAKECMDGOALS))

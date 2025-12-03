@@ -98,10 +98,10 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
         # Format gas change with sign and emoji
         if [ "$gas_diff" -gt 0 ]; then
             gas_change="+$(printf "%'d" $gas_diff)"
-            gas_emoji=""
+            gas_emoji="⚠️"
         elif [ "$gas_diff" -lt 0 ]; then
             gas_change="$(printf "%'d" $gas_diff)"
-            gas_emoji=""
+            gas_emoji="⚡️"
         else
             gas_change="0"
             gas_emoji=""
@@ -121,10 +121,10 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
         
         if [ "$storage_diff" -gt 0 ]; then
             storage_change="+$(printf "%'d" $storage_diff)"
-            storage_emoji=""
+            storage_emoji="⚠️"
         elif [ "$storage_diff" -lt 0 ]; then
             storage_change="$(printf "%'d" $storage_diff)"
-            storage_emoji=""
+            storage_emoji="⚡️"
         else
             storage_change="0"
             storage_emoji=""
@@ -140,10 +140,10 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
         
         if [ "$cpu_diff" -gt 0 ]; then
             cpu_change="+$(printf "%'d" $cpu_diff)"
-            cpu_emoji=""
+            cpu_emoji="⚠️"
         elif [ "$cpu_diff" -lt 0 ]; then
             cpu_change="$(printf "%'d" $cpu_diff)"
-            cpu_emoji=""
+            cpu_emoji="⚡️"
         else
             cpu_change="0"
             cpu_emoji=""
@@ -158,9 +158,9 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
         prev_cpu_fmt=$(printf "%'d" $prev_cpu)
         
         # Output rows for each metric
-        echo "| **$name** | Gas Used | $latest_gas_fmt | $prev_gas_fmt | $gas_emoji $gas_change | ${gas_pct}% |"
-        echo "| | Storage Diff | $latest_storage_fmt | $prev_storage_fmt | $storage_emoji $storage_change | ${storage_pct}% |"
-        echo "| | CPU Cycles | $latest_cpu_fmt | $prev_cpu_fmt | $cpu_emoji $cpu_change | ${cpu_pct}% |"
+        echo "| **$name** | Gas Used | $latest_gas_fmt | $prev_gas_fmt | $gas_change | $gas_emoji ${gas_pct}% |"
+        echo "| | Storage Diff | $latest_storage_fmt | $prev_storage_fmt | $storage_change | $storage_emoji ${storage_pct}% |"
+        echo "| | CPU Cycles | $latest_cpu_fmt | $prev_cpu_fmt | $cpu_change | $cpu_emoji ${cpu_pct}% |"
         
     done < "$LATEST_DATA"
     
