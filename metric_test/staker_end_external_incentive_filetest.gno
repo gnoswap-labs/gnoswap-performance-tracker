@@ -8,6 +8,9 @@ import (
 
 	prabc "gno.land/p/gnoswap/rbac"
 	"gno.land/p/nt/testutils"
+	"gno.land/p/nt/ufmt"
+	"gno.land/r/gnoswap/common"
+	"gno.land/r/gnoswap/gns"
 	_ "gno.land/r/gnoswap/rbac"
 
 	_ "gno.land/r/gnoswap/pool/v1"
@@ -67,7 +70,7 @@ func initializeSetup() {
 
 func createPoolMetric() {
 	testing.SetRealm(adminRealm)
-	pool.CreatePool(cross, barPath, fooPath, 100, "70710695859404174631")
+	pool.CreatePool(cross, barPath, fooPath, 100, common.TickMathGetSqrtRatioAtTick(0).ToString())
 }
 
 func mintPositionMetric() {
@@ -79,17 +82,24 @@ func mintPositionMetric() {
 }
 
 func createExternalIncentiveMetric() {
+	testing.SetRealm(adminRealm)
+	bar.Transfer(cross, aliceAddr, 1000000000)
+	gns.Transfer(cross, aliceAddr, 1000000000)
+
 	testing.SetRealm(aliceRealm)
 
 	poolPath := barPath + ":" + fooPath + ":100"
+
+	bar.Approve(cross, stakerAddr, maxInt64)
+	gns.Approve(cross, stakerAddr, maxInt64)
 
 	staker.CreateExternalIncentive(
 		cross,
 		poolPath,
 		barPath,
-		int64(1000000),
-		time.Now().Unix(),
-		time.Now().Unix()+86400,
+		int64(1000000000),
+		1234569600,
+		1234569600+60*60*24*90,
 	)
 }
 
@@ -98,7 +108,11 @@ func endExternalIncentiveMetric() {
 
 	poolPath := barPath + ":" + fooPath + ":100"
 
+	incentiveID := ufmt.Sprintf("%s:%d:%d", aliceAddr, time.Now().Unix(), 1)
+
+	testing.SkipHeights(1234569600 + 60*60*24*90/5)
+
 	metric.PrintMetricsBy("EndExternalIncentive", func() {
-		staker.EndExternalIncentive(cross, poolPath, barPath)
+		staker.EndExternalIncentive(cross, poolPath, incentiveID)
 	})
 }

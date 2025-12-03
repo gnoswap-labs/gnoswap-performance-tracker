@@ -3,6 +3,7 @@
 package main
 
 import (
+	"strconv"
 	"testing"
 
 	"gno.land/p/demo/tokens/grc721"
@@ -116,7 +117,7 @@ func setPoolTierMetric() {
 
 func stakePositionMetric() {
 	testing.SetRealm(aliceRealm)
-	gnft.Approve(cross, stakerAddr, grc721.TokenID(uint64(1)))
+	gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.Itoa(1)))
 
 	metric.PrintMetricsBy("StakeToken", func() {
 		staker.StakeToken(cross, uint64(1), "")

@@ -1,12 +1,16 @@
+// PKGPATH: gno.land/r/demo/main
+
 // Gas and performance metrics for position mint with native GNOT
 // Test cases based on tests/integration/testdata/position/position_mint_with_gnot.txtar
 package main
 
 import (
 	"chain"
+	"chain/banker"
 	"testing"
 
 	prabc "gno.land/p/gnoswap/rbac"
+	"gno.land/r/gnoland/wugnot"
 	_ "gno.land/r/gnoswap/rbac"
 
 	_ "gno.land/r/gnoswap/pool/v1"
@@ -27,7 +31,8 @@ var (
 	adminAddr, _ = access.GetAddress(prabc.ROLE_ADMIN.String())
 	adminRealm   = testing.NewUserRealm(adminAddr)
 
-	poolAddr, _ = access.GetAddress(prabc.ROLE_POOL.String())
+	poolAddr, _     = access.GetAddress(prabc.ROLE_POOL.String())
+	positionAddr, _ = access.GetAddress(prabc.ROLE_POSITION.String())
 
 	wugnotPath = "gno.land/r/gnoland/wugnot"
 	gnsPath    = "gno.land/r/gnoswap/gns"
@@ -73,13 +78,21 @@ func createPoolMetric() {
 
 func mintPositionWithGnotMetric() {
 	testing.SetRealm(adminRealm)
+
+	gns.Approve(cross, poolAddr, maxInt64)
+	wugnot.Approve(cross, poolAddr, maxInt64)
+	gns.Approve(cross, positionAddr, maxInt64)
+	wugnot.Approve(cross, positionAddr, maxInt64)
+
+	banker_ := banker.NewBanker(banker.BankerTypeRealmIssue)
+	banker_.SendCoins(adminAddr, positionAddr, chain.Coins{{"ugnot", 50000000}})
 	testing.SetOriginSend(chain.Coins{{"ugnot", 50000000}})
 
 	metric.PrintMetricsBy("Mint (w. GNOT)", func() {
 		position.Mint(
 			cross,
-			gnsPath,
 			"ugnot",
+			gnsPath,
 			3000,
 			-887220,
 			887220,
@@ -97,6 +110,14 @@ func mintPositionWithGnotMetric() {
 
 func increaseLiquidityMetric() {
 	testing.SetRealm(adminRealm)
+
+	gns.Approve(cross, poolAddr, maxInt64)
+	wugnot.Approve(cross, poolAddr, maxInt64)
+	gns.Approve(cross, positionAddr, maxInt64)
+	wugnot.Approve(cross, positionAddr, maxInt64)
+
+	banker_ := banker.NewBanker(banker.BankerTypeRealmIssue)
+	banker_.SendCoins(adminAddr, positionAddr, chain.Coins{{"ugnot", 10000000}})
 	testing.SetOriginSend(chain.Coins{{"ugnot", 10000000}})
 
 	metric.PrintMetricsBy("IncreaseLiquidity (w. GNOT)", func() {
@@ -114,7 +135,6 @@ func increaseLiquidityMetric() {
 
 func decreaseLiquidityMetric() {
 	testing.SetRealm(adminRealm)
-	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("DecreaseLiquidity (unwrap=false)", func() {
 		position.DecreaseLiquidity(
