@@ -7,6 +7,7 @@ package main
 import (
 	"chain"
 	"chain/banker"
+	"strconv"
 	"testing"
 
 	prabc "gno.land/p/gnoswap/rbac"
@@ -88,7 +89,7 @@ func mintPosition500() {
 	position.Mint(
 		cross,
 		gnsPath,
-		"ugnot",
+		"gnot",
 		500,
 		-887220,
 		887220,
@@ -119,9 +120,17 @@ func swapGnsToWugnotMetric() {
 			"60283363",
 			"1461446703485210103287273052203988822378723970341",
 			adminAddr,
-			func(cur realm, amount0Delta, amount1Delta int64) error {
+			func(cur realm, amount0Delta, amount1Delta string) error {
+				amount0DeltaInt, _ := strconv.ParseInt(amount0Delta, 10, 64)
+				amount1DeltaInt, _ := strconv.ParseInt(amount1Delta, 10, 64)
+
 				testing.SetRealm(adminRealm)
-				common.SafeGRC20Transfer(cross, gnsPath, poolAddr, amount1Delta)
+				if amount0DeltaInt > 0 {
+					common.SafeGRC20Transfer(cross, wugnotPath, poolAddr, amount0DeltaInt)
+				}
+				if amount1DeltaInt > 0 {
+					common.SafeGRC20Transfer(cross, gnsPath, poolAddr, amount1DeltaInt)
+				}
 				return nil
 			},
 		)

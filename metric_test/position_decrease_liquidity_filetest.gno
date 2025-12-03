@@ -6,6 +6,7 @@ package main
 
 import (
 	"chain"
+	"strconv"
 	"testing"
 
 	prbac "gno.land/p/gnoswap/rbac"
@@ -116,8 +117,11 @@ func executeSwap() {
 		"20000000",
 		MIN_PRICE,
 		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64) error {
-			return mockSwapCallback(barPath, fooPath, amount0Delta, amount1Delta, true)
+		func(cur realm, amount0Delta, amount1Delta string) error {
+			amount0DeltaInt, _ := strconv.ParseInt(amount0Delta, 10, 64)
+			amount1DeltaInt, _ := strconv.ParseInt(amount1Delta, 10, 64)
+
+			return mockSwapCallback(barPath, fooPath, amount0DeltaInt, amount1DeltaInt, true)
 		},
 	)
 }
