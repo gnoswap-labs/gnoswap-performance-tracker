@@ -9,7 +9,7 @@ init:
 #          make gas-report feature-branch
 gas-report:
 	$(eval COMMIT := $(or $(word 2,$(MAKECMDGOALS)),main))
-	cd gnoswap && git checkout $(COMMIT)
+	cd gnoswap && git fetch && git checkout $(COMMIT)
 	cd gnoswap && python3 setup.py --exclude-tests -w ../
 	rm -rf gno/examples/gno.land/r/gnoswap/scenario/metric
 	cp -r metric_test gno/examples/gno.land/r/gnoswap/scenario/metric

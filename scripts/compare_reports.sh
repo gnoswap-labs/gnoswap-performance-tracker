@@ -28,7 +28,8 @@ fi
 LATEST_COMMIT=$(basename "$LATEST_FILE" .md)
 PREVIOUS_COMMIT=$(basename "$PREVIOUS_FILE" .md)
 
-OUTPUT_FILE="reports/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
+mkdir -p reports/compares
+OUTPUT_FILE="reports/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
 
 # Parse markdown table and extract unique entries (first occurrence only)
 parse_table() {
