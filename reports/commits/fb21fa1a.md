@@ -4,7 +4,7 @@
 | TickMathGetSqrtRatioAtTick (maxTick) | 873,832 | 0 | 863,400 |
 | TickMathGetSqrtRatioAtTick (zero) | 134,165 | 0 | 134,165 |
 | TickMathGetSqrtRatioAtTick | 652,368 | 0 | 641,936 |
-| TickMathGetTickAtSqrtRatio | 1,785,431 | 0 | 1,628,727 |
+| TickMathGetTickAtSqrtRatio | 1,785,434 | 0 | 1,628,730 |
 | GetLiquidityForAmounts | 1,442,983 | 0 | 1,422,279 |
 | GetAmountsForLiquidity | 1,372,581 | 0 | 1,372,581 |
 | LiquidityMathAddDelta (positive) | 220,687 | 0 | 187,647 |
@@ -18,7 +18,7 @@
 | TickMathGetSqrtRatioAtTick (maxTick) | 873,832 | 0 | 863,400 |
 | TickMathGetSqrtRatioAtTick (zero) | 134,165 | 0 | 134,165 |
 | TickMathGetSqrtRatioAtTick | 652,368 | 0 | 641,936 |
-| TickMathGetTickAtSqrtRatio | 1,785,431 | 0 | 1,628,727 |
+| TickMathGetTickAtSqrtRatio | 1,785,434 | 0 | 1,628,730 |
 | GetLiquidityForAmounts | 1,442,983 | 0 | 1,422,279 |
 | GetAmountsForLiquidity | 1,372,581 | 0 | 1,372,581 |
 | LiquidityMathAddDelta (positive) | 220,687 | 0 | 187,647 |
@@ -34,31 +34,31 @@
 | GetAmount0Delta | 3,912,271 | 0 | 1,486,687 |
 | GetAmount1Delta | 1,050,599 | 0 | 1,040,247 |
 | SwapMathComputeSwapStep | 1,879,861 | 0 | 1,858,997 |
-| CreatePool (wugnot:gns:3000) | 6,989,231 | 16,437 | 2,525,335 |
+| CreatePool (wugnot:gns:3000) | 6,989,234 | 16,437 | 2,525,338 |
 | Mint Position (fee:3000, wide range) | 31,528,675 | 36,386 | 21,904,733 |
 | DecreaseLiquidity | 17,246,344 | 4,401 | 12,571,093 |
 | IncreaseLiquidity | 12,947,980 | 11 | 11,580,246 |
-| Swap (gns -> wugnot, fee:3000) | 20,278,319 | 1,949 | 9,940,674 |
+| Swap (gns -> wugnot, fee:3000) | 20,278,322 | 1,949 | 9,940,677 |
 | CollectFee | 5,456,346 | 59 | 3,846,849 |
-| CreatePool (wugnot:gns:3000) | 6,989,231 | 16,437 | 2,525,335 |
+| CreatePool (wugnot:gns:3000) | 6,989,234 | 16,437 | 2,525,338 |
 | Mint Position (fee:3000, wide range) | 31,528,675 | 36,386 | 21,904,733 |
 | DecreaseLiquidity | 17,246,344 | 4,401 | 12,571,093 |
 | IncreaseLiquidity | 12,947,980 | 11 | 11,580,246 |
-| Swap (gns -> wugnot, fee:3000) | 20,278,319 | 1,949 | 9,940,674 |
+| Swap (gns -> wugnot, fee:3000) | 20,278,322 | 1,949 | 9,940,677 |
 | CollectFee | 5,456,346 | 59 | 3,846,849 |
-| CreatePool (wugnot:gns:500) | 6,987,326 | 16,436 | 2,523,446 |
+| CreatePool (wugnot:gns:500) | 6,987,329 | 16,436 | 2,523,449 |
 | Mint Position (fee:500, wide range) | 31,525,943 | 36,385 | 21,902,033 |
-| Swap (gns -> wugnot, fee:500) | 30,084,487 | 6,675 | 20,140,687 |
-| CreatePool (wugnot:gns:500) | 6,987,326 | 16,436 | 2,523,446 |
+| Swap (gns -> wugnot, fee:500) | 30,084,444 | 6,675 | 20,140,644 |
+| CreatePool (wugnot:gns:500) | 6,987,329 | 16,436 | 2,523,449 |
 | Mint Position (fee:500, wide range) | 31,525,943 | 36,385 | 21,902,033 |
-| Swap (gns -> wugnot, fee:500) | 30,084,487 | 6,675 | 20,140,687 |
+| Swap (gns -> wugnot, fee:500) | 30,084,444 | 6,675 | 20,140,644 |
 | Position Decrease Liquidity | 13,899,774 | 58 | 11,390,997 |
 | Position Decrease Liquidity | 13,899,774 | 58 | 11,390,997 |
 | Position Increase Liquidity | 11,110,695 | -2,064 | 10,151,405 |
 | Position Increase Liquidity | 11,110,695 | -2,064 | 10,151,405 |
 | Position Mint | 30,066,373 | 36,370 | 20,369,733 |
 | Position Mint | 30,066,373 | 36,370 | 20,369,733 |
-| Router Exact Out Swap Route | 29,870,740 | 3,134 | 12,959,094 |
-| Router Exact Out Swap Route | 29,870,740 | 3,134 | 12,959,094 |
-| Router Exact Out Single Swap Route | 29,843,418 | 4,097 | 12,455,336 |
-| Router Exact Out Single Swap Route | 29,843,418 | 4,097 | 12,455,336 |
+| Router Exact Out Swap Route | 29,870,697 | 3,134 | 12,959,051 |
+| Router Exact Out Swap Route | 29,870,697 | 3,134 | 12,959,051 |
+| Router Exact Out Single Swap Route | 29,843,375 | 4,097 | 12,455,293 |
+| Router Exact Out Single Swap Route | 29,843,375 | 4,097 | 12,455,293 |
