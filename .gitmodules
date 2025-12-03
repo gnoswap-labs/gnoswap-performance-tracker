@@ -2,7 +2,9 @@
 	path = gno
 	url = git@github.com:gnoswap-labs/gno.git
 	branch = metric-gas
+	ignore = all
 [submodule "gnoswap"]
 	path = gnoswap
 	url = git@github.com:gnoswap-labs/gnoswap.git
 	branch = main
+	ignore = all
