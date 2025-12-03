@@ -22,6 +22,11 @@ gas-report:
 compare:
 	@./scripts/compare_reports.sh reports/commits/$(word 2,$(MAKECMDGOALS)).md reports/commits/$(word 3,$(MAKECMDGOALS)).md
 
+compare-with-report:
+	make gas-report $(word 2,$(MAKECMDGOALS))
+	make gas-report $(word 3,$(MAKECMDGOALS))
+	make compare $(word 2,$(MAKECMDGOALS)) $(word 3,$(MAKECMDGOALS))
+
 # Prevent "No rule to make target" errors for commit hash arguments
 %:
 	@:
