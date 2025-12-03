@@ -64,10 +64,11 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
 
 # Generate diff report
 {
+    GITHUB_BASE="https://github.com/gnoswap-labs/gnoswap/tree"
     echo "# Gas Report Comparison"
     echo ""
-    echo "- **Latest**: \`$LATEST_COMMIT\`"
-    echo "- **Previous**: \`$PREVIOUS_COMMIT\`"
+    echo "- **Latest**: [\`$LATEST_COMMIT\`](${GITHUB_BASE}/${LATEST_COMMIT})"
+    echo "- **Previous**: [\`$PREVIOUS_COMMIT\`](${GITHUB_BASE}/${PREVIOUS_COMMIT})"
     echo ""
     echo "| Name | Metric | Latest | Previous | Change | % |"
     echo "|------|--------|--------|----------|--------|---|"

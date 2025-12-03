@@ -33,6 +33,21 @@ function format_number(num) {
     return sign result
 }
 
+# Skip lines after "unexpected output:" until next test
+/unexpected output:/ {
+    skip_duplicate = 1
+    next
+}
+
+# Reset skip flag on new test run
+/^=== RUN/ {
+    skip_duplicate = 0
+    next
+}
+
+# Skip if in duplicate section
+skip_duplicate { next }
+
 !/^[[:space:]]*$/ {
     if (/^- Gas Used:/) {
         gas = $NF
@@ -40,9 +55,10 @@ function format_number(num) {
         storage = $NF
     } else if (/^- CPU Cycles:/) {
         cpu = $NF
-        # Print previous entry
-        if (name != "") {
+        # Print entry only if not already printed
+        if (name != "" && !printed[name]) {
             printf "| %s | %s | %s | %s |\n", name, format_number(gas), format_number(storage), format_number(cpu)
+            printed[name] = 1
         }
     } else if (!/^-/) {
         # This is a name line

@@ -17,6 +17,7 @@ set -e
 
 # Parse options
 SKIP_EXISTING=false
+
 while [[ $# -gt 0 ]]; do
     case $1 in
         --skip-exists|-s)
@@ -62,7 +63,7 @@ echo "Generating gas reports for all commits"
 echo "-------------------------------------------"
 for commit in "${COMMITS[@]}"; do
     REPORT_FILE="reports/commits/${commit}.md"
-    if [ -f "$REPORT_FILE" ]; then
+    if [ -f "$REPORT_FILE" && "$SKIP_EXISTING" = true ]; then
         echo "Skipping $commit: report already exists ($REPORT_FILE)"
     else
         echo "Generating gas report for commit: $commit"
