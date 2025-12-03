@@ -1,0 +1,8 @@
+[submodule "gno"]
+	path = gno
+	url = git@github.com:gnoswap-labs/gno.git
+	branch = metric-gas
+[submodule "gnoswap"]
+	path = gnoswap
+	url = git@github.com:gnoswap-labs/gnoswap.git
+	branch = main
