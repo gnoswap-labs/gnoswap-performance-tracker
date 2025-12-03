@@ -17,15 +17,25 @@ gas-report:
 	(cd gno/examples/gno.land/r/gnoswap/scenario/metric && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > reports/commits/$(CURRENT_COMMIT).md
 	@echo "Report saved to reports/commits/$(CURRENT_COMMIT).md"
 
-# Usage: make compare <latest> <previous>
+# Usage: make compare <commit1> <commit2>
 # Example: make compare 94d46710 94d46728
 compare:
 	@./scripts/compare_reports.sh reports/commits/$(shell echo "$(word 2,$(MAKECMDGOALS))" | cut -c1-8).md reports/commits/$(shell echo "$(word 3,$(MAKECMDGOALS))" | cut -c1-8).md
 
+# Usage: make compare-with-report <commit1> <commit2> [commit3] ...
+#        make compare-with-report-all <commit1> <commit2> [commit3] ...
+#        SKIP=1 make compare-with-report <commit1> <commit2> [commit3] ...
+# Example: make compare-with-report abc123 def456 ghi789
+# This will:
+#   1. Generate gas reports for each commit
+#   2. Compare consecutive commits (commit1~commit2, commit2~commit3, ...)
+#   3. Compare first commit to last commit (overall comparison)
 compare-with-report:
-	make gas-report $(word 2,$(MAKECMDGOALS))
-	make gas-report $(word 3,$(MAKECMDGOALS))
-	make compare $(word 2,$(MAKECMDGOALS)) $(word 3,$(MAKECMDGOALS))
+	@./scripts/compare_multiple.sh --skip-exists $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
+# Same as compare-with-report but skips existing reports
+compare-with-report-all:
+	@./scripts/compare_multiple.sh $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
 # Prevent "No rule to make target" errors for commit hash arguments
 %:
