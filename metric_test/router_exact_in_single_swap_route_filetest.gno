@@ -1,12 +1,9 @@
-// PKGPATH: gno.land/r/demo/main
-
-// Gas and performance metrics for pool swap scenario
-// Test cases based on tests/integration/testdata/pool/swap_wugnot_gns_tokens.txtar
+// Gas and performance metrics for router exact in single swap route
+// Test cases based on tests/integration/testdata/router/exact_in_single_swap_route.txtar
 package main
 
 import (
 	"chain"
-	"chain/banker"
 	"testing"
 
 	prabc "gno.land/p/gnoswap/rbac"
@@ -15,6 +12,7 @@ import (
 	_ "gno.land/r/gnoswap/pool/v1"
 	_ "gno.land/r/gnoswap/position/v1"
 	_ "gno.land/r/gnoswap/protocol_fee/v1"
+	_ "gno.land/r/gnoswap/router/v1"
 	_ "gno.land/r/gnoswap/staker/v1"
 
 	"gno.land/r/gnoswap/access"
@@ -22,6 +20,7 @@ import (
 	"gno.land/r/gnoswap/gns"
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
+	"gno.land/r/gnoswap/router"
 
 	"gno.land/r/gnoland/wugnot"
 
@@ -32,8 +31,8 @@ var (
 	adminAddr, _ = access.GetAddress(prabc.ROLE_ADMIN.String())
 	adminRealm   = testing.NewUserRealm(adminAddr)
 
-	poolAddr, _     = access.GetAddress(prabc.ROLE_POOL.String())
-	positionAddr, _ = access.GetAddress(prabc.ROLE_POSITION.String())
+	poolAddr, _   = access.GetAddress(prabc.ROLE_POOL.String())
+	routerAddr, _ = access.GetAddress(prabc.ROLE_ROUTER.String())
 
 	wugnotPath = "gno.land/r/gnoland/wugnot"
 	gnsPath    = "gno.land/r/gnoswap/gns"
@@ -44,26 +43,26 @@ var (
 var t *testing.T
 
 func main() {
-	initializeSwapSetup()
+	initializeSetup()
 
 	createPool500Metric()
 	mintPosition500Metric()
-	swapGnsToWugnotMetric()
+	exactInSingleSwapRouteMetric()
 }
 
-func initializeSwapSetup() {
+func initializeSetup() {
 	testing.SetRealm(adminRealm)
 	pool.SetPoolCreationFee(cross, 0)
 
-	testing.IssueCoins(adminAddr, chain.Coins{{"ugnot", 1000000000000000}})
+	testing.IssueCoins(chain.PackageAddress("gno.land/r/gnoland/wugnot"), chain.Coins{{"ugnot", 100000000000000}})
+	testing.IssueCoins(adminAddr, chain.Coins{{"ugnot", 100000000000000}})
 	testing.SetOriginSend(chain.Coins{{"ugnot", 100000000000000}})
 	testing.SetRealm(adminRealm)
 	wugnot.Deposit(cross)
 
 	gns.Approve(cross, poolAddr, maxInt64)
 	wugnot.Approve(cross, poolAddr, maxInt64)
-	gns.Approve(cross, positionAddr, maxInt64)
-	wugnot.Approve(cross, positionAddr, maxInt64)
+	wugnot.Approve(cross, routerAddr, maxInt64)
 }
 
 func createPool500Metric() {
@@ -82,19 +81,16 @@ func createPool500Metric() {
 
 func mintPosition500Metric() {
 	testing.SetRealm(adminRealm)
+	testing.SetOriginSend(chain.Coins{{"ugnot", 50000000}})
 
-	metric.PrintMetricsBy("Mint (fee:500, wide range)", func() {
-		banker_ := banker.NewBanker(banker.BankerTypeRealmIssue)
-		banker_.SendCoins(adminAddr, positionAddr, chain.Coins{{"ugnot", 50000000}})
-		testing.SetOriginSend(chain.Coins{{"ugnot", 50000000}})
-
+	metric.PrintMetricsBy("Mint (fee:500, range:-6960~6960)", func() {
 		position.Mint(
 			cross,
 			gnsPath,
 			"ugnot",
 			500,
-			-887220,
-			887220,
+			-6960,
+			6960,
 			"50000000",
 			"50000000",
 			"1",
@@ -107,27 +103,21 @@ func mintPosition500Metric() {
 	})
 }
 
-func swapGnsToWugnotMetric() {
+func exactInSingleSwapRouteMetric() {
 	testing.SetRealm(adminRealm)
-	gns.Approve(cross, poolAddr, maxInt64)
+	testing.SetOriginSend(chain.Coins{})
 
-	metric.PrintMetricsBy("Swap (gns -> wugnot, fee:500)", func() {
-		testing.SetRealm(testing.NewCodeRealm("gno.land/r/gnoswap/router"))
-		pool.Swap(
+	metric.PrintMetricsBy("ExactInSingleSwapRoute (wugnot -> gns)", func() {
+		router.ExactInSingleSwapRoute(
 			cross,
 			wugnotPath,
 			gnsPath,
-			500,
-			adminAddr,
-			false,
-			"60283363",
-			"1461446703485210103287273052203988822378723970341",
-			adminAddr,
-			func(cur realm, amount0Delta, amount1Delta int64) error {
-				testing.SetRealm(adminRealm)
-				common.SafeGRC20Transfer(cross, gnsPath, poolAddr, amount1Delta)
-				return nil
-			},
+			"10000000",
+			"gno.land/r/gnoland/wugnot:gno.land/r/gnoswap/gns:500",
+			"100",
+			"0",
+			9999999999,
+			"",
 		)
 	})
 }

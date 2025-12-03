@@ -89,7 +89,7 @@ func increasePositionLiquidity() {
 	bar.Approve(cross, poolAddr, 18394892)
 	foo.Approve(cross, poolAddr, 50000000)
 
-	metric.PrintMetricsBy("Position Increase Liquidity", func() {
+	metric.PrintMetricsBy("IncreaseLiquidity", func() {
 		_, _, _, _, _ = position.IncreaseLiquidity(
 			cross,
 			1,

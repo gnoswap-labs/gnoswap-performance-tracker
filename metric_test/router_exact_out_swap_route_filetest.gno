@@ -126,7 +126,7 @@ func exactOutSingleSwapRouteBy(
 	testing.SetOriginSend(chain.Coins{{"ugnot", maxAmountOutInt}})
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("Router Exact Out Single Swap Route", func() {
+	metric.PrintMetricsBy("ExactOutSingleSwapRoute", func() {
 		_, _ = router.ExactOutSingleSwapRoute(
 			cross,
 			inputToken,

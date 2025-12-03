@@ -135,7 +135,7 @@ func exactOutSwapRouteBy(
 
 	testing.SetOriginSend(chain.Coins{})
 
-	metric.PrintMetricsBy("Router Exact Out Swap Route", func() {
+	metric.PrintMetricsBy("ExactOutSwapRoute", func() {
 		_, _ = router.ExactOutSwapRoute(
 			cross,
 			inputToken,

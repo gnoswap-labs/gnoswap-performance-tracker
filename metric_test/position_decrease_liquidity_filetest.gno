@@ -130,7 +130,7 @@ func decreasePositionLiquidity() {
 
 	_, _, _, _, _, _ = position.CollectFee(cross, 1, false)
 
-	metric.PrintMetricsBy("Position Decrease Liquidity", func() {
+	metric.PrintMetricsBy("DecreaseLiquidity", func() {
 		_, _, _, _, _, _, _ = position.DecreaseLiquidity(
 			cross,
 			1,

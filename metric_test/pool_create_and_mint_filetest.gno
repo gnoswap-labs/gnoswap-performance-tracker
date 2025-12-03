@@ -86,7 +86,7 @@ func createPoolMetric() {
 func mintPositionMetric() {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("Mint Position (fee:3000, wide range)", func() {
+	metric.PrintMetricsBy("Mint (fee:3000, wide range)", func() {
 		banker_ := banker.NewBanker(banker.BankerTypeRealmIssue)
 		banker_.SendCoins(adminAddr, positionAddr, chain.Coins{{"ugnot", 50000000}})
 		testing.SetOriginSend(chain.Coins{{"ugnot", 50000000}})
