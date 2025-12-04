@@ -32,7 +32,6 @@ var t *testing.T
 
 func main() {
 	initializeSetup()
-	delegateMetric()
 	proposeCommunityPoolSpendMetric()
 }
 
@@ -42,12 +41,9 @@ func initializeSetup() {
 	governance.Reconfigure(cross, 0, 604800, 0, 50, 0, 86400, 2592000)
 
 	gns.Approve(cross, govStakerAddr, maxInt64)
-}
-
-func delegateMetric() {
-	testing.SetRealm(adminRealm)
-
 	govstaker.Delegate(cross, adminAddr, int64(1000000000), "")
+
+	testing.SkipHeights(5)
 }
 
 func proposeCommunityPoolSpendMetric() {

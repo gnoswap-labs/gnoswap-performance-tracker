@@ -33,7 +33,6 @@ var t *testing.T
 
 func main() {
 	initializeSetup()
-	delegateMetric()
 	proposeParameterChangeMetric()
 	voteMetric()
 	executeMetric()
@@ -46,12 +45,9 @@ func initializeSetup() {
 	governance.Reconfigure(cross, 0, 1, 0, 50, 0, 0, 2592000)
 
 	gns.Approve(cross, govStakerAddr, maxInt64)
-}
-
-func delegateMetric() {
-	testing.SetRealm(adminRealm)
-
 	govstaker.Delegate(cross, adminAddr, int64(1000000000), "")
+
+	testing.SkipHeights(5)
 }
 
 func proposeParameterChangeMetric() {
