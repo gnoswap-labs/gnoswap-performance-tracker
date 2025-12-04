@@ -70,6 +70,9 @@ func voteMetric() {
 	metric.PrintMetricsBy("Vote", func() {
 		governance.Vote(cross, 1, true)
 	})
+
+	// Skip blocks for voting period to end
+	testing.SkipHeights(2)
 }
 
 func executeMetric() {

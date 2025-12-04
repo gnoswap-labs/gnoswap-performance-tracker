@@ -81,13 +81,13 @@ func createPool500Metric() {
 
 func mintPosition500Metric() {
 	testing.SetRealm(adminRealm)
-	testing.SetOriginSend(chain.Coins{{"ugnot", 50000000}})
+	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("Mint (fee:500, range:-6960~6960)", func() {
 		position.Mint(
 			cross,
 			gnsPath,
-			"ugnot",
+			wugnotPath,
 			500,
 			-6960,
 			6960,

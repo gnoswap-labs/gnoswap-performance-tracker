@@ -23,6 +23,8 @@ import (
 	"gno.land/r/onbloc/bar"
 	"gno.land/r/onbloc/foo"
 
+	"gno.land/r/gnoswap/gns"
+
 	"gno.land/r/gnoswap/scenario/metric"
 )
 
@@ -55,13 +57,19 @@ func initializeSetup() {
 	testing.SetRealm(adminRealm)
 	pool.SetPoolCreationFee(cross, 0)
 
-	bar.Transfer(cross, aliceAddr, 100000000)
-	foo.Transfer(cross, aliceAddr, 100000000)
+	bar.Transfer(cross, aliceAddr, 2000000000)
+	foo.Transfer(cross, aliceAddr, 2000000000)
+	gns.Transfer(cross, aliceAddr, 2000000000)
 
 	bar.Approve(cross, poolAddr, maxInt64)
 	foo.Approve(cross, poolAddr, maxInt64)
 	bar.Approve(cross, stakerAddr, maxInt64)
 	foo.Approve(cross, stakerAddr, maxInt64)
+
+	testing.SetRealm(aliceRealm)
+	bar.Approve(cross, stakerAddr, maxInt64)
+	foo.Approve(cross, stakerAddr, maxInt64)
+	gns.Approve(cross, stakerAddr, maxInt64)
 }
 
 func createPoolMetric() {
@@ -77,7 +85,7 @@ func mintPositionMetric() {
 	bar.Approve(cross, poolAddr, maxInt64)
 	foo.Approve(cross, poolAddr, maxInt64)
 
-	position.Mint(cross, barPath, fooPath, 100, -1, 1, "5000000", "5000000", "1", "1", time.Now().Unix()+3600, aliceAddr, aliceAddr, "")
+	position.Mint(cross, barPath, fooPath, 100, -1, 1, "5000000", "5000000", "0", "0", time.Now().Unix()+3600, aliceAddr, aliceAddr, "")
 }
 
 func createExternalIncentiveMetric() {
@@ -85,14 +93,19 @@ func createExternalIncentiveMetric() {
 
 	poolPath := barPath + ":" + fooPath + ":100"
 
+	// Use timestamp at midnight (86400 * 100000 = 8640000000)
+	// Duration must be 90, 180, or 365 days
+	startTime := int64(8640000000)
+	endTime := startTime + (86400 * 90) // 90 days
+
 	metric.PrintMetricsBy("CreateExternalIncentive", func() {
 		staker.CreateExternalIncentive(
 			cross,
 			poolPath,
 			barPath,
-			int64(1000000),
-			time.Now().Unix(),
-			time.Now().Unix()+86400,
+			int64(1000000000),
+			startTime,
+			endTime,
 		)
 	})
 }
