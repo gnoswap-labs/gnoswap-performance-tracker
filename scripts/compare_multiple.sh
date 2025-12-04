@@ -11,7 +11,7 @@
 # This script will:
 #   1. Generate gas reports for each commit
 #   2. Compare consecutive commits (commit1~commit2, commit2~commit3, ...)
-#   3. Compare first commit to last commit (overall comparison)
+#   3. Compare first commit to each subsequent commit (cumulative comparison)
 
 set -e
 
@@ -84,15 +84,23 @@ for ((i = 0; i < COMMIT_COUNT - 1; i++)); do
     echo ""
 done
 
-# Compare first commit to last commit (if more than 2 commits)
+# Compare first commit to each subsequent commit (cumulative comparison)
+first="${COMMITS[0]}"
 if [ $COMMIT_COUNT -gt 2 ]; then
     echo ""
-    echo "Overall comparison (first -> last)"
+    echo "Cumulative comparisons (first -> each)"
     echo "-------------------------------------------"
-    first="${COMMITS[0]}"
-    last="${COMMITS[$((COMMIT_COUNT - 1))]}"
-    echo "Comparing: $first -> $last"
-    make compare "$first" "$last"
+    for ((i = 1; i < COMMIT_COUNT; i++)); do
+        target="${COMMITS[$i]}"
+        # Skip if it's already covered by consecutive comparison (i.e., second commit)
+        if [ $i -eq 1 ]; then
+            echo "Skipping: $first -> $target (already in consecutive comparisons)"
+            continue
+        fi
+        echo "Comparing: $first -> $target"
+        make compare "$first" "$target"
+        echo ""
+    done
 fi
 
 echo ""

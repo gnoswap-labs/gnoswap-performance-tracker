@@ -149,8 +149,8 @@ cat > "$OUTPUT_FILE" << EOF
 
 ## Commit History
 
-| # | Commit | Description | Report | Diff from Previous |
-|---|--------|-------------|--------|-------------------|
+| # | Commit | Description | Report | Diff from Previous | Diff from Base |
+|---|--------|-------------|--------|-------------------|----------------|
 EOF
 
 # Write commit history table (from oldest to newest, same order as commit-history.txt)
@@ -162,7 +162,7 @@ for ((i = 0; i < COMMIT_COUNT; i++)); do
     # Report link
     report_file="$COMMITS_DIR/${short}.md"
     if [[ -f "$report_file" ]]; then
-        report_link="[📊 Report](commits/${short}.md)"
+        report_link="[📊 Report](reports/commits/${short}.md)"
     else
         report_link="_Not generated_"
     fi
@@ -173,7 +173,7 @@ for ((i = 0; i < COMMIT_COUNT; i++)); do
         prev_short="${SHORT_COMMITS[$((i - 1))]}"
         diff_file="$COMPARES_DIR/diff_${short}_${prev_short}.md"
         if [[ -f "$diff_file" ]]; then
-            diff_link="[📈 Diff](compares/diff_${short}_${prev_short}.md)"
+            diff_link="[📈 Diff](reports/compares/diff_${short}_${prev_short}.md)"
         else
             diff_link="_Not generated_"
         fi
@@ -181,8 +181,21 @@ for ((i = 0; i < COMMIT_COUNT; i++)); do
         diff_link="_Baseline_"
     fi
     
+    # Diff from Base link (compare with first commit)
+    # Note: diff files are named as diff_{current}_{first}.md because make compare-with-report runs in reverse order
+    if [[ $i -gt 0 ]]; then
+        base_diff_file="$COMPARES_DIR/diff_${short}_${FIRST_SHORT}.md"
+        if [[ -f "$base_diff_file" ]]; then
+            base_diff_link="[📊 Diff](reports/compares/diff_${short}_${FIRST_SHORT}.md)"
+        else
+            base_diff_link="_Not generated_"
+        fi
+    else
+        base_diff_link="_Baseline_"
+    fi
+    
     row_num=$((i + 1))
-    echo "| $row_num | [\`$short\`]($GITHUB_BASE_URL/$short) | $desc | $report_link | $diff_link |" >> "$OUTPUT_FILE"
+    echo "| $row_num | [\`$short\`]($GITHUB_BASE_URL/$short) | $desc | $report_link | $diff_link | $base_diff_link |" >> "$OUTPUT_FILE"
 done
 
 # Add overall comparison section
@@ -203,7 +216,7 @@ if [[ -f "$overall_diff_file" ]]; then
     regressions=$(grep -c "⚠️" "$overall_diff_file" 2>/dev/null || echo "0")
     
     cat >> "$OUTPUT_FILE" << EOF
-**[\`$FIRST_SHORT\` → \`$LAST_SHORT\`](compares/diff_${LAST_SHORT}_${FIRST_SHORT}.md)**
+**[\`$FIRST_SHORT\` → \`$LAST_SHORT\`](reports/compares/diff_${LAST_SHORT}_${FIRST_SHORT}.md)**
 
 This comparison shows the total gas usage changes between the baseline commit and the latest commit.
 

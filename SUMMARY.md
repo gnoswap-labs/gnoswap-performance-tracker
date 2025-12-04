@@ -1,6 +1,6 @@
 # GnoSwap Performance Summary Report
 
-> Generated: 2025-12-04 12:00:03
+> Generated: 2025-12-04 12:13:31
 
 ## Overview
 
@@ -12,19 +12,19 @@
 
 ## Commit History
 
-| # | Commit | Description | Report | Diff from Previous |
-|---|--------|-------------|--------|-------------------|
-| 1 | [`e5d1e160`](https://github.com/gnoswap-labs/gnoswap/tree/e5d1e160) | Base | [📊 Report](commits/e5d1e160.md) | _Baseline_ |
-| 2 | [`9dbd8927`](https://github.com/gnoswap-labs/gnoswap/tree/9dbd8927) | Optimize Uint256 | [📊 Report](commits/9dbd8927.md) | [📈 Diff](compares/diff_9dbd8927_e5d1e160.md) |
-| 3 | [`31d883d4`](https://github.com/gnoswap-labs/gnoswap/tree/31d883d4) | Optimize Int256 | [📊 Report](commits/31d883d4.md) | [📈 Diff](compares/diff_31d883d4_9dbd8927.md) |
-| 4 | [`94d46728`](https://github.com/gnoswap-labs/gnoswap/tree/94d46728) | Optimize Common | [📊 Report](commits/94d46728.md) | [📈 Diff](compares/diff_94d46728_31d883d4.md) |
-| 5 | [`f468996c`](https://github.com/gnoswap-labs/gnoswap/tree/f468996c) | Optimize Pool | [📊 Report](commits/f468996c.md) | [📈 Diff](compares/diff_f468996c_94d46728.md) |
+| # | Commit | Description | Report | Diff from Previous | Diff from Base |
+|---|--------|-------------|--------|-------------------|----------------|
+| 1 | [`e5d1e160`](https://github.com/gnoswap-labs/gnoswap/tree/e5d1e160) | Base | [📊 Report](reports/commits/e5d1e160.md) | _Baseline_ | _Baseline_ |
+| 2 | [`9dbd8927`](https://github.com/gnoswap-labs/gnoswap/tree/9dbd8927) | Optimize Uint256 | [📊 Report](reports/commits/9dbd8927.md) | [📈 Diff](reports/compares/diff_9dbd8927_e5d1e160.md) | [📊 Diff](reports/compares/diff_9dbd8927_e5d1e160.md) |
+| 3 | [`31d883d4`](https://github.com/gnoswap-labs/gnoswap/tree/31d883d4) | Optimize Int256 | [📊 Report](reports/commits/31d883d4.md) | [📈 Diff](reports/compares/diff_31d883d4_9dbd8927.md) | [📊 Diff](reports/compares/diff_31d883d4_e5d1e160.md) |
+| 4 | [`94d46728`](https://github.com/gnoswap-labs/gnoswap/tree/94d46728) | Optimize Common | [📊 Report](reports/commits/94d46728.md) | [📈 Diff](reports/compares/diff_94d46728_31d883d4.md) | [📊 Diff](reports/compares/diff_94d46728_e5d1e160.md) |
+| 5 | [`f468996c`](https://github.com/gnoswap-labs/gnoswap/tree/f468996c) | Optimize Pool | [📊 Report](reports/commits/f468996c.md) | [📈 Diff](reports/compares/diff_f468996c_94d46728.md) | [📊 Diff](reports/compares/diff_f468996c_e5d1e160.md) |
 
 ---
 
 ## Overall Comparison (First → Latest)
 
-**[`e5d1e160` → `f468996c`](compares/diff_f468996c_e5d1e160.md)**
+**[`e5d1e160` → `f468996c`](reports/compares/diff_f468996c_e5d1e160.md)**
 
 This comparison shows the total gas usage changes between the baseline commit and the latest commit.
 
