@@ -99,9 +99,6 @@ make gas-report f468996ce38e1387392278643af0d83e7219c6cc
 #### Step 3: Generate summary report
 
 ```bash
-# Generate summary from existing reports only
-make summary
-
 # Generate reports for all commits and create summary
 make summary-with-run
 ```
