@@ -37,6 +37,15 @@ compare-with-report:
 compare-with-report-all:
 	@./scripts/compare_multiple.sh $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
+# Generate summary report from commit-history.txt
+# Usage: make summary           - Generate summary from existing reports
+#        make summary-with-run  - Generate reports and summary
+summary:
+	@./scripts/generate_summary_report.sh
+
+summary-with-run:
+	@./scripts/generate_summary_report.sh --run-tests
+
 # Prevent "No rule to make target" errors for commit hash arguments
 %:
 	@:
