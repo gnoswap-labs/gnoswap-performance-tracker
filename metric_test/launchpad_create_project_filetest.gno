@@ -4,7 +4,6 @@ package main
 
 import (
 	"testing"
-	"time"
 
 	prabc "gno.land/p/gnoswap/rbac"
 	_ "gno.land/r/gnoswap/rbac"
@@ -13,6 +12,7 @@ import (
 
 	"gno.land/r/gnoswap/access"
 	"gno.land/r/gnoswap/launchpad"
+	"gno.land/r/onbloc/bar"
 
 	"gno.land/r/gnoswap/scenario/metric"
 )
@@ -20,18 +20,28 @@ import (
 var (
 	adminAddr, _ = access.GetAddress(prabc.ROLE_ADMIN.String())
 	adminRealm   = testing.NewUserRealm(adminAddr)
+
+	launchpadAddr, _ = access.GetAddress(prabc.ROLE_LAUNCHPAD.String())
+
+	maxInt64 int64 = 9223372036854775807
 )
 
 var t *testing.T
 
 func main() {
+	initializeSetup()
 	createLaunchpadProjectMetric()
+}
+
+func initializeSetup() {
+	testing.SetRealm(adminRealm)
+	bar.Approve(cross, launchpadAddr, maxInt64)
 }
 
 func createLaunchpadProjectMetric() {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("CreateProject", func() {
+	metric.PrintMetricsBy("Create Launchpad Project", func() {
 		launchpad.CreateProject(
 			cross,
 			"Bar Launchpad Project",
@@ -43,7 +53,7 @@ func createLaunchpadProjectMetric() {
 			int64(10),
 			int64(20),
 			int64(70),
-			time.Now().Unix()+100,
+			int64(9999999999), // Far future timestamp to avoid time issues
 		)
 	})
 }
