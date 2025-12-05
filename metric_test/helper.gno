@@ -6,6 +6,30 @@ import (
 	"gno.land/p/nt/ufmt"
 )
 
+func MetricsBy(name string, fn func()) (int64, int64, int64) {
+	beforeCycles := testing.GetCycles()
+	beforeGas := testing.GetGas()
+	beforeRealmStorageDiff := testing.GetRealmStorageDiffs()
+
+	fn()
+
+	afterCycles := testing.GetCycles()
+	afterGas := testing.GetGas()
+	afterRealmStorageDiff := testing.GetRealmStorageDiffs()
+
+	totalRealmStorageDiff := int64(0)
+
+	for _, diff := range afterRealmStorageDiff {
+		totalRealmStorageDiff += diff
+	}
+
+	for _, diff := range beforeRealmStorageDiff {
+		totalRealmStorageDiff -= diff
+	}
+
+	return afterGas - beforeGas, totalRealmStorageDiff, afterCycles - beforeCycles
+}
+
 func PrintMetricsBy(name string, fn func()) {
 	beforeCycles := testing.GetCycles()
 	beforeGas := testing.GetGas()
