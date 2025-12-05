@@ -1,5 +1,7 @@
-// Gas and performance metrics for router exact in single swap route
-// Test cases based on tests/integration/testdata/router/exact_in_single_swap_route.txtar
+// Gas and performance metrics for router ExactInSingleSwapRoute(grc20) - fee:3000
+
+// PKGPATH: gno.land/r/gnoswap/v1/main
+
 package main
 
 import (
@@ -44,10 +46,9 @@ var t *testing.T
 
 func main() {
 	initializeSetup()
-
-	createPool500Metric()
-	mintPosition500Metric()
-	exactInSingleSwapRouteMetric()
+	createPool()
+	mintPosition()
+	doSwap()
 }
 
 func initializeSetup() {
@@ -62,58 +63,55 @@ func initializeSetup() {
 
 	gns.Approve(cross, poolAddr, maxInt64)
 	wugnot.Approve(cross, poolAddr, maxInt64)
+	gns.Approve(cross, routerAddr, maxInt64)
 	wugnot.Approve(cross, routerAddr, maxInt64)
 }
 
-func createPool500Metric() {
+func createPool() {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("CreatePool (wugnot:gns:500)", func() {
-		pool.CreatePool(
-			cross,
-			wugnotPath,
-			gnsPath,
-			500,
-			common.TickMathGetSqrtRatioAtTick(0).ToString(),
-		)
-	})
+	pool.CreatePool(
+		cross,
+		wugnotPath,
+		gnsPath,
+		3000,
+		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+	)
 }
 
-func mintPosition500Metric() {
+func mintPosition() {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
-	metric.PrintMetricsBy("Mint (fee:500, range:-6960~6960)", func() {
-		position.Mint(
-			cross,
-			gnsPath,
-			wugnotPath,
-			500,
-			-6960,
-			6960,
-			"50000000",
-			"50000000",
-			"1",
-			"1",
-			9999999999,
-			adminAddr,
-			adminAddr,
-			"",
-		)
-	})
+	position.Mint(
+		cross,
+		gnsPath,
+		wugnotPath,
+		3000,
+		-887220,
+		887220,
+		"50000000",
+		"50000000",
+		"0",
+		"0",
+		9999999999,
+		adminAddr,
+		adminAddr,
+		"",
+	)
 }
 
-func exactInSingleSwapRouteMetric() {
+func doSwap() {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
-	metric.PrintMetricsBy("ExactInSingleSwapRoute (wugnot -> gns)", func() {
+	metric.PrintMetricsBy("ExactInSingleSwapRoute(grc20) - fee:3000", func() {
 		router.ExactInSingleSwapRoute(
 			cross,
-			wugnotPath,
 			gnsPath,
-			"10000000",
-			"gno.land/r/gnoland/wugnot:gno.land/r/gnoswap/gns:500",
+			wugnotPath,
+			"1000000",
+			"gno.land/r/gnoswap/gns:gno.land/r/gnoland/wugnot:3000",
 			"100",
 			"0",
 			9999999999,

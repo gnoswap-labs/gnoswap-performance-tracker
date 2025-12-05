@@ -1,5 +1,7 @@
-// Gas and performance metrics for router exact out swap route with native GNOT
-// Test cases based on tests/integration/testdata/router/exact_out_swap_route_with_gnot.txtar
+// Gas and performance metrics for router ExactOutSingleSwapRoute(grc20) - fee:10000
+
+// PKGPATH: gno.land/r/gnoswap/v1/main
+
 package main
 
 import (
@@ -44,12 +46,9 @@ var t *testing.T
 
 func main() {
 	initializeSetup()
-
-	createPool3000Metric()
-	mintPosition3000Metric()
-	exactOutGnsToWugnotMetric()
-	depositMoreWugnot()
-	exactOutWugnotToGnsMetric()
+	createPool()
+	mintPosition()
+	doSwap()
 }
 
 func initializeSetup() {
@@ -68,82 +67,53 @@ func initializeSetup() {
 	wugnot.Approve(cross, routerAddr, maxInt64)
 }
 
-func createPool3000Metric() {
+func createPool() {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("CreatePool (wugnot:gns:3000)", func() {
-		pool.CreatePool(
-			cross,
-			wugnotPath,
-			gnsPath,
-			3000,
-			common.TickMathGetSqrtRatioAtTick(0).ToString(),
-		)
-	})
+	pool.CreatePool(
+		cross,
+		wugnotPath,
+		gnsPath,
+		10000,
+		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+	)
 }
 
-func mintPosition3000Metric() {
+func mintPosition() {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
-	metric.PrintMetricsBy("Mint (fee:3000, wide range)", func() {
-		position.Mint(
-			cross,
-			gnsPath,
-			wugnotPath,
-			3000,
-			-887220,
-			887220,
-			"50000000",
-			"50000000",
-			"1",
-			"1",
-			9999999999,
-			adminAddr,
-			adminAddr,
-			"",
-		)
-	})
+	position.Mint(
+		cross,
+		gnsPath,
+		wugnotPath,
+		10000,
+		-887200,
+		887200,
+		"50000000",
+		"50000000",
+		"0",
+		"0",
+		9999999999,
+		adminAddr,
+		adminAddr,
+		"",
+	)
 }
 
-func exactOutGnsToWugnotMetric() {
+func doSwap() {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
-	metric.PrintMetricsBy("ExactOutSwapRoute (gns -> wugnot)", func() {
-		router.ExactOutSwapRoute(
+	metric.PrintMetricsBy("ExactOutSingleSwapRoute(grc20) - fee:10000", func() {
+		router.ExactOutSingleSwapRoute(
 			cross,
 			gnsPath,
 			wugnotPath,
-			"1001502",
-			"gno.land/r/gnoswap/gns:gno.land/r/gnoland/wugnot:3000",
-			"100",
+			"1000000",
+			"gno.land/r/gnoswap/gns:gno.land/r/gnoland/wugnot:10000",
 			"10000000",
-			9999999999,
-			"",
-		)
-	})
-}
-
-func depositMoreWugnot() {
-	testing.SetRealm(adminRealm)
-	testing.SetOriginSend(chain.Coins{{"ugnot", 10000000}})
-	wugnot.Deposit(cross)
-}
-
-func exactOutWugnotToGnsMetric() {
-	testing.SetRealm(adminRealm)
-	testing.SetOriginSend(chain.Coins{})
-
-	metric.PrintMetricsBy("ExactOutSwapRoute (wugnot -> gns)", func() {
-		router.ExactOutSwapRoute(
-			cross,
-			wugnotPath,
-			gnsPath,
-			"1001502",
-			"gno.land/r/gnoland/wugnot:gno.land/r/gnoswap/gns:3000",
-			"100",
-			"10000000",
+			"0",
 			9999999999,
 			"",
 		)

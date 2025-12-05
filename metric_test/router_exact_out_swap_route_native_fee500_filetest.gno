@@ -1,4 +1,4 @@
-// exact out swap route with native token
+// Gas and performance metrics for router ExactOutSwapRoute(ugnot) - fee:500
 
 // PKGPATH: gno.land/r/gnoswap/v1/main
 
@@ -7,15 +7,7 @@ package main
 import (
 	"chain"
 	"chain/banker"
-	"strconv"
 	"testing"
-
-	"gno.land/r/gnoswap/access"
-	"gno.land/r/gnoswap/common"
-	"gno.land/r/gnoswap/gns"
-	"gno.land/r/gnoswap/pool"
-	pn "gno.land/r/gnoswap/position"
-	"gno.land/r/gnoswap/router"
 
 	prabc "gno.land/p/gnoswap/rbac"
 	_ "gno.land/r/gnoswap/rbac"
@@ -23,7 +15,15 @@ import (
 	_ "gno.land/r/gnoswap/pool/v1"
 	_ "gno.land/r/gnoswap/position/v1"
 	_ "gno.land/r/gnoswap/protocol_fee/v1"
+	_ "gno.land/r/gnoswap/router/v1"
 	_ "gno.land/r/gnoswap/staker/v1"
+
+	"gno.land/r/gnoswap/access"
+	"gno.land/r/gnoswap/common"
+	"gno.land/r/gnoswap/gns"
+	"gno.land/r/gnoswap/pool"
+	"gno.land/r/gnoswap/position"
+	"gno.land/r/gnoswap/router"
 
 	"gno.land/r/gnoland/wugnot"
 
@@ -47,59 +47,52 @@ var t *testing.T
 
 func main() {
 	initializeSetup()
-	createPool(wugnotPath, gnsPath, 500, 0)
-	mintPosition(wugnotPath, gnsPath, 500, -6960, 6960, "100000000", "100000000")
-	exactOutSingleSwapRouteBy(
-		"ugnot",
-		gnsPath,
-		"1000",
-		"gno.land/r/gnoland/wugnot:gno.land/r/gnoswap/gns:500",
-		"100",
-		"10000",
-	)
+	createPool()
+	mintPosition()
+	doSwap()
 }
 
 func initializeSetup() {
 	testing.SetRealm(adminRealm)
 	pool.SetPoolCreationFee(cross, 0)
 
+	testing.IssueCoins(chain.PackageAddress("gno.land/r/gnoland/wugnot"), chain.Coins{{"ugnot", 100000000000000}})
 	testing.IssueCoins(adminAddr, chain.Coins{{"ugnot", 100000000000000}})
 	testing.SetOriginSend(chain.Coins{{"ugnot", 100000000000000}})
 	testing.SetRealm(adminRealm)
 	wugnot.Deposit(cross)
 
-	testing.IssueCoins(testing.NewCodeRealm(wugnotPath).Address(), chain.Coins{{"ugnot", 100000000000000}})
 	gns.Approve(cross, poolAddr, maxInt64)
 	wugnot.Approve(cross, poolAddr, maxInt64)
-
 	gns.Approve(cross, routerAddr, maxInt64)
 	wugnot.Approve(cross, routerAddr, maxInt64)
 }
 
-func createPool(token0Path string, token1Path string, fee uint32, startTick int32) {
+func createPool() {
 	testing.SetRealm(adminRealm)
+
 	pool.CreatePool(
-		cross,
-		token0Path,
-		token1Path,
-		fee,
-		common.TickMathGetSqrtRatioAtTick(startTick).ToString(),
-	)
-}
-
-func mintPosition(token0Path string, token1Path string, fee uint32, minTick, maxTick int32, amount0 string, amount1 string) {
-	testing.SetRealm(adminRealm)
-
-	testing.SetOriginSend(chain.Coins{})
-	_, _, _, _ = pn.Mint(
 		cross,
 		wugnotPath,
 		gnsPath,
-		fee,
-		minTick,
-		maxTick,
-		amount0,
-		amount1,
+		500,
+		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+	)
+}
+
+func mintPosition() {
+	testing.SetRealm(adminRealm)
+	testing.SetOriginSend(chain.Coins{})
+
+	position.Mint(
+		cross,
+		gnsPath,
+		wugnotPath,
+		500,
+		-887220,
+		887220,
+		"50000000",
+		"50000000",
 		"0",
 		"0",
 		9999999999,
@@ -109,32 +102,26 @@ func mintPosition(token0Path string, token1Path string, fee uint32, minTick, max
 	)
 }
 
-func exactOutSingleSwapRouteBy(
-	inputToken string,
-	outputToken string,
-	specifiedAmount string,
-	routeQueryString string,
-	queryRatios string,
-	maxAmountOut string,
-) {
+func doSwap() {
 	testing.SetRealm(adminRealm)
 
-	maxAmountOutInt, _ := strconv.ParseInt(maxAmountOut, 10, 64)
+	amountInMax := int64(10000000)
 
+	testing.IssueCoins(adminAddr, chain.Coins{{"ugnot", amountInMax}})
 	sendBanker := banker.NewBanker(banker.BankerTypeRealmSend)
-	sendBanker.SendCoins(adminAddr, routerAddr, chain.Coins{{"ugnot", maxAmountOutInt}})
-	testing.SetOriginSend(chain.Coins{{"ugnot", maxAmountOutInt}})
+	sendBanker.SendCoins(adminAddr, routerAddr, chain.Coins{{"ugnot", amountInMax}})
+	testing.SetOriginSend(chain.Coins{{"ugnot", amountInMax}})
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("ExactOutSingleSwapRoute", func() {
-		_, _ = router.ExactOutSingleSwapRoute(
+	metric.PrintMetricsBy("ExactOutSwapRoute(ugnot) - fee:500", func() {
+		router.ExactOutSwapRoute(
 			cross,
-			inputToken,
-			outputToken,
-			specifiedAmount,
-			routeQueryString,
-			maxAmountOut,
-			"78228162514264337593543950336",
+			"ugnot",
+			gnsPath,
+			"1000000",
+			"gno.land/r/gnoland/wugnot:gno.land/r/gnoswap/gns:500",
+			"100",
+			"10000000",
 			9999999999,
 			"",
 		)
