@@ -7,3 +7,5 @@ f468996ce38e1387392278643af0d83e7219c6cc:Optimize Pool
 c9983990c4f48eb9364f6a5e9699a7b73f6f29ed:Replace int256 with int64 for router swap
 aa648b23e9668f977b23822a0b27350445235aa1:Optimize KVStore.makeKey
 3a818d3ab4440d5cda75315bf322e963439a1ad8:Optimize Router
+9ee6b50407241540bed0fbdd3f147f25b0b70020:Optimize GNFT
+a7e1bc3bdb6d4b47af1912672944f7b16610f197:Make stake use AVL tree
