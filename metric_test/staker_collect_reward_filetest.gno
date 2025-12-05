@@ -52,8 +52,8 @@ func main() {
 	initializeSetup()
 	createPoolMetric()
 	mintPositionMetric()
-	setPoolTierMetric()
-	stakeTokenMetric()
+	setPoolTierSetup()
+	stakeTokenSetup()
 	collectRewardMetric()
 }
 
@@ -83,22 +83,18 @@ func mintPositionMetric() {
 	position.Mint(cross, barPath, fooPath, 3000, -60, 60, "5000000", "5000000", "1", "1", time.Now().Unix()+3600, aliceAddr, aliceAddr, "")
 }
 
-func setPoolTierMetric() {
+func setPoolTierSetup() {
 	testing.SetRealm(adminRealm)
 
 	poolPath := barPath + ":" + fooPath + ":3000"
-	metric.PrintMetricsBy("SetPoolTier (tier 1, for reward)", func() {
-		staker.SetPoolTier(cross, poolPath, 1)
-	})
+	staker.SetPoolTier(cross, poolPath, 1)
 }
 
-func stakeTokenMetric() {
+func stakeTokenSetup() {
 	testing.SetRealm(aliceRealm)
 	gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.Itoa(1)))
 
-	metric.PrintMetricsBy("StakeToken", func() {
-		staker.StakeToken(cross, uint64(1), "")
-	})
+	staker.StakeToken(cross, uint64(1), "")
 }
 
 func collectRewardMetric() {

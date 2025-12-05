@@ -49,9 +49,9 @@ var t *testing.T
 
 func main() {
 	initializeSetup()
+	createBarFooPool()
+	mintPosition()
 
-	createPoolMetric()
-	mintPositionMetric()
 	setPoolTierMetric()
 	stakePositionMetric()
 }
@@ -67,43 +67,39 @@ func initializeSetup() {
 	foo.Approve(cross, poolAddr, maxInt64)
 }
 
-func createPoolMetric() {
+func createBarFooPool() {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("CreatePool (bar:foo:3000)", func() {
-		pool.CreatePool(
-			cross,
-			barPath,
-			fooPath,
-			3000,
-			common.TickMathGetSqrtRatioAtTick(0).ToString(),
-		)
-	})
+	pool.CreatePool(
+		cross,
+		barPath,
+		fooPath,
+		3000,
+		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+	)
 }
 
-func mintPositionMetric() {
+func mintPosition() {
 	testing.SetRealm(aliceRealm)
 	bar.Approve(cross, poolAddr, maxInt64)
 	foo.Approve(cross, poolAddr, maxInt64)
 
-	metric.PrintMetricsBy("Mint (bar:foo:3000)", func() {
-		position.Mint(
-			cross,
-			barPath,
-			fooPath,
-			3000,
-			-60,
-			60,
-			"5000000",
-			"5000000",
-			"1",
-			"1",
-			9999999999,
-			aliceAddr,
-			aliceAddr,
-			"",
-		)
-	})
+	position.Mint(
+		cross,
+		barPath,
+		fooPath,
+		3000,
+		-60,
+		60,
+		"5000000",
+		"5000000",
+		"1",
+		"1",
+		9999999999,
+		aliceAddr,
+		aliceAddr,
+		"",
+	)
 }
 
 func setPoolTierMetric() {

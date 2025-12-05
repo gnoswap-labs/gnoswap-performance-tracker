@@ -45,9 +45,9 @@ var t *testing.T
 
 func main() {
 	initializeSwapSetup()
+	createPool500()
+	mintPosition500()
 
-	createPool500Metric()
-	mintPosition500Metric()
 	swapGnsToWugnotMetric()
 }
 
@@ -66,45 +66,41 @@ func initializeSwapSetup() {
 	wugnot.Approve(cross, positionAddr, maxInt64)
 }
 
-func createPool500Metric() {
+func createPool500() {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("CreatePool (wugnot:gns:500)", func() {
-		pool.CreatePool(
-			cross,
-			wugnotPath,
-			gnsPath,
-			500,
-			common.TickMathGetSqrtRatioAtTick(0).ToString(),
-		)
-	})
+	pool.CreatePool(
+		cross,
+		wugnotPath,
+		gnsPath,
+		500,
+		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+	)
 }
 
-func mintPosition500Metric() {
+func mintPosition500() {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("Mint (fee:500, wide range)", func() {
-		banker_ := banker.NewBanker(banker.BankerTypeRealmIssue)
-		banker_.SendCoins(adminAddr, positionAddr, chain.Coins{{"ugnot", 50000000}})
-		testing.SetOriginSend(chain.Coins{{"ugnot", 50000000}})
+	banker_ := banker.NewBanker(banker.BankerTypeRealmIssue)
+	banker_.SendCoins(adminAddr, positionAddr, chain.Coins{{"ugnot", 50000000}})
+	testing.SetOriginSend(chain.Coins{{"ugnot", 50000000}})
 
-		position.Mint(
-			cross,
-			gnsPath,
-			"ugnot",
-			500,
-			-887220,
-			887220,
-			"50000000",
-			"50000000",
-			"1",
-			"1",
-			9999999999,
-			adminAddr,
-			adminAddr,
-			"",
-		)
-	})
+	position.Mint(
+		cross,
+		gnsPath,
+		"ugnot",
+		500,
+		-887220,
+		887220,
+		"50000000",
+		"50000000",
+		"1",
+		"1",
+		9999999999,
+		adminAddr,
+		adminAddr,
+		"",
+	)
 }
 
 func swapGnsToWugnotMetric() {

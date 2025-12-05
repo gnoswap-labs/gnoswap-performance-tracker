@@ -138,7 +138,7 @@ func mintPositionMetric() {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
-	metric.PrintMetricsBy("Stress Mint Position", func() {
+	metric.PrintMetricsBy("Mint Position(for stress swap)", func() {
 		position.Mint(
 			cross,
 			wugnotPath,

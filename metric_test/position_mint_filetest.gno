@@ -88,7 +88,7 @@ func mintPosition() {
 	bar.Approve(cross, poolAddr, INT64_MAX)
 	foo.Approve(cross, poolAddr, INT64_MAX)
 
-	metric.PrintMetricsBy("Mint", func() {
+	metric.PrintMetricsBy("Mint (bar:foo:500)", func() {
 		position.Mint(
 			cross,
 			barPath,

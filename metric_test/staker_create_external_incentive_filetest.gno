@@ -48,7 +48,8 @@ var t *testing.T
 
 func main() {
 	initializeSetup()
-	createPoolMetric()
+	createBarFooPool()
+
 	mintPositionMetric()
 	createExternalIncentiveMetric()
 }
@@ -72,12 +73,10 @@ func initializeSetup() {
 	gns.Approve(cross, stakerAddr, maxInt64)
 }
 
-func createPoolMetric() {
+func createBarFooPool() {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("CreatePool (bar:foo:100)", func() {
-		pool.CreatePool(cross, barPath, fooPath, 100, "70710695859404174631")
-	})
+	pool.CreatePool(cross, barPath, fooPath, 100, "70710695859404174631")
 }
 
 func mintPositionMetric() {

@@ -44,8 +44,8 @@ var t *testing.T
 
 func main() {
 	initializeSetup()
+	poolSetup()
 
-	createPoolMetric()
 	mintPositionWithGnotMetric()
 	increaseLiquidityMetric()
 	decreaseLiquidityMetric()
@@ -62,18 +62,16 @@ func initializeSetup() {
 	gns.Approve(cross, poolAddr, maxInt64)
 }
 
-func createPoolMetric() {
+func poolSetup() {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("CreatePool (wugnot:gns:3000)", func() {
-		pool.CreatePool(
-			cross,
-			wugnotPath,
-			gnsPath,
-			3000,
-			common.TickMathGetSqrtRatioAtTick(0).ToString(),
-		)
-	})
+	pool.CreatePool(
+		cross,
+		wugnotPath,
+		gnsPath,
+		3000,
+		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+	)
 }
 
 func mintPositionWithGnotMetric() {

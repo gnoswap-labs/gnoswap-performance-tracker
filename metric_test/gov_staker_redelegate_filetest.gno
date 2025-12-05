@@ -34,7 +34,8 @@ var t *testing.T
 
 func main() {
 	initializeSetup()
-	delegateMetric()
+	delegateSetup()
+
 	redelegateMetric()
 }
 
@@ -47,12 +48,10 @@ func initializeSetup() {
 	gns.Approve(cross, govStakerAddr, maxInt64)
 }
 
-func delegateMetric() {
+func delegateSetup() {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("Delegate (to alice)", func() {
-		govstaker.Delegate(cross, aliceAddr, int64(1000000), "")
-	})
+	govstaker.Delegate(cross, aliceAddr, int64(1000000), "")
 }
 
 func redelegateMetric() {

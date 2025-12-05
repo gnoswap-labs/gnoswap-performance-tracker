@@ -44,8 +44,6 @@ func main() {
 
 	createPoolMetric()
 	mintPositionMetric()
-	decreaseLiquidityMetric()
-	increaseLiquidityMetric()
 }
 
 func initializeSetup() {
@@ -65,7 +63,7 @@ func initializeSetup() {
 func createPoolMetric() {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("CreatePool (wugnot:gns:3000)", func() {
+	metric.PrintMetricsBy("CreatePool", func() {
 		pool.CreatePool(
 			cross,
 			wugnotPath,
@@ -96,40 +94,6 @@ func mintPositionMetric() {
 			adminAddr,
 			adminAddr,
 			"",
-		)
-	})
-}
-
-func decreaseLiquidityMetric() {
-	testing.SetRealm(adminRealm)
-	testing.SetOriginSend(chain.Coins{})
-
-	metric.PrintMetricsBy("DecreaseLiquidity", func() {
-		position.DecreaseLiquidity(
-			cross,
-			1,
-			"1000000",
-			"1",
-			"1",
-			9999999999,
-			true,
-		)
-	})
-}
-
-func increaseLiquidityMetric() {
-	testing.SetRealm(adminRealm)
-	testing.SetOriginSend(chain.Coins{})
-
-	metric.PrintMetricsBy("IncreaseLiquidity", func() {
-		position.IncreaseLiquidity(
-			cross,
-			1,
-			"1000000",
-			"1000000",
-			"1",
-			"1",
-			9999999999,
 		)
 	})
 }

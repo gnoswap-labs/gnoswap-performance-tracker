@@ -44,9 +44,9 @@ var t *testing.T
 
 func main() {
 	initializeSetup()
+	createPool500()
+	mintInitialPosition()
 
-	createPoolMetric()
-	mintInitialPositionMetric()
 	decreaseAndRemovePositionMetric()
 	mintNewPositionMetric()
 }
@@ -62,43 +62,39 @@ func initializeSetup() {
 	foo.Approve(cross, poolAddr, maxInt64)
 }
 
-func createPoolMetric() {
+func createPool500() {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy("CreatePool (reposition)", func() {
-		pool.CreatePool(
-			cross,
-			barPath,
-			fooPath,
-			500,
-			common.TickMathGetSqrtRatioAtTick(0).ToString(),
-		)
-	})
+	pool.CreatePool(
+		cross,
+		barPath,
+		fooPath,
+		500,
+		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+	)
 }
 
-func mintInitialPositionMetric() {
+func mintInitialPosition() {
 	testing.SetRealm(aliceRealm)
 	bar.Approve(cross, poolAddr, maxInt64)
 	foo.Approve(cross, poolAddr, maxInt64)
 
-	metric.PrintMetricsBy("Mint (init)", func() {
-		position.Mint(
-			cross,
-			barPath,
-			fooPath,
-			500,
-			-1000,
-			1000,
-			"50000000",
-			"50000000",
-			"0",
-			"0",
-			9999999999,
-			aliceAddr,
-			aliceAddr,
-			"",
-		)
-	})
+	position.Mint(
+		cross,
+		barPath,
+		fooPath,
+		500,
+		-1000,
+		1000,
+		"50000000",
+		"50000000",
+		"0",
+		"0",
+		9999999999,
+		aliceAddr,
+		aliceAddr,
+		"",
+	)
 }
 
 func decreaseAndRemovePositionMetric() {
