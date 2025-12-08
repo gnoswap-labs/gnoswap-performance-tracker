@@ -137,7 +137,7 @@ func createExternalIncentives() {
 func collectRewardMetric(tokenId uint64) {
 	testing.SetRealm(aliceRealm)
 
-	metric.PrintMetricsBy("CollectReward (35300 incentives, 1B gas)", func() {
+	metric.PrintMetricsBy("stress CollectReward (35300 incentives, 1B gas)", func() {
 		staker.CollectReward(cross, tokenId, false)
 	})
 }

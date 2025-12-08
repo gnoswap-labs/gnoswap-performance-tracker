@@ -48,7 +48,8 @@ var (
 )
 
 // Test position counts to measure gas scaling
-var testPositionCounts = []int{5000, 10000, 50000}
+// NOTE: Position count has minimal impact on gas (~3.7M gas even at 10000 positions, never reaches 1B)
+var testPositionCounts = []int{10, 100, 500, 1000}
 
 var t *testing.T
 
@@ -75,6 +76,7 @@ func initializeSetup() {
 	bar.Approve(cross, stakerAddr, maxInt64)
 	foo.Approve(cross, stakerAddr, maxInt64)
 
+	testing.SetRealm(adminRealm)
 	emission.SetDistributionStartTime(cross, time.Now().Unix()+1)
 	testing.SkipHeights(1)
 }
@@ -137,7 +139,7 @@ func mintAndStakePositions(count int) uint64 {
 func collectRewardMetric(tokenId uint64, totalStaked int) {
 	testing.SetRealm(aliceRealm)
 
-	metric.PrintMetricsBy("CollectReward ("+strconv.Itoa(totalStaked)+" positions)", func() {
+	metric.PrintMetricsBy("stress CollectReward ("+strconv.Itoa(totalStaked)+" positions)", func() {
 		staker.CollectReward(cross, tokenId, false)
 	})
 }
