@@ -10,7 +10,6 @@ import (
 	"gno.land/p/demo/tokens/grc721"
 	prabc "gno.land/p/gnoswap/rbac"
 	"gno.land/p/nt/testutils"
-	"gno.land/p/nt/ufmt"
 	"gno.land/r/gnoswap/emission"
 	_ "gno.land/r/gnoswap/rbac"
 
@@ -49,7 +48,7 @@ var (
 )
 
 // Test position counts to measure gas scaling
-var testPositionCounts = []int{100, 500, 1000, 5000, 10000, 50000}
+var testPositionCounts = []int{5000, 10000, 50000}
 
 var t *testing.T
 
@@ -89,8 +88,6 @@ func createPoolAndSetTier() {
 }
 
 func runStressTest(positionCount int) {
-	println(ufmt.Sprintf("\n=== Stress Test: %d Staked Positions ===", positionCount))
-
 	// Mint and stake positions
 	startTokenId := mintAndStakePositions(positionCount)
 
@@ -132,20 +129,15 @@ func mintAndStakePositions(count int) uint64 {
 		// Approve and stake
 		gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.FormatUint(tokenId, 10)))
 		staker.StakeToken(cross, tokenId, "")
-
-		if (i+1)%50 == 0 {
-			println(ufmt.Sprintf("  Minted and staked %d/%d positions", i+1, count))
-		}
 	}
 
-	println(ufmt.Sprintf("  Total staked: %d positions (tokenId %d ~ %d)", count, startTokenId, startTokenId+uint64(count)-1))
 	return startTokenId
 }
 
 func collectRewardMetric(tokenId uint64, totalStaked int) {
 	testing.SetRealm(aliceRealm)
 
-	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (totalStaked=%d)", totalStaked), func() {
+	metric.PrintMetricsBy("CollectReward ("+strconv.Itoa(totalStaked)+" positions)", func() {
 		staker.CollectReward(cross, tokenId, false)
 	})
 }
