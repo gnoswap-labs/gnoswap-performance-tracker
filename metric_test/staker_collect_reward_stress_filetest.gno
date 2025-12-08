@@ -11,6 +11,7 @@ import (
 	prabc "gno.land/p/gnoswap/rbac"
 	"gno.land/p/nt/testutils"
 	"gno.land/p/nt/ufmt"
+	"gno.land/r/gnoswap/emission"
 	_ "gno.land/r/gnoswap/rbac"
 
 	_ "gno.land/r/gnoswap/pool/v1"
@@ -74,6 +75,9 @@ func initializeSetup() {
 	foo.Approve(cross, poolAddr, maxInt64)
 	bar.Approve(cross, stakerAddr, maxInt64)
 	foo.Approve(cross, stakerAddr, maxInt64)
+
+	emission.SetDistributionStartTime(cross, time.Now().Unix()+1)
+	testing.SkipHeights(1)
 }
 
 func createPoolAndSetTier() {
