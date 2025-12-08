@@ -49,7 +49,7 @@ var (
 )
 
 // Test position counts to measure gas scaling
-var testPositionCounts = []int{10, 50, 100, 200, 500, 1000}
+var testPositionCounts = []int{100, 500, 1000, 5000, 10000, 50000}
 
 var t *testing.T
 
@@ -67,8 +67,8 @@ func initializeSetup() {
 	testing.SetRealm(adminRealm)
 	pool.SetPoolCreationFee(cross, 0)
 
-	bar.Transfer(cross, aliceAddr, 100000000000)
-	foo.Transfer(cross, aliceAddr, 100000000000)
+	bar.Transfer(cross, aliceAddr, 10000000000000)
+	foo.Transfer(cross, aliceAddr, 10000000000000)
 
 	testing.SetRealm(aliceRealm)
 	bar.Approve(cross, poolAddr, maxInt64)
