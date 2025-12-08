@@ -1,5 +1,5 @@
-// Gas and performance metrics for staker CollectReward with varying staked position counts
-// Tests how gas changes as the number of staked positions increases
+// Gas and performance metrics for staker CollectReward with 500 staked positions
+// NOTE: Position count has minimal impact on gas (~3.7M gas even at 10000 positions, never reaches 1B)
 package main
 
 import (
@@ -47,20 +47,14 @@ var (
 	maxInt64 int64 = 9223372036854775807
 )
 
-// Test position counts to measure gas scaling
-// NOTE: Position count has minimal impact on gas (~3.7M gas even at 10000 positions, never reaches 1B)
-var testPositionCounts = []int{10, 100, 500, 1000}
-
-var t *testing.T
+const positionCount = 500
 
 func main() {
 	initializeSetup()
 	createPoolAndSetTier()
 
-	// Run tests for different position counts
-	for _, count := range testPositionCounts {
-		runStressTest(count)
-	}
+	startTokenId := mintAndStakePositions(positionCount)
+	collectRewardMetric(startTokenId)
 }
 
 func initializeSetup() {
@@ -89,21 +83,12 @@ func createPoolAndSetTier() {
 	staker.SetPoolTier(cross, poolPath, 1)
 }
 
-func runStressTest(positionCount int) {
-	// Mint and stake positions
-	startTokenId := mintAndStakePositions(positionCount)
-
-	// Measure CollectReward for the first staked position
-	collectRewardMetric(startTokenId, positionCount)
-}
-
 func mintAndStakePositions(count int) uint64 {
 	testing.SetRealm(aliceRealm)
 
 	startTokenId := uint64(1)
 
 	for i := 0; i < count; i++ {
-		// Mint position with different tick ranges to simulate real scenarios
 		minTick := int32(-600 - (i%10)*60)
 		maxTick := int32(600 + (i%10)*60)
 
@@ -128,7 +113,6 @@ func mintAndStakePositions(count int) uint64 {
 			startTokenId = tokenId
 		}
 
-		// Approve and stake
 		gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.FormatUint(tokenId, 10)))
 		staker.StakeToken(cross, tokenId, "")
 	}
@@ -136,10 +120,10 @@ func mintAndStakePositions(count int) uint64 {
 	return startTokenId
 }
 
-func collectRewardMetric(tokenId uint64, totalStaked int) {
+func collectRewardMetric(tokenId uint64) {
 	testing.SetRealm(aliceRealm)
 
-	metric.PrintMetricsBy("stress CollectReward ("+strconv.Itoa(totalStaked)+" positions)", func() {
+	metric.PrintMetricsBy("stress CollectReward (500 positions)", func() {
 		staker.CollectReward(cross, tokenId, false)
 	})
 }
