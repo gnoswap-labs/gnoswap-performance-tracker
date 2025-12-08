@@ -90,6 +90,12 @@ summary:
 summary-force:
 	@./scripts/generate_summary_report.sh --force
 
+# Convert reports to GitHub issue format
+# Usage: make issue-format                    - Use commits from commit-history.txt
+#        make issue-format <base> <latest>   - Specify base and latest commits
+issue-format:
+	@./scripts/convert_to_issue_format.sh $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
 # Prevent "No rule to make target" errors for commit hash arguments
 %:
 	@:
