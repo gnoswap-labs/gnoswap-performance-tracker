@@ -12,7 +12,7 @@ gas-report:
 	$(eval CURRENT_COMMIT := $(shell cd gnoswap && git fetch >/dev/null 2>&1 && git checkout -f $(COMMIT) >/dev/null 2>&1 && git rev-parse --short HEAD))
 	cd gnoswap && python3 setup.py --exclude-tests -w ../
 	rm -rf gno/examples/gno.land/r/gnoswap/scenario/metric
-	cp -r metric_test gno/examples/gno.land/r/gnoswap/scenario/metric
+	cp -r tests/metric gno/examples/gno.land/r/gnoswap/scenario/metric
 	mkdir -p reports/commits
 	(cd gno/examples/gno.land/r/gnoswap/scenario/metric && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > reports/commits/$(CURRENT_COMMIT).md
 	@echo "Report saved to reports/commits/$(CURRENT_COMMIT).md"
