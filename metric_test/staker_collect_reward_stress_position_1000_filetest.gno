@@ -54,6 +54,7 @@ func main() {
 	createPoolAndSetTier()
 
 	startTokenId := mintAndStakePositions(positionCount)
+	testing.SkipHeights(600000)
 	collectRewardMetric(startTokenId)
 }
 
@@ -115,6 +116,7 @@ func mintAndStakePositions(count int) uint64 {
 
 		gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.FormatUint(tokenId, 10)))
 		staker.StakeToken(cross, tokenId, "")
+		testing.SkipHeights(1)
 	}
 
 	return startTokenId

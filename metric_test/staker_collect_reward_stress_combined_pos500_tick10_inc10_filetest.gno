@@ -72,6 +72,7 @@ func main() {
 		swapWithCrossRange()
 	}
 
+	testing.SkipHeights(600000)
 	collectRewardMetric(startTokenId)
 }
 
@@ -160,7 +161,9 @@ func mintPositionWithFullRange() {
 func createExternalIncentives() {
 	testing.SetRealm(adminRealm)
 
-	startTime := int64(1234569600)
+	// Calculate next day midnight timestamp
+	now := time.Now().Unix()
+	startTime := ((now / 86400) + 2) * 86400 // +2 days midnight from now
 
 	for i := 0; i < incentiveCount; i++ {
 		incentiveStartTime := startTime + int64(i*86400)

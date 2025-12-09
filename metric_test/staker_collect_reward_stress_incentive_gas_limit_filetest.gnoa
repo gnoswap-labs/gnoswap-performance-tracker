@@ -1,5 +1,5 @@
-// Gas and performance metrics for staker CollectReward at half of 1B gas limit threshold
-// Tests CollectReward with 17650 external incentives (≈ 500M gas, half of 1B threshold)
+// Gas and performance metrics for staker CollectReward at 1B gas limit threshold
+// Tests CollectReward with 35300 external incentives (≈ 1B gas)
 package main
 
 import (
@@ -52,15 +52,15 @@ var (
 	TIMESTAMP_90DAYS int64 = 90 * 24 * 60 * 60
 )
 
-// 17650 external incentives ≈ half of 1B gas threshold for CollectReward
-const incentiveCount = 17650
+// 35300 external incentives ≈ 1B gas threshold for CollectReward
+const incentiveCount = 35300
 
 func main() {
 	initializeSetup()
 	createPoolAndSetTier()
 	tokenId := mintAndStakePosition()
 	createExternalIncentives()
-	testing.SkipHeights(10)
+	testing.SkipHeights(600000)
 	collectRewardMetric(tokenId)
 }
 
@@ -69,9 +69,9 @@ func initializeSetup() {
 	pool.SetPoolCreationFee(cross, 0)
 	emission.SetDistributionStartTime(cross, time.Now().Unix()+1)
 
-	bar.Transfer(cross, aliceAddr, 20_000_000_000_000)
+	bar.Transfer(cross, aliceAddr, 50_000_000_000_000)
 	foo.Transfer(cross, aliceAddr, 10_000_000_000_000)
-	gns.Transfer(cross, aliceAddr, 20_000_000_000_000)
+	gns.Transfer(cross, aliceAddr, 50_000_000_000_000)
 
 	testing.SetRealm(aliceRealm)
 	bar.Approve(cross, poolAddr, maxInt64)
@@ -137,7 +137,7 @@ func createExternalIncentives() {
 func collectRewardMetric(tokenId uint64) {
 	testing.SetRealm(aliceRealm)
 
-	metric.PrintMetricsBy("stress CollectReward (17650 incentives)", func() {
+	metric.PrintMetricsBy("stress CollectReward (35300 incentives, 1B gas)", func() {
 		staker.CollectReward(cross, tokenId, false)
 	})
 }

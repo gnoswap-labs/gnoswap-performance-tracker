@@ -68,6 +68,7 @@ func main() {
 		swapWithCrossRange()
 	}
 
+	testing.SkipHeights(600000)
 	collectRewardMetric(1, iterations)
 }
 
