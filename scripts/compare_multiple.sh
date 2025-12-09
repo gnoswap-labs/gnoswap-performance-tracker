@@ -3,10 +3,11 @@
 # Compare multiple commits by generating gas reports and comparing them.
 #
 # Usage:
-#   ./compare_multiple.sh [--skip-exists] <commit1> <commit2> [commit3] ...
+#   ./compare_multiple.sh [--skip-exists] [--stress] <commit1> <commit2> [commit3] ...
 #
 # Options:
-#   --skip-exists-, -s    Skip generating gas report if file already exists
+#   --skip-exists, -s    Skip generating gas report if file already exists
+#   --stress             Run stress tests instead of standard metric tests
 #
 # This script will:
 #   1. Generate gas reports for each commit
@@ -17,6 +18,8 @@ set -e
 
 # Parse options
 SKIP_EXISTING=false
+STRESS_MODE=false
+REPORT_ONLY=false
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -24,14 +27,24 @@ while [[ $# -gt 0 ]]; do
             SKIP_EXISTING=true
             shift
             ;;
+        --stress)
+            STRESS_MODE=true
+            shift
+            ;;
+        --report-only)
+            REPORT_ONLY=true
+            shift
+            ;;
         --help|-h)
-            echo "Usage: $0 [--skip-exists] <commit1> <commit2> [commit3] ..."
+            echo "Usage: $0 [--skip-exists] [--stress] [--report-only] <commit1> <commit2> [commit3] ..."
             echo ""
             echo "Options:"
             echo "  --skip-exists, -s    Skip generating gas report if file already exists"
-            echo "  --help, -h    Show this help message"
+            echo "  --stress             Run stress tests instead of standard metric tests"
+            echo "  --report-only        Only generate reports, skip comparisons"
+            echo "  --help, -h           Show this help message"
             echo ""
-            echo "Example: $0 --skip-exists abc12345 def45678 ghi78901"
+            echo "Example: $0 --skip-exists abc12345"
             exit 0
             ;;
         *)
@@ -40,9 +53,9 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-if [ $# -lt 2 ]; then
-    echo "Usage: $0 [--skip-exists] <commit1> <commit2> [commit3] ..."
-    echo "Example: $0 --skip-exists abc12345 def45678 ghi78901"
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 [--skip-exists] [--stress] [--report-only] <commit1> <commit2> [commit3] ..."
+    echo "Example: $0 --skip-exists abc12345"
     exit 1
 fi
 
@@ -55,6 +68,14 @@ COMMIT_COUNT=${#COMMITS[@]}
 
 echo "=========================================="
 echo "Processing $COMMIT_COUNT commits..."
+if [ "$STRESS_MODE" = true ]; then
+    echo "Mode: STRESS TEST"
+else
+    echo "Mode: STANDARD METRIC"
+fi
+if [ "$REPORT_ONLY" = true ]; then
+    echo "Task: REPORT GENERATION ONLY"
+fi
 echo "=========================================="
 echo ""
 
@@ -62,15 +83,27 @@ echo ""
 echo "Generating gas reports for all commits"
 echo "-------------------------------------------"
 for commit in "${COMMITS[@]}"; do
-    REPORT_FILE="reports/commits/${commit}.md"
+    if [ "$STRESS_MODE" = true ]; then
+        REPORT_FILE="reports/commits/stress_${commit}.md"
+        TARGET="stress-report"
+    else
+        REPORT_FILE="reports/commits/${commit}.md"
+        TARGET="gas-report"
+    fi
+
     if [[ -f "$REPORT_FILE" && "$SKIP_EXISTING" = true ]]; then
         echo "Skipping $commit: report already exists ($REPORT_FILE)"
     else
         echo "Generating gas report for commit: $commit"
-        make gas-report "$commit"
+        make "$TARGET" "$commit"
     fi
     echo ""
 done
+
+if [ "$REPORT_ONLY" = true ]; then
+    echo "Reports generated. Comparisons skipped (--report-only)."
+    exit 0
+fi
 
 # Compare consecutive commits
 echo ""
@@ -80,7 +113,17 @@ for ((i = 0; i < COMMIT_COUNT - 1; i++)); do
     current="${COMMITS[$i]}"
     next="${COMMITS[$((i + 1))]}"
     echo "Comparing: $current -> $next"
-    make compare "$current" "$next"
+    
+    if [ "$STRESS_MODE" = true ]; then
+        PREFIX="stress_"
+    else
+        PREFIX=""
+    fi
+    
+    REPORT_CURRENT="reports/commits/${PREFIX}${current}.md"
+    REPORT_NEXT="reports/commits/${PREFIX}${next}.md"
+    
+    ./scripts/compare_reports.sh "$REPORT_CURRENT" "$REPORT_NEXT"
     echo ""
 done
 
@@ -99,7 +142,17 @@ if [ $COMMIT_COUNT -gt 2 ]; then
             continue
         fi
         echo "Comparing: $current -> $base"
-        make compare "$current" "$base"
+        
+        if [ "$STRESS_MODE" = true ]; then
+            PREFIX="stress_"
+        else
+            PREFIX=""
+        fi
+
+        REPORT_CURRENT="reports/commits/${PREFIX}${current}.md"
+        REPORT_BASE="reports/commits/${PREFIX}${base}.md"
+
+        ./scripts/compare_reports.sh "$REPORT_CURRENT" "$REPORT_BASE"
         echo ""
     done
 fi

@@ -107,7 +107,7 @@ if [[ "$RUN_TESTS" = true ]]; then
     echo "=========================================="
     
     # Build the command with commits in reverse order (newest first)
-    CMD="make compare-with-report ${REVERSED_COMMITS[*]}"
+    CMD="make compare-with-run ${REVERSED_COMMITS[*]}"
     echo "Executing: $CMD"
     echo ""
     eval "$CMD"

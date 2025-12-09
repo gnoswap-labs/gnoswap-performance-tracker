@@ -1,6 +1,6 @@
 # GnoSwap Performance Summary Report
 
-> Generated: 2025-12-05 22:31:48
+> Generated: 2025-12-09 19:11:07
 
 ## Overview
 
@@ -39,294 +39,261 @@ This comparison shows the total gas usage changes between the baseline commit an
 
 | Metric | Count |
 |--------|-------|
-| ⚡️ Improvements | 236 |
-| ⚠️ Regressions | 4 |
+| ⚡️ Improvements | 3 |
+| ⚠️ Regressions | 227 |
 
 ### Detailed Comparison
 
 | Name | Metric | Latest | Previous | Change | % |
 |------|--------|--------|----------|--------|---|
-| **TickMathGetSqrtRatioAtTick (minTick)** | Gas Used | 1555244 | 2868084 | -1312840 | ⚡️ -45.77% |
+| **TickMathGetSqrtRatioAtTick (minTick)** | Gas Used | 1,555,244 | 0 | +1,555,244 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 677324 | 1926276 | -1248952 | ⚡️ -64.84% |
-| **TickMathGetSqrtRatioAtTick (maxTick)** | Gas Used | 873832 | 2141817 | -1267985 | ⚡️ -59.20% |
+| | CPU Cycles | 677,324 | 0 | +677,324 | ⚠️ N/A% |
+| **TickMathGetSqrtRatioAtTick (maxTick)** | Gas Used | 873,832 | 0 | +873,832 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 863400 | 2126105 | -1262705 | ⚡️ -59.39% |
-| **TickMathGetSqrtRatioAtTick (zero)** | Gas Used | 134165 | 137023 | -2858 | ⚡️ -2.09% |
+| | CPU Cycles | 863,400 | 0 | +863,400 | ⚠️ N/A% |
+| **TickMathGetSqrtRatioAtTick (zero)** | Gas Used | 134,165 | 0 | +134,165 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 134165 | 137023 | -2858 | ⚡️ -2.09% |
-| **TickMathGetSqrtRatioAtTick** | Gas Used | 652352 | 1429945 | -777593 | ⚡️ -54.38% |
+| | CPU Cycles | 134,165 | 0 | +134,165 | ⚠️ N/A% |
+| **TickMathGetSqrtRatioAtTick** | Gas Used | 652,352 | 0 | +652,352 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 641936 | 1414233 | -772297 | ⚡️ -54.61% |
-| **TickMathGetTickAtSqrtRatio** | Gas Used | 1785434 | 4237459 | -2452025 | ⚡️ -57.87% |
+| | CPU Cycles | 641,936 | 0 | +641,936 | ⚠️ N/A% |
+| **TickMathGetTickAtSqrtRatio** | Gas Used | 1,785,434 | 0 | +1,785,434 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 1628730 | 3974547 | -2345817 | ⚡️ -59.02% |
-| **GetLiquidityForAmounts** | Gas Used | 1442983 | 2392306 | -949323 | ⚡️ -39.68% |
+| | CPU Cycles | 1,628,730 | 0 | +1,628,730 | ⚠️ N/A% |
+| **GetLiquidityForAmounts** | Gas Used | 1,442,983 | 0 | +1,442,983 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 1422279 | 2360930 | -938651 | ⚡️ -39.76% |
-| **GetAmountsForLiquidity** | Gas Used | 1333931 | 2148786 | -814855 | ⚡️ -37.92% |
+| | CPU Cycles | 1,422,279 | 0 | +1,422,279 | ⚠️ N/A% |
+| **GetAmountsForLiquidity** | Gas Used | 1,333,931 | 0 | +1,333,931 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 1333931 | 2148786 | -814855 | ⚡️ -37.92% |
-| **LiquidityMathAddDelta (positive)** | Gas Used | 220687 | 198435 | +22252 | ⚠️ 11.21% |
+| | CPU Cycles | 1,333,931 | 0 | +1,333,931 | ⚠️ N/A% |
+| **LiquidityMathAddDelta (positive)** | Gas Used | 220,687 | 0 | +220,687 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 187647 | 198435 | -10788 | ⚡️ -5.44% |
-| **LiquidityMathAddDelta (negative)** | Gas Used | 199989 | 189963 | +10026 | ⚠️ 5.28% |
+| | CPU Cycles | 187,647 | 0 | +187,647 | ⚠️ N/A% |
+| **LiquidityMathAddDelta (negative)** | Gas Used | 199,989 | 0 | +199,989 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 199989 | 189963 | +10026 | ⚠️ 5.28% |
-| **LiquidityMathAddDelta** | Gas Used | 187647 | 198435 | -10788 | ⚡️ -5.44% |
+| | CPU Cycles | 199,989 | 0 | +199,989 | ⚠️ N/A% |
+| **LiquidityMathAddDelta** | Gas Used | 187,647 | 0 | +187,647 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 187647 | 198435 | -10788 | ⚡️ -5.44% |
-| **IsGNOTPath** | Gas Used | 11223 | 11777 | -554 | ⚡️ -4.70% |
+| | CPU Cycles | 187,647 | 0 | +187,647 | ⚠️ N/A% |
+| **IsGNOTPath** | Gas Used | 11,223 | 0 | +11,223 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 11223 | 11777 | -554 | ⚡️ -4.70% |
-| **IsGNOTNativePath** | Gas Used | 11175 | 11175 | 0 |  0.00% |
+| | CPU Cycles | 11,223 | 0 | +11,223 | ⚠️ N/A% |
+| **IsGNOTNativePath** | Gas Used | 11,175 | 0 | +11,175 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 11175 | 11175 | 0 |  0.00% |
-| **IsGNOTWrappedPath** | Gas Used | 11175 | 11175 | 0 |  0.00% |
+| | CPU Cycles | 11,175 | 0 | +11,175 | ⚠️ N/A% |
+| **IsGNOTWrappedPath** | Gas Used | 11,175 | 0 | +11,175 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 11175 | 11175 | 0 |  0.00% |
-| **ExistsUserSendCoins** | Gas Used | 266478 | 266478 | 0 |  0.00% |
+| | CPU Cycles | 11,175 | 0 | +11,175 | ⚠️ N/A% |
+| **ExistsUserSendCoins** | Gas Used | 266,478 | 0 | +266,478 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 18206 | 18206 | 0 |  0.00% |
-| **GetAmount0Delta** | Gas Used | 3912271 | 5830275 | -1918004 | ⚡️ -32.90% |
+| | CPU Cycles | 18,206 | 0 | +18,206 | ⚠️ N/A% |
+| **GetAmount0Delta** | Gas Used | 3,912,271 | 0 | +3,912,271 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 1486687 | 3357715 | -1871028 | ⚡️ -55.72% |
-| **GetAmount1Delta** | Gas Used | 1050599 | 2936180 | -1885581 | ⚡️ -64.22% |
+| | CPU Cycles | 1,486,687 | 0 | +1,486,687 | ⚠️ N/A% |
+| **GetAmount1Delta** | Gas Used | 1,050,599 | 0 | +1,050,599 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 1040247 | 2920468 | -1880221 | ⚡️ -64.38% |
-| **SwapMathComputeSwapStep** | Gas Used | 1879861 | 5626580 | -3746719 | ⚡️ -66.59% |
+| | CPU Cycles | 1,040,247 | 0 | +1,040,247 | ⚠️ N/A% |
+| **SwapMathComputeSwapStep** | Gas Used | 1,879,861 | 0 | +1,879,861 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 1858997 | 5595156 | -3736159 | ⚡️ -66.77% |
-| **Propose Community Pool Spend** | Gas Used | 971856 | 1600112 | -628256 | ⚡️ -39.26% |
-| | Storage Diff | 14171 | 14171 | 0 |  0.00% |
-| | CPU Cycles | 586016 | 1214272 | -628256 | ⚡️ -51.74% |
-| **Propose Parameter Change** | Gas Used | 2188677 | 2571829 | -383152 | ⚡️ -14.90% |
-| | Storage Diff | 14006 | 14006 | 0 |  0.00% |
-| | CPU Cycles | 1184437 | 1812693 | -628256 | ⚡️ -34.66% |
-| **Vote** | Gas Used | 316102 | 394634 | -78532 | ⚡️ -19.90% |
-| | Storage Diff | 80 | 80 | 0 |  0.00% |
-| | CPU Cycles | 195014 | 273546 | -78532 | ⚡️ -28.71% |
-| **Execute** | Gas Used | 3685070 | 3799026 | -113956 | ⚡️ -3.00% |
-| | Storage Diff | 76 | 76 | 0 |  0.00% |
-| | CPU Cycles | 567350 | 688298 | -120948 | ⚡️ -17.57% |
-| **Propose Text** | Gas Used | 799599 | 1427855 | -628256 | ⚡️ -44.00% |
-| | Storage Diff | 13545 | 13545 | 0 |  0.00% |
-| | CPU Cycles | 423455 | 1051711 | -628256 | ⚡️ -59.74% |
-| **Delegate** | Gas Used | 8276823 | 9759051 | -1482228 | ⚡️ -15.19% |
-| | Storage Diff | 14944 | 15294 | -350 | ⚡️ -2.29% |
-| | CPU Cycles | 712233 | 1498189 | -785956 | ⚡️ -52.46% |
-| **Undelegate** | Gas Used | 1715423 | 2608859 | -893436 | ⚡️ -34.25% |
-| | Storage Diff | 1334 | 1334 | 0 |  0.00% |
-| | CPU Cycles | 552928 | 1423190 | -870262 | ⚡️ -61.15% |
-| **Collect Undelegated GNS** | Gas Used | 106781 | 185313 | -78532 | ⚡️ -42.38% |
+| | CPU Cycles | 1,858,997 | 0 | +1,858,997 | ⚠️ N/A% |
+| **Propose Community Pool Spend** | Gas Used | 971,856 | 0 | +971,856 | ⚠️ N/A% |
+| | Storage Diff | 14,171 | 0 | +14,171 | ⚠️ N/A% |
+| | CPU Cycles | 586,016 | 0 | +586,016 | ⚠️ N/A% |
+| **Propose Parameter Change** | Gas Used | 2,188,677 | 0 | +2,188,677 | ⚠️ N/A% |
+| | Storage Diff | 14,006 | 0 | +14,006 | ⚠️ N/A% |
+| | CPU Cycles | 1,184,437 | 0 | +1,184,437 | ⚠️ N/A% |
+| **Vote** | Gas Used | 316,102 | 0 | +316,102 | ⚠️ N/A% |
+| | Storage Diff | 80 | 0 | +80 | ⚠️ N/A% |
+| | CPU Cycles | 195,014 | 0 | +195,014 | ⚠️ N/A% |
+| **Execute** | Gas Used | 3,685,070 | 0 | +3,685,070 | ⚠️ N/A% |
+| | Storage Diff | 76 | 0 | +76 | ⚠️ N/A% |
+| | CPU Cycles | 567,350 | 0 | +567,350 | ⚠️ N/A% |
+| **Propose Text** | Gas Used | 799,599 | 0 | +799,599 | ⚠️ N/A% |
+| | Storage Diff | 13,545 | 0 | +13,545 | ⚠️ N/A% |
+| | CPU Cycles | 423,455 | 0 | +423,455 | ⚠️ N/A% |
+| **Delegate** | Gas Used | 8,276,823 | 0 | +8,276,823 | ⚠️ N/A% |
+| | Storage Diff | 14,944 | 0 | +14,944 | ⚠️ N/A% |
+| | CPU Cycles | 712,233 | 0 | +712,233 | ⚠️ N/A% |
+| **Undelegate** | Gas Used | 1,715,423 | 0 | +1,715,423 | ⚠️ N/A% |
+| | Storage Diff | 1,334 | 0 | +1,334 | ⚠️ N/A% |
+| | CPU Cycles | 552,928 | 0 | +552,928 | ⚠️ N/A% |
+| **Collect Undelegated GNS** | Gas Used | 106,781 | 0 | +106,781 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 106781 | 185313 | -78532 | ⚡️ -42.38% |
-| **Redelegate** | Gas Used | 1912340 | 3041372 | -1129032 | ⚡️ -37.12% |
-| | Storage Diff | 7524 | 7524 | 0 |  0.00% |
-| | CPU Cycles | 656209 | 1762067 | -1105858 | ⚡️ -62.76% |
-| **Create Launchpad Project** | Gas Used | 10365967 | 11474918 | -1108951 | ⚡️ -9.66% |
-| | Storage Diff | 28808 | 31958 | -3150 | ⚡️ -9.86% |
-| | CPU Cycles | 1832491 | 2424162 | -591671 | ⚡️ -24.41% |
-| **CreatePool** | Gas Used | 8562215 | 12495782 | -3933567 | ⚡️ -31.48% |
-| | Storage Diff | 18536 | 21680 | -3144 | ⚡️ -14.50% |
-| | CPU Cycles | 2298975 | 5696750 | -3397775 | ⚡️ -59.64% |
-| **Mint (fee:3000, wide range)** | Gas Used | 14592445 | 39087453 | -24495008 | ⚡️ -62.67% |
-| | Storage Diff | 40644 | 52800 | -12156 | ⚡️ -23.02% |
-| | CPU Cycles | 8421071 | 32659353 | -24238282 | ⚡️ -74.22% |
-| **Swap (gns -> wugnot, fee:500)** | Gas Used | 30808836 | 81927967 | -51119131 | ⚡️ -62.40% |
-| | Storage Diff | 19749 | 22199 | -2450 | ⚡️ -11.04% |
-| | CPU Cycles | 20616534 | 71713827 | -51097293 | ⚡️ -71.25% |
-| **DecreaseLiquidity** | Gas Used | 12625191 | 24327552 | -11702361 | ⚡️ -48.10% |
-| | Storage Diff | 58 | 72 | -14 | ⚡️ -19.44% |
-| | CPU Cycles | 9830652 | 21291144 | -11460492 | ⚡️ -53.83% |
-| **IncreaseLiquidity** | Gas Used | 10546778 | 23198296 | -12651518 | ⚡️ -54.54% |
-| | Storage Diff | -2064 | -2022 | -42 | ⚡️ 2.08% |
-| | CPU Cycles | 9462514 | 21925540 | -12463026 | ⚡️ -56.84% |
-| **Mint (bar:foo:500)** | Gas Used | 17323250 | 39889642 | -22566392 | ⚡️ -56.57% |
-| | Storage Diff | 40621 | 52777 | -12156 | ⚡️ -23.03% |
-| | CPU Cycles | 7493016 | 29802270 | -22309254 | ⚡️ -74.86% |
-| **Mint (w. GNOT)** | Gas Used | 20341781 | 44188470 | -23846689 | ⚡️ -53.97% |
-| | Storage Diff | 39662 | 51818 | -12156 | ⚡️ -23.46% |
-| | CPU Cycles | 8955633 | 33194528 | -24238895 | ⚡️ -73.02% |
-| **IncreaseLiquidity (w. GNOT)** | Gas Used | 12144794 | 27307664 | -15162870 | ⚡️ -55.53% |
-| | Storage Diff | 56 | 98 | -42 | ⚡️ -42.86% |
-| | CPU Cycles | 10808154 | 25782532 | -14974378 | ⚡️ -58.08% |
-| **DecreaseLiquidity (unwrap=false)** | Gas Used | 15358903 | 28762263 | -13403360 | ⚡️ -46.60% |
-| | Storage Diff | 6396 | 6369 | +27 | ⚠️ 0.42% |
-| | CPU Cycles | 10431848 | 23577883 | -13146035 | ⚡️ -55.76% |
-| **CollectFee (with unwrap)** | Gas Used | 3657730 | 6356955 | -2699225 | ⚡️ -42.46% |
-| | Storage Diff | 40 | 44 | -4 | ⚡️ -9.09% |
-| | CPU Cycles | 2408011 | 5052786 | -2644775 | ⚡️ -52.34% |
-| **DecreaseLiquidity (w. Remove)** | Gas Used | 13302625 | 24765751 | -11463126 | ⚡️ -46.29% |
-| | Storage Diff | 4370 | 4406 | -36 | ⚡️ -0.82% |
-| | CPU Cycles | 9181538 | 20382247 | -11200709 | ⚡️ -54.95% |
-| **Mint (reposition)** | Gas Used | 9183098 | 31711435 | -22528337 | ⚡️ -71.04% |
-| | Storage Diff | 33728 | 45256 | -11528 | ⚡️ -25.47% |
-| | CPU Cycles | 7577930 | 29883427 | -22305497 | ⚡️ -74.64% |
-| **SetPoolTier (tier 1)** | Gas Used | 4825875 | 5375292 | -549417 | ⚡️ -10.22% |
-| | Storage Diff | 22221 | 22952 | -731 | ⚡️ -3.18% |
-| | CPU Cycles | 1497117 | 2281958 | -784841 | ⚡️ -34.39% |
-| **StakeToken** | Gas Used | 8421462 | 11764730 | -3343268 | ⚡️ -28.42% |
-| | Storage Diff | 22593 | 25068 | -2475 | ⚡️ -9.87% |
-| | CPU Cycles | 4760639 | 7968981 | -3208342 | ⚡️ -40.26% |
-| **ExactInSingleSwapRoute(grc20) - fee:10000** | Gas Used | 28191041 | 40335056 | -12144015 | ⚡️ -30.11% |
-| | Storage Diff | 5002 | 5352 | -350 | ⚡️ -6.54% |
-| | CPU Cycles | 11317121 | 23335186 | -12018065 | ⚡️ -51.50% |
-| **ExactInSingleSwapRoute(grc20) - fee:100** | Gas Used | 30239884 | 48837141 | -18597257 | ⚡️ -38.08% |
-| | Storage Diff | 7819 | 8519 | -700 | ⚡️ -8.22% |
-| | CPU Cycles | 13364444 | 31851655 | -18487211 | ⚡️ -58.04% |
-| **ExactInSingleSwapRoute(grc20) - fee:3000** | Gas Used | 28614036 | 40817866 | -12203830 | ⚡️ -29.90% |
-| | Storage Diff | 5004 | 5361 | -357 | ⚡️ -6.66% |
-| | CPU Cycles | 11333963 | 23417331 | -12083368 | ⚡️ -51.60% |
-| **ExactInSingleSwapRoute(grc20) - fee:500** | Gas Used | 28071832 | 40166958 | -12095126 | ⚡️ -30.11% |
-| | Storage Diff | 5002 | 5352 | -350 | ⚡️ -6.54% |
-| | CPU Cycles | 11239560 | 23229920 | -11990360 | ⚡️ -51.62% |
-| **ExactInSingleSwapRoute(ugnot) - fee:10000** | Gas Used | 29456817 | 44260008 | -14803191 | ⚡️ -33.45% |
-| | Storage Diff | 7834 | 8534 | -700 | ⚡️ -8.20% |
-| | CPU Cycles | 12347035 | 27014292 | -14667257 | ⚡️ -54.29% |
-| **ExactInSingleSwapRoute(ugnot) - fee:100** | Gas Used | 31082670 | 52746494 | -21663824 | ⚡️ -41.07% |
-| | Storage Diff | 10655 | 11705 | -1050 | ⚡️ -8.97% |
-| | CPU Cycles | 13940056 | 35467962 | -21527906 | ⚡️ -60.70% |
-| **ExactInSingleSwapRoute(ugnot) - fee:3000** | Gas Used | 29977619 | 45037790 | -15060171 | ⚡️ -33.44% |
-| | Storage Diff | 7836 | 8543 | -707 | ⚡️ -8.28% |
-| | CPU Cycles | 12451268 | 27375697 | -14924429 | ⚡️ -54.52% |
-| **ExactInSingleSwapRoute(ugnot) - fee:500** | Gas Used | 29326900 | 44018162 | -14691262 | ⚡️ -33.38% |
-| | Storage Diff | 7835 | 8535 | -700 | ⚡️ -8.20% |
-| | CPU Cycles | 12237918 | 26803838 | -14565920 | ⚡️ -54.34% |
-| **ExactInSwapRoute(grc20) - fee:10000** | Gas Used | 27930750 | 40101830 | -12171080 | ⚡️ -30.35% |
-| | Storage Diff | 5002 | 5352 | -350 | ⚡️ -6.54% |
-| | CPU Cycles | 11056830 | 23101960 | -12045130 | ⚡️ -52.14% |
-| **ExactInSwapRoute(grc20) - fee:100** | Gas Used | 29986137 | 48610459 | -18624322 | ⚡️ -38.31% |
-| | Storage Diff | 7819 | 8519 | -700 | ⚡️ -8.22% |
-| | CPU Cycles | 13110697 | 31624973 | -18514276 | ⚡️ -58.54% |
-| **ExactInSwapRoute(grc20) - fee:3000** | Gas Used | 28357017 | 40587912 | -12230895 | ⚡️ -30.13% |
-| | Storage Diff | 5004 | 5361 | -357 | ⚡️ -6.66% |
-| | CPU Cycles | 11076944 | 23187377 | -12110433 | ⚡️ -52.23% |
-| **ExactInSwapRoute(grc20) - fee:500** | Gas Used | 27818085 | 39940276 | -12122191 | ⚡️ -30.35% |
-| | Storage Diff | 5002 | 5352 | -350 | ⚡️ -6.54% |
-| | CPU Cycles | 10985813 | 23003238 | -12017425 | ⚡️ -52.24% |
-| **ExactInSwapRoute(ugnot) - fee:10000** | Gas Used | 29196526 | 44026782 | -14830256 | ⚡️ -33.68% |
-| | Storage Diff | 7834 | 8534 | -700 | ⚡️ -8.20% |
-| | CPU Cycles | 12086744 | 26781066 | -14694322 | ⚡️ -54.87% |
-| **ExactInSwapRoute(ugnot) - fee:100** | Gas Used | 30828923 | 52519812 | -21690889 | ⚡️ -41.30% |
-| | Storage Diff | 10655 | 11705 | -1050 | ⚡️ -8.97% |
-| | CPU Cycles | 13686309 | 35241280 | -21554971 | ⚡️ -61.16% |
-| **ExactInSwapRoute(ugnot) - fee:3000** | Gas Used | 29720600 | 44807836 | -15087236 | ⚡️ -33.67% |
-| | Storage Diff | 7836 | 8543 | -707 | ⚡️ -8.28% |
-| | CPU Cycles | 12194249 | 27145743 | -14951494 | ⚡️ -55.08% |
-| **ExactInSwapRoute(ugnot) - fee:500** | Gas Used | 29073153 | 43791480 | -14718327 | ⚡️ -33.61% |
-| | Storage Diff | 7835 | 8535 | -700 | ⚡️ -8.20% |
-| | CPU Cycles | 11984171 | 26577156 | -14592985 | ⚡️ -54.91% |
-| **ExactOutSingleSwapRoute(grc20) - fee:10000** | Gas Used | 28981397 | 44502204 | -15520807 | ⚡️ -34.88% |
-| | Storage Diff | 5002 | 5352 | -350 | ⚡️ -6.54% |
-| | CPU Cycles | 12117829 | 27533758 | -15415929 | ⚡️ -55.99% |
-| **ExactOutSingleSwapRoute(grc20) - fee:100** | Gas Used | 30959503 | 52676052 | -21716549 | ⚡️ -41.23% |
-| | Storage Diff | 7819 | 8519 | -700 | ⚡️ -8.22% |
-| | CPU Cycles | 14094415 | 35706278 | -21611863 | ⚡️ -60.53% |
-| **ExactOutSingleSwapRoute(grc20) - fee:3000** | Gas Used | 29338867 | 44837966 | -15499099 | ⚡️ -34.57% |
-| | Storage Diff | 5004 | 5361 | -357 | ⚡️ -6.66% |
-| | CPU Cycles | 12079562 | 27484567 | -15405005 | ⚡️ -56.05% |
-| **ExactOutSingleSwapRoute(grc20) - fee:500** | Gas Used | 28811396 | 44169905 | -15358509 | ⚡️ -34.77% |
-| | Storage Diff | 5002 | 5352 | -350 | ⚡️ -6.54% |
-| | CPU Cycles | 11999892 | 27280003 | -15280111 | ⚡️ -56.01% |
-| **ExactOutSingleSwapRoute(ugnot) - fee:10000** | Gas Used | 29854067 | 44599557 | -14745490 | ⚡️ -33.06% |
-| | Storage Diff | 7844 | 8544 | -700 | ⚡️ -8.19% |
-| | CPU Cycles | 12445899 | 27050095 | -14604196 | ⚡️ -53.99% |
-| **ExactOutSingleSwapRoute(ugnot) - fee:100** | Gas Used | 31353260 | 51365291 | -20012031 | ⚡️ -38.96% |
-| | Storage Diff | 10665 | 11715 | -1050 | ⚡️ -8.96% |
-| | CPU Cycles | 13922676 | 33798725 | -19876049 | ⚡️ -58.81% |
-| **ExactOutSingleSwapRoute(ugnot) - fee:3000** | Gas Used | 30279570 | 45145418 | -14865848 | ⚡️ -32.93% |
-| | Storage Diff | 7846 | 8553 | -707 | ⚡️ -8.27% |
-| | CPU Cycles | 12465249 | 27195291 | -14730042 | ⚡️ -54.16% |
-| **ExactOutSingleSwapRoute(ugnot) - fee:500** | Gas Used | 29652702 | 44144859 | -14492157 | ⚡️ -32.83% |
-| | Storage Diff | 7845 | 8545 | -700 | ⚡️ -8.19% |
-| | CPU Cycles | 12275750 | 26642501 | -14366751 | ⚡️ -53.92% |
-| **ExactOutSwapRoute(grc20) - fee:10000** | Gas Used | 28732394 | 44279086 | -15546692 | ⚡️ -35.11% |
-| | Storage Diff | 5002 | 5352 | -350 | ⚡️ -6.54% |
-| | CPU Cycles | 11868826 | 27310640 | -15441814 | ⚡️ -56.54% |
-| **ExactOutSwapRoute(grc20) - fee:100** | Gas Used | 30717044 | 52459478 | -21742434 | ⚡️ -41.45% |
-| | Storage Diff | 7819 | 8519 | -700 | ⚡️ -8.22% |
-| | CPU Cycles | 13851956 | 35489704 | -21637748 | ⚡️ -60.97% |
-| **ExactOutSwapRoute(grc20) - fee:3000** | Gas Used | 29093136 | 44618120 | -15524984 | ⚡️ -34.80% |
-| | Storage Diff | 5004 | 5361 | -357 | ⚡️ -6.66% |
-| | CPU Cycles | 11833831 | 27264721 | -15430890 | ⚡️ -56.60% |
-| **ExactOutSwapRoute(grc20) - fee:500** | Gas Used | 28568937 | 43953331 | -15384394 | ⚡️ -35.00% |
-| | Storage Diff | 5002 | 5352 | -350 | ⚡️ -6.54% |
-| | CPU Cycles | 11757433 | 27063429 | -15305996 | ⚡️ -56.56% |
-| **ExactOutSwapRoute(ugnot) - fee:10000** | Gas Used | 29605064 | 44376439 | -14771375 | ⚡️ -33.29% |
-| | Storage Diff | 7844 | 8544 | -700 | ⚡️ -8.19% |
-| | CPU Cycles | 12196896 | 26826977 | -14630081 | ⚡️ -54.53% |
-| **ExactOutSwapRoute(ugnot) - fee:100** | Gas Used | 31110801 | 51148717 | -20037916 | ⚡️ -39.18% |
-| | Storage Diff | 10665 | 11715 | -1050 | ⚡️ -8.96% |
-| | CPU Cycles | 13680217 | 33582151 | -19901934 | ⚡️ -59.26% |
-| **ExactOutSwapRoute(ugnot) - fee:3000** | Gas Used | 30033839 | 44925572 | -14891733 | ⚡️ -33.15% |
-| | Storage Diff | 7846 | 8553 | -707 | ⚡️ -8.27% |
-| | CPU Cycles | 12219518 | 26975445 | -14755927 | ⚡️ -54.70% |
-| **ExactOutSwapRoute(ugnot) - fee:500** | Gas Used | 29410243 | 43928285 | -14518042 | ⚡️ -33.05% |
-| | Storage Diff | 7845 | 8545 | -700 | ⚡️ -8.19% |
-| | CPU Cycles | 12033291 | 26425927 | -14392636 | ⚡️ -54.46% |
-| **BuildSingleHopRoutePath** | Gas Used | 1710230 | 2012694 | -302464 | ⚡️ -15.03% |
+| | CPU Cycles | 106,781 | 0 | +106,781 | ⚠️ N/A% |
+| **Redelegate** | Gas Used | 1,912,340 | 0 | +1,912,340 | ⚠️ N/A% |
+| | Storage Diff | 7,524 | 0 | +7,524 | ⚠️ N/A% |
+| | CPU Cycles | 656,209 | 0 | +656,209 | ⚠️ N/A% |
+| **Create Launchpad Project** | Gas Used | 10,365,967 | 0 | +10,365,967 | ⚠️ N/A% |
+| | Storage Diff | 28,808 | 0 | +28,808 | ⚠️ N/A% |
+| | CPU Cycles | 1,832,491 | 0 | +1,832,491 | ⚠️ N/A% |
+| **CreatePool** | Gas Used | 8,562,215 | 0 | +8,562,215 | ⚠️ N/A% |
+| | Storage Diff | 18,536 | 0 | +18,536 | ⚠️ N/A% |
+| | CPU Cycles | 2,298,975 | 0 | +2,298,975 | ⚠️ N/A% |
+| **Mint (fee:3000, wide range)** | Gas Used | 14,592,445 | 0 | +14,592,445 | ⚠️ N/A% |
+| | Storage Diff | 40,644 | 0 | +40,644 | ⚠️ N/A% |
+| | CPU Cycles | 8,421,071 | 0 | +8,421,071 | ⚠️ N/A% |
+| **Swap (gns -> wugnot, fee:500)** | Gas Used | 30,808,836 | 0 | +30,808,836 | ⚠️ N/A% |
+| | Storage Diff | 19,749 | 0 | +19,749 | ⚠️ N/A% |
+| | CPU Cycles | 20,616,534 | 0 | +20,616,534 | ⚠️ N/A% |
+| **DecreaseLiquidity** | Gas Used | 12,625,191 | 0 | +12,625,191 | ⚠️ N/A% |
+| | Storage Diff | 58 | 0 | +58 | ⚠️ N/A% |
+| | CPU Cycles | 9,830,652 | 0 | +9,830,652 | ⚠️ N/A% |
+| **IncreaseLiquidity** | Gas Used | 10,546,778 | 0 | +10,546,778 | ⚠️ N/A% |
+| | Storage Diff | -2,064 | 0 | -2,064 | ⚡️ N/A% |
+| | CPU Cycles | 9,462,514 | 0 | +9,462,514 | ⚠️ N/A% |
+| **Mint (bar:foo:500)** | Gas Used | 17,323,250 | 0 | +17,323,250 | ⚠️ N/A% |
+| | Storage Diff | 40,621 | 0 | +40,621 | ⚠️ N/A% |
+| | CPU Cycles | 7,493,016 | 0 | +7,493,016 | ⚠️ N/A% |
+| **Mint (w. GNOT)** | Gas Used | 20,341,781 | 0 | +20,341,781 | ⚠️ N/A% |
+| | Storage Diff | 39,662 | 0 | +39,662 | ⚠️ N/A% |
+| | CPU Cycles | 8,955,633 | 0 | +8,955,633 | ⚠️ N/A% |
+| **IncreaseLiquidity (w. GNOT)** | Gas Used | 12,144,794 | 0 | +12,144,794 | ⚠️ N/A% |
+| | Storage Diff | 56 | 0 | +56 | ⚠️ N/A% |
+| | CPU Cycles | 10,808,154 | 0 | +10,808,154 | ⚠️ N/A% |
+| **DecreaseLiquidity (unwrap=false)** | Gas Used | 15,358,903 | 0 | +15,358,903 | ⚠️ N/A% |
+| | Storage Diff | 6,396 | 0 | +6,396 | ⚠️ N/A% |
+| | CPU Cycles | 10,431,848 | 0 | +10,431,848 | ⚠️ N/A% |
+| **CollectFee (with unwrap)** | Gas Used | 3,657,730 | 0 | +3,657,730 | ⚠️ N/A% |
+| | Storage Diff | 40 | 0 | +40 | ⚠️ N/A% |
+| | CPU Cycles | 2,408,011 | 0 | +2,408,011 | ⚠️ N/A% |
+| **DecreaseLiquidity (w. Remove)** | Gas Used | 13,302,625 | 0 | +13,302,625 | ⚠️ N/A% |
+| | Storage Diff | 4,370 | 0 | +4,370 | ⚠️ N/A% |
+| | CPU Cycles | 9,181,538 | 0 | +9,181,538 | ⚠️ N/A% |
+| **Mint (reposition)** | Gas Used | 9,183,098 | 0 | +9,183,098 | ⚠️ N/A% |
+| | Storage Diff | 33,728 | 0 | +33,728 | ⚠️ N/A% |
+| | CPU Cycles | 7,577,930 | 0 | +7,577,930 | ⚠️ N/A% |
+| **SetPoolTier (tier 1)** | Gas Used | 4,825,875 | 0 | +4,825,875 | ⚠️ N/A% |
+| | Storage Diff | 22,221 | 0 | +22,221 | ⚠️ N/A% |
+| | CPU Cycles | 1,497,117 | 0 | +1,497,117 | ⚠️ N/A% |
+| **StakeToken** | Gas Used | 8,421,462 | 0 | +8,421,462 | ⚠️ N/A% |
+| | Storage Diff | 22,593 | 0 | +22,593 | ⚠️ N/A% |
+| | CPU Cycles | 4,760,639 | 0 | +4,760,639 | ⚠️ N/A% |
+| **ExactInSingleSwapRoute(grc20) - fee:10000** | Gas Used | 28,191,041 | 0 | +28,191,041 | ⚠️ N/A% |
+| | Storage Diff | 5,002 | 0 | +5,002 | ⚠️ N/A% |
+| | CPU Cycles | 11,317,121 | 0 | +11,317,121 | ⚠️ N/A% |
+| **ExactInSingleSwapRoute(grc20) - fee:100** | Gas Used | 30,239,884 | 0 | +30,239,884 | ⚠️ N/A% |
+| | Storage Diff | 7,819 | 0 | +7,819 | ⚠️ N/A% |
+| | CPU Cycles | 13,364,444 | 0 | +13,364,444 | ⚠️ N/A% |
+| **ExactInSingleSwapRoute(grc20) - fee:3000** | Gas Used | 28,614,036 | 0 | +28,614,036 | ⚠️ N/A% |
+| | Storage Diff | 5,004 | 0 | +5,004 | ⚠️ N/A% |
+| | CPU Cycles | 11,333,963 | 0 | +11,333,963 | ⚠️ N/A% |
+| **ExactInSingleSwapRoute(grc20) - fee:500** | Gas Used | 28,071,832 | 0 | +28,071,832 | ⚠️ N/A% |
+| | Storage Diff | 5,002 | 0 | +5,002 | ⚠️ N/A% |
+| | CPU Cycles | 11,239,560 | 0 | +11,239,560 | ⚠️ N/A% |
+| **ExactInSingleSwapRoute(ugnot) - fee:10000** | Gas Used | 29,456,817 | 0 | +29,456,817 | ⚠️ N/A% |
+| | Storage Diff | 7,834 | 0 | +7,834 | ⚠️ N/A% |
+| | CPU Cycles | 12,347,035 | 0 | +12,347,035 | ⚠️ N/A% |
+| **ExactInSingleSwapRoute(ugnot) - fee:100** | Gas Used | 31,082,670 | 0 | +31,082,670 | ⚠️ N/A% |
+| | Storage Diff | 10,655 | 0 | +10,655 | ⚠️ N/A% |
+| | CPU Cycles | 13,940,056 | 0 | +13,940,056 | ⚠️ N/A% |
+| **ExactInSingleSwapRoute(ugnot) - fee:3000** | Gas Used | 29,977,619 | 0 | +29,977,619 | ⚠️ N/A% |
+| | Storage Diff | 7,836 | 0 | +7,836 | ⚠️ N/A% |
+| | CPU Cycles | 12,451,268 | 0 | +12,451,268 | ⚠️ N/A% |
+| **ExactInSingleSwapRoute(ugnot) - fee:500** | Gas Used | 29,326,900 | 0 | +29,326,900 | ⚠️ N/A% |
+| | Storage Diff | 7,835 | 0 | +7,835 | ⚠️ N/A% |
+| | CPU Cycles | 12,237,918 | 0 | +12,237,918 | ⚠️ N/A% |
+| **ExactInSwapRoute(grc20) - fee:10000** | Gas Used | 27,930,750 | 0 | +27,930,750 | ⚠️ N/A% |
+| | Storage Diff | 5,002 | 0 | +5,002 | ⚠️ N/A% |
+| | CPU Cycles | 11,056,830 | 0 | +11,056,830 | ⚠️ N/A% |
+| **ExactInSwapRoute(grc20) - fee:100** | Gas Used | 29,986,137 | 0 | +29,986,137 | ⚠️ N/A% |
+| | Storage Diff | 7,819 | 0 | +7,819 | ⚠️ N/A% |
+| | CPU Cycles | 13,110,697 | 0 | +13,110,697 | ⚠️ N/A% |
+| **ExactInSwapRoute(grc20) - fee:3000** | Gas Used | 28,357,017 | 0 | +28,357,017 | ⚠️ N/A% |
+| | Storage Diff | 5,004 | 0 | +5,004 | ⚠️ N/A% |
+| | CPU Cycles | 11,076,944 | 0 | +11,076,944 | ⚠️ N/A% |
+| **ExactInSwapRoute(grc20) - fee:500** | Gas Used | 27,818,085 | 0 | +27,818,085 | ⚠️ N/A% |
+| | Storage Diff | 5,002 | 0 | +5,002 | ⚠️ N/A% |
+| | CPU Cycles | 10,985,813 | 0 | +10,985,813 | ⚠️ N/A% |
+| **ExactInSwapRoute(ugnot) - fee:10000** | Gas Used | 29,196,526 | 0 | +29,196,526 | ⚠️ N/A% |
+| | Storage Diff | 7,834 | 0 | +7,834 | ⚠️ N/A% |
+| | CPU Cycles | 12,086,744 | 0 | +12,086,744 | ⚠️ N/A% |
+| **ExactInSwapRoute(ugnot) - fee:100** | Gas Used | 30,828,923 | 0 | +30,828,923 | ⚠️ N/A% |
+| | Storage Diff | 10,655 | 0 | +10,655 | ⚠️ N/A% |
+| | CPU Cycles | 13,686,309 | 0 | +13,686,309 | ⚠️ N/A% |
+| **ExactInSwapRoute(ugnot) - fee:3000** | Gas Used | 29,720,600 | 0 | +29,720,600 | ⚠️ N/A% |
+| | Storage Diff | 7,836 | 0 | +7,836 | ⚠️ N/A% |
+| | CPU Cycles | 12,194,249 | 0 | +12,194,249 | ⚠️ N/A% |
+| **ExactInSwapRoute(ugnot) - fee:500** | Gas Used | 29,073,153 | 0 | +29,073,153 | ⚠️ N/A% |
+| | Storage Diff | 7,835 | 0 | +7,835 | ⚠️ N/A% |
+| | CPU Cycles | 11,984,171 | 0 | +11,984,171 | ⚠️ N/A% |
+| **ExactOutSingleSwapRoute(grc20) - fee:10000** | Gas Used | 28,981,397 | 0 | +28,981,397 | ⚠️ N/A% |
+| | Storage Diff | 5,002 | 0 | +5,002 | ⚠️ N/A% |
+| | CPU Cycles | 12,117,829 | 0 | +12,117,829 | ⚠️ N/A% |
+| **ExactOutSingleSwapRoute(grc20) - fee:100** | Gas Used | 30,959,503 | 0 | +30,959,503 | ⚠️ N/A% |
+| | Storage Diff | 7,819 | 0 | +7,819 | ⚠️ N/A% |
+| | CPU Cycles | 14,094,415 | 0 | +14,094,415 | ⚠️ N/A% |
+| **ExactOutSingleSwapRoute(grc20) - fee:3000** | Gas Used | 29,338,867 | 0 | +29,338,867 | ⚠️ N/A% |
+| | Storage Diff | 5,004 | 0 | +5,004 | ⚠️ N/A% |
+| | CPU Cycles | 12,079,562 | 0 | +12,079,562 | ⚠️ N/A% |
+| **ExactOutSingleSwapRoute(grc20) - fee:500** | Gas Used | 28,811,396 | 0 | +28,811,396 | ⚠️ N/A% |
+| | Storage Diff | 5,002 | 0 | +5,002 | ⚠️ N/A% |
+| | CPU Cycles | 11,999,892 | 0 | +11,999,892 | ⚠️ N/A% |
+| **ExactOutSingleSwapRoute(ugnot) - fee:10000** | Gas Used | 29,854,067 | 0 | +29,854,067 | ⚠️ N/A% |
+| | Storage Diff | 7,844 | 0 | +7,844 | ⚠️ N/A% |
+| | CPU Cycles | 12,445,899 | 0 | +12,445,899 | ⚠️ N/A% |
+| **ExactOutSingleSwapRoute(ugnot) - fee:100** | Gas Used | 31,353,260 | 0 | +31,353,260 | ⚠️ N/A% |
+| | Storage Diff | 10,665 | 0 | +10,665 | ⚠️ N/A% |
+| | CPU Cycles | 13,922,676 | 0 | +13,922,676 | ⚠️ N/A% |
+| **ExactOutSingleSwapRoute(ugnot) - fee:3000** | Gas Used | 30,279,570 | 0 | +30,279,570 | ⚠️ N/A% |
+| | Storage Diff | 7,846 | 0 | +7,846 | ⚠️ N/A% |
+| | CPU Cycles | 12,465,249 | 0 | +12,465,249 | ⚠️ N/A% |
+| **ExactOutSingleSwapRoute(ugnot) - fee:500** | Gas Used | 29,652,702 | 0 | +29,652,702 | ⚠️ N/A% |
+| | Storage Diff | 7,845 | 0 | +7,845 | ⚠️ N/A% |
+| | CPU Cycles | 12,275,750 | 0 | +12,275,750 | ⚠️ N/A% |
+| **ExactOutSwapRoute(grc20) - fee:10000** | Gas Used | 28,732,394 | 0 | +28,732,394 | ⚠️ N/A% |
+| | Storage Diff | 5,002 | 0 | +5,002 | ⚠️ N/A% |
+| | CPU Cycles | 11,868,826 | 0 | +11,868,826 | ⚠️ N/A% |
+| **ExactOutSwapRoute(grc20) - fee:100** | Gas Used | 30,717,044 | 0 | +30,717,044 | ⚠️ N/A% |
+| | Storage Diff | 7,819 | 0 | +7,819 | ⚠️ N/A% |
+| | CPU Cycles | 13,851,956 | 0 | +13,851,956 | ⚠️ N/A% |
+| **ExactOutSwapRoute(grc20) - fee:3000** | Gas Used | 29,093,136 | 0 | +29,093,136 | ⚠️ N/A% |
+| | Storage Diff | 5,004 | 0 | +5,004 | ⚠️ N/A% |
+| | CPU Cycles | 11,833,831 | 0 | +11,833,831 | ⚠️ N/A% |
+| **ExactOutSwapRoute(grc20) - fee:500** | Gas Used | 28,568,937 | 0 | +28,568,937 | ⚠️ N/A% |
+| | Storage Diff | 5,002 | 0 | +5,002 | ⚠️ N/A% |
+| | CPU Cycles | 11,757,433 | 0 | +11,757,433 | ⚠️ N/A% |
+| **ExactOutSwapRoute(ugnot) - fee:10000** | Gas Used | 29,605,064 | 0 | +29,605,064 | ⚠️ N/A% |
+| | Storage Diff | 7,844 | 0 | +7,844 | ⚠️ N/A% |
+| | CPU Cycles | 12,196,896 | 0 | +12,196,896 | ⚠️ N/A% |
+| **ExactOutSwapRoute(ugnot) - fee:100** | Gas Used | 31,110,801 | 0 | +31,110,801 | ⚠️ N/A% |
+| | Storage Diff | 10,665 | 0 | +10,665 | ⚠️ N/A% |
+| | CPU Cycles | 13,680,217 | 0 | +13,680,217 | ⚠️ N/A% |
+| **ExactOutSwapRoute(ugnot) - fee:3000** | Gas Used | 30,033,839 | 0 | +30,033,839 | ⚠️ N/A% |
+| | Storage Diff | 7,846 | 0 | +7,846 | ⚠️ N/A% |
+| | CPU Cycles | 12,219,518 | 0 | +12,219,518 | ⚠️ N/A% |
+| **ExactOutSwapRoute(ugnot) - fee:500** | Gas Used | 29,410,243 | 0 | +29,410,243 | ⚠️ N/A% |
+| | Storage Diff | 7,845 | 0 | +7,845 | ⚠️ N/A% |
+| | CPU Cycles | 12,033,291 | 0 | +12,033,291 | ⚠️ N/A% |
+| **BuildSingleHopRoutePath** | Gas Used | 1,710,230 | 0 | +1,710,230 | ⚠️ N/A% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 23398 | 80758 | -57360 | ⚡️ -71.03% |
-| **MultiHop ExactIn (2 hops)** | Gas Used | 31132044 | 57322453 | -26190409 | ⚡️ -45.69% |
-| | Storage Diff | 10674 | 11724 | -1050 | ⚡️ -8.96% |
-| | CPU Cycles | 22560598 | 48799683 | -26239085 | ⚡️ -53.77% |
-| **MultiHop ExactOut (2 hops)** | Gas Used | 35484313 | 85947977 | -50463664 | ⚡️ -58.71% |
-| | Storage Diff | 26 | 26 | 0 |  0.00% |
-| | CPU Cycles | 33911183 | 84518691 | -50607508 | ⚡️ -59.88% |
-| **MultiHop ExactIn (3 hops)** | Gas Used | 35229817 | 71637352 | -36407535 | ⚡️ -50.82% |
-| | Storage Diff | 5709 | 6492 | -783 | ⚡️ -12.06% |
-| | CPU Cycles | 32909787 | 69529104 | -36619317 | ⚡️ -52.67% |
-| **MultiHop ExactOut (3 hops)** | Gas Used | 54213522 | 129668111 | -75454589 | ⚡️ -58.19% |
-| | Storage Diff | 14 | 104 | -90 | ⚡️ -86.54% |
-| | CPU Cycles | 52070200 | 127746107 | -75675907 | ⚡️ -59.24% |
-| **MultiRoute ExactIn (50:50 split)** | Gas Used | 35444360 | 73186392 | -37742032 | ⚡️ -51.57% |
-| | Storage Diff | 2849 | 3330 | -481 | ⚡️ -14.44% |
-| | CPU Cycles | 32685955 | 70616233 | -37930278 | ⚡️ -53.71% |
-| **MultiRoute ExactOut (50:50 split)** | Gas Used | 47839057 | 113684402 | -65845345 | ⚡️ -57.92% |
-| | Storage Diff | 2 | 2 | 0 |  0.00% |
-| | CPU Cycles | 45200330 | 111267073 | -66066743 | ⚡️ -59.38% |
-| **Mint Position(for stress swap)** | Gas Used | 13841892 | 38267558 | -24425666 | ⚡️ -63.83% |
-| | Storage Diff | 27408 | 36566 | -9158 | ⚡️ -25.05% |
-| | CPU Cycles | 10082085 | 34302338 | -24220253 | ⚡️ -70.61% |
-| **Stress ExactInSwapRoute(grc20) gns->wugnot** | Gas Used | 1568542219 | 1592567481 | -24025262 | ⚡️ -1.51% |
-| | Storage Diff | 13627 | 16655 | -3028 | ⚡️ -18.18% |
-| | CPU Cycles | 1558804720 | 1582744336 | -23939616 | ⚡️ -1.51% |
-| **Stress ExactInSwapRoute(grc20) wugnot->gns** | Gas Used | 1566053013 | 1595065041 | -29012028 | ⚡️ -1.82% |
-| | Storage Diff | 8404 | 9919 | -1515 | ⚡️ -15.27% |
-| | CPU Cycles | 1562620529 | 1591572793 | -28952264 | ⚡️ -1.82% |
-| **Stress ExactInSwapRoute(grc20) gns->wugnot (accumulate fees)** | Gas Used | 1566265587 | 1601742424 | -35476837 | ⚡️ -2.21% |
-| | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 1563146497 | 1598643586 | -35497089 | ⚡️ -2.22% |
-| **Stress ExactOutSwapRoute(grc20) gns->wugnot** | Gas Used | 1557276340 | 1571786224 | -14509884 | ⚡️ -0.92% |
-| | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 1555862779 | 1570447941 | -14585162 | ⚡️ -0.93% |
-| **Stress ExactOutSwapRoute(grc20) wugnot->gns** | Gas Used | 1556130577 | 1568817998 | -12687421 | ⚡️ -0.81% |
-| | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 1554720112 | 1567482811 | -12762699 | ⚡️ -0.81% |
-| **Stress ExactOutSwapRoute(grc20) gns->wugnot (accumulate fees)** | Gas Used | 1557348571 | 1572008161 | -14659590 | ⚡️ -0.93% |
-| | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 1555935010 | 1570669878 | -14734868 | ⚡️ -0.94% |
-| **Stress RandomPositions ExactInSwapRoute gns->wugnot** | Gas Used | 124895305 | 143543694 | -18648389 | ⚡️ -12.99% |
-| | Storage Diff | 7394 | 8901 | -1507 | ⚡️ -16.93% |
-| | CPU Cycles | 116016305 | 134619458 | -18603153 | ⚡️ -13.82% |
-| **Stress RandomPositions ExactInSwapRoute wugnot->gns** | Gas Used | 122986879 | 152568511 | -29581632 | ⚡️ -19.39% |
-| | Storage Diff | 8322 | 9822 | -1500 | ⚡️ -15.27% |
-| | CPU Cycles | 120453230 | 149993108 | -29539878 | ⚡️ -19.69% |
-| **Stress RandomPositions ExactOutSwapRoute gns->wugnot** | Gas Used | 116096971 | 131239836 | -15142865 | ⚡️ -11.54% |
-| | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 114689642 | 129907181 | -15217539 | ⚡️ -11.71% |
-| **Stress RandomPositions ExactOutSwapRoute wugnot->gns** | Gas Used | 114991394 | 128371503 | -13380109 | ⚡️ -10.42% |
-| | Storage Diff | 0 | 0 | 0 |  0.00% |
-| | CPU Cycles | 113587161 | 127041944 | -13454783 | ⚡️ -10.59% |
-| **CollectReward (immediately after stake)** | Gas Used | 3150982 | 4486368 | -1335386 | ⚡️ -29.77% |
-| | Storage Diff | -6 | -6 | 0 |  0.00% |
-| | CPU Cycles | 1965562 | 3301492 | -1335930 | ⚡️ -40.46% |
-| **CreateExternalIncentive** | Gas Used | 3040615 | 3119320 | -78705 | ⚡️ -2.52% |
-| | Storage Diff | 28114 | 28826 | -712 | ⚡️ -2.47% |
-| | CPU Cycles | 1539489 | 1853138 | -313649 | ⚡️ -16.93% |
-| **EndExternalIncentive** | Gas Used | 1342842 | 1497591 | -154749 | ⚡️ -10.33% |
-| | Storage Diff | -1988 | -1988 | 0 |  0.00% |
-| | CPU Cycles | 642522 | 797271 | -154749 | ⚡️ -19.41% |
+| | CPU Cycles | 23,398 | 0 | +23,398 | ⚠️ N/A% |
+| **MultiHop ExactIn (2 hops)** | Gas Used | 31,132,044 | 0 | +31,132,044 | ⚠️ N/A% |
+| | Storage Diff | 10,674 | 0 | +10,674 | ⚠️ N/A% |
+| | CPU Cycles | 22,560,598 | 0 | +22,560,598 | ⚠️ N/A% |
+| **MultiHop ExactOut (2 hops)** | Gas Used | 35,484,313 | 0 | +35,484,313 | ⚠️ N/A% |
+| | Storage Diff | 26 | 0 | +26 | ⚠️ N/A% |
+| | CPU Cycles | 33,911,183 | 0 | +33,911,183 | ⚠️ N/A% |
+| **MultiHop ExactIn (3 hops)** | Gas Used | 35,229,817 | 0 | +35,229,817 | ⚠️ N/A% |
+| | Storage Diff | 5,709 | 0 | +5,709 | ⚠️ N/A% |
+| | CPU Cycles | 32,909,787 | 0 | +32,909,787 | ⚠️ N/A% |
+| **MultiHop ExactOut (3 hops)** | Gas Used | 54,213,522 | 0 | +54,213,522 | ⚠️ N/A% |
+| | Storage Diff | 14 | 0 | +14 | ⚠️ N/A% |
+| | CPU Cycles | 52,070,200 | 0 | +52,070,200 | ⚠️ N/A% |
+| **MultiRoute ExactIn (50:50 split)** | Gas Used | 35,444,360 | 0 | +35,444,360 | ⚠️ N/A% |
+| | Storage Diff | 2,849 | 0 | +2,849 | ⚠️ N/A% |
+| | CPU Cycles | 32,685,955 | 0 | +32,685,955 | ⚠️ N/A% |
+| **MultiRoute ExactOut (50:50 split)** | Gas Used | 47,839,057 | 0 | +47,839,057 | ⚠️ N/A% |
+| | Storage Diff | 2 | 0 | +2 | ⚠️ N/A% |
+| | CPU Cycles | 45,200,330 | 0 | +45,200,330 | ⚠️ N/A% |
+| **CollectReward (immediately after stake)** | Gas Used | 3,150,982 | 0 | +3,150,982 | ⚠️ N/A% |
+| | Storage Diff | -6 | 0 | -6 | ⚡️ N/A% |
+| | CPU Cycles | 1,965,562 | 0 | +1,965,562 | ⚠️ N/A% |
+| **CreateExternalIncentive** | Gas Used | 3,040,615 | 0 | +3,040,615 | ⚠️ N/A% |
+| | Storage Diff | 28,114 | 0 | +28,114 | ⚠️ N/A% |
+| | CPU Cycles | 1,539,489 | 0 | +1,539,489 | ⚠️ N/A% |
+| **EndExternalIncentive** | Gas Used | 1,342,842 | 0 | +1,342,842 | ⚠️ N/A% |
+| | Storage Diff | -1,988 | 0 | -1,988 | ⚡️ N/A% |
+| | CPU Cycles | 642,522 | 0 | +642,522 | ⚠️ N/A% |
 
 ---

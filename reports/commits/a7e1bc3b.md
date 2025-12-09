@@ -80,17 +80,6 @@
 | MultiHop ExactOut (3 hops) | 54,213,522 | 14 | 52,070,200 |
 | MultiRoute ExactIn (50:50 split) | 35,444,360 | 2,849 | 32,685,955 |
 | MultiRoute ExactOut (50:50 split) | 47,839,057 | 2 | 45,200,330 |
-| Mint Position(for stress swap) | 13,912,951 | 27,408 | 10,153,144 |
-| Stress ExactInSwapRoute(grc20) gns->wugnot | 1,568,542,235 | 13,627 | 1,558,804,720 |
-| Stress ExactInSwapRoute(grc20) wugnot->gns | 1,566,053,013 | 8,404 | 1,562,620,529 |
-| Stress ExactInSwapRoute(grc20) gns->wugnot (accumulate fees) | 1,566,265,587 | 0 | 1,563,146,497 |
-| Stress ExactOutSwapRoute(grc20) gns->wugnot | 1,557,276,340 | 0 | 1,555,862,779 |
-| Stress ExactOutSwapRoute(grc20) wugnot->gns | 1,556,130,577 | 0 | 1,554,720,112 |
-| Stress ExactOutSwapRoute(grc20) gns->wugnot (accumulate fees) | 1,557,348,571 | 0 | 1,555,935,010 |
-| Stress RandomPositions ExactInSwapRoute gns->wugnot | 124,895,321 | 7,394 | 116,016,305 |
-| Stress RandomPositions ExactInSwapRoute wugnot->gns | 122,986,879 | 8,322 | 120,453,230 |
-| Stress RandomPositions ExactOutSwapRoute gns->wugnot | 116,096,971 | 0 | 114,689,642 |
-| Stress RandomPositions ExactOutSwapRoute wugnot->gns | 114,991,394 | 0 | 113,587,161 |
 | CollectReward (immediately after stake) | 3,150,982 | -6 | 1,965,562 |
 | CreateExternalIncentive | 2,795,511 | 28,114 | 1,539,489 |
 | EndExternalIncentive | 1,342,842 | -1,988 | 642,522 |
