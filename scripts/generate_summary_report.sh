@@ -6,7 +6,8 @@
 #   ./generate_summary_report.sh [--run-tests] [--output <file>]
 #
 # Options:
-#   --run-tests, -r    Run make compare-with-report to generate individual reports
+#   --run-tests, -r    Regenerate all reports and comparisons (make compare-with-run)
+#                      Default: Reuse existing reports, generate comparisons only (make compare)
 #   --output, -o       Output file path (default: SUMMARY.md)
 #   --help, -h         Show this help message
 #
@@ -41,7 +42,8 @@ while [[ $# -gt 0 ]]; do
             echo "Usage: $0 [--run-tests] [--output <file>]"
             echo ""
             echo "Options:"
-            echo "  --run-tests, -r    Run make compare-with-report to generate individual reports"
+            echo "  --run-tests, -r    Regenerate all reports and comparisons (make compare-with-run)"
+            echo "                     Default: Reuse existing reports, generate comparisons only (make compare)"
             echo "  --output, -o       Output file path (default: SUMMARY.md)"
             echo "  --help, -h         Show this help message"
             echo ""
@@ -99,15 +101,26 @@ for ((i = COMMIT_COUNT - 1; i >= 0; i--)); do
     REVERSED_COMMITS+=("${COMMITS[$i]}")
 done
 
-# Run tests if requested
+# Run comparisons (always)
+echo ""
+echo "=========================================="
 if [[ "$RUN_TESTS" = true ]]; then
-    echo ""
+    echo "Generating reports and comparisons..."
     echo "=========================================="
-    echo "Running gas report generation..."
-    echo "=========================================="
-    
+
     # Build the command with commits in reverse order (newest first)
+    # Use compare-with-run to regenerate all reports
     CMD="make compare-with-run ${REVERSED_COMMITS[*]}"
+    echo "Executing: $CMD"
+    echo ""
+    eval "$CMD"
+else
+    echo "Generating comparisons (reusing existing reports)..."
+    echo "=========================================="
+
+    # Build the command with commits in reverse order (newest first)
+    # Use compare to reuse existing reports
+    CMD="make compare ${REVERSED_COMMITS[*]}"
     echo "Executing: $CMD"
     echo ""
     eval "$CMD"
