@@ -161,7 +161,7 @@ func mintPositionWithFullRange() {
 func createExternalIncentives() {
 	testing.SetRealm(adminRealm)
 
-	startTime := int64(1234569600)
+	startTime := int64(1893456000) // 2030-01-01 00:00:00 UTC
 
 	for i := 0; i < incentiveCount; i++ {
 		incentiveStartTime := startTime + int64(i*86400)

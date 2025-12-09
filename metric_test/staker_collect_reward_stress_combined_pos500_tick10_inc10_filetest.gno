@@ -161,9 +161,7 @@ func mintPositionWithFullRange() {
 func createExternalIncentives() {
 	testing.SetRealm(adminRealm)
 
-	// Calculate next day midnight timestamp
-	now := time.Now().Unix()
-	startTime := ((now / 86400) + 2) * 86400 // +2 days midnight from now
+	startTime := int64(1893456000) // 2030-01-01 00:00:00 UTC
 
 	for i := 0; i < incentiveCount; i++ {
 		incentiveStartTime := startTime + int64(i*86400)
