@@ -162,7 +162,7 @@ get_commit_date() {
 
 # Read commit history into array
 COMMITS=()
-while IFS=: read -r hash desc; do
+while IFS=: read -r hash desc || [[ -n "$hash" ]]; do
     COMMITS+=("${hash:0:7}")
 done < "$COMMIT_HISTORY"
 
