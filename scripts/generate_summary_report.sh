@@ -22,7 +22,7 @@ set -e
 HISTORY_FILE="commit-history.txt"
 OUTPUT_FILE="SUMMARY.md"
 FORCE_REGENERATE=false
-REPORTS_DIR="reports"
+REPORTS_DIR="reports/metric"
 COMMITS_DIR="$REPORTS_DIR/commits"
 COMPARES_DIR="$REPORTS_DIR/compares"
 GITHUB_BASE_URL="https://github.com/gnoswap-labs/gnoswap/tree"
@@ -82,7 +82,7 @@ while IFS=':' read -r commit description || [[ -n "$commit" ]]; do
     if [[ -n "$commit" ]]; then
         COMMITS+=("$commit")
         DESCRIPTIONS+=("${description:-No description}")
-        SHORT_COMMITS+=("${commit:0:8}")
+        SHORT_COMMITS+=("${commit:0:7}")
     fi
 done < "$HISTORY_FILE"
 
@@ -175,31 +175,31 @@ for ((i = 0; i < COMMIT_COUNT; i++)); do
     # Report link
     report_file="$COMMITS_DIR/${short}.md"
     if [[ -f "$report_file" ]]; then
-        report_link="[📊 Report](reports/commits/${short}.md)"
+        report_link="[📊 Report](reports/metric/commits/${short}.md)"
     else
         report_link="_Not generated_"
     fi
-    
+
     # Diff link (compare with previous commit)
-    # Note: diff files are named as diff_{current}_{prev}.md because make compare-with-report runs in reverse order
+    # Note: diff files are named as diff_{current}_{prev}.md because make compare runs in reverse order
     if [[ $i -gt 0 ]]; then
         prev_short="${SHORT_COMMITS[$((i - 1))]}"
         diff_file="$COMPARES_DIR/diff_${short}_${prev_short}.md"
         if [[ -f "$diff_file" ]]; then
-            diff_link="[📈 Diff](reports/compares/diff_${short}_${prev_short}.md)"
+            diff_link="[📈 Diff](reports/metric/compares/diff_${short}_${prev_short}.md)"
         else
             diff_link="_Not generated_"
         fi
     else
         diff_link="_Baseline_"
     fi
-    
+
     # Diff from Base link (compare with first commit)
-    # Note: diff files are named as diff_{current}_{first}.md because make compare-with-report runs in reverse order
+    # Note: diff files are named as diff_{current}_{first}.md because make compare runs in reverse order
     if [[ $i -gt 0 ]]; then
         base_diff_file="$COMPARES_DIR/diff_${short}_${FIRST_SHORT}.md"
         if [[ -f "$base_diff_file" ]]; then
-            base_diff_link="[📊 Diff](reports/compares/diff_${short}_${FIRST_SHORT}.md)"
+            base_diff_link="[📊 Diff](reports/metric/compares/diff_${short}_${FIRST_SHORT}.md)"
         else
             base_diff_link="_Not generated_"
         fi
@@ -221,15 +221,15 @@ cat >> "$OUTPUT_FILE" << EOF
 EOF
 
 # Check if overall comparison exists
-# Note: diff file is named as diff_{last}_{first}.md because make compare-with-report runs in reverse order
+# Note: diff file is named as diff_{last}_{first}.md because make compare runs in reverse order
 overall_diff_file="$COMPARES_DIR/diff_${LAST_SHORT}_${FIRST_SHORT}.md"
 if [[ -f "$overall_diff_file" ]]; then
     # Count improvements and regressions
     improvements=$(grep -c "⚡️" "$overall_diff_file" 2>/dev/null || echo "0")
     regressions=$(grep -c "⚠️" "$overall_diff_file" 2>/dev/null || echo "0")
-    
+
     cat >> "$OUTPUT_FILE" << EOF
-**[\`$FIRST_SHORT\` → \`$LAST_SHORT\`](reports/compares/diff_${LAST_SHORT}_${FIRST_SHORT}.md)**
+**[\`$FIRST_SHORT\` → \`$LAST_SHORT\`](reports/metric/compares/diff_${LAST_SHORT}_${FIRST_SHORT}.md)**
 
 This comparison shows the total gas usage changes between the baseline commit and the latest commit.
 

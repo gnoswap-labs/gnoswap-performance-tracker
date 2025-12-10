@@ -84,8 +84,12 @@ make summary-force
 
 ### 4. Output Locations
 
-- **Individual Reports:** `reports/commits/{commit_hash}.md`
-- **Comparison Reports:** `reports/compares/diff_{new}_{old}.md`
+- **Metric Reports:**
+  - Individual: `reports/metric/commits/{commit_hash}.md`
+  - Comparison: `reports/metric/compares/diff_{new}_{old}.md`
+- **Stress Reports:**
+  - Individual: `reports/stress/commits/{commit_hash}.md`
+  - Comparison: `reports/stress/compares/diff_{new}_{old}.md`
 - **Summary Report:** `SUMMARY.md`
 
 #### Report Example

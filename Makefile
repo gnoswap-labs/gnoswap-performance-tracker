@@ -62,26 +62,26 @@ stress-compare-force:
 # Usage: make gas-report [commit]
 gas-report:
 	$(eval COMMIT := $(or $(word 2,$(MAKECMDGOALS)),main))
-	$(eval CURRENT_COMMIT := $(shell cd gnoswap && git fetch >/dev/null 2>&1 && git checkout -f $(COMMIT) >/dev/null 2>&1 && git rev-parse --short HEAD))
+	$(eval CURRENT_COMMIT := $(shell cd gnoswap && git fetch >/dev/null 2>&1 && git checkout -f $(COMMIT) >/dev/null 2>&1 && git rev-parse --short=7 HEAD))
 	cd gnoswap && python3 setup.py --exclude-tests -w ../
 	rm -rf gno/examples/gno.land/r/gnoswap/scenario/metric
 	cp -r tests/metric gno/examples/gno.land/r/gnoswap/scenario/metric
-	mkdir -p reports/commits
-	(cd gno/examples/gno.land/r/gnoswap/scenario/metric && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > reports/commits/$(CURRENT_COMMIT).md
-	@echo "Report saved to reports/commits/$(CURRENT_COMMIT).md"
+	mkdir -p reports/metric/commits
+	(cd gno/examples/gno.land/r/gnoswap/scenario/metric && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > reports/metric/commits/$(CURRENT_COMMIT).md
+	@echo "Report saved to reports/metric/commits/$(CURRENT_COMMIT).md"
 
 # Usage: make stress-report [commit]
 stress-report:
 	$(eval COMMIT := $(or $(word 2,$(MAKECMDGOALS)),main))
-	$(eval CURRENT_COMMIT := $(shell cd gnoswap && git fetch >/dev/null 2>&1 && git checkout -f $(COMMIT) >/dev/null 2>&1 && git rev-parse --short HEAD))
+	$(eval CURRENT_COMMIT := $(shell cd gnoswap && git fetch >/dev/null 2>&1 && git checkout -f $(COMMIT) >/dev/null 2>&1 && git rev-parse --short=7 HEAD))
 	cd gnoswap && python3 setup.py --exclude-tests -w ../
 	rm -rf gno/examples/gno.land/r/gnoswap/scenario/metric
 	cp -r tests/metric gno/examples/gno.land/r/gnoswap/scenario/metric
 	rm -rf gno/examples/gno.land/r/gnoswap/scenario/stress
 	cp -r tests/stress gno/examples/gno.land/r/gnoswap/scenario/stress
-	mkdir -p reports/commits
-	(cd gno/examples/gno.land/r/gnoswap/scenario/stress && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > reports/commits/stress_$(CURRENT_COMMIT).md
-	@echo "Report saved to reports/commits/stress_$(CURRENT_COMMIT).md"
+	mkdir -p reports/stress/commits
+	(cd gno/examples/gno.land/r/gnoswap/scenario/stress && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > reports/stress/commits/$(CURRENT_COMMIT).md
+	@echo "Report saved to reports/stress/commits/$(CURRENT_COMMIT).md"
 
 # Generate summary report from commit-history.txt
 summary:

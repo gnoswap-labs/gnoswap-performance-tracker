@@ -28,8 +28,14 @@ fi
 LATEST_COMMIT=$(basename "$LATEST_FILE" .md)
 PREVIOUS_COMMIT=$(basename "$PREVIOUS_FILE" .md)
 
-mkdir -p reports/compares
-OUTPUT_FILE="reports/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
+# Detect if this is a stress or metric report
+if [[ "$LATEST_FILE" == *"/stress/"* ]]; then
+    mkdir -p reports/stress/compares
+    OUTPUT_FILE="reports/stress/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
+else
+    mkdir -p reports/metric/compares
+    OUTPUT_FILE="reports/metric/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
+fi
 
 # Parse markdown table and extract unique entries (first occurrence only)
 parse_table() {

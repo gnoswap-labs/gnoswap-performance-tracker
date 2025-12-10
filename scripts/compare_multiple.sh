@@ -59,10 +59,10 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-# Truncate all commit hashes to 8 characters
+# Truncate all commit hashes to 7 characters
 COMMITS=()
 for arg in "$@"; do
-    COMMITS+=("${arg:0:8}")
+    COMMITS+=("${arg:0:7}")
 done
 COMMIT_COUNT=${#COMMITS[@]}
 
@@ -84,10 +84,10 @@ echo "Generating gas reports for all commits"
 echo "-------------------------------------------"
 for commit in "${COMMITS[@]}"; do
     if [ "$STRESS_MODE" = true ]; then
-        REPORT_FILE="reports/commits/stress_${commit}.md"
+        REPORT_FILE="reports/stress/commits/${commit}.md"
         TARGET="stress-report"
     else
-        REPORT_FILE="reports/commits/${commit}.md"
+        REPORT_FILE="reports/metric/commits/${commit}.md"
         TARGET="gas-report"
     fi
 
@@ -114,14 +114,14 @@ for ((i = 0; i < COMMIT_COUNT - 1; i++)); do
     next="${COMMITS[$((i + 1))]}"
 
     if [ "$STRESS_MODE" = true ]; then
-        PREFIX="stress_"
+        REPORT_CURRENT="reports/stress/commits/${current}.md"
+        REPORT_NEXT="reports/stress/commits/${next}.md"
+        COMPARE_FILE="reports/stress/compares/diff_${current}_${next}.md"
     else
-        PREFIX=""
+        REPORT_CURRENT="reports/metric/commits/${current}.md"
+        REPORT_NEXT="reports/metric/commits/${next}.md"
+        COMPARE_FILE="reports/metric/compares/diff_${current}_${next}.md"
     fi
-
-    REPORT_CURRENT="reports/commits/${PREFIX}${current}.md"
-    REPORT_NEXT="reports/commits/${PREFIX}${next}.md"
-    COMPARE_FILE="reports/compares/diff_${PREFIX}${current}_${PREFIX}${next}.md"
 
     if [[ -f "$COMPARE_FILE" && "$SKIP_EXISTING" = true ]]; then
         echo "Skipping comparison: $current -> $next (already exists: $COMPARE_FILE)"
@@ -148,14 +148,14 @@ if [ $COMMIT_COUNT -gt 2 ]; then
         fi
 
         if [ "$STRESS_MODE" = true ]; then
-            PREFIX="stress_"
+            REPORT_CURRENT="reports/stress/commits/${current}.md"
+            REPORT_BASE="reports/stress/commits/${base}.md"
+            COMPARE_FILE="reports/stress/compares/diff_${current}_${base}.md"
         else
-            PREFIX=""
+            REPORT_CURRENT="reports/metric/commits/${current}.md"
+            REPORT_BASE="reports/metric/commits/${base}.md"
+            COMPARE_FILE="reports/metric/compares/diff_${current}_${base}.md"
         fi
-
-        REPORT_CURRENT="reports/commits/${PREFIX}${current}.md"
-        REPORT_BASE="reports/commits/${PREFIX}${base}.md"
-        COMPARE_FILE="reports/compares/diff_${PREFIX}${current}_${PREFIX}${base}.md"
 
         if [[ -f "$COMPARE_FILE" && "$SKIP_EXISTING" = true ]]; then
             echo "Skipping comparison: $current -> $base (already exists: $COMPARE_FILE)"
@@ -173,6 +173,11 @@ echo "All comparisons completed!"
 echo "=========================================="
 echo ""
 echo "Generated reports:"
-echo "  - Individual reports: reports/commits/"
-echo "  - Comparison reports: reports/compares/"
+if [ "$STRESS_MODE" = true ]; then
+    echo "  - Individual reports: reports/stress/commits/"
+    echo "  - Comparison reports: reports/stress/compares/"
+else
+    echo "  - Individual reports: reports/metric/commits/"
+    echo "  - Comparison reports: reports/metric/compares/"
+fi
 
