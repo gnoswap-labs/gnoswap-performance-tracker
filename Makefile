@@ -1,4 +1,4 @@
-.PHONY: help init gas-report stress-report metric metric-force stress stress-force compare compare-force stress-compare stress-compare-force summary summary-force
+.PHONY: help init gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force
 
 # Default target
 help:
@@ -9,10 +9,10 @@ help:
 	@echo "  make stress-force <commits>        # Force regenerate all stress reports"
 	@echo ""
 	@echo "Usage (Compare):"
-	@echo "  make compare <commits>             # Compare commits (skip existing)"
-	@echo "  make compare-force <commits>       # Force regenerate all comparisons"
-	@echo "  make stress-compare <commits>      # Compare stress reports (skip existing)"
-	@echo "  make stress-compare-force <commits> # Force regenerate all stress comparisons"
+	@echo "  make compare-metric <commits>             # Compare metric reports (skip existing)"
+	@echo "  make compare-metric-force <commits>       # Force regenerate metric comparisons"
+	@echo "  make compare-stress <commits>             # Compare stress reports (skip existing)"
+	@echo "  make compare-stress-force <commits>       # Force regenerate stress comparisons"
 	@echo ""
 	@echo "Usage (Summary):"
 	@echo "  make summary                       # Generate summary (skip existing)"
@@ -44,17 +44,17 @@ stress-force:
 	@./scripts/compare_multiple.sh --stress --report-only $(ARGS)
 
 # Compare (Generate if missing + Compare)
-compare:
+compare-metric:
 	@./scripts/compare_multiple.sh --skip-exists $(ARGS)
 
-stress-compare:
+compare-stress:
 	@./scripts/compare_multiple.sh --stress --skip-exists $(ARGS)
 
 # Compare (Force Regenerate + Compare)
-compare-force:
+compare-metric-force:
 	@./scripts/compare_multiple.sh $(ARGS)
 
-stress-compare-force:
+compare-stress-force:
 	@./scripts/compare_multiple.sh --stress $(ARGS)
 
 # --- Internal / Legacy Commands ---

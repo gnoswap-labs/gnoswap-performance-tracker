@@ -25,8 +25,10 @@ The tool provides simplified commands for generating and comparing reports.
 | **`make metric-force`** | Generate metric reports | **Force Regenerate** |
 | **`make stress`** | Generate stress reports | **Skip** (Reuse) |
 | **`make stress-force`** | Generate stress reports | **Force Regenerate** |
-| **`make compare`** | Generate and compare reports | **Skip** (Reuse) |
-| **`make compare-force`** | Generate and compare reports | **Force Regenerate** |
+| **`make compare-metric`** | Compare metric reports | **Skip** (Reuse) |
+| **`make compare-metric-force`** | Compare metric reports | **Force Regenerate** |
+| **`make compare-stress`** | Compare stress reports | **Skip** (Reuse) |
+| **`make compare-stress-force`** | Compare stress reports | **Force Regenerate** |
 
 ### 2. Examples
 
@@ -48,14 +50,14 @@ make stress abc1234
 Generate reports (if needed) and compare two commits.
 
 ```bash
-# Compare commit1 -> commit2 (skip existing)
-make compare abc1234 def5678
+# Compare metric reports: commit1 -> commit2 (skip existing)
+make compare-metric abc1234 def5678
 
-# Force regenerate all
-make compare-force abc1234 def5678
+# Force regenerate all metric comparisons
+make compare-metric-force abc1234 def5678
 
-# Stress Test Comparison
-make stress-compare abc1234 def5678
+# Compare stress reports
+make compare-stress abc1234 def5678
 ```
 
 #### Compare Multiple Commits
@@ -64,10 +66,10 @@ Generate reports and compare multiple commits in sequence.
 
 ```bash
 # Skip existing reports and comparisons
-make compare abc1234 def5678 ghi9012
+make compare-metric abc1234 def5678 ghi9012
 
 # Force regenerate everything
-make compare-force abc1234 def5678 ghi9012
+make compare-metric-force abc1234 def5678 ghi9012
 ```
 
 ### 3. Generate Summary Report

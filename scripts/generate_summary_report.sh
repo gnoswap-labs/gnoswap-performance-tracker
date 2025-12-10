@@ -6,8 +6,8 @@
 #   ./generate_summary_report.sh [--force] [--output <file>]
 #
 # Options:
-#   --force, -f        Force regenerate all reports and comparisons (make compare-force)
-#                      Default: Reuse existing reports, generate comparisons only (make compare)
+#   --force, -f        Force regenerate all reports and comparisons (make compare-metric-force)
+#                      Default: Reuse existing reports, generate comparisons only (make compare-metric)
 #   --output, -o       Output file path (default: SUMMARY.md)
 #   --help, -h         Show this help message
 #
@@ -42,8 +42,8 @@ while [[ $# -gt 0 ]]; do
             echo "Usage: $0 [--force] [--output <file>]"
             echo ""
             echo "Options:"
-            echo "  --force, -f        Force regenerate all reports and comparisons (make compare-force)"
-            echo "                     Default: Reuse existing reports, generate comparisons only (make compare)"
+            echo "  --force, -f        Force regenerate all reports and comparisons (make compare-metric-force)"
+            echo "                     Default: Reuse existing reports, generate comparisons only (make compare-metric)"
             echo "  --output, -o       Output file path (default: SUMMARY.md)"
             echo "  --help, -h         Show this help message"
             echo ""
@@ -109,8 +109,8 @@ if [[ "$FORCE_REGENERATE" = true ]]; then
     echo "=========================================="
 
     # Build the command with commits in reverse order (newest first)
-    # Use compare-force to regenerate all reports
-    CMD="make compare-force ${REVERSED_COMMITS[*]}"
+    # Use compare-metric-force to regenerate all reports
+    CMD="make compare-metric-force ${REVERSED_COMMITS[*]}"
     echo "Executing: $CMD"
     echo ""
     eval "$CMD"
@@ -119,8 +119,8 @@ else
     echo "=========================================="
 
     # Build the command with commits in reverse order (newest first)
-    # Use compare to reuse existing reports
-    CMD="make compare ${REVERSED_COMMITS[*]}"
+    # Use compare-metric to reuse existing reports
+    CMD="make compare-metric ${REVERSED_COMMITS[*]}"
     echo "Executing: $CMD"
     echo ""
     eval "$CMD"
