@@ -161,12 +161,10 @@ func mintPositionWithFullRange() {
 func createExternalIncentives() {
 	testing.SetRealm(adminRealm)
 
-	startTime := int64(1893456000) // 2030-01-01 00:00:00 UTC
+	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
+	incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
 
 	for i := 0; i < incentiveCount; i++ {
-		incentiveStartTime := startTime + int64(i*86400)
-		incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
-
 		staker.CreateExternalIncentive(
 			cross,
 			poolPath,
@@ -176,6 +174,7 @@ func createExternalIncentives() {
 			incentiveEndTime,
 		)
 	}
+	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 }
 
 func swapWithCrossRange() {
