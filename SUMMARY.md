@@ -1,6 +1,6 @@
 # GnoSwap Performance Summary Report
 
-> Generated: 2025-12-10 10:14:26
+> Generated: 2025-12-10 10:23:20
 
 ## Overview
 

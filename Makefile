@@ -1,25 +1,25 @@
-.PHONY: help init gas-report stress-report compare compare-stress run run-all stress stress-all summary summary-with-run compare-with-run stress-compare stress-compare-with-run
+.PHONY: help init gas-report stress-report metric metric-force stress stress-force compare compare-force stress-compare stress-compare-force summary summary-force
 
 # Default target
 help:
-	@echo "Usage (Reports Only):"
-	@echo "  make run <commits>          # Generate reports (Skip existing)"
-	@echo "  make run-all <commits>      # Generate reports (Regenerate all)"
-	@echo "  make stress <commits>       # Generate stress reports (Skip existing)"
-	@echo "  make stress-all <commits>   # Generate stress reports (Regenerate all)"
+	@echo "Usage (Metric Reports):"
+	@echo "  make metric <commits>              # Generate metric reports (skip existing)"
+	@echo "  make metric-force <commits>        # Force regenerate all metric reports"
+	@echo "  make stress <commits>              # Generate stress reports (skip existing)"
+	@echo "  make stress-force <commits>        # Force regenerate all stress reports"
 	@echo ""
 	@echo "Usage (Compare):"
-	@echo "  make compare <commits>         # Compare commits (Skip existing reports)"
-	@echo "  make compare-with-run <commits>      # Compare commits (Regenerate all)"
-	@echo "  make stress-compare <commits>        # Compare stress reports (Skip existing)"
-	@echo "  make stress-compare-with-run <commits> # Compare stress reports (Regenerate all)"
+	@echo "  make compare <commits>             # Compare commits (skip existing)"
+	@echo "  make compare-force <commits>       # Force regenerate all comparisons"
+	@echo "  make stress-compare <commits>      # Compare stress reports (skip existing)"
+	@echo "  make stress-compare-force <commits> # Force regenerate all stress comparisons"
 	@echo ""
 	@echo "Usage (Summary):"
-	@echo "  make summary                # Generate summary from existing reports"
-	@echo "  make summary-with-run       # Generate reports, compare, and create summary"
+	@echo "  make summary                       # Generate summary (skip existing)"
+	@echo "  make summary-force                 # Force regenerate all reports and summary"
 	@echo ""
 	@echo "Usage (Setup):"
-	@echo "  make init                   # Initialize project"
+	@echo "  make init                          # Initialize project"
 
 init:
 	git submodule update --init --recursive
@@ -30,17 +30,17 @@ init:
 # Helper to extract commit arguments (everything after the target name)
 ARGS = $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
-# Report Generation Only (No Compare)
-run:
+# Metric Report Generation Only (No Compare)
+metric:
 	@./scripts/compare_multiple.sh --skip-exists --report-only $(ARGS)
 
-run-all:
+metric-force:
 	@./scripts/compare_multiple.sh --report-only $(ARGS)
 
 stress:
 	@./scripts/compare_multiple.sh --stress --skip-exists --report-only $(ARGS)
 
-stress-all:
+stress-force:
 	@./scripts/compare_multiple.sh --stress --report-only $(ARGS)
 
 # Compare (Generate if missing + Compare)
@@ -51,10 +51,10 @@ stress-compare:
 	@./scripts/compare_multiple.sh --stress --skip-exists $(ARGS)
 
 # Compare (Force Regenerate + Compare)
-compare-with-run:
+compare-force:
 	@./scripts/compare_multiple.sh $(ARGS)
 
-stress-compare-with-run:
+stress-compare-force:
 	@./scripts/compare_multiple.sh --stress $(ARGS)
 
 # --- Internal / Legacy Commands ---
@@ -87,8 +87,8 @@ stress-report:
 summary:
 	@./scripts/generate_summary_report.sh
 
-summary-with-run:
-	@./scripts/generate_summary_report.sh --run-tests
+summary-force:
+	@./scripts/generate_summary_report.sh --force
 
 # Prevent "No rule to make target" errors for commit hash arguments
 %:

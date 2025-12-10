@@ -112,18 +112,23 @@ echo "-------------------------------------------"
 for ((i = 0; i < COMMIT_COUNT - 1; i++)); do
     current="${COMMITS[$i]}"
     next="${COMMITS[$((i + 1))]}"
-    echo "Comparing: $current -> $next"
-    
+
     if [ "$STRESS_MODE" = true ]; then
         PREFIX="stress_"
     else
         PREFIX=""
     fi
-    
+
     REPORT_CURRENT="reports/commits/${PREFIX}${current}.md"
     REPORT_NEXT="reports/commits/${PREFIX}${next}.md"
-    
-    ./scripts/compare_reports.sh "$REPORT_CURRENT" "$REPORT_NEXT"
+    COMPARE_FILE="reports/compares/diff_${PREFIX}${current}_${PREFIX}${next}.md"
+
+    if [[ -f "$COMPARE_FILE" && "$SKIP_EXISTING" = true ]]; then
+        echo "Skipping comparison: $current -> $next (already exists: $COMPARE_FILE)"
+    else
+        echo "Comparing: $current -> $next"
+        ./scripts/compare_reports.sh "$REPORT_CURRENT" "$REPORT_NEXT"
+    fi
     echo ""
 done
 
@@ -141,8 +146,7 @@ if [ $COMMIT_COUNT -gt 2 ]; then
             echo "Skipping: $current -> $base (already in consecutive comparisons)"
             continue
         fi
-        echo "Comparing: $current -> $base"
-        
+
         if [ "$STRESS_MODE" = true ]; then
             PREFIX="stress_"
         else
@@ -151,8 +155,14 @@ if [ $COMMIT_COUNT -gt 2 ]; then
 
         REPORT_CURRENT="reports/commits/${PREFIX}${current}.md"
         REPORT_BASE="reports/commits/${PREFIX}${base}.md"
+        COMPARE_FILE="reports/compares/diff_${PREFIX}${current}_${PREFIX}${base}.md"
 
-        ./scripts/compare_reports.sh "$REPORT_CURRENT" "$REPORT_BASE"
+        if [[ -f "$COMPARE_FILE" && "$SKIP_EXISTING" = true ]]; then
+            echo "Skipping comparison: $current -> $base (already exists: $COMPARE_FILE)"
+        else
+            echo "Comparing: $current -> $base"
+            ./scripts/compare_reports.sh "$REPORT_CURRENT" "$REPORT_BASE"
+        fi
         echo ""
     done
 fi

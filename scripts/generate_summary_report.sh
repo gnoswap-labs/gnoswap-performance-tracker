@@ -3,10 +3,10 @@
 # Generate a summary report from commit history.
 #
 # Usage:
-#   ./generate_summary_report.sh [--run-tests] [--output <file>]
+#   ./generate_summary_report.sh [--force] [--output <file>]
 #
 # Options:
-#   --run-tests, -r    Regenerate all reports and comparisons (make compare-with-run)
+#   --force, -f        Force regenerate all reports and comparisons (make compare-force)
 #                      Default: Reuse existing reports, generate comparisons only (make compare)
 #   --output, -o       Output file path (default: SUMMARY.md)
 #   --help, -h         Show this help message
@@ -21,7 +21,7 @@ set -e
 # Configuration
 HISTORY_FILE="commit-history.txt"
 OUTPUT_FILE="SUMMARY.md"
-RUN_TESTS=false
+FORCE_REGENERATE=false
 REPORTS_DIR="reports"
 COMMITS_DIR="$REPORTS_DIR/commits"
 COMPARES_DIR="$REPORTS_DIR/compares"
@@ -30,8 +30,8 @@ GITHUB_BASE_URL="https://github.com/gnoswap-labs/gnoswap/tree"
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
-        --run-tests|-r)
-            RUN_TESTS=true
+        --force|-f)
+            FORCE_REGENERATE=true
             shift
             ;;
         --output|-o)
@@ -39,10 +39,10 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         --help|-h)
-            echo "Usage: $0 [--run-tests] [--output <file>]"
+            echo "Usage: $0 [--force] [--output <file>]"
             echo ""
             echo "Options:"
-            echo "  --run-tests, -r    Regenerate all reports and comparisons (make compare-with-run)"
+            echo "  --force, -f        Force regenerate all reports and comparisons (make compare-force)"
             echo "                     Default: Reuse existing reports, generate comparisons only (make compare)"
             echo "  --output, -o       Output file path (default: SUMMARY.md)"
             echo "  --help, -h         Show this help message"
@@ -104,13 +104,13 @@ done
 # Run comparisons (always)
 echo ""
 echo "=========================================="
-if [[ "$RUN_TESTS" = true ]]; then
-    echo "Generating reports and comparisons..."
+if [[ "$FORCE_REGENERATE" = true ]]; then
+    echo "Force regenerating all reports and comparisons..."
     echo "=========================================="
 
     # Build the command with commits in reverse order (newest first)
-    # Use compare-with-run to regenerate all reports
-    CMD="make compare-with-run ${REVERSED_COMMITS[*]}"
+    # Use compare-force to regenerate all reports
+    CMD="make compare-force ${REVERSED_COMMITS[*]}"
     echo "Executing: $CMD"
     echo ""
     eval "$CMD"

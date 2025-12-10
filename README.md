@@ -21,10 +21,12 @@ The tool provides simplified commands for generating and comparing reports.
 
 | Command | Description | Existing Reports |
 | :--- | :--- | :--- |
-| **`make run`** | Run standard metric tests | **Skip** (Reuse) |
-| **`make run-all`** | Run standard metric tests | **Regenerate** |
-| **`make stress`** | Run stress tests | **Skip** (Reuse) |
-| **`make stress-all`** | Run stress tests | **Regenerate** |
+| **`make metric`** | Generate metric reports | **Skip** (Reuse) |
+| **`make metric-force`** | Generate metric reports | **Force Regenerate** |
+| **`make stress`** | Generate stress reports | **Skip** (Reuse) |
+| **`make stress-force`** | Generate stress reports | **Force Regenerate** |
+| **`make compare`** | Generate and compare reports | **Skip** (Reuse) |
+| **`make compare-force`** | Generate and compare reports | **Force Regenerate** |
 
 ### 2. Examples
 
@@ -32,8 +34,11 @@ The tool provides simplified commands for generating and comparing reports.
 Generate a report for a specific commit without comparison.
 
 ```bash
-# Standard Metric
-make run abc1234
+# Standard Metric (skip if exists)
+make metric abc1234
+
+# Force regenerate
+make metric-force abc1234
 
 # Stress Test
 make stress abc1234
@@ -43,11 +48,14 @@ make stress abc1234
 Generate reports (if needed) and compare two commits.
 
 ```bash
-# Compare commit1 -> commit2
-make run abc1234 def5678
+# Compare commit1 -> commit2 (skip existing)
+make compare abc1234 def5678
+
+# Force regenerate all
+make compare-force abc1234 def5678
 
 # Stress Test Comparison
-make stress abc1234 def5678
+make stress-compare abc1234 def5678
 ```
 
 #### Compare Multiple Commits
@@ -55,7 +63,11 @@ Generate reports and compare multiple commits in sequence.
 (commit1 → commit2, commit2 → commit3, and commit1 → commit3)
 
 ```bash
-make run abc1234 def5678 ghi9012
+# Skip existing reports and comparisons
+make compare abc1234 def5678 ghi9012
+
+# Force regenerate everything
+make compare-force abc1234 def5678 ghi9012
 ```
 
 ### 3. Generate Summary Report
@@ -63,11 +75,11 @@ make run abc1234 def5678 ghi9012
 Track performance changes across multiple commits defined in `commit-history.txt`.
 
 ```bash
-# Generate summary from existing reports
+# Generate summary (skip existing reports and comparisons)
 make summary
 
-# Generate reports for all commits in history and create summary
-make summary-with-run
+# Force regenerate all reports, comparisons, and summary
+make summary-force
 ```
 
 ### 4. Output Locations
