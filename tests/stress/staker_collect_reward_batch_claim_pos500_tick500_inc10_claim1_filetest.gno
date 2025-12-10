@@ -151,10 +151,7 @@ func mintAndStakePosition(index int) uint64 {
 }
 
 func mintLiquidityPosition() {
-
-	createExternalIncentives()
 	testing.SetRealm(adminRealm)
-
 	// Full-range position for liquidity
 	position.Mint(
 		cross,

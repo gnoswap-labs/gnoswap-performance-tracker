@@ -82,8 +82,6 @@ func main() {
 	// Mint liquidity for swaps
 	mintLiquidityPosition()
 
-	createExternalIncentives()
-
 	// Perform tick crosses with tier changes
 	ticksPerTierChange := tickCrossCount / (tierChangeCount + 1)
 	tierChangesDone := int64(0)
@@ -163,8 +161,6 @@ func mintAndStakePosition(index int) uint64 {
 }
 
 func mintLiquidityPosition() {
-
-	createExternalIncentives()
 	testing.SetRealm(adminRealm)
 
 	// Full-range position for liquidity
@@ -184,24 +180,6 @@ func mintLiquidityPosition() {
 		adminAddr,
 		"",
 	)
-}
-
-func createExternalIncentives() {
-	testing.SetRealm(adminRealm)
-
-	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
-	incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
-
-	// Create initial external incentive
-	staker.CreateExternalIncentive(
-		cross,
-		poolPath,
-		barPath,
-		1_000_000_000,
-		incentiveStartTime,
-		incentiveEndTime,
-	)
-	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 }
 
 func swapWithTickCross() {
