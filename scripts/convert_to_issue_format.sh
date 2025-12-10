@@ -9,7 +9,7 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 REPORTS_DIR="$PROJECT_ROOT/reports"
-COMMITS_DIR="$REPORTS_DIR/commits"
+COMMITS_DIR="$REPORTS_DIR/metric/commits"
 COMMIT_HISTORY="$PROJECT_ROOT/commit-history.txt"
 METRIC_TEST_DIR="$PROJECT_ROOT/metric_test"
 GNOSWAP_DIR="$PROJECT_ROOT/gnoswap"
@@ -21,12 +21,12 @@ BRANCH="main"
 
 # Get base and latest commit from arguments or commit-history.txt
 if [ -n "$1" ] && [ -n "$2" ]; then
-    BASE_COMMIT="${1:0:8}"
-    LATEST_COMMIT="${2:0:8}"
+    BASE_COMMIT="${1:0:7}"
+    LATEST_COMMIT="${2:0:7}"
 else
     # Read from commit-history.txt
-    BASE_COMMIT=$(head -1 "$COMMIT_HISTORY" | cut -d':' -f1 | cut -c1-8)
-    LATEST_COMMIT=$(tail -1 "$COMMIT_HISTORY" | cut -d':' -f1 | cut -c1-8)
+    BASE_COMMIT=$(head -1 "$COMMIT_HISTORY" | cut -d':' -f1 | cut -c1-7)
+    LATEST_COMMIT=$(tail -1 "$COMMIT_HISTORY" | cut -d':' -f1 | cut -c1-7)
 fi
 
 BASE_REPORT="$COMMITS_DIR/${BASE_COMMIT}.md"
@@ -163,7 +163,7 @@ get_commit_date() {
 # Read commit history into array
 COMMITS=()
 while IFS=: read -r hash desc; do
-    COMMITS+=("${hash:0:8}")
+    COMMITS+=("${hash:0:7}")
 done < "$COMMIT_HISTORY"
 
 # Generate output
