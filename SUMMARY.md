@@ -1,12 +1,12 @@
 # GnoSwap Performance Summary Report
 
-> Generated: 2025-12-10 10:23:20
+> Generated: 2025-12-10 12:45:30
 
 ## Overview
 
 - **Total Commits**: 13
-- **First Commit (Oldest)**: [`e5d1e160`](https://github.com/gnoswap-labs/gnoswap/tree/e5d1e160) - Base
-- **Last Commit (Latest)**: [`ba942e93`](https://github.com/gnoswap-labs/gnoswap/tree/ba942e93) - Optimize staker
+- **First Commit (Oldest)**: [`e5d1e16`](https://github.com/gnoswap-labs/gnoswap/tree/e5d1e16) - Base
+- **Last Commit (Latest)**: [`ba942e9`](https://github.com/gnoswap-labs/gnoswap/tree/ba942e9) - Optimize staker
 
 ---
 
@@ -14,25 +14,25 @@
 
 | # | Commit | Description | Report | Diff from Previous | Diff from Base |
 |---|--------|-------------|--------|-------------------|----------------|
-| 1 | [`e5d1e160`](https://github.com/gnoswap-labs/gnoswap/tree/e5d1e160) | Base | [📊 Report](reports/commits/e5d1e160.md) | _Baseline_ | _Baseline_ |
-| 2 | [`9dbd8927`](https://github.com/gnoswap-labs/gnoswap/tree/9dbd8927) | Optimize Uint256 | [📊 Report](reports/commits/9dbd8927.md) | [📈 Diff](reports/compares/diff_9dbd8927_e5d1e160.md) | [📊 Diff](reports/compares/diff_9dbd8927_e5d1e160.md) |
-| 3 | [`31d883d4`](https://github.com/gnoswap-labs/gnoswap/tree/31d883d4) | Optimize Int256 | [📊 Report](reports/commits/31d883d4.md) | [📈 Diff](reports/compares/diff_31d883d4_9dbd8927.md) | [📊 Diff](reports/compares/diff_31d883d4_e5d1e160.md) |
-| 4 | [`94d46728`](https://github.com/gnoswap-labs/gnoswap/tree/94d46728) | Optimize Common | [📊 Report](reports/commits/94d46728.md) | [📈 Diff](reports/compares/diff_94d46728_31d883d4.md) | [📊 Diff](reports/compares/diff_94d46728_e5d1e160.md) |
-| 5 | [`f468996c`](https://github.com/gnoswap-labs/gnoswap/tree/f468996c) | Optimize Pool | [📊 Report](reports/commits/f468996c.md) | [📈 Diff](reports/compares/diff_f468996c_94d46728.md) | [📊 Diff](reports/compares/diff_f468996c_e5d1e160.md) |
-| 6 | [`51813f5d`](https://github.com/gnoswap-labs/gnoswap/tree/51813f5d) | Make pool use AVL tree | [📊 Report](reports/commits/51813f5d.md) | [📈 Diff](reports/compares/diff_51813f5d_f468996c.md) | [📊 Diff](reports/compares/diff_51813f5d_e5d1e160.md) |
-| 7 | [`c9983990`](https://github.com/gnoswap-labs/gnoswap/tree/c9983990) | Replace int256 with int64 for router swap | [📊 Report](reports/commits/c9983990.md) | [📈 Diff](reports/compares/diff_c9983990_51813f5d.md) | [📊 Diff](reports/compares/diff_c9983990_e5d1e160.md) |
-| 8 | [`aa648b23`](https://github.com/gnoswap-labs/gnoswap/tree/aa648b23) | Optimize KVStore.makeKey | [📊 Report](reports/commits/aa648b23.md) | [📈 Diff](reports/compares/diff_aa648b23_c9983990.md) | [📊 Diff](reports/compares/diff_aa648b23_e5d1e160.md) |
-| 9 | [`3a818d3a`](https://github.com/gnoswap-labs/gnoswap/tree/3a818d3a) | Optimize Router | [📊 Report](reports/commits/3a818d3a.md) | [📈 Diff](reports/compares/diff_3a818d3a_aa648b23.md) | [📊 Diff](reports/compares/diff_3a818d3a_e5d1e160.md) |
-| 10 | [`9ee6b504`](https://github.com/gnoswap-labs/gnoswap/tree/9ee6b504) | Optimize GNFT | [📊 Report](reports/commits/9ee6b504.md) | [📈 Diff](reports/compares/diff_9ee6b504_3a818d3a.md) | [📊 Diff](reports/compares/diff_9ee6b504_e5d1e160.md) |
-| 11 | [`a7e1bc3b`](https://github.com/gnoswap-labs/gnoswap/tree/a7e1bc3b) | Make stake use AVL tree | [📊 Report](reports/commits/a7e1bc3b.md) | [📈 Diff](reports/compares/diff_a7e1bc3b_9ee6b504.md) | [📊 Diff](reports/compares/diff_a7e1bc3b_e5d1e160.md) |
-| 12 | [`e59f3c16`](https://github.com/gnoswap-labs/gnoswap/tree/e59f3c16) | Optimize position | [📊 Report](reports/commits/e59f3c16.md) | [📈 Diff](reports/compares/diff_e59f3c16_a7e1bc3b.md) | [📊 Diff](reports/compares/diff_e59f3c16_e5d1e160.md) |
-| 13 | [`ba942e93`](https://github.com/gnoswap-labs/gnoswap/tree/ba942e93) | Optimize staker | [📊 Report](reports/commits/ba942e93.md) | [📈 Diff](reports/compares/diff_ba942e93_e59f3c16.md) | [📊 Diff](reports/compares/diff_ba942e93_e5d1e160.md) |
+| 1 | [`e5d1e16`](https://github.com/gnoswap-labs/gnoswap/tree/e5d1e16) | Base | [📊 Report](reports/metric/commits/e5d1e16.md) | _Baseline_ | _Baseline_ |
+| 2 | [`9dbd892`](https://github.com/gnoswap-labs/gnoswap/tree/9dbd892) | Optimize Uint256 | [📊 Report](reports/metric/commits/9dbd892.md) | [📈 Diff](reports/metric/compares/diff_9dbd892_e5d1e16.md) | [📊 Diff](reports/metric/compares/diff_9dbd892_e5d1e16.md) |
+| 3 | [`31d883d`](https://github.com/gnoswap-labs/gnoswap/tree/31d883d) | Optimize Int256 | [📊 Report](reports/metric/commits/31d883d.md) | [📈 Diff](reports/metric/compares/diff_31d883d_9dbd892.md) | [📊 Diff](reports/metric/compares/diff_31d883d_e5d1e16.md) |
+| 4 | [`94d4672`](https://github.com/gnoswap-labs/gnoswap/tree/94d4672) | Optimize Common | [📊 Report](reports/metric/commits/94d4672.md) | [📈 Diff](reports/metric/compares/diff_94d4672_31d883d.md) | [📊 Diff](reports/metric/compares/diff_94d4672_e5d1e16.md) |
+| 5 | [`f468996`](https://github.com/gnoswap-labs/gnoswap/tree/f468996) | Optimize Pool | [📊 Report](reports/metric/commits/f468996.md) | [📈 Diff](reports/metric/compares/diff_f468996_94d4672.md) | [📊 Diff](reports/metric/compares/diff_f468996_e5d1e16.md) |
+| 6 | [`51813f5`](https://github.com/gnoswap-labs/gnoswap/tree/51813f5) | Make pool use AVL tree | [📊 Report](reports/metric/commits/51813f5.md) | [📈 Diff](reports/metric/compares/diff_51813f5_f468996.md) | [📊 Diff](reports/metric/compares/diff_51813f5_e5d1e16.md) |
+| 7 | [`c998399`](https://github.com/gnoswap-labs/gnoswap/tree/c998399) | Replace int256 with int64 for router swap | [📊 Report](reports/metric/commits/c998399.md) | [📈 Diff](reports/metric/compares/diff_c998399_51813f5.md) | [📊 Diff](reports/metric/compares/diff_c998399_e5d1e16.md) |
+| 8 | [`aa648b2`](https://github.com/gnoswap-labs/gnoswap/tree/aa648b2) | Optimize KVStore.makeKey | [📊 Report](reports/metric/commits/aa648b2.md) | [📈 Diff](reports/metric/compares/diff_aa648b2_c998399.md) | [📊 Diff](reports/metric/compares/diff_aa648b2_e5d1e16.md) |
+| 9 | [`3a818d3`](https://github.com/gnoswap-labs/gnoswap/tree/3a818d3) | Optimize Router | [📊 Report](reports/metric/commits/3a818d3.md) | [📈 Diff](reports/metric/compares/diff_3a818d3_aa648b2.md) | [📊 Diff](reports/metric/compares/diff_3a818d3_e5d1e16.md) |
+| 10 | [`9ee6b50`](https://github.com/gnoswap-labs/gnoswap/tree/9ee6b50) | Optimize GNFT | [📊 Report](reports/metric/commits/9ee6b50.md) | [📈 Diff](reports/metric/compares/diff_9ee6b50_3a818d3.md) | [📊 Diff](reports/metric/compares/diff_9ee6b50_e5d1e16.md) |
+| 11 | [`a7e1bc3`](https://github.com/gnoswap-labs/gnoswap/tree/a7e1bc3) | Make stake use AVL tree | [📊 Report](reports/metric/commits/a7e1bc3.md) | [📈 Diff](reports/metric/compares/diff_a7e1bc3_9ee6b50.md) | [📊 Diff](reports/metric/compares/diff_a7e1bc3_e5d1e16.md) |
+| 12 | [`e59f3c1`](https://github.com/gnoswap-labs/gnoswap/tree/e59f3c1) | Optimize position | [📊 Report](reports/metric/commits/e59f3c1.md) | [📈 Diff](reports/metric/compares/diff_e59f3c1_a7e1bc3.md) | [📊 Diff](reports/metric/compares/diff_e59f3c1_e5d1e16.md) |
+| 13 | [`ba942e9`](https://github.com/gnoswap-labs/gnoswap/tree/ba942e9) | Optimize staker | [📊 Report](reports/metric/commits/ba942e9.md) | [📈 Diff](reports/metric/compares/diff_ba942e9_e59f3c1.md) | [📊 Diff](reports/metric/compares/diff_ba942e9_e5d1e16.md) |
 
 ---
 
 ## Overall Comparison (First → Latest)
 
-**[`e5d1e160` → `ba942e93`](reports/compares/diff_ba942e93_e5d1e160.md)**
+**[`e5d1e16` → `ba942e9`](reports/metric/compares/diff_ba942e9_e5d1e16.md)**
 
 This comparison shows the total gas usage changes between the baseline commit and the latest commit.
 
