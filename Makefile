@@ -1,50 +1,94 @@
-.PHONY: init gas-report
+.PHONY: help init gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force
+
+# Default target
+help:
+	@echo "Usage (Metric Reports):"
+	@echo "  make metric <commits>              # Generate metric reports (skip existing)"
+	@echo "  make metric-force <commits>        # Force regenerate all metric reports"
+	@echo "  make stress <commits>              # Generate stress reports (skip existing)"
+	@echo "  make stress-force <commits>        # Force regenerate all stress reports"
+	@echo ""
+	@echo "Usage (Compare):"
+	@echo "  make compare-metric <commits>             # Compare metric reports (skip existing)"
+	@echo "  make compare-metric-force <commits>       # Force regenerate metric comparisons"
+	@echo "  make compare-stress <commits>             # Compare stress reports (skip existing)"
+	@echo "  make compare-stress-force <commits>       # Force regenerate stress comparisons"
+	@echo ""
+	@echo "Usage (Summary):"
+	@echo "  make summary                       # Generate summary (skip existing)"
+	@echo "  make summary-force                 # Force regenerate all reports and summary"
+	@echo ""
+	@echo "Usage (Setup):"
+	@echo "  make init                          # Initialize project"
 
 init:
 	git submodule update --init --recursive
 	cd gno && make install
 
+# --- Simplified Commands ---
+
+# Helper to extract commit arguments (everything after the target name)
+ARGS = $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
+# Metric Report Generation Only (No Compare)
+metric:
+	@./scripts/compare_multiple.sh --skip-exists --report-only $(ARGS)
+
+metric-force:
+	@./scripts/compare_multiple.sh --report-only $(ARGS)
+
+stress:
+	@./scripts/compare_multiple.sh --stress --skip-exists --report-only $(ARGS)
+
+stress-force:
+	@./scripts/compare_multiple.sh --stress --report-only $(ARGS)
+
+# Compare (Generate if missing + Compare)
+compare-metric:
+	@./scripts/compare_multiple.sh --skip-exists $(ARGS)
+
+compare-stress:
+	@./scripts/compare_multiple.sh --stress --skip-exists $(ARGS)
+
+# Compare (Force Regenerate + Compare)
+compare-metric-force:
+	@./scripts/compare_multiple.sh $(ARGS)
+
+compare-stress-force:
+	@./scripts/compare_multiple.sh --stress $(ARGS)
+
+# --- Internal / Legacy Commands ---
+
 # Usage: make gas-report [commit]
-# Example: make gas-report (defaults to main)
-#          make gas-report feature-branch
 gas-report:
 	$(eval COMMIT := $(or $(word 2,$(MAKECMDGOALS)),main))
-	$(eval CURRENT_COMMIT := $(shell cd gnoswap && git fetch >/dev/null 2>&1 && git checkout -f $(COMMIT) >/dev/null 2>&1 && git rev-parse --short HEAD))
+	$(eval CURRENT_COMMIT := $(shell cd gnoswap && git fetch >/dev/null 2>&1 && git checkout -f $(COMMIT) >/dev/null 2>&1 && git rev-parse --short=7 HEAD))
 	cd gnoswap && python3 setup.py --exclude-tests -w ../
 	rm -rf gno/examples/gno.land/r/gnoswap/scenario/metric
-	cp -r metric_test gno/examples/gno.land/r/gnoswap/scenario/metric
-	mkdir -p reports/commits
-	(cd gno/examples/gno.land/r/gnoswap/scenario/metric && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > reports/commits/$(CURRENT_COMMIT).md
-	@echo "Report saved to reports/commits/$(CURRENT_COMMIT).md"
+	cp -r tests/metric gno/examples/gno.land/r/gnoswap/scenario/metric
+	mkdir -p reports/metric/commits
+	(cd gno/examples/gno.land/r/gnoswap/scenario/metric && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > reports/metric/commits/$(CURRENT_COMMIT).md
+	@echo "Report saved to reports/metric/commits/$(CURRENT_COMMIT).md"
 
-# Usage: make compare <commit1> <commit2>
-# Example: make compare 94d46710 94d46728
-compare:
-	@./scripts/compare_reports.sh reports/commits/$(shell echo "$(word 2,$(MAKECMDGOALS))" | cut -c1-8).md reports/commits/$(shell echo "$(word 3,$(MAKECMDGOALS))" | cut -c1-8).md
-
-# Usage: make compare-with-report <commit1> <commit2> [commit3] ...
-#        make compare-with-report-all <commit1> <commit2> [commit3] ...
-#        SKIP=1 make compare-with-report <commit1> <commit2> [commit3] ...
-# Example: make compare-with-report abc123 def456 ghi789
-# This will:
-#   1. Generate gas reports for each commit
-#   2. Compare consecutive commits (commit1~commit2, commit2~commit3, ...)
-#   3. Compare first commit to last commit (overall comparison)
-compare-with-report:
-	@./scripts/compare_multiple.sh --skip-exists $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-
-# Same as compare-with-report but skips existing reports
-compare-with-report-all:
-	@./scripts/compare_multiple.sh $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+# Usage: make stress-report [commit]
+stress-report:
+	$(eval COMMIT := $(or $(word 2,$(MAKECMDGOALS)),main))
+	$(eval CURRENT_COMMIT := $(shell cd gnoswap && git fetch >/dev/null 2>&1 && git checkout -f $(COMMIT) >/dev/null 2>&1 && git rev-parse --short=7 HEAD))
+	cd gnoswap && python3 setup.py --exclude-tests -w ../
+	rm -rf gno/examples/gno.land/r/gnoswap/scenario/metric
+	cp -r tests/metric gno/examples/gno.land/r/gnoswap/scenario/metric
+	rm -rf gno/examples/gno.land/r/gnoswap/scenario/stress
+	cp -r tests/stress gno/examples/gno.land/r/gnoswap/scenario/stress
+	mkdir -p reports/stress/commits
+	(cd gno/examples/gno.land/r/gnoswap/scenario/stress && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > reports/stress/commits/$(CURRENT_COMMIT).md
+	@echo "Report saved to reports/stress/commits/$(CURRENT_COMMIT).md"
 
 # Generate summary report from commit-history.txt
-# Usage: make summary           - Generate summary from existing reports
-#        make summary-with-run  - Generate reports and summary
 summary:
 	@./scripts/generate_summary_report.sh
 
-summary-with-run:
-	@./scripts/generate_summary_report.sh --run-tests
+summary-force:
+	@./scripts/generate_summary_report.sh --force
 
 # Prevent "No rule to make target" errors for commit hash arguments
 %:
