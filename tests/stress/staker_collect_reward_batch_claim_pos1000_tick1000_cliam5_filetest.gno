@@ -1,7 +1,7 @@
 // PKGPATH: gno.land/r/demo/main
 
-// Long-term stress test for CollectReward after 34 days with continuous tick crosses
-// Tests reward collection performance after extended time period
+// Multi-position stress test for CollectReward after 34 days with continuous tick crosses
+// Tests gas usage when claiming rewards from multiple positions simultaneously
 package main
 
 import (
@@ -48,17 +48,15 @@ var (
 
 	maxInt64 int64 = 9223372036854775807
 
-	// 34 days = 34 * 43200 blocks (assuming ~2s per block)
-	// We'll skip most blocks and do periodic swaps with tick crosses
-	daysToSimulate int64 = 34
-	blocksPerDay   int64 = 43200
-	totalBlocks    int64 = daysToSimulate * blocksPerDay
+	// 34 days = 600,000 blocks
+	blocksFor34Days int64 = 600000
+	tickCrossCount  int64 = 1000
 
-	// Do a swap every 1000 blocks to ensure regular tick crosses
-	swapInterval   int64 = 1000
-	swapIterations int64 = totalBlocks / swapInterval
-
-	targetTokenId uint64
+	// Number of positions to stake
+	positionCount = 1000
+	// Number of positions to claim rewards from
+	claimBatchCount = 5
+	tokenIds        []uint64
 )
 
 var t *testing.T
@@ -67,28 +65,29 @@ func main() {
 	initializeSetup()
 	createPoolAndSetTier()
 
-	// Stake the target position
-	targetTokenId = mintAndStakePosition()
+	// Mint and stake multiple positions
+	println(ufmt.Sprintf("Minting and staking %d positions...", positionCount))
+	for i := 0; i < positionCount; i++ {
+		tokenId := mintAndStakePosition(i)
+		tokenIds = append(tokenIds, tokenId)
+		if (i+1)%10 == 0 {
+			println(ufmt.Sprintf("  Staked %d/%d positions", i+1, positionCount))
+		}
+	}
 
 	// Mint liquidity for swaps
 	mintLiquidityPosition()
 
-	// Simulate 34 days with periodic tick crosses
-	println(ufmt.Sprintf("Simulating %d days with %d swap iterations (every %d blocks)", daysToSimulate, swapIterations, swapInterval))
-
-	for i := int64(0); i < swapIterations; i++ {
+	// Perform tick crosses
+	for i := int64(0); i < tickCrossCount; i++ {
 		swapWithTickCross()
-		testing.SkipHeights(swapInterval)
-
-		if (i+1)%100 == 0 {
-			println(ufmt.Sprintf("Progress: %d/%d swaps completed", i+1, swapIterations))
-		}
+		testing.SkipHeights(1)
 	}
 
-	println(ufmt.Sprintf("Simulation complete: %d days, %d tick crosses", daysToSimulate, swapIterations))
+	// Wait 34 days
+	testing.SkipHeights(blocksFor34Days)
 
-	// Test CollectReward after 34 days
-	testCollectReward()
+	testMultiCollectReward(claimBatchCount)
 }
 
 func initializeSetup() {
@@ -114,17 +113,20 @@ func createPoolAndSetTier() {
 	staker.SetPoolTier(cross, poolPath, 1)
 }
 
-func mintAndStakePosition() uint64 {
+func mintAndStakePosition(index int) uint64 {
 	testing.SetRealm(adminRealm)
 
-	// Mint position with range that will be crossed by swaps
+	// Mint full-range position
+	tickLower := int32(-887220)
+	tickUpper := int32(887220)
+
 	tokenId, _, _, _ := position.Mint(
 		cross,
 		barPath,
 		fooPath,
 		3000,
-		-300,
-		300,
+		tickLower,
+		tickUpper,
 		"1000000",
 		"1000000",
 		"0",
@@ -138,7 +140,6 @@ func mintAndStakePosition() uint64 {
 	gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.FormatUint(tokenId, 10)))
 	staker.StakeToken(cross, tokenId, "")
 
-	println(ufmt.Sprintf("Target position %d staked", tokenId))
 	return tokenId
 }
 
@@ -214,10 +215,12 @@ func swapWithTickCross() {
 	)
 }
 
-func testCollectReward() {
+func testMultiCollectReward(claimBatchCount int) {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward after %d days (%d tick crosses)", daysToSimulate, swapIterations), func() {
-		staker.CollectReward(cross, targetTokenId, false)
+	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d)", positionCount, tickCrossCount, claimBatchCount), func() {
+		for i := 0; i < claimBatchCount; i++ {
+			staker.CollectReward(cross, tokenIds[i], false)
+		}
 	})
 }

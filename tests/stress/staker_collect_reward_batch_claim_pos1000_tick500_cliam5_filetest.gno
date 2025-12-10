@@ -48,18 +48,15 @@ var (
 
 	maxInt64 int64 = 9223372036854775807
 
-	// 34 days = 34 * 43200 blocks (assuming ~2s per block)
-	daysToSimulate int64 = 34
-	blocksPerDay   int64 = 43200
-	totalBlocks    int64 = daysToSimulate * blocksPerDay
+	// 34 days = 600,000 blocks
+	blocksFor34Days int64 = 600000
+	tickCrossCount  int64 = 500
 
-	// Do a swap every 1000 blocks to ensure regular tick crosses
-	swapInterval   int64 = 1000
-	swapIterations int64 = totalBlocks / swapInterval
-
-	// Test with increasing number of positions
-	maxPositions = 75
-	tokenIds     []uint64
+	// Number of positions to stake
+	positionCount = 1000
+	// Number of positions to claim rewards from
+	claimBatchCount = 5
+	tokenIds        []uint64
 )
 
 var t *testing.T
@@ -69,38 +66,28 @@ func main() {
 	createPoolAndSetTier()
 
 	// Mint and stake multiple positions
-	println(ufmt.Sprintf("Minting and staking %d positions...", maxPositions))
-	for i := 0; i < maxPositions; i++ {
+	println(ufmt.Sprintf("Minting and staking %d positions...", positionCount))
+	for i := 0; i < positionCount; i++ {
 		tokenId := mintAndStakePosition(i)
 		tokenIds = append(tokenIds, tokenId)
 		if (i+1)%10 == 0 {
-			println(ufmt.Sprintf("  Staked %d/%d positions", i+1, maxPositions))
+			println(ufmt.Sprintf("  Staked %d/%d positions", i+1, positionCount))
 		}
 	}
 
 	// Mint liquidity for swaps
 	mintLiquidityPosition()
 
-	// Simulate 34 days with periodic tick crosses
-	println(ufmt.Sprintf("Simulating %d days with %d swap iterations (every %d blocks)", daysToSimulate, swapIterations, swapInterval))
-
-	for i := int64(0); i < swapIterations; i++ {
+	// Perform tick crosses
+	for i := int64(0); i < tickCrossCount; i++ {
 		swapWithTickCross()
-		testing.SkipHeights(swapInterval)
-
-		if (i+1)%100 == 0 {
-			println(ufmt.Sprintf("Progress: %d/%d swaps completed", i+1, swapIterations))
-		}
+		testing.SkipHeights(1)
 	}
 
-	println(ufmt.Sprintf("Simulation complete: %d days, %d tick crosses", daysToSimulate, swapIterations))
+	// Wait 34 days
+	testing.SkipHeights(blocksFor34Days)
 
-	// Test CollectReward with different batch sizes
-	testBatchSizes := []int{1, 5, 10, 20, 50, 75}
-
-	for _, batchSize := range testBatchSizes {
-		testMultiCollectReward(batchSize)
-	}
+	testMultiCollectReward(claimBatchCount)
 }
 
 func initializeSetup() {
@@ -129,10 +116,9 @@ func createPoolAndSetTier() {
 func mintAndStakePosition(index int) uint64 {
 	testing.SetRealm(adminRealm)
 
-	// Mint position with range that will be crossed by swaps
-	// Use slightly different ranges to simulate diverse positions
-	tickLower := int32(-300 - (index % 5) * 60)
-	tickUpper := int32(300 + (index % 5) * 60)
+	// Mint full-range position
+	tickLower := int32(-887220)
+	tickUpper := int32(887220)
 
 	tokenId, _, _, _ := position.Mint(
 		cross,
@@ -229,11 +215,11 @@ func swapWithTickCross() {
 	)
 }
 
-func testMultiCollectReward(batchSize int) {
+func testMultiCollectReward(claimBatchCount int) {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward after %d days (batch=%d positions)", daysToSimulate, batchSize), func() {
-		for i := 0; i < batchSize; i++ {
+	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d)", positionCount, tickCrossCount, claimBatchCount), func() {
+		for i := 0; i < claimBatchCount; i++ {
 			staker.CollectReward(cross, tokenIds[i], false)
 		}
 	})
