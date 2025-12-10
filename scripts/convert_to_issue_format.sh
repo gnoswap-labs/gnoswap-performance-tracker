@@ -11,7 +11,7 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 REPORTS_DIR="$PROJECT_ROOT/reports"
 COMMITS_DIR="$REPORTS_DIR/metric/commits"
 COMMIT_HISTORY="$PROJECT_ROOT/commit-history.txt"
-METRIC_TEST_DIR="$PROJECT_ROOT/metric_test"
+METRIC_TEST_DIR="$PROJECT_ROOT/tests/metric"
 GNOSWAP_DIR="$PROJECT_ROOT/gnoswap"
 OUTPUT_FILE="$REPORTS_DIR/issue_format.md"
 
