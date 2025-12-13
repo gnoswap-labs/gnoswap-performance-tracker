@@ -1,7 +1,7 @@
 // PKGPATH: gno.land/r/demo/main
 
-// Gas and performance metrics for staker CollectReward combined stress test
-// Test: 500 positions + 20 tick crosses + 100 incentives (position heavy)
+// Multi-position stress test for CollectReward with mixed active/finished incentives
+// Tests gas usage when claiming rewards with 20 total incentives (10 finished, 10 active)
 package main
 
 import (
@@ -14,7 +14,6 @@ import (
 	"gno.land/p/nt/ufmt"
 	"gno.land/r/gnoswap/emission"
 	_ "gno.land/r/gnoswap/rbac"
-	"gno.land/r/gnoswap/router"
 
 	_ "gno.land/r/gnoswap/pool/v1"
 	_ "gno.land/r/gnoswap/position/v1"
@@ -49,38 +48,59 @@ var (
 
 	maxInt64 int64 = 9223372036854775807
 
-	TIMESTAMP_90DAYS int64 = 90 * 24 * 60 * 60
+	TIMESTAMP_90DAYS  int64 = 90 * 24 * 60 * 60
+	TIMESTAMP_180DAYS int64 = 180 * 24 * 60 * 60
+
+	// 100 days = ~1,764,000 blocks (to ensure 90-day incentives expire)
+	blocksFor100Days int64 = 1764000
+	tickCrossCount   int64 = 500
+
+	// Number of positions to stake
+	positionCount = 500
+	// Number of positions to claim rewards from
+	claimBatchCount = 1
+	tokenIds        []uint64
 )
 
-// Combined test parameters
-const (
-	positionCount  = 500
-	tickCrossCount = 10
-	incentiveCount = 10
-)
+var t *testing.T
 
 func main() {
 	initializeSetup()
 	createPoolAndSetTier()
 
-	startTokenId := mintAndStakePositions(positionCount)
-	mintPositionWithFullRange()
+	// Create incentives first (before staking positions)
 	createExternalIncentives()
+
+	// Mint and stake multiple positions
+	println(ufmt.Sprintf("Minting and staking %d positions...", positionCount))
+	for i := 0; i < positionCount; i++ {
+		tokenId := mintAndStakePosition(i)
+		tokenIds = append(tokenIds, tokenId)
+		if (i+1)%10 == 0 {
+			println(ufmt.Sprintf("  Staked %d/%d positions", i+1, positionCount))
+		}
+	}
+
+	// Mint liquidity for swaps
+	mintLiquidityPosition()
 
 	// Perform tick crosses
 	for i := int64(0); i < tickCrossCount; i++ {
-		swapWithCrossRange()
+		swapWithTickCross()
+		testing.SkipHeights(1)
 	}
 
-	testing.SkipHeights(600000)
-	collectRewardMetric(startTokenId)
+	// Wait 100 days total - 90-day incentives will be finished, 180-day still active
+	testing.SkipHeights(blocksFor100Days - tickCrossCount)
+
+	testMultiCollectReward(claimBatchCount)
 }
 
 func initializeSetup() {
 	testing.SetRealm(adminRealm)
 	pool.SetPoolCreationFee(cross, 0)
-	router.SetSwapFee(cross, 0)
 
+	testing.SetRealm(adminRealm)
 	bar.Approve(cross, poolAddr, maxInt64)
 	foo.Approve(cross, poolAddr, maxInt64)
 	bar.Approve(cross, stakerAddr, maxInt64)
@@ -99,56 +119,48 @@ func createPoolAndSetTier() {
 	staker.SetPoolTier(cross, poolPath, 1)
 }
 
-func mintAndStakePositions(count int) uint64 {
+func mintAndStakePosition(index int) uint64 {
 	testing.SetRealm(adminRealm)
 
-	startTokenId := uint64(1)
+	// Mint full-range position
+	tickLower := int32(-887220)
+	tickUpper := int32(887220)
 
-	for i := 0; i < count; i++ {
-		minTick := int32(-600 - (i%10)*60)
-		maxTick := int32(600 + (i%10)*60)
+	tokenId, _, _, _ := position.Mint(
+		cross,
+		barPath,
+		fooPath,
+		3000,
+		tickLower,
+		tickUpper,
+		"1000000",
+		"1000000",
+		"0",
+		"0",
+		time.Now().Unix()+3600,
+		adminAddr,
+		adminAddr,
+		"",
+	)
 
-		tokenId, _, _, _ := position.Mint(
-			cross,
-			barPath,
-			fooPath,
-			3000,
-			minTick,
-			maxTick,
-			"1000000",
-			"1000000",
-			"0",
-			"0",
-			time.Now().Unix()+3600,
-			adminAddr,
-			adminAddr,
-			"",
-		)
+	gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.FormatUint(tokenId, 10)))
+	staker.StakeToken(cross, tokenId, "")
 
-		if i == 0 {
-			startTokenId = tokenId
-		}
-
-		gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.FormatUint(tokenId, 10)))
-		staker.StakeToken(cross, tokenId, "")
-		testing.SkipHeights(1)
-	}
-
-	return startTokenId
+	return tokenId
 }
 
-func mintPositionWithFullRange() {
+func mintLiquidityPosition() {
 	testing.SetRealm(adminRealm)
-
+	// Full-range position for liquidity
 	position.Mint(
 		cross,
 		barPath,
 		fooPath,
 		3000,
-		-6960,
-		6960,
-		"10000000",
-		"10000000",
+		-887220,
+		887220,
+		"100000000",
+		"100000000",
 		"0",
 		"0",
 		time.Now().Unix()+3600,
@@ -161,48 +173,41 @@ func mintPositionWithFullRange() {
 func createExternalIncentives() {
 	testing.SetRealm(adminRealm)
 
-	startTime := int64(1893456000) // 2030-01-01 00:00:00 UTC
+	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
 
-	for i := 0; i < incentiveCount; i++ {
-		incentiveStartTime := startTime + int64(i*86400)
-		incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
-
+	// Create first 10 incentives with 90 days (will be finished when we test)
+	shortEndTime := incentiveStartTime + TIMESTAMP_90DAYS
+	for i := 0; i < 10; i++ {
 		staker.CreateExternalIncentive(
 			cross,
 			poolPath,
 			barPath,
 			1_000_000_000,
 			incentiveStartTime,
-			incentiveEndTime,
+			shortEndTime,
 		)
 	}
+
+	// Create next 10 incentives with 180 days (will still be active when we test)
+	longEndTime := incentiveStartTime + TIMESTAMP_180DAYS
+	for i := 0; i < 10; i++ {
+		staker.CreateExternalIncentive(
+			cross,
+			poolPath,
+			barPath,
+			1_000_000_000,
+			incentiveStartTime,
+			longEndTime,
+		)
+	}
+
+	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 }
 
-func swapWithCrossRange() {
+func swapWithTickCross() {
 	testing.SetRealm(testing.NewCodeRealm("gno.land/r/gnoswap/router"))
-	pool.Swap(
-		cross,
-		barPath,
-		fooPath,
-		3000,
-		adminAddr,
-		false,
-		"-500000",
-		common.TickMathGetSqrtRatioAtTick(887220).ToString(),
-		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64) error {
-			testing.SetRealm(adminRealm)
-			if amount0Delta > 0 {
-				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)
-			}
-			if amount1Delta > 0 {
-				common.SafeGRC20Transfer(cross, fooPath, poolAddr, amount1Delta)
-			}
-			return nil
-		},
-	)
-	testing.SkipHeights(1)
 
+	// Swap to cross ticks in one direction
 	pool.Swap(
 		cross,
 		barPath,
@@ -210,7 +215,7 @@ func swapWithCrossRange() {
 		3000,
 		adminAddr,
 		true,
-		"501505",
+		"1000000",
 		common.TickMathGetSqrtRatioAtTick(-887220).ToString(),
 		adminAddr,
 		func(cur realm, amount0Delta, amount1Delta int64) error {
@@ -224,13 +229,37 @@ func swapWithCrossRange() {
 			return nil
 		},
 	)
-	testing.SkipHeights(1)
+
+	// Swap back to cross ticks in other direction
+	pool.Swap(
+		cross,
+		barPath,
+		fooPath,
+		3000,
+		adminAddr,
+		false,
+		"1000000",
+		common.TickMathGetSqrtRatioAtTick(887220).ToString(),
+		adminAddr,
+		func(cur realm, amount0Delta, amount1Delta int64) error {
+			testing.SetRealm(adminRealm)
+			if amount0Delta > 0 {
+				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)
+			}
+			if amount1Delta > 0 {
+				common.SafeGRC20Transfer(cross, fooPath, poolAddr, amount1Delta)
+			}
+			return nil
+		},
+	)
 }
 
-func collectRewardMetric(tokenId uint64) {
+func testMultiCollectReward(claimBatchCount int) {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy(ufmt.Sprintf("stress CollectReward combined (pos=%d, tick=%d, inc=%d)", positionCount, tickCrossCount, incentiveCount), func() {
-		staker.CollectReward(cross, tokenId, false)
+	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=20, finished=10)", positionCount, tickCrossCount, claimBatchCount), func() {
+		for i := 0; i < claimBatchCount; i++ {
+			staker.CollectReward(cross, tokenIds[i], false)
+		}
 	})
 }
