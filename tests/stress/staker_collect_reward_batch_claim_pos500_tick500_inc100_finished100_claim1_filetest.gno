@@ -1,7 +1,7 @@
 // PKGPATH: gno.land/r/demo/main
 
 // Multi-position stress test for CollectReward with all finished incentives
-// Tests gas usage when claiming rewards with 10 total incentives (all 10 finished)
+// Tests gas usage when claiming rewards with 100 total incentives (all 100 finished/archived)
 package main
 
 import (
@@ -89,7 +89,7 @@ func main() {
 		testing.SkipHeights(1)
 	}
 
-	// Wait 100 days total - all 90-day incentives will be finished
+	// Wait 100 days total - all 90-day incentives will be finished and archived
 	testing.SkipHeights(blocksFor100Days - tickCrossCount)
 
 	testMultiCollectReward(claimBatchCount)
@@ -174,9 +174,10 @@ func createExternalIncentives() {
 
 	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
 
-	// Create all 10 incentives with 90 days (all will be finished when we test)
+	// Create all 100 incentives with 90 days (all will be finished/archived when we test)
 	endTime := incentiveStartTime + TIMESTAMP_90DAYS
-	for i := 0; i < 10; i++ {
+	println(ufmt.Sprintf("Creating 100 external incentives..."))
+	for i := 0; i < 100; i++ {
 		staker.CreateExternalIncentive(
 			cross,
 			poolPath,
@@ -185,6 +186,9 @@ func createExternalIncentives() {
 			incentiveStartTime,
 			endTime,
 		)
+		if (i+1)%10 == 0 {
+			println(ufmt.Sprintf("  Created %d/100 incentives", i+1))
+		}
 	}
 
 	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
@@ -243,7 +247,7 @@ func swapWithTickCross() {
 func testMultiCollectReward(claimBatchCount int) {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=10, finished=10)", positionCount, tickCrossCount, claimBatchCount), func() {
+	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=100, finished=100)", positionCount, tickCrossCount, claimBatchCount), func() {
 		for i := 0; i < claimBatchCount; i++ {
 			staker.CollectReward(cross, tokenIds[i], false)
 		}

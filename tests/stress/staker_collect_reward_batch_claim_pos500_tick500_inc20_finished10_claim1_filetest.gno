@@ -68,6 +68,9 @@ func main() {
 	initializeSetup()
 	createPoolAndSetTier()
 
+	// Create incentives first (before staking positions)
+	createExternalIncentives()
+
 	// Mint and stake multiple positions
 	println(ufmt.Sprintf("Minting and staking %d positions...", positionCount))
 	for i := 0; i < positionCount; i++ {
@@ -80,8 +83,6 @@ func main() {
 
 	// Mint liquidity for swaps
 	mintLiquidityPosition()
-
-	createExternalIncentives()
 
 	// Perform tick crosses
 	for i := int64(0); i < tickCrossCount; i++ {

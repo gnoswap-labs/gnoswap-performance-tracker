@@ -14,7 +14,6 @@ import (
 	"gno.land/p/nt/ufmt"
 	"gno.land/r/gnoswap/emission"
 	_ "gno.land/r/gnoswap/rbac"
-	"gno.land/r/gnoswap/router"
 
 	_ "gno.land/r/gnoswap/pool/v1"
 	_ "gno.land/r/gnoswap/position/v1"
@@ -69,6 +68,9 @@ func main() {
 	initializeSetup()
 	createPoolAndSetTier()
 
+	// Create incentives first (before staking positions)
+	createExternalIncentives()
+
 	// Mint and stake multiple positions
 	println(ufmt.Sprintf("Minting and staking %d positions...", positionCount))
 	for i := 0; i < positionCount; i++ {
@@ -81,8 +83,6 @@ func main() {
 
 	// Mint liquidity for swaps
 	mintLiquidityPosition()
-
-	createExternalIncentives()
 
 	// Perform tick crosses
 	for i := int64(0); i < tickCrossCount; i++ {
@@ -99,7 +99,6 @@ func main() {
 func initializeSetup() {
 	testing.SetRealm(adminRealm)
 	pool.SetPoolCreationFee(cross, 0)
-	router.SetSwapFee(cross, 0)
 
 	testing.SetRealm(adminRealm)
 	bar.Approve(cross, poolAddr, maxInt64)
