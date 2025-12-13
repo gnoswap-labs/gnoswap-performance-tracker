@@ -58,8 +58,9 @@ const incentiveCount = 17650
 func main() {
 	initializeSetup()
 	createPoolAndSetTier()
-	tokenId := mintAndStakePosition()
+	// Create incentives first (before staking positions)
 	createExternalIncentives()
+	tokenId := mintAndStakePosition()
 	testing.SkipHeights(600000)
 	collectRewardMetric(tokenId)
 }
