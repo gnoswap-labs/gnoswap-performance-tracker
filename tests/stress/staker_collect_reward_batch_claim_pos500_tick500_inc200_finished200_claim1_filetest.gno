@@ -81,6 +81,11 @@ func main() {
 		}
 	}
 
+	// Skip to the end of the 90-day incentive
+	testing.SkipHeights(TIMESTAMP_90DAYS/5 + 1)
+
+	testMultiCollectReward(claimBatchCount, false)
+
 	// Mint liquidity for swaps
 	mintLiquidityPosition()
 
@@ -93,11 +98,7 @@ func main() {
 	// Wait 100 days total - all 90-day incentives will be finished and archived
 	testing.SkipHeights(blocksFor100Days - tickCrossCount)
 
-	// End the finished incentives to move them to archived state
-	println(ufmt.Sprintf("Ending 200 finished incentives..."))
-	endFinishedIncentives()
-
-	testMultiCollectReward(claimBatchCount)
+	testMultiCollectReward(claimBatchCount, true)
 }
 
 func initializeSetup() {
@@ -205,16 +206,6 @@ func createExternalIncentives() {
 	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 }
 
-func endFinishedIncentives() {
-	testing.SetRealm(adminRealm)
-	for i, incentiveId := range finishedIncentiveIds {
-		staker.EndExternalIncentive(cross, poolPath, incentiveId)
-		if (i+1)%20 == 0 {
-			println(ufmt.Sprintf("  Ended %d/200 incentives", i+1))
-		}
-	}
-}
-
 func swapWithTickCross() {
 	testing.SetRealm(testing.NewCodeRealm("gno.land/r/gnoswap/router"))
 
@@ -265,12 +256,18 @@ func swapWithTickCross() {
 	)
 }
 
-func testMultiCollectReward(claimBatchCount int) {
+func testMultiCollectReward(claimBatchCount int, withMetrics bool) {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=200, finished=200)", positionCount, tickCrossCount, claimBatchCount), func() {
+	if withMetrics {
+		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=200, finished=200)", positionCount, tickCrossCount, claimBatchCount), func() {
+			for i := 0; i < claimBatchCount; i++ {
+				staker.CollectReward(cross, tokenIds[i], false)
+			}
+		})
+	} else {
 		for i := 0; i < claimBatchCount; i++ {
 			staker.CollectReward(cross, tokenIds[i], false)
 		}
-	})
+	}
 }

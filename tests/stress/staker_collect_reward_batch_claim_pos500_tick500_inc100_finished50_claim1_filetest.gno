@@ -1,7 +1,7 @@
 // PKGPATH: gno.land/r/demo/main
 
-// Multi-position stress test for CollectReward with all finished incentives
-// Tests gas usage when claiming rewards with 100 total incentives (all 100 finished/archived)
+// Multi-position stress test for CollectReward with mixed active/finished incentives
+// Tests gas usage when claiming rewards with 100 total incentives (50 finished, 50 active)
 package main
 
 import (
@@ -48,7 +48,8 @@ var (
 
 	maxInt64 int64 = 9223372036854775807
 
-	TIMESTAMP_90DAYS int64 = 90 * 24 * 60 * 60
+	TIMESTAMP_90DAYS  int64 = 90 * 24 * 60 * 60
+	TIMESTAMP_180DAYS int64 = 180 * 24 * 60 * 60
 
 	// 100 days = ~1,764,000 blocks (to ensure 90-day incentives expire)
 	blocksFor100Days int64 = 1764000
@@ -95,7 +96,7 @@ func main() {
 		testing.SkipHeights(1)
 	}
 
-	// Wait 100 days total - all 90-day incentives will be finished and archived
+	// Wait 100 days total - 90-day incentives will be finished, 180-day still active
 	testing.SkipHeights(blocksFor100Days - tickCrossCount)
 
 	testMultiCollectReward(claimBatchCount, true)
@@ -182,24 +183,42 @@ func createExternalIncentives() {
 	currentTime := time.Now().Unix()
 	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
 
-	// Create all 100 incentives with 90 days (all will be finished/archived when we test)
-	endTime := incentiveStartTime + TIMESTAMP_90DAYS
-	println(ufmt.Sprintf("Creating 100 external incentives..."))
-	for i := 0; i < 100; i++ {
+	// Create first 50 incentives with 90 days (will be finished when we test)
+	shortEndTime := incentiveStartTime + TIMESTAMP_90DAYS
+	println(ufmt.Sprintf("Creating 50 short-term (90 days) incentives..."))
+	for i := 0; i < 50; i++ {
 		staker.CreateExternalIncentive(
 			cross,
 			poolPath,
 			barPath,
 			1_000_000_000,
 			incentiveStartTime,
-			endTime,
+			shortEndTime,
 		)
 		// Track incentive ID: {creator}:{currentTime}:{counter}
-		// Counter is 1-based: 1, 2, 3, ..., 100
+		// Counter is 1-based: 1, 2, 3, ..., 50
 		incentiveId := ufmt.Sprintf("%s:%d:%d", adminAddr, currentTime, i+1)
 		finishedIncentiveIds = append(finishedIncentiveIds, incentiveId)
 		if (i+1)%10 == 0 {
-			println(ufmt.Sprintf("  Created %d/100 incentives", i+1))
+			println(ufmt.Sprintf("  Created %d/50 short-term incentives", i+1))
+		}
+	}
+
+	// Create next 50 incentives with 180 days (will still be active when we test)
+	// These use same currentTime but counter continues: 51, 52, ..., 100
+	longEndTime := incentiveStartTime + TIMESTAMP_180DAYS
+	println(ufmt.Sprintf("Creating 50 long-term (180 days) incentives..."))
+	for i := 0; i < 50; i++ {
+		staker.CreateExternalIncentive(
+			cross,
+			poolPath,
+			barPath,
+			1_000_000_000,
+			incentiveStartTime,
+			longEndTime,
+		)
+		if (i+1)%10 == 0 {
+			println(ufmt.Sprintf("  Created %d/50 long-term incentives", i+1))
 		}
 	}
 
@@ -260,7 +279,7 @@ func testMultiCollectReward(claimBatchCount int, withMetrics bool) {
 	testing.SetRealm(adminRealm)
 
 	if withMetrics {
-		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=100, finished=100)", positionCount, tickCrossCount, claimBatchCount), func() {
+		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=100, finished=50)", positionCount, tickCrossCount, claimBatchCount), func() {
 			for i := 0; i < claimBatchCount; i++ {
 				staker.CollectReward(cross, tokenIds[i], false)
 			}
