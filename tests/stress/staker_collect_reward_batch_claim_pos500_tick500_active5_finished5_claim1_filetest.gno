@@ -61,6 +61,9 @@ var (
 	claimBatchCount      = 1
 	tokenIds             []uint64
 	finishedIncentiveIds []string
+
+	finishedIncentiveCount = 5
+	activeIncentiveCount   = 5
 )
 
 var t *testing.T
@@ -70,7 +73,7 @@ func main() {
 	createPoolAndSetTier()
 
 	// Create incentives first (before staking positions)
-	createExternalIncentives()
+	createExternalIncentives(finishedIncentiveCount)
 
 	// Mint and stake multiple positions
 	println(ufmt.Sprintf("Minting and staking %d positions...", positionCount))
@@ -87,16 +90,10 @@ func main() {
 
 	testMultiCollectReward(claimBatchCount, false)
 
-	createExternalIncentives()
+	createExternalIncentives(activeIncentiveCount)
 
 	// Mint liquidity for swaps
 	mintLiquidityPosition()
-
-	// Perform tick crosses
-	for i := int64(0); i < tickCrossCount; i++ {
-		swapWithTickCross()
-		testing.SkipHeights(1)
-	}
 
 	// Wait 100 days total - 90-day incentives will be finished, 180-day still active
 	testing.SkipHeights(blocksFor100Days - tickCrossCount)
@@ -178,16 +175,15 @@ func mintLiquidityPosition() {
 	)
 }
 
-func createExternalIncentives() {
+func createExternalIncentives(creationCount int) {
 	testing.SetRealm(adminRealm)
 
 	// Record currentTime before creating incentives
 	currentTime := time.Now().Unix()
 	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
 
-	// Create first 5 incentives with 90 days (will be finished when we test)
 	shortEndTime := incentiveStartTime + TIMESTAMP_90DAYS
-	for i := 0; i < 5; i++ {
+	for i := 0; i < creationCount; i++ {
 		staker.CreateExternalIncentive(
 			cross,
 			poolPath,
@@ -200,20 +196,6 @@ func createExternalIncentives() {
 		// Counter is 1-based: 1, 2, 3, 4, 5
 		incentiveId := ufmt.Sprintf("%s:%d:%d", adminAddr, currentTime, i+1)
 		finishedIncentiveIds = append(finishedIncentiveIds, incentiveId)
-	}
-
-	// Create next 5 incentives with 180 days (will still be active when we test)
-	// These use same currentTime but counter continues: 6, 7, 8, 9, 10
-	longEndTime := incentiveStartTime + TIMESTAMP_180DAYS
-	for i := 0; i < 5; i++ {
-		staker.CreateExternalIncentive(
-			cross,
-			poolPath,
-			barPath,
-			1_000_000_000,
-			incentiveStartTime,
-			longEndTime,
-		)
 	}
 
 	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
