@@ -60,6 +60,9 @@ var (
 	claimBatchCount      = 1
 	tokenIds             []uint64
 	finishedIncentiveIds []string
+
+	activeIncentiveCount   = 1
+	finishedIncentiveCount = 100
 )
 
 var t *testing.T
@@ -69,7 +72,7 @@ func main() {
 	createPoolAndSetTier()
 
 	// Create incentives first (before staking positions)
-	createExternalIncentives()
+	createExternalIncentives(finishedIncentiveCount)
 
 	// Mint and stake multiple positions
 	println(ufmt.Sprintf("Minting and staking %d positions...", positionCount))
@@ -85,6 +88,9 @@ func main() {
 	testing.SkipHeights(TIMESTAMP_90DAYS/5 + 1)
 
 	testMultiCollectReward(claimBatchCount, false)
+
+	// Create active incentives
+	createExternalIncentives(finishedIncentiveCount)
 
 	// Mint liquidity for swaps
 	mintLiquidityPosition()
@@ -175,7 +181,7 @@ func mintLiquidityPosition() {
 	)
 }
 
-func createExternalIncentives() {
+func createExternalIncentives(creationCount int) {
 	testing.SetRealm(adminRealm)
 
 	// Record currentTime before creating incentives
@@ -184,7 +190,7 @@ func createExternalIncentives() {
 
 	// Create all 10 incentives with 90 days (all will be finished when we test)
 	endTime := incentiveStartTime + TIMESTAMP_90DAYS
-	for i := 0; i < 10; i++ {
+	for i := 0; i < creationCount; i++ {
 		staker.CreateExternalIncentive(
 			cross,
 			poolPath,
@@ -256,7 +262,7 @@ func testMultiCollectReward(claimBatchCount int, withMetrics bool) {
 	testing.SetRealm(adminRealm)
 
 	if withMetrics {
-		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, active=0, finished=10)", positionCount, tickCrossCount, claimBatchCount), func() {
+		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, active=%d, finished=%d)", positionCount, tickCrossCount, claimBatchCount, activeIncentiveCount, finishedIncentiveCount), func() {
 			for i := 0; i < claimBatchCount; i++ {
 				staker.CollectReward(cross, tokenIds[i], false)
 			}
