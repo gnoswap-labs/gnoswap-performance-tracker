@@ -85,10 +85,10 @@ func main() {
 		}
 	}
 
-	testMultiCollectReward(claimBatchCount, false)
-
 	// Skip to the end of the 90-day incentive
 	testing.SkipHeights(TIMESTAMP_90DAYS + 1)
+
+	testMultiCollectReward(claimBatchCount, false)
 
 	// Create active incentives
 	incentiveStartTime = createExternalIncentives(activeIncentiveCount)
