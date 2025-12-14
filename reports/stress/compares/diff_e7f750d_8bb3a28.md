@@ -1,6 +1,6 @@
 # Gas Report Comparison
 
-- **Latest**: [`7487c4a`](https://github.com/gnoswap-labs/gnoswap/tree/7487c4a)
+- **Latest**: [`e7f750d`](https://github.com/gnoswap-labs/gnoswap/tree/e7f750d)
 - **Previous**: [`8bb3a28`](https://github.com/gnoswap-labs/gnoswap/tree/8bb3a28)
 
 | Name | Metric | Latest | Previous | Change | % |
