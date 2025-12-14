@@ -59,7 +59,8 @@ var (
 	positionCount = 500
 	// Number of positions to claim rewards from
 	claimBatchCount = 1
-	tokenIds        []uint64
+	tokenIds             []uint64
+	finishedIncentiveIds []string
 )
 
 var t *testing.T
@@ -92,6 +93,9 @@ func main() {
 
 	// Wait 100 days total - 90-day incentives will be finished, 180-day still active
 	testing.SkipHeights(blocksFor100Days - tickCrossCount)
+
+	// End the finished incentives to move them to archived state
+	endFinishedIncentives()
 
 	testMultiCollectReward(claimBatchCount)
 }
@@ -173,6 +177,8 @@ func mintLiquidityPosition() {
 func createExternalIncentives() {
 	testing.SetRealm(adminRealm)
 
+	// Record currentTime before creating incentives
+	currentTime := time.Now().Unix()
 	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
 
 	// Create first 5 incentives with 90 days (will be finished when we test)
@@ -186,9 +192,14 @@ func createExternalIncentives() {
 			incentiveStartTime,
 			shortEndTime,
 		)
+		// Track incentive ID: {creator}:{currentTime}:{counter}
+		// Counter is 1-based: 1, 2, 3, 4, 5
+		incentiveId := ufmt.Sprintf("%s:%d:%d", adminAddr, currentTime, i+1)
+		finishedIncentiveIds = append(finishedIncentiveIds, incentiveId)
 	}
 
 	// Create next 5 incentives with 180 days (will still be active when we test)
+	// These use same currentTime but counter continues: 6, 7, 8, 9, 10
 	longEndTime := incentiveStartTime + TIMESTAMP_180DAYS
 	for i := 0; i < 5; i++ {
 		staker.CreateExternalIncentive(
@@ -202,6 +213,13 @@ func createExternalIncentives() {
 	}
 
 	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
+}
+
+func endFinishedIncentives() {
+	testing.SetRealm(adminRealm)
+	for _, incentiveId := range finishedIncentiveIds {
+		staker.EndExternalIncentive(cross, poolPath, incentiveId)
+	}
 }
 
 func swapWithTickCross() {
