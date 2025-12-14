@@ -58,7 +58,7 @@ var (
 	// Number of positions to stake
 	positionCount = 500
 	// Number of positions to claim rewards from
-	claimBatchCount = 1
+	claimBatchCount      = 1
 	tokenIds             []uint64
 	finishedIncentiveIds []string
 )
@@ -82,6 +82,13 @@ func main() {
 		}
 	}
 
+	// Skip to the end of the first 90-day incentive
+	testing.SkipHeights(TIMESTAMP_90DAYS/5 + 1)
+
+	testMultiCollectReward(claimBatchCount, false)
+
+	createExternalIncentives()
+
 	// Mint liquidity for swaps
 	mintLiquidityPosition()
 
@@ -94,10 +101,7 @@ func main() {
 	// Wait 100 days total - 90-day incentives will be finished, 180-day still active
 	testing.SkipHeights(blocksFor100Days - tickCrossCount)
 
-	// End the finished incentives to move them to archived state
-	endFinishedIncentives()
-
-	testMultiCollectReward(claimBatchCount)
+	testMultiCollectReward(claimBatchCount, true)
 }
 
 func initializeSetup() {
@@ -272,12 +276,18 @@ func swapWithTickCross() {
 	)
 }
 
-func testMultiCollectReward(claimBatchCount int) {
+func testMultiCollectReward(claimBatchCount int, withMetrics bool) {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=10, finished=5)", positionCount, tickCrossCount, claimBatchCount), func() {
+	if withMetrics {
+		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=10, finished=5)", positionCount, tickCrossCount, claimBatchCount), func() {
+			for i := 0; i < claimBatchCount; i++ {
+				staker.CollectReward(cross, tokenIds[i], false)
+			}
+		})
+	} else {
 		for i := 0; i < claimBatchCount; i++ {
 			staker.CollectReward(cross, tokenIds[i], false)
 		}
-	})
+	}
 }
