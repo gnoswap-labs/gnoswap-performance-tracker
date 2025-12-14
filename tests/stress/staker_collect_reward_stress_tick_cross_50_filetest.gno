@@ -160,7 +160,7 @@ func swapWithCrossRange() {
 		"-500000",
 		common.TickMathGetSqrtRatioAtTick(887220).ToString(),
 		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64) error {
+		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
 			testing.SetRealm(adminRealm)
 			if amount0Delta > 0 {
 				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)
@@ -186,7 +186,7 @@ func swapWithCrossRange() {
 		"501505",
 		common.TickMathGetSqrtRatioAtTick(-887220).ToString(),
 		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64) error {
+		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
 			testing.SetRealm(adminRealm)
 			if amount0Delta > 0 {
 				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)

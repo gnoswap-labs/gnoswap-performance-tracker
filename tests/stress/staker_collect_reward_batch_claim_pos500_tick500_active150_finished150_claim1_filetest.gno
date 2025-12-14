@@ -58,7 +58,7 @@ var (
 	// Number of positions to stake
 	positionCount = 500
 	// Number of positions to claim rewards from
-	claimBatchCount = 1
+	claimBatchCount      = 1
 	tokenIds             []uint64
 	finishedIncentiveIds []string
 )
@@ -239,7 +239,7 @@ func swapWithTickCross() {
 		"1000000",
 		common.TickMathGetSqrtRatioAtTick(-887220).ToString(),
 		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64) error {
+		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
 			testing.SetRealm(adminRealm)
 			if amount0Delta > 0 {
 				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)
@@ -262,7 +262,7 @@ func swapWithTickCross() {
 		"1000000",
 		common.TickMathGetSqrtRatioAtTick(887220).ToString(),
 		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64) error {
+		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
 			testing.SetRealm(adminRealm)
 			if amount0Delta > 0 {
 				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)

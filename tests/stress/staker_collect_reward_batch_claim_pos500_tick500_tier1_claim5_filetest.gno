@@ -52,9 +52,9 @@ var (
 	TIMESTAMP_90DAYS int64 = 90 * 24 * 60 * 60
 
 	// 34 days = 600,000 blocks
-	blocksFor34Days  int64 = 600000
-	tickCrossCount   int64 = 500
-	tierChangeCount  int64 = 1
+	blocksFor34Days int64 = 600000
+	tickCrossCount  int64 = 500
+	tierChangeCount int64 = 1
 
 	// Number of positions to stake
 	positionCount = 500
@@ -183,7 +183,6 @@ func mintLiquidityPosition() {
 	)
 }
 
-
 func swapWithTickCross() {
 	testing.SetRealm(testing.NewCodeRealm("gno.land/r/gnoswap/router"))
 
@@ -198,7 +197,7 @@ func swapWithTickCross() {
 		"1000000",
 		common.TickMathGetSqrtRatioAtTick(-887220).ToString(),
 		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64) error {
+		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
 			testing.SetRealm(adminRealm)
 			if amount0Delta > 0 {
 				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)
@@ -221,7 +220,7 @@ func swapWithTickCross() {
 		"1000000",
 		common.TickMathGetSqrtRatioAtTick(887220).ToString(),
 		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64) error {
+		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
 			testing.SetRealm(adminRealm)
 			if amount0Delta > 0 {
 				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)

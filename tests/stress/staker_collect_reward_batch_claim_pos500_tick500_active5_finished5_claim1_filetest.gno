@@ -62,8 +62,8 @@ var (
 	tokenIds             []uint64
 	finishedIncentiveIds []string
 
-	finishedIncentiveCount = 5
-	activeIncentiveCount   = 5
+	finishedIncentiveCount = 0
+	activeIncentiveCount   = 50
 )
 
 var t *testing.T
@@ -222,7 +222,7 @@ func swapWithTickCross() {
 		"1000000",
 		common.TickMathGetSqrtRatioAtTick(-887220).ToString(),
 		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64) error {
+		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
 			testing.SetRealm(adminRealm)
 			if amount0Delta > 0 {
 				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)
@@ -245,7 +245,7 @@ func swapWithTickCross() {
 		"1000000",
 		common.TickMathGetSqrtRatioAtTick(887220).ToString(),
 		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64) error {
+		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
 			testing.SetRealm(adminRealm)
 			if amount0Delta > 0 {
 				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)
@@ -262,7 +262,7 @@ func testMultiCollectReward(claimBatchCount int, withMetrics bool) {
 	testing.SetRealm(adminRealm)
 
 	if withMetrics {
-		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, active=5, finished=5)", positionCount, tickCrossCount, claimBatchCount), func() {
+		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, active=50, finished=0)", positionCount, tickCrossCount, claimBatchCount), func() {
 			for i := 0; i < claimBatchCount; i++ {
 				staker.CollectReward(cross, tokenIds[i], false)
 			}
