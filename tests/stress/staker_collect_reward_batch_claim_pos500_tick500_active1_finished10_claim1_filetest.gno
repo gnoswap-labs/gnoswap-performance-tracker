@@ -62,7 +62,7 @@ var (
 	finishedIncentiveIds []string
 
 	activeIncentiveCount   = 1
-	finishedIncentiveCount = 1
+	finishedIncentiveCount = 10
 )
 
 var t *testing.T
