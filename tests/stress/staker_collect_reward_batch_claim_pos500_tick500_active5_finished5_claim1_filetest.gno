@@ -62,8 +62,8 @@ var (
 	tokenIds             []uint64
 	finishedIncentiveIds []string
 
-	finishedIncentiveCount = 0
-	activeIncentiveCount   = 50
+	finishedIncentiveCount = 5
+	activeIncentiveCount   = 5
 )
 
 var t *testing.T
