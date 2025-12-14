@@ -72,7 +72,8 @@ func main() {
 	createPoolAndSetTier()
 
 	// Create incentives first (before staking positions)
-	createExternalIncentives(finishedIncentiveCount)
+	incentiveStartTime := createExternalIncentives(finishedIncentiveCount)
+	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 
 	// Mint and stake multiple positions
 	println(ufmt.Sprintf("Minting and staking %d positions...", positionCount))
@@ -84,13 +85,14 @@ func main() {
 		}
 	}
 
-	// Skip to the end of the 90-day incentive
-	testing.SkipHeights(TIMESTAMP_90DAYS/5 + 1)
-
 	testMultiCollectReward(claimBatchCount, false)
 
+	// Skip to the end of the 90-day incentive
+	testing.SkipHeights(TIMESTAMP_90DAYS + 1)
+
 	// Create active incentives
-	createExternalIncentives(finishedIncentiveCount)
+	incentiveStartTime = createExternalIncentives(activeIncentiveCount)
+	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 
 	// Mint liquidity for swaps
 	mintLiquidityPosition()
@@ -181,7 +183,7 @@ func mintLiquidityPosition() {
 	)
 }
 
-func createExternalIncentives(creationCount int) {
+func createExternalIncentives(creationCount int) int64 {
 	testing.SetRealm(adminRealm)
 
 	// Record currentTime before creating incentives
@@ -205,7 +207,9 @@ func createExternalIncentives(creationCount int) {
 		finishedIncentiveIds = append(finishedIncentiveIds, incentiveId)
 	}
 
-	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
+	testing.SkipHeights(1)
+
+	return incentiveStartTime
 }
 
 func swapWithTickCross() {
