@@ -1,7 +1,7 @@
 // PKGPATH: gno.land/r/demo/main
 
 // Multi-position stress test for CollectReward with all finished incentives
-// Tests gas usage when claiming rewards with 200 total incentives (all 200 finished/archived)
+// Tests gas usage when claiming rewards with 300 total incentives (all 300 finished/archived)
 package main
 
 import (
@@ -182,10 +182,10 @@ func createExternalIncentives() {
 	currentTime := time.Now().Unix()
 	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
 
-	// Create all 200 incentives with 90 days (all will be finished/archived when we test)
+	// Create all 300 incentives with 90 days (all will be finished/archived when we test)
 	endTime := incentiveStartTime + TIMESTAMP_90DAYS
-	println(ufmt.Sprintf("Creating 200 external incentives..."))
-	for i := 0; i < 200; i++ {
+	println(ufmt.Sprintf("Creating 300 external incentives..."))
+	for i := 0; i < 300; i++ {
 		staker.CreateExternalIncentive(
 			cross,
 			poolPath,
@@ -195,11 +195,11 @@ func createExternalIncentives() {
 			endTime,
 		)
 		// Track incentive ID: {creator}:{currentTime}:{counter}
-		// Counter is 1-based: 1, 2, 3, ..., 200
+		// Counter is 1-based: 1, 2, 3, ..., 300
 		incentiveId := ufmt.Sprintf("%s:%d:%d", adminAddr, currentTime, i+1)
 		finishedIncentiveIds = append(finishedIncentiveIds, incentiveId)
-		if (i+1)%20 == 0 {
-			println(ufmt.Sprintf("  Created %d/200 incentives", i+1))
+		if (i+1)%50 == 0 {
+			println(ufmt.Sprintf("  Created %d/300 incentives", i+1))
 		}
 	}
 
@@ -260,7 +260,7 @@ func testMultiCollectReward(claimBatchCount int, withMetrics bool) {
 	testing.SetRealm(adminRealm)
 
 	if withMetrics {
-		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=200, finished=200)", positionCount, tickCrossCount, claimBatchCount), func() {
+		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, active=0, finished=300)", positionCount, tickCrossCount, claimBatchCount), func() {
 			for i := 0; i < claimBatchCount; i++ {
 				staker.CollectReward(cross, tokenIds[i], false)
 			}

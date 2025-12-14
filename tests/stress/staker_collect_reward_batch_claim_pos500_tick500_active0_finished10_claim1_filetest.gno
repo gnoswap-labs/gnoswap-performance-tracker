@@ -1,7 +1,7 @@
 // PKGPATH: gno.land/r/demo/main
 
 // Multi-position stress test for CollectReward with all finished incentives
-// Tests gas usage when claiming rewards with 100 total incentives (all 100 finished/archived)
+// Tests gas usage when claiming rewards with 10 total incentives (all 10 finished)
 package main
 
 import (
@@ -95,7 +95,7 @@ func main() {
 		testing.SkipHeights(1)
 	}
 
-	// Wait 100 days total - all 90-day incentives will be finished and archived
+	// Wait 100 days total - all 90-day incentives will be finished
 	testing.SkipHeights(blocksFor100Days - tickCrossCount)
 
 	testMultiCollectReward(claimBatchCount, true)
@@ -182,10 +182,9 @@ func createExternalIncentives() {
 	currentTime := time.Now().Unix()
 	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
 
-	// Create all 100 incentives with 90 days (all will be finished/archived when we test)
+	// Create all 10 incentives with 90 days (all will be finished when we test)
 	endTime := incentiveStartTime + TIMESTAMP_90DAYS
-	println(ufmt.Sprintf("Creating 100 external incentives..."))
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 10; i++ {
 		staker.CreateExternalIncentive(
 			cross,
 			poolPath,
@@ -195,12 +194,9 @@ func createExternalIncentives() {
 			endTime,
 		)
 		// Track incentive ID: {creator}:{currentTime}:{counter}
-		// Counter is 1-based: 1, 2, 3, ..., 100
+		// Counter is 1-based: 1, 2, 3, ..., 10
 		incentiveId := ufmt.Sprintf("%s:%d:%d", adminAddr, currentTime, i+1)
 		finishedIncentiveIds = append(finishedIncentiveIds, incentiveId)
-		if (i+1)%10 == 0 {
-			println(ufmt.Sprintf("  Created %d/100 incentives", i+1))
-		}
 	}
 
 	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
@@ -260,7 +256,7 @@ func testMultiCollectReward(claimBatchCount int, withMetrics bool) {
 	testing.SetRealm(adminRealm)
 
 	if withMetrics {
-		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=100, finished=100)", positionCount, tickCrossCount, claimBatchCount), func() {
+		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, active=0, finished=10)", positionCount, tickCrossCount, claimBatchCount), func() {
 			for i := 0; i < claimBatchCount; i++ {
 				staker.CollectReward(cross, tokenIds[i], false)
 			}
