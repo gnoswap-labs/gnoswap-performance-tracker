@@ -38,18 +38,96 @@
 | **Stress RandomPositions ExactOutSwapRoute wugnot->gns** | Gas Used | 114,998,691 | 114,981,459 | +17,232 | ⚠️ 0.01% |
 | | Storage Diff | 0 | 0 | 0 |  0.00% |
 | | CPU Cycles | 113,577,226 | 113,577,226 | 0 |  0.00% |
+| **CollectReward (pos=500, tick=500, claim=1, active=10, finished=0)** | Gas Used | 70,595,142 | 65,768,868 | +4,826,274 | ⚠️ 7.34% |
+| | Storage Diff | 47,547 | 47,533 | +14 | ⚠️ 0.03% |
+| | CPU Cycles | 54,839,554 | 53,490,820 | +1,348,734 | ⚠️ 2.52% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=10, finished=0)** | Gas Used | 11,311,744 | 12,924,216 | -1,612,472 | ⚡️ -12.48% |
+| | Storage Diff | -45,876 | -45,015 | -861 | ⚡️ 1.91% |
+| | CPU Cycles | 6,885,214 | 8,347,308 | -1,462,094 | ⚡️ -17.52% |
+| **CollectReward (pos=500, tick=500, claim=1, active=10, finished=1000)** | Gas Used | 82,394,771 | 211,729,200 | -129,334,429 | ⚡️ -61.08% |
+| | Storage Diff | 48,095 | 47,823 | +272 | ⚠️ 0.57% |
+| | CPU Cycles | 59,407,715 | 192,316,162 | -132,908,447 | ⚡️ -69.11% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=10, finished=1000)** | Gas Used | 41,055,600 | 266,765,351 | -225,709,751 | ⚡️ -84.61% |
+| | Storage Diff | -4,283,910 | -4,250,891 | -33,019 | ⚡️ 0.78% |
+| | CPU Cycles | 6,885,214 | 211,101,387 | -204,216,173 | ⚡️ -96.74% |
+| **CollectReward (pos=500, tick=500, claim=1, active=10, finished=100)** | Gas Used | 77,841,013 | 84,382,578 | -6,541,565 | ⚡️ -7.75% |
+| | Storage Diff | 47,794 | 47,518 | +276 | ⚠️ 0.58% |
+| | CPU Cycles | 57,759,605 | 67,808,208 | -10,048,603 | ⚡️ -14.82% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=10, finished=100)** | Gas Used | 14,291,472 | 35,929,228 | -21,637,756 | ⚡️ -60.22% |
+| | Storage Diff | -466,745 | -463,284 | -3,461 | ⚡️ 0.75% |
+| | CPU Cycles | 6,885,214 | 26,250,128 | -19,364,914 | ⚡️ -73.77% |
+| **CollectReward (pos=500, tick=500, claim=1, active=10, finished=10)** | Gas Used | 73,824,113 | 69,894,559 | +3,929,554 | ⚠️ 5.62% |
+| | Storage Diff | 47,510 | 47,510 | 0 |  0.00% |
+| | CPU Cycles | 56,241,723 | 55,759,991 | +481,732 | ⚠️ 0.86% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=10, finished=10)** | Gas Used | 11,609,328 | 15,087,778 | -3,478,450 | ⚡️ -23.05% |
+| | Storage Diff | -87,696 | -86,821 | -875 | ⚡️ 1.01% |
+| | CPU Cycles | 6,885,214 | 10,001,158 | -3,115,944 | ⚡️ -31.16% |
+| **CollectReward (pos=500, tick=500, claim=1, active=10, finished=50)** | Gas Used | 76,278,165 | 76,779,759 | -501,594 | ⚡️ -0.65% |
+| | Storage Diff | 47,778 | 47,502 | +276 | ⚠️ 0.58% |
+| | CPU Cycles | 57,189,573 | 61,191,981 | -4,002,408 | ⚡️ -6.54% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=10, finished=50)** | Gas Used | 12,805,088 | 24,128,750 | -11,323,662 | ⚡️ -46.93% |
+| | Storage Diff | -256,401 | -254,148 | -2,253 | ⚡️ 0.89% |
+| | CPU Cycles | 6,885,214 | 17,000,626 | -10,115,412 | ⚡️ -59.50% |
+| **CollectReward (pos=500, tick=500, claim=1, active=1, finished=0)** | Gas Used | 17,820,666 | 17,198,657 | +622,009 | ⚠️ 3.62% |
+| | Storage Diff | 10,123 | 10,109 | +14 | ⚠️ 0.14% |
+| | CPU Cycles | 13,868,320 | 13,514,313 | +354,007 | ⚠️ 2.62% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=1, finished=0)** | Gas Used | 11,044,264 | 11,105,846 | -61,582 | ⚡️ -0.55% |
+| | Storage Diff | -8,340 | -7,479 | -861 | ⚡️ 11.51% |
+| | CPU Cycles | 6,885,214 | 6,988,530 | -103,316 | ⚡️ -1.48% |
 | **CollectReward (pos=500, tick=500, claim=1, active=1, finished=1000)** | Gas Used | 19,420,809 | 153,431,072 | -134,010,263 | ⚡️ -87.34% |
 | | Storage Diff | 9,957 | 9,932 | +25 | ⚠️ 0.25% |
 | | CPU Cycles | 14,447,767 | 148,742,896 | -134,295,129 | ⚡️ -90.29% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=1, finished=1000)** | Gas Used | 40,788,120 | 264,354,302 | -223,566,182 | ⚡️ -84.57% |
+| | Storage Diff | -4,245,732 | -4,212,965 | -32,767 | ⚡️ 0.78% |
+| | CPU Cycles | 6,885,214 | 209,150,922 | -202,265,708 | ⚡️ -96.71% |
 | **CollectReward (pos=500, tick=500, claim=1, active=1, finished=100)** | Gas Used | 18,956,856 | 29,947,909 | -10,991,053 | ⚡️ -36.70% |
 | | Storage Diff | 9,932 | 9,872 | +60 | ⚠️ 0.61% |
 | | CPU Cycles | 14,282,956 | 25,550,139 | -11,267,183 | ⚡️ -44.10% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=1, finished=100)** | Gas Used | 14,023,992 | 33,759,292 | -19,735,300 | ⚡️ -58.46% |
+| | Storage Diff | -428,855 | -425,610 | -3,245 | ⚡️ 0.76% |
+| | CPU Cycles | 6,885,214 | 24,540,056 | -17,654,842 | ⚡️ -71.94% |
 | **CollectReward (pos=500, tick=500, claim=1, active=1, finished=10)** | Gas Used | 18,460,295 | 18,792,073 | -331,778 | ⚡️ -1.77% |
 | | Storage Diff | 9,949 | 9,949 | 0 |  0.00% |
 | | CPU Cycles | 14,107,079 | 14,706,955 | -599,876 | ⚡️ -4.08% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=1, finished=10)** | Gas Used | 11,341,848 | 13,134,556 | -1,792,708 | ⚡️ -13.65% |
+| | Storage Diff | -50,072 | -49,197 | -875 | ⚡️ 1.78% |
+| | CPU Cycles | 6,885,214 | 8,507,656 | -1,622,442 | ⚡️ -19.07% |
 | **CollectReward (pos=500, tick=500, claim=1, active=1, finished=50)** | Gas Used | 18,764,109 | 23,651,355 | -4,887,246 | ⚡️ -20.66% |
 | | Storage Diff | 10,039 | 9,979 | +60 | ⚠️ 0.60% |
 | | CPU Cycles | 14,216,953 | 19,379,529 | -5,162,576 | ⚡️ -26.64% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=1, finished=50)** | Gas Used | 12,537,608 | 22,056,931 | -9,519,323 | ⚡️ -43.16% |
+| | Storage Diff | -218,547 | -216,510 | -2,037 | ⚡️ 0.94% |
+| | CPU Cycles | 6,885,214 | 15,388,527 | -8,503,313 | ⚡️ -55.26% |
+| **CollectReward (pos=500, tick=500, claim=1, active=5, finished=0)** | Gas Used | 40,314,231 | 38,200,832 | +2,113,399 | ⚠️ 5.53% |
+| | Storage Diff | 26,744 | 26,730 | +14 | ⚠️ 0.05% |
+| | CPU Cycles | 31,725,009 | 31,058,852 | +666,157 | ⚠️ 2.14% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=5, finished=0)** | Gas Used | 11,163,144 | 11,889,277 | -726,133 | ⚡️ -6.11% |
+| | Storage Diff | -25,010 | -24,149 | -861 | ⚡️ 3.57% |
+| | CPU Cycles | 6,885,214 | 7,567,705 | -682,491 | ⚡️ -9.02% |
+| **CollectReward (pos=500, tick=500, claim=1, active=5, finished=1000)** | Gas Used | 47,046,480 | 179,329,436 | -132,282,956 | ⚡️ -73.77% |
+| | Storage Diff | 26,917 | 26,781 | +136 | ⚠️ 0.51% |
+| | CPU Cycles | 34,314,280 | 168,107,366 | -133,793,086 | ⚡️ -79.59% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=5, finished=1000)** | Gas Used | 40,907,000 | 265,434,046 | -224,527,046 | ⚡️ -84.59% |
+| | Storage Diff | -4,262,700 | -4,229,821 | -32,879 | ⚡️ 0.78% |
+| | CPU Cycles | 6,885,214 | 210,025,962 | -203,140,748 | ⚡️ -96.72% |
+| **CollectReward (pos=500, tick=500, claim=1, active=5, finished=100)** | Gas Used | 44,766,691 | 54,129,253 | -9,362,562 | ⚡️ -17.30% |
+| | Storage Diff | 26,772 | 26,616 | +156 | ⚠️ 0.59% |
+| | CPU Cycles | 33,490,225 | 44,330,077 | -10,839,852 | ⚡️ -24.45% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=5, finished=100)** | Gas Used | 14,142,872 | 34,720,768 | -20,577,896 | ⚡️ -59.27% |
+| | Storage Diff | -445,695 | -442,354 | -3,341 | ⚡️ 0.76% |
+| | CPU Cycles | 6,885,214 | 25,297,148 | -18,411,934 | ⚡️ -72.78% |
+| **CollectReward (pos=500, tick=500, claim=1, active=5, finished=10)** | Gas Used | 42,605,470 | 41,395,730 | +1,209,740 | ⚠️ 2.92% |
+| | Storage Diff | 26,649 | 26,649 | 0 |  0.00% |
+| | CPU Cycles | 32,688,302 | 32,926,220 | -237,918 | ⚡️ -0.72% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=5, finished=10)** | Gas Used | 11,460,728 | 13,986,494 | -2,525,766 | ⚡️ -18.06% |
+| | Storage Diff | -66,800 | -65,925 | -875 | ⚡️ 1.33% |
+| | CPU Cycles | 6,885,214 | 9,155,274 | -2,270,060 | ⚡️ -24.80% |
+| **CollectReward (pos=500, tick=500, claim=1, active=5, finished=50)** | Gas Used | 44,152,188 | 47,424,995 | -3,272,807 | ⚡️ -6.90% |
+| | Storage Diff | 26,795 | 26,639 | +156 | ⚠️ 0.59% |
+| | CPU Cycles | 33,248,738 | 37,996,435 | -4,747,697 | ⚡️ -12.50% |
+| **UnstakeToken (pos=500, tick=500, claim=1, active=5, finished=50)** | Gas Used | 12,656,488 | 22,989,807 | -10,333,319 | ⚡️ -44.95% |
+| | Storage Diff | -235,371 | -233,238 | -2,133 | ⚡️ 0.91% |
+| | CPU Cycles | 6,885,214 | 16,117,083 | -9,231,869 | ⚡️ -57.28% |
 | **CollectReward (pos=500, tick=500, claim=1)** | Gas Used | 21,675,375 | 21,392,333 | +283,042 | ⚠️ 1.32% |
 | | Storage Diff | 7,981 | 7,987 | -6 | ⚡️ -0.08% |
 | | CPU Cycles | 16,303,907 | 16,116,785 | +187,122 | ⚠️ 1.16% |
