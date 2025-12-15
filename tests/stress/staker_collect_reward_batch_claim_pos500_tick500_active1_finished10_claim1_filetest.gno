@@ -272,7 +272,7 @@ func testMultiCollectReward(claimBatchCount int, withMetrics bool) {
 			}
 		})
 
-		metric.PrintMetricsBy(ufmt.Sprintf("UnstakeToken (pos=%d, tick=%d, claim=%d, active=%d, finished=%d)", positionCount, tickCrossCount, claimBatchCount, activeIncentiveCount, finishedIncentiveCount), func() {
+		metric.PrintMetricsBy(ufmt.Sprintf("UnstakeToken after collect (pos=%d, tick=%d, claim=%d, active=%d, finished=%d)", positionCount, tickCrossCount, claimBatchCount, activeIncentiveCount, finishedIncentiveCount), func() {
 			for i := 0; i < claimBatchCount; i++ {
 				staker.UnStakeToken(cross, tokenIds[i], false)
 			}
