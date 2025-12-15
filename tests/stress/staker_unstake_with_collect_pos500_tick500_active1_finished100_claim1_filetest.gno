@@ -87,6 +87,9 @@ func main() {
 
 	// Skip to the end of the 90-day incentive
 	testing.SkipHeights(TIMESTAMP_90DAYS + 1)
+
+	testMultiCollectReward(claimBatchCount, false)
+
 	// Create active incentives
 	incentiveStartTime = createExternalIncentives(activeIncentiveCount)
 	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
@@ -257,6 +260,22 @@ func swapWithTickCross() {
 			return nil
 		},
 	)
+}
+
+func testMultiCollectReward(claimBatchCount int, withMetrics bool) {
+	testing.SetRealm(adminRealm)
+
+	if withMetrics {
+		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, active=%d, finished=%d)", positionCount, tickCrossCount, claimBatchCount, activeIncentiveCount, finishedIncentiveCount), func() {
+			for i := 0; i < claimBatchCount; i++ {
+				staker.CollectReward(cross, tokenIds[i], false)
+			}
+		})
+	} else {
+		for i := 0; i < claimBatchCount; i++ {
+			staker.CollectReward(cross, tokenIds[i], false)
+		}
+	}
 }
 
 func testMultiUnstake(claimBatchCount int, withMetrics bool) {
