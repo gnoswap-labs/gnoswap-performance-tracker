@@ -58,8 +58,9 @@ const incentiveCount = 35300
 func main() {
 	initializeSetup()
 	createPoolAndSetTier()
-	tokenId := mintAndStakePosition()
+	// Create incentives first (before staking positions)
 	createExternalIncentives()
+	tokenId := mintAndStakePosition()
 	testing.SkipHeights(600000)
 	collectRewardMetric(tokenId)
 }
@@ -115,14 +116,12 @@ func mintAndStakePosition() uint64 {
 }
 
 func createExternalIncentives() {
-	testing.SetRealm(aliceRealm)
+	testing.SetRealm(adminRealm)
 
-	startTime := int64(1234569600)
+	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
+	incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
 
 	for i := 0; i < incentiveCount; i++ {
-		incentiveStartTime := startTime + int64(i*86400)
-		incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
-
 		staker.CreateExternalIncentive(
 			cross,
 			poolPath,
@@ -132,6 +131,7 @@ func createExternalIncentives() {
 			incentiveEndTime,
 		)
 	}
+	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 }
 
 func collectRewardMetric(tokenId uint64) {
