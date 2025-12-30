@@ -38,7 +38,7 @@ func main() {
 	testing.SetRealm(adminRealm)
 	gns.Approve(cross, govStakerAddr, maxInt64)
 
-	for i := int64(0); i < delegateCount; i++ {
+	for i := int64(0); i < delegateCount+1; i++ {
 		govstaker.Delegate(cross, aliceAddr, delegateAmount, "")
 		testing.SkipHeights(1)
 	}
@@ -51,6 +51,15 @@ func main() {
 	testing.SkipHeights(17280)
 
 	metric.PrintMetricsBy(ufmt.Sprintf("Collect (%d delegations, %d withdraws)", delegateCount, undelegateCount), func() {
+		govstaker.CollectUndelegatedGns(cross)
+	})
+
+	govstaker.Undelegate(cross, aliceAddr, undelegateAmount)
+	testing.SkipHeights(1)
+
+	testing.SkipHeights(17280)
+
+	metric.PrintMetricsBy(ufmt.Sprintf("Collect 2 (%d delegations, %d withdraws)", delegateCount, undelegateCount), func() {
 		govstaker.CollectUndelegatedGns(cross)
 	})
 }

@@ -17,12 +17,12 @@
 | GetAmount0Delta | 3,912,271 | 0 | 1,486,687 |
 | GetAmount1Delta | 1,050,599 | 0 | 1,040,247 |
 | SwapMathComputeSwapStep | 1,879,867 | 0 | 1,859,003 |
-| Propose Community Pool Spend | 2,378,259 | 13,365 | 866,191 |
-| Propose Parameter Change | 2,499,900 | 13,200 | 1,489,948 |
-| Vote | 809,144 | 2,170 | 579,314 |
-| Execute | 3,692,105 | 76 | 566,449 |
-| Propose Text | 1,052,840 | 12,739 | 692,696 |
-| Propose Text with Inactive: 100 | 9,233,279 | 13,291 | 8,396,450 |
+| Propose Community Pool Spend | 2,384,201 | 13,365 | 872,133 |
+| Propose Parameter Change | 2,525,375 | 13,200 | 1,515,423 |
+| Vote | 810,837 | 2,170 | 581,007 |
+| Execute | 3,708,068 | 76 | 582,412 |
+| Propose Text | 1,078,315 | 12,739 | 718,171 |
+| Propose Text with Inactive: 100 | 1,866,390 | 13,252 | 1,091,993 |
 | Collect (10 delegations, 10 withdraws) | 3,908,527 | -98,661 | 3,009,333 |
 | Collect (10 delegations, 500 withdraws) | 78,060,509 | -3,097,851 | 57,036,299 |
 | Collect 2 (10 delegations, 500 withdraws) | 625,375 | 21 | 341,279 |
@@ -31,7 +31,7 @@
 | Collect (1 delegation, 1 withdraws) | 641,522 | -6,744 | 423,033 |
 | Collect (1 delegation, 50 withdraws) | 3,714,417 | -60,868 | 3,131,858 |
 | Collect (1 delegation, 5 withdraws) | 892,254 | -11,148 | 644,045 |
-| Delegate | 8,496,366 | 17,248 | 881,219 |
+| Delegate | 8,522,702 | 17,248 | 881,219 |
 | Undelegate | 2,503,213 | 1,173 | 1,273,669 |
 | Collect Undelegated GNS | 105,880 | 0 | 105,880 |
 | Undelegate (5 delegations, cached external calls) | 7,225,472 | 5,530 | 6,006,432 |
@@ -44,9 +44,9 @@
 | Launchpad CollectProtocolFee | 2,320,948 | 8,794 | 1,548,476 |
 | Launchpad CollectRewardByDepositId | 828,102 | 2,028 | 516,086 |
 | Create Launchpad Project | 10,371,591 | 28,808 | 1,842,003 |
-| Launchpad DepositGns | 6,309,722 | 12,282 | 1,394,379 |
-| Launchpad TransferLeftFromProjectByAdmin | 1,275,569 | 5 | 502,741 |
-| CreatePool | 8,566,185 | 18,536 | 2,304,913 |
+| Launchpad DepositGns | 6,336,058 | 12,282 | 1,394,379 |
+| Launchpad TransferLeftFromProjectByAdmin | 1,301,905 | 5 | 502,741 |
+| CreatePool | 8,592,521 | 18,536 | 2,304,913 |
 | Mint (fee:3000, wide range) | 17,668,836 | 40,612 | 11,530,550 |
 | Swap (gns -> wugnot, fee:500) | 30,760,045 | 19,749 | 20,634,703 |
 | DecreaseLiquidity | 12,634,788 | 58 | 9,840,249 |
