@@ -7,13 +7,27 @@ package main
 import (
 	"testing"
 
+	prabc "gno.land/p/gnoswap/rbac"
+	"gno.land/r/gnoswap/access"
 	"gno.land/r/gnoswap/rbac"
 	"gno.land/r/gnoswap/scenario/metric"
+
+	"gno.land/p/nt/testutils"
+)
+
+var (
+	adminAddr, _  = access.GetAddress(prabc.ROLE_ADMIN.String())
+	adminRealm    = testing.NewUserRealm(adminAddr)
+	testRoleCount = 0
 )
 
 var t *testing.T
 
 func main() {
+	// Core optimization: RegisterRole (removed redundant UpdateRoleAddress)
+	RegisterRole_NewCustomRole()
+
+	// Read operations
 	GetRoleAddress_Admin()
 	GetRoleAddress_Governance()
 	GetRoleAddress_Router()
@@ -22,12 +36,24 @@ func main() {
 	GetRoleAddress_Staker()
 }
 
-// RBAC Realm Functions
-// Note: Most realm functions (RegisterRole, UpdateRoleAddress, RemoveRole)
-// require realm context and cannot be tested directly in filetest.
-// These are measured indirectly through integration tests.
+// RBAC Write Operations (require realm context)
 
-// GetRoleAddress - Read-only function that can be called directly
+// RegisterRole - Core optimization: removed redundant UpdateRoleAddress call
+func RegisterRole_NewCustomRole() {
+	testing.SetRealm(adminRealm)
+
+	testRoleCount++
+	roleName := "test_role_" + testutils.TestAddress("test").String()[:8]
+	roleAddr := testutils.TestAddress(roleName)
+
+	metric.PrintMetricsBy("RegisterRole", func() {
+		rbac.RegisterRole(cross, roleName, roleAddr)
+	})
+}
+
+// RBAC Read Operations
+
+// GetRoleAddress - Read-only function
 func GetRoleAddress_Admin() {
 	metric.PrintMetricsBy("GetRoleAddress (admin)", func() {
 		rbac.GetRoleAddress("admin")
