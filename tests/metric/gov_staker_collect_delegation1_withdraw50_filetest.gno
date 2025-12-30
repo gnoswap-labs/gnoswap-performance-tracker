@@ -43,12 +43,12 @@ func main() {
 		testing.SkipHeights(1)
 	}
 
-	testing.SkipHeights(17280)
-
 	for i := int64(0); i < undelegateCount; i++ {
 		govstaker.Undelegate(cross, aliceAddr, undelegateAmount)
 		testing.SkipHeights(1)
 	}
+
+	testing.SkipHeights(60 * 60 * 24 / 5)
 
 	metric.PrintMetricsBy(ufmt.Sprintf("Collect (%d delegation, %d withdraws)", delegateCount, undelegateCount/delegateCount), func() {
 		govstaker.CollectUndelegatedGns(cross)
