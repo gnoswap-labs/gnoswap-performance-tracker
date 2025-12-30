@@ -36,7 +36,6 @@ func main() {
 	initializeSetup()
 	delegateMetric()
 	undelegateMetric()
-	collectUndelegatedGnsMetric()
 }
 
 func initializeSetup() {
@@ -59,13 +58,5 @@ func undelegateMetric() {
 
 	metric.PrintMetricsBy("Undelegate", func() {
 		govstaker.Undelegate(cross, aliceAddr, int64(1000000))
-	})
-}
-
-func collectUndelegatedGnsMetric() {
-	testing.SetRealm(adminRealm)
-
-	metric.PrintMetricsBy("Collect Undelegated GNS", func() {
-		govstaker.CollectUndelegatedGns(cross)
 	})
 }
