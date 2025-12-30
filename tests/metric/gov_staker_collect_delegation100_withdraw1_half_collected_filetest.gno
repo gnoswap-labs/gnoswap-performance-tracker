@@ -27,8 +27,8 @@ var (
 
 	maxInt64 int64 = 9223372036854775807
 
-	delegateCount   int64 = 10
-	undelegateCount int64 = 50
+	delegateCount   int64 = 100
+	undelegateCount int64 = 100
 
 	undelegateAmount int64 = 1000000
 	delegateAmount   int64 = undelegateAmount * (undelegateCount / delegateCount)
@@ -38,19 +38,26 @@ func main() {
 	testing.SetRealm(adminRealm)
 	gns.Approve(cross, govStakerAddr, maxInt64)
 
-	for i := int64(0); i < delegateCount; i++ {
+	for i := int64(0); i < delegateCount/2; i++ {
 		govstaker.Delegate(cross, aliceAddr, delegateAmount, "")
 		testing.SkipHeights(1)
 	}
 
-	testing.SkipHeights(17280)
+	testing.SkipHeights(17280 / 2)
+
+	for i := int64(0); i < delegateCount/2; i++ {
+		govstaker.Delegate(cross, aliceAddr, delegateAmount, "")
+		testing.SkipHeights(1)
+	}
+
+	testing.SkipHeights(17280 / 2)
 
 	for i := int64(0); i < undelegateCount; i++ {
 		govstaker.Undelegate(cross, aliceAddr, undelegateAmount)
 		testing.SkipHeights(1)
 	}
 
-	metric.PrintMetricsBy(ufmt.Sprintf("Collect (%d delegations, %d withdraws)", delegateCount, undelegateCount), func() {
+	metric.PrintMetricsBy(ufmt.Sprintf("half Collect (%d delegations, %d withdraws)", delegateCount, undelegateCount), func() {
 		govstaker.CollectUndelegatedGns(cross)
 	})
 }
