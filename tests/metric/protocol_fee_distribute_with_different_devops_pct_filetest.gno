@@ -12,7 +12,7 @@ import (
 	pf "gno.land/r/gnoswap/protocol_fee"
 	_ "gno.land/r/gnoswap/protocol_fee/v1"
 	_ "gno.land/r/gnoswap/rbac"
-	// "gno.land/r/gnoswap/scenario/metric"
+	"gno.land/r/gnoswap/scenario/metric"
 
 	"gno.land/r/onbloc/bar"
 )
