@@ -1,29 +1,26 @@
-// Gas and performance metrics for launchpad protocol fee collection
-// Test cases based on gnoswap/contract/r/scenario/launchpad/launchpad_deposit_project_single_recipient_filetest.gno
+// Gas and performance metrics for launchpad protocol fee collection with 2 protocol fee tokens
 package main
 
 import (
 	"testing"
 	"time"
 
-	"gno.land/p/demo/tokens/grc20"
 	prabc "gno.land/p/gnoswap/rbac"
 	"gno.land/p/nt/testutils"
-	"gno.land/p/nt/ufmt"
-	"gno.land/r/demo/defi/grc20reg"
-	pf "gno.land/r/gnoswap/protocol_fee"
 	_ "gno.land/r/gnoswap/rbac"
 
 	_ "gno.land/r/gnoswap/gov/staker"
 	_ "gno.land/r/gnoswap/gov/staker/v1"
-	_ "gno.land/r/gnoswap/launchpad/v1"
 	"gno.land/r/gnoswap/protocol_fee"
 	_ "gno.land/r/gnoswap/protocol_fee/v1"
+	_ "gno.land/r/gnoswap/launchpad/v1"
 
 	"gno.land/r/gnoswap/access"
 	"gno.land/r/gnoswap/gns"
 	"gno.land/r/gnoswap/launchpad"
+	"gno.land/r/onbloc/bar"
 	"gno.land/r/onbloc/obl"
+	"gno.land/r/onbloc/qux"
 
 	"gno.land/r/gnoswap/scenario/metric"
 )
@@ -46,8 +43,6 @@ var (
 	projectRealm = testing.NewUserRealm(projectAddr)
 
 	maxInt64 int64 = 9223372036854775807
-
-	tokenCount int = 10
 )
 
 var t *testing.T
@@ -56,20 +51,7 @@ func main() {
 	initializeSetup()
 	projectId := createLaunchpadProject()
 	depositGns(projectId)
-
-	// setup protocol fee for each token
-	for index := 0; index < tokenCount; index++ {
-		tokenPath := ufmt.Sprintf("gno.land/r/onbloc/token%d", index)
-		name := ufmt.Sprintf("Token%d", index)
-		symbol := ufmt.Sprintf("TKN%d", index)
-		mintAmount := int64(1000)
-		addToProtocolFee(tokenPath, name, symbol, mintAmount)
-	}
-	testing.SkipHeights(1)
-
-	distributeProtocolFee()
-	testing.SkipHeights(1)
-
+	setupProtocolFee()
 	collectProtocolFeeMetric()
 }
 
@@ -95,31 +77,8 @@ func createLaunchpadProject() string {
 		time.Now().Unix()+3600,
 	)
 
-	// Activate project.
 	testing.SkipHeights(3600 / 5)
-
 	return projectId
-}
-
-func addToProtocolFee(tokenPath string, name string, symbol string, mintAmount int64) {
-	testing.SetRealm(testing.NewCodeRealm(tokenPath))
-
-	token, ledger := grc20.NewToken(name, symbol, 6)
-	ledger.Mint(protocolFeeAddr, mintAmount)
-	grc20reg.Register(cross, token, "")
-
-	recordProtocolFees(tokenPath, mintAmount)
-}
-
-func recordProtocolFees(tokenPath string, amount int64) {
-	testing.SetRealm(stakerRealm)
-
-	pf.AddToProtocolFee(cross, tokenPath, amount)
-}
-
-func distributeProtocolFee() {
-	testing.SetRealm(govStakerRealm)
-	protocol_fee.DistributeProtocolFee(cross)
 }
 
 func depositGns(projectId string) {
@@ -136,10 +95,23 @@ func depositGns(projectId string) {
 	testing.SkipHeights(1)
 }
 
+func setupProtocolFee() {
+	testing.SetRealm(adminRealm)
+	bar.Transfer(cross, protocolFeeAddr, 1000)
+	qux.Transfer(cross, protocolFeeAddr, 2500)
+
+	testing.SetRealm(stakerRealm)
+	protocol_fee.AddToProtocolFee(cross, "gno.land/r/onbloc/bar", 1000)
+	protocol_fee.AddToProtocolFee(cross, "gno.land/r/onbloc/qux", 2500)
+
+	testing.SetRealm(govStakerRealm)
+	protocol_fee.DistributeProtocolFee(cross)
+}
+
 func collectProtocolFeeMetric() {
 	testing.SetRealm(projectRealm)
 
-	metric.PrintMetricsBy(ufmt.Sprintf("Launchpad CollectProtocolFee (tokens: %d)", tokenCount), func() {
+	metric.PrintMetricsBy("CollectProtocolFee (2 tokens)", func() {
 		launchpad.CollectProtocolFee(cross)
 	})
 }

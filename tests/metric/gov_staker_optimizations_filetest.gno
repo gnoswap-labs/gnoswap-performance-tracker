@@ -49,7 +49,6 @@ func main() {
 
 	multipleDelegationsUndelegateMetric()
 	singleDelegateMetric()
-	multipleWithdrawsCollectMetric()
 	earlyExitUndelegateMetric()
 }
 
@@ -106,22 +105,6 @@ func singleDelegateMetric() {
 
 	metric.PrintMetricsBy("Delegate (cached external calls)", func() {
 		govstaker.Delegate(cross, bobAddr, int64(1000000), "")
-	})
-}
-
-// Collect with multiple withdraws
-// Tests single iteration optimization with no redundant CollectableAmount calls
-func multipleWithdrawsCollectMetric() {
-	testing.SetRealm(adminRealm)
-
-	// Create multiple undelegations to generate multiple withdraws
-	govstaker.Delegate(cross, carolAddr, int64(5000000), "")
-	govstaker.Undelegate(cross, carolAddr, int64(1000000))
-	govstaker.Undelegate(cross, carolAddr, int64(1000000))
-	govstaker.Undelegate(cross, carolAddr, int64(1000000))
-
-	metric.PrintMetricsBy("Collect (multiple withdraws, no redundant iteration)", func() {
-		govstaker.CollectUndelegatedGns(cross)
 	})
 }
 
