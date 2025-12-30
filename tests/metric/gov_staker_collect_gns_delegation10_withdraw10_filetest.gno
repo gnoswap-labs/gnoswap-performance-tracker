@@ -50,7 +50,7 @@ func main() {
 
 	testing.SkipHeights(17280)
 
-	metric.PrintMetricsBy(ufmt.Sprintf("Collect (%d delegations, %d withdraws)", delegateCount, undelegateCount/delegateCount), func() {
+	metric.PrintMetricsBy(ufmt.Sprintf("CollectUndelegatedGns (%d delegations, %d withdraws)", delegateCount, undelegateCount/delegateCount), func() {
 		govstaker.CollectUndelegatedGns(cross)
 	})
 }

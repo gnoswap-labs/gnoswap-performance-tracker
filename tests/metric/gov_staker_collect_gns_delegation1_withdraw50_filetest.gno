@@ -28,7 +28,7 @@ var (
 	maxInt64 int64 = 9223372036854775807
 
 	delegateCount   int64 = 1
-	undelegateCount int64 = 5
+	undelegateCount int64 = 50
 
 	undelegateAmount int64 = 1000000
 	delegateAmount   int64 = undelegateAmount * undelegateCount
@@ -48,9 +48,9 @@ func main() {
 		testing.SkipHeights(1)
 	}
 
-	testing.SkipHeights(17280)
+	testing.SkipHeights(60 * 60 * 24 / 5)
 
-	metric.PrintMetricsBy(ufmt.Sprintf("Collect (%d delegation, %d withdraws)", delegateCount, undelegateCount/delegateCount), func() {
+	metric.PrintMetricsBy(ufmt.Sprintf("CollectUndelegatedGns (%d delegation, %d withdraws)", delegateCount, undelegateCount/delegateCount), func() {
 		govstaker.CollectUndelegatedGns(cross)
 	})
 }
