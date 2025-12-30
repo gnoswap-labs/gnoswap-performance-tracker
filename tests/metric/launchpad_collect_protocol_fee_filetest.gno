@@ -65,8 +65,11 @@ func main() {
 		mintAmount := int64(1000)
 		addToProtocolFee(tokenPath, name, symbol, mintAmount)
 	}
+	testing.SkipHeights(1)
 
 	distributeProtocolFee()
+	testing.SkipHeights(1)
+
 	collectProtocolFeeMetric()
 }
 
