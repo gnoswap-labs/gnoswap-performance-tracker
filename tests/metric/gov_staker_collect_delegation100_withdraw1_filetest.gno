@@ -48,7 +48,7 @@ func main() {
 		testing.SkipHeights(1)
 	}
 
-	testing.SkipHeights(17280)
+	testing.SkipHeights(60 * 60 * 24 * 30 / 5)
 
 	metric.PrintMetricsBy(ufmt.Sprintf("Collect (%d delegations, %d withdraws)", delegateCount, undelegateCount), func() {
 		govstaker.CollectUndelegatedGns(cross)
