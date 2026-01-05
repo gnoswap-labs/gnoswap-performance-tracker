@@ -1,5 +1,3 @@
-// Performance test for collect with many withdraws
-// Tests single iteration optimization when collecting many withdraw records
 package main
 
 import (
@@ -7,6 +5,7 @@ import (
 
 	prabc "gno.land/p/gnoswap/rbac"
 	"gno.land/p/nt/testutils"
+	"gno.land/p/nt/ufmt"
 	_ "gno.land/r/gnoswap/rbac"
 
 	_ "gno.land/r/gnoswap/gov/staker/v1"
@@ -27,25 +26,31 @@ var (
 	aliceAddr = testutils.TestAddress("alice")
 
 	maxInt64 int64 = 9223372036854775807
+
+	delegateCount   int64 = 1
+	undelegateCount int64 = 50
+
+	undelegateAmount int64 = 1000000
+	delegateAmount   int64 = undelegateAmount * undelegateCount
 )
 
 func main() {
 	testing.SetRealm(adminRealm)
-
 	gns.Approve(cross, govStakerAddr, maxInt64)
 
-	// Create 100 delegations
-	for i := 0; i < 100; i++ {
-		govstaker.Delegate(cross, aliceAddr, int64(1000000), "")
+	for i := int64(0); i < delegateCount; i++ {
+		govstaker.Delegate(cross, aliceAddr, delegateAmount, "")
+		testing.SkipHeights(1)
 	}
 
-	// Undelegate all to create 100 withdraw records
-	for i := 0; i < 100; i++ {
-		govstaker.Undelegate(cross, aliceAddr, int64(1000000))
+	for i := int64(0); i < undelegateCount; i++ {
+		govstaker.Undelegate(cross, aliceAddr, undelegateAmount)
+		testing.SkipHeights(1)
 	}
 
-	// Collect all 100 withdraws
-	metric.PrintMetricsBy("Collect (100 withdraws, single iteration)", func() {
+	testing.SkipHeights(60 * 60 * 24 / 5)
+
+	metric.PrintMetricsBy(ufmt.Sprintf("CollectUndelegatedGns (%d delegation, %d withdraws)", delegateCount, undelegateCount/delegateCount), func() {
 		govstaker.CollectUndelegatedGns(cross)
 	})
 }
