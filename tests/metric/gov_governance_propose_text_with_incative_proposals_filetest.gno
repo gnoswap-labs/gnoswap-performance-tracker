@@ -11,6 +11,7 @@ import (
 
 	_ "gno.land/r/gnoswap/gov/governance/v1"
 	_ "gno.land/r/gnoswap/gov/staker/v1"
+	_ "gno.land/r/gnoswap/protocol_fee/v1"
 
 	"gno.land/r/gnoswap/access"
 	"gno.land/r/gnoswap/gns"
@@ -52,8 +53,8 @@ func initializeSetup() {
 	gns.Approve(cross, govStakerAddr, maxInt64)
 	govstaker.Delegate(cross, adminAddr, int64(1000000000), "")
 
-	// Skip blocks for delegation to be counted
-	testing.SkipHeights(5)
+	// Skip blocks for delegation to be counted (25+ for votingWeightSmoothingDuration)
+	testing.SkipHeights(30)
 }
 
 func proposeInactiveText() {
