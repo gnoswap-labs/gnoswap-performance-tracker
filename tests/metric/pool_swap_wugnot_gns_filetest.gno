@@ -119,7 +119,7 @@ func swapGnsToWugnotMetric() {
 			"60283363",
 			"1461446703485210103287273052203988822378723970341",
 			adminAddr,
-			func(cur realm, amount0Delta, amount1Delta int64, callbackMarker *pool.CallbackMarker) error {
+			func(cur realm, amount0Delta, amount1Delta int64) error {
 				testing.SetRealm(adminRealm)
 				common.SafeGRC20Transfer(cross, gnsPath, poolAddr, amount1Delta)
 				return nil
