@@ -89,7 +89,7 @@ func mintPositionWithGnotMetric() {
 	metric.PrintMetricsBy("Mint (w. GNOT)", func() {
 		position.Mint(
 			cross,
-			"ugnot",
+			"gnot",
 			gnsPath,
 			3000,
 			-887220,

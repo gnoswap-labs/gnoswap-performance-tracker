@@ -116,7 +116,7 @@ func doSwap() {
 	metric.PrintMetricsBy("ExactInSwapRoute(ugnot) - fee:500", func() {
 		router.ExactInSwapRoute(
 			cross,
-			"ugnot",
+			"gnot",
 			gnsPath,
 			"1000000",
 			"gno.land/r/gnoland/wugnot:gno.land/r/gnoswap/gns:500",

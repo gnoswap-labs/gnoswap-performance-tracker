@@ -115,13 +115,13 @@ func LiquidityMathAddDelta() {
 
 func IsGNOTPath() {
 	metric.PrintMetricsBy("IsGNOTPath", func() {
-		common.IsGNOTPath("ugnot")
+		common.IsGNOTPath("gnot")
 	})
 }
 
 func IsGNOTNativePath() {
 	metric.PrintMetricsBy("IsGNOTNativePath", func() {
-		common.IsGNOTNativePath("ugnot")
+		common.IsGNOTNativePath("gnot")
 	})
 }
 

@@ -6,6 +6,7 @@ package main
 
 import (
 	"chain"
+	"strconv"
 	"testing"
 
 	prbac "gno.land/p/gnoswap/rbac"
@@ -116,7 +117,7 @@ func executeSwap() {
 		"20000000",
 		MIN_PRICE,
 		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64, callbackMarker *pool.CallbackMarker) error {
+		func(cur realm, amount0Delta, amount1Delta string) error {
 			return mockSwapCallback(barPath, fooPath, amount0Delta, amount1Delta, true)
 		},
 	)
@@ -143,26 +144,29 @@ func decreasePositionLiquidity() {
 	})
 }
 
-func mockSwapCallback(token0Path string, token1Path string, amount0Delta int64, amount1Delta int64, zeroForOne bool) error {
+func mockSwapCallback(token0Path string, token1Path string, amount0Delta string, amount1Delta string, zeroForOne bool) error {
 	testing.SetRealm(adminRealm)
 
 	const wugnotPath = "gno.land/r/gnoland/wugnot"
-	const ugnotDenom = "ugnot"
+	const ugnotDenom = "gnot"
+
+	amount0, _ := strconv.ParseInt(amount0Delta, 10, 64)
+	amount1, _ := strconv.ParseInt(amount1Delta, 10, 64)
 
 	if zeroForOne {
 		if token0Path == wugnotPath {
-			testing.SetOriginSend(chain.Coins{{ugnotDenom, amount0Delta}})
+			testing.SetOriginSend(chain.Coins{{ugnotDenom, amount0}})
 			wugnot.Deposit(cross)
 		}
 
-		common.SafeGRC20Transfer(cross, token0Path, poolAddr, amount0Delta)
+		common.SafeGRC20Transfer(cross, token0Path, poolAddr, amount0)
 	} else {
 		if token1Path == wugnotPath {
-			testing.SetOriginSend(chain.Coins{{ugnotDenom, amount1Delta}})
+			testing.SetOriginSend(chain.Coins{{ugnotDenom, amount1}})
 			wugnot.Deposit(cross)
 		}
 
-		common.SafeGRC20Transfer(cross, token1Path, poolAddr, amount1Delta)
+		common.SafeGRC20Transfer(cross, token1Path, poolAddr, amount1)
 	}
 
 	return nil

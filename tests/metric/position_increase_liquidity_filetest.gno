@@ -106,7 +106,7 @@ func mockSwapCallback(token0Path string, token1Path string, amount0Delta int64, 
 	testing.SetRealm(adminRealm)
 
 	const wugnotPath = "gno.land/r/gnoland/wugnot"
-	const ugnotDenom = "ugnot"
+	const ugnotDenom = "gnot"
 
 	if zeroForOne {
 		if token0Path == wugnotPath {
