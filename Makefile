@@ -77,7 +77,7 @@ research-test:
 	@$(MAKE) -C research test
 
 research-report:
-	@set -eu; \
+	@set -euo pipefail; \
 	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
 	SHORT_REF="$${REF:0:7}"; \
 	mkdir -p reports/research/commits; \
