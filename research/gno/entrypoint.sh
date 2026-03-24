@@ -44,8 +44,8 @@ sed -i -E 's/-gas-wanted [0-9]+/-gas-wanted 120000000/g' scripts/deploy.mk
 for target in \
     deploy-uint256 deploy-int256 deploy-rbac deploy-gnsmath deploy-store deploy-version_manager \
     deploy-access deploy-rbac-realm deploy-halt-realm deploy-referral deploy-gns deploy-emission deploy-common deploy-gnft \
-    deploy-protocol_fee deploy-pool deploy-position deploy-staker \
-    deploy-protocol_fee-v1 deploy-pool-v1 deploy-position-v1 deploy-staker-v1; do
+    deploy-protocol_fee deploy-pool deploy-position deploy-router deploy-staker \
+    deploy-protocol_fee-v1 deploy-pool-v1 deploy-position-v1 deploy-router-v1 deploy-staker-v1; do
     attempt=0
     while true; do
         set +e

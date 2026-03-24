@@ -59,13 +59,15 @@ function format_number(num,    result, sign, str, len, i) {
 
 function domain_order(domain) {
     if (domain == "Pool") return 1
-    if (domain == "Position") return 2
-    if (domain == "Staker") return 3
+    if (domain == "Router") return 2
+    if (domain == "Position") return 3
+    if (domain == "Staker") return 4
     return 9
 }
 
 function action_domain(action) {
     if (action ~ /^Pool/) return "Pool"
+    if (action ~ /^Router/) return "Router"
     if (action ~ /^Position/) return "Position"
     if (action ~ /^Staker/) return "Staker"
     return "Other"
@@ -109,11 +111,12 @@ NF >= 18 {
 
 END {
     domains[1] = "Pool"
-    domains[2] = "Position"
-    domains[3] = "Staker"
-    domains[4] = "Other"
+    domains[2] = "Router"
+    domains[3] = "Position"
+    domains[4] = "Staker"
+    domains[5] = "Other"
 
-    for (d = 1; d <= 4; d++) {
+    for (d = 1; d <= 5; d++) {
         domain = domains[d]
         if (!seen[domain]) continue
         print "## " domain

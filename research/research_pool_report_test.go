@@ -47,7 +47,7 @@ func TestResearchReportPoolCreate(t *testing.T) {
 	mustWriteResearchRows(t, outputPath, rows)
 }
 
-func TestResearchReportPoolSwapExactIn(t *testing.T) {
+func TestResearchReportRouterExactInSwapRoute(t *testing.T) {
 	if os.Getenv(researchReportEnv) != "1" {
 		t.Skip("set RESEARCH_REPORT=1 to run research report probes")
 	}
@@ -58,11 +58,11 @@ func TestResearchReportPoolSwapExactIn(t *testing.T) {
 	}
 
 	env := mustSetupResearchHarnessEnv(t)
-	points := mustRunPoolSwapExactInReportProbe(t.Context(), t, env, mustProbeCheckpoints(t))
+	points := mustRunRouterExactInSwapRouteReportProbe(t.Context(), t, env, mustProbeCheckpoints(t))
 	rows := make([]researchRow, 0, len(points))
 	for _, point := range points {
 		rows = append(rows, researchRow{
-			Name:           fmt.Sprintf("research PoolSwapExactIn (n=%d)", point.N),
+			Name:           fmt.Sprintf("research RouterExactInSwapRoute (n=%d)", point.N),
 			GasUsed:        point.GasStats.Avg,
 			StorageDiff:    point.StorageStats.Avg,
 			CPUCycles:      "-",
@@ -85,7 +85,7 @@ func TestResearchReportPoolSwapExactIn(t *testing.T) {
 	mustWriteResearchRows(t, outputPath, rows)
 }
 
-func TestResearchReportPoolSwapExactOut(t *testing.T) {
+func TestResearchReportRouterExactOutSwapRoute(t *testing.T) {
 	if os.Getenv(researchReportEnv) != "1" {
 		t.Skip("set RESEARCH_REPORT=1 to run research report probes")
 	}
@@ -96,11 +96,11 @@ func TestResearchReportPoolSwapExactOut(t *testing.T) {
 	}
 
 	env := mustSetupResearchHarnessEnv(t)
-	points := mustRunPoolSwapExactOutReportProbe(t.Context(), t, env, mustProbeCheckpoints(t))
+	points := mustRunRouterExactOutSwapRouteReportProbe(t.Context(), t, env, mustProbeCheckpoints(t))
 	rows := make([]researchRow, 0, len(points))
 	for _, point := range points {
 		rows = append(rows, researchRow{
-			Name:           fmt.Sprintf("research PoolSwapExactOut (n=%d)", point.N),
+			Name:           fmt.Sprintf("research RouterExactOutSwapRoute (n=%d)", point.N),
 			GasUsed:        point.GasStats.Avg,
 			StorageDiff:    point.StorageStats.Avg,
 			CPUCycles:      "-",
@@ -144,26 +144,26 @@ func mustRunPoolCreateReportProbe(ctx context.Context, t *testing.T, env *resear
 	})
 }
 
-func mustRunPoolSwapExactInReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
+func mustRunRouterExactInSwapRouteReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureSwapPrereqs(ctx, t, env)
-	if _, err := wrappedPoolSwapExactInTx(ctx, env); err != nil {
-		t.Fatalf("pool swap exact-in warm-up: %v", err)
+	if _, err := routerExactInSwapRouteTx(ctx, env); err != nil {
+		t.Fatalf("router exact-in warm-up: %v", err)
 	}
 
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
-		return wrappedPoolSwapExactInTx(ctx, env)
+		return routerExactInSwapRouteTx(ctx, env)
 	})
 }
 
-func mustRunPoolSwapExactOutReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
+func mustRunRouterExactOutSwapRouteReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureSwapPrereqs(ctx, t, env)
-	if _, err := wrappedPoolSwapExactOutTx(ctx, env); err != nil {
-		t.Fatalf("pool swap exact-out warm-up: %v", err)
+	if _, err := routerExactOutSwapRouteTx(ctx, env); err != nil {
+		t.Fatalf("router exact-out warm-up: %v", err)
 	}
 
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
-		return wrappedPoolSwapExactOutTx(ctx, env)
+		return routerExactOutSwapRouteTx(ctx, env)
 	})
 }

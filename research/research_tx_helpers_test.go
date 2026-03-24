@@ -47,18 +47,23 @@ func mustEnsureSwapPrereqs(ctx context.Context, t interface {
 	Fatalf(string, ...any)
 }, env *researchHarnessEnv) {
 	t.Helper()
-	mustEnsureMintPrereqs(ctx, t, env)
-	if err := ensureSwapWrapperExists(ctx, env); err != nil {
-		t.Fatalf("ensure swap wrapper exists: %v", err)
+	if err := ensureWrappedUgnotReady(ctx, env); err != nil {
+		t.Fatalf("ensure wrapped ugnot ready: %v", err)
 	}
-	if err := approveToken(ctx, env, workloadGnsPath, env.wrapperAddr, workloadMaxApprove); err != nil {
-		t.Fatalf("approve gns to swap wrapper: %v", err)
+	if err := ensureRouterPoolExists(ctx, env); err != nil {
+		t.Fatalf("ensure router pool exists: %v", err)
 	}
-	if _, err := mintPositionTx(ctx, env, workloadWideTickLower, workloadWideTickUpper, workloadMintAmount0, workloadMintAmount1); err != nil {
-		t.Fatalf("mint position for swap liquidity: %v", err)
+	if err := approveToken(ctx, env, workloadGnsPath, env.routerAddr, workloadMaxApprove); err != nil {
+		t.Fatalf("approve gns to router: %v", err)
 	}
-	if err := approveToken(ctx, env, workloadWrappedUgnotPath, env.wrapperAddr, workloadMaxApprove); err != nil {
-		t.Fatalf("approve wugnot to swap wrapper: %v", err)
+	if err := approveToken(ctx, env, workloadWrappedUgnotPath, env.poolAddr, workloadMaxApprove); err != nil {
+		t.Fatalf("approve wugnot to pool: %v", err)
+	}
+	if _, err := mintPositionTxAtFee(ctx, env, routerWorkloadFeeTier, workloadWideTickLower, workloadWideTickUpper, routerMintAmount0, routerMintAmount1); err != nil {
+		t.Fatalf("mint router swap liquidity: %v", err)
+	}
+	if err := approveToken(ctx, env, workloadWrappedUgnotPath, env.routerAddr, workloadMaxApprove); err != nil {
+		t.Fatalf("approve wugnot to router: %v", err)
 	}
 }
 
@@ -114,6 +119,31 @@ func ensurePoolExists(ctx context.Context, env *researchHarnessEnv) error {
 	return nil
 }
 
+func ensureRouterPoolExists(ctx context.Context, env *researchHarnessEnv) error {
+	exists, err := queryPoolExistsForFee(ctx, env, routerWorkloadFeeTier)
+	if err == nil && exists {
+		return nil
+	}
+	if err := ensureWrappedUgnotReady(ctx, env); err != nil {
+		return err
+	}
+	if err := approveToken(ctx, env, workloadGnsPath, env.poolAddr, workloadMaxApprove); err != nil {
+		return fmt.Errorf("approve gns to pool before router create: %w", err)
+	}
+	if err := approveToken(ctx, env, workloadWrappedUgnotPath, env.poolAddr, workloadMaxApprove); err != nil {
+		return fmt.Errorf("approve wugnot to pool before router create: %w", err)
+	}
+	_, err = createPoolTx(ctx, env, workloadWrappedUgnotPath, workloadGnsPath, routerWorkloadFeeTier, initialSqrtPriceX96)
+	if err != nil {
+		lower := strings.ToLower(err.Error())
+		if strings.Contains(lower, "already") || strings.Contains(lower, "exists") {
+			return nil
+		}
+		return err
+	}
+	return nil
+}
+
 func ensurePoolTierSet(ctx context.Context, env *researchHarnessEnv) error {
 	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, fmt.Sprintf(`%s.GetPoolTier(%q)`, stakerPkgPath, poolPath()))
 	if err == nil && strings.Contains(out, stakerPoolTier) {
@@ -127,16 +157,17 @@ func poolPath() string {
 	return workloadWrappedUgnotPath + ":" + workloadGnsPath + ":" + strconv.FormatUint(uint64(workloadFeeTier), 10)
 }
 
-func querySwapWrapperAddressMaybe(containerID, rpc string) string {
-	out, err := gnoQEval(containerID, rpc, workloadSwapWrapperPkgPath+`.WrapperAddress()`)
-	if err != nil {
-		return ""
-	}
-	return regexp.MustCompile(`g1[0-9a-z]+`).FindString(out)
-}
-
 func queryPoolExistsWithContext(_ context.Context, env *researchHarnessEnv) (bool, error) {
 	poolPath := workloadWrappedUgnotPath + ":" + workloadGnsPath + ":" + strconv.FormatUint(uint64(workloadFeeTier), 10)
+	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, fmt.Sprintf(`gno.land/r/gnoswap/pool.ExistsPoolPath(%q)`, poolPath))
+	if err != nil {
+		return false, err
+	}
+	return strings.Contains(out, "true"), nil
+}
+
+func queryPoolExistsForFee(_ context.Context, env *researchHarnessEnv, fee uint32) (bool, error) {
+	poolPath := workloadWrappedUgnotPath + ":" + workloadGnsPath + ":" + strconv.FormatUint(uint64(fee), 10)
 	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, fmt.Sprintf(`gno.land/r/gnoswap/pool.ExistsPoolPath(%q)`, poolPath))
 	if err != nil {
 		return false, err
@@ -189,111 +220,6 @@ func depositWrappedUgnot(ctx context.Context, env *researchHarnessEnv, amount st
 	return lastErr
 }
 
-func ensureSwapWrapperExists(ctx context.Context, env *researchHarnessEnv) error {
-	if env.wrapperAddr == "" {
-		if err := writeSwapWrapperPackage(ctx, env); err != nil {
-			return err
-		}
-		if err := addSwapWrapperPackage(ctx, env); err != nil {
-			lower := strings.ToLower(err.Error())
-			if !strings.Contains(lower, "already") && !strings.Contains(lower, "exists") {
-				return err
-			}
-		}
-		env.wrapperAddr = querySwapWrapperAddressMaybe(env.gnoContainer, env.cfg.GnoGnokeyRemote)
-		if env.wrapperAddr == "" {
-			return fmt.Errorf("swap wrapper address not found after deployment")
-		}
-	}
-	return nil
-}
-
-func writeSwapWrapperPackage(ctx context.Context, env *researchHarnessEnv) error {
-	command := `mkdir -p /tmp/swap_wrapper && cat > /tmp/swap_wrapper/gnomod.toml <<'EOF'
-module = "gno.land/r/swap_probe_wrapper"
-gno = "0.9"
-EOF
-cat > /tmp/swap_wrapper/callback_mock.gno <<'EOF'
-package swap_probe_wrapper
-
-import (
-	"chain"
-
-	"gno.land/r/gnoswap/common"
-	"gno.land/r/gnoswap/pool"
-)
-
-var (
-	poolAddr    = chain.PackageAddress("gno.land/r/gnoswap/pool")
-	wrapperAddr = chain.PackageAddress("gno.land/r/swap_probe_wrapper")
-)
-
-func WrapperAddress() address {
-	return wrapperAddr
-}
-
-func WrappedSwap(
-	cur realm,
-	token0Path string,
-	token1Path string,
-	fee uint32,
-	recipient address,
-	zeroForOne bool,
-	amountSpecified string,
-	sqrtPriceLimitX96 string,
-	payer address,
-) (string, string) {
-	return pool.Swap(
-		cross,
-		token0Path,
-		token1Path,
-		fee,
-		recipient,
-		zeroForOne,
-		amountSpecified,
-		sqrtPriceLimitX96,
-		payer,
-		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
-			return handleSwapCallback(token0Path, token1Path, payer, amount0Delta, amount1Delta)
-		},
-	)
-}
-
-func handleSwapCallback(token0Path string, token1Path string, payer address, amount0Delta int64, amount1Delta int64) error {
-	switch {
-	case amount0Delta > 0:
-		transferToPool(token0Path, amount0Delta, payer)
-	case amount1Delta > 0:
-		transferToPool(token1Path, amount1Delta, payer)
-	}
-	return nil
-}
-
-func transferToPool(tokenPath string, amount int64, payer address) {
-	if payer == wrapperAddr {
-		common.SafeGRC20Transfer(cross, tokenPath, poolAddr, amount)
-		return
-	}
-	common.SafeGRC20TransferFrom(cross, tokenPath, payer, poolAddr, amount)
-}
-EOF`
-	stdout, stderr, err := dockerExec(ctx, env.gnoContainer, "sh", "-lc", command)
-	if err != nil {
-		return fmt.Errorf("write swap wrapper package: %w: stdout=%s stderr=%s", err, stdout, stderr)
-	}
-	return nil
-}
-
-func addSwapWrapperPackage(ctx context.Context, env *researchHarnessEnv) error {
-	command := "printf '\\n' | gnokey maketx addpkg -pkgdir /tmp/swap_wrapper -pkgpath " + workloadSwapWrapperPkgPath + " -gas-fee 2000000ugnot -gas-wanted 1500000000 -broadcast=true -chainid " + env.cfg.GnoChainID + " -remote " + env.cfg.GnoGnokeyRemote + " -insecure-password-stdin=true gnoswap_admin"
-	stdout, stderr, err := dockerExec(ctx, env.gnoContainer, "sh", "-lc", command)
-	if err != nil {
-		return fmt.Errorf("add swap wrapper package: %w: stdout=%s stderr=%s", err, stdout, stderr)
-	}
-	_, _ = stdout, stderr
-	return nil
-}
-
 func createPoolTx(ctx context.Context, env *researchHarnessEnv, token0Path, token1Path string, fee uint32, sqrtPriceX96 string) (txMetrics, error) {
 	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", poolPkgPath, "CreatePool", "",
 		token0Path,
@@ -307,16 +233,17 @@ func createPoolTx(ctx context.Context, env *researchHarnessEnv, token0Path, toke
 	return parseSingleTxMetrics(out)
 }
 
-func wrappedPoolSwapExactInTx(ctx context.Context, env *researchHarnessEnv) (txMetrics, error) {
-	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", workloadSwapWrapperPkgPath, "WrappedSwap", "",
+func routerExactInSwapRouteTx(ctx context.Context, env *researchHarnessEnv) (txMetrics, error) {
+	route := singleHopRoute(workloadWrappedUgnotPath, workloadGnsPath, routerWorkloadFeeTier)
+	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", routerPkgPath, "ExactInSwapRoute", "",
 		workloadWrappedUgnotPath,
 		workloadGnsPath,
-		strconv.FormatUint(uint64(workloadFeeTier), 10),
-		env.adminAddr,
-		"false",
-		swapAmountSpecifiedExactIn,
-		swapSqrtPriceLimitExactInX96,
-		env.adminAddr,
+		routerExactInAmountIn,
+		route,
+		routerExactInQuoteRatios,
+		routerExactInAmountOutMin,
+		strconv.FormatInt(workloadDefaultDeadline, 10),
+		"",
 	)
 	if err != nil {
 		return txMetrics{}, err
@@ -324,21 +251,26 @@ func wrappedPoolSwapExactInTx(ctx context.Context, env *researchHarnessEnv) (txM
 	return parseSingleTxMetricsAllowMissing(out)
 }
 
-func wrappedPoolSwapExactOutTx(ctx context.Context, env *researchHarnessEnv) (txMetrics, error) {
-	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", workloadSwapWrapperPkgPath, "WrappedSwap", "",
+func routerExactOutSwapRouteTx(ctx context.Context, env *researchHarnessEnv) (txMetrics, error) {
+	route := singleHopRoute(workloadWrappedUgnotPath, workloadGnsPath, routerWorkloadFeeTier)
+	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", routerPkgPath, "ExactOutSwapRoute", "",
 		workloadWrappedUgnotPath,
 		workloadGnsPath,
-		strconv.FormatUint(uint64(workloadFeeTier), 10),
-		env.adminAddr,
-		"false",
-		swapAmountSpecifiedExactOut,
-		swapSqrtPriceLimitExactOutX96,
-		env.adminAddr,
+		routerExactOutAmountOut,
+		route,
+		routerExactOutQuoteRatios,
+		routerExactOutAmountInMax,
+		strconv.FormatInt(workloadDefaultDeadline, 10),
+		"",
 	)
 	if err != nil {
 		return txMetrics{}, err
 	}
 	return parseSingleTxMetricsAllowMissing(out)
+}
+
+func singleHopRoute(tokenIn, tokenOut string, fee uint32) string {
+	return tokenIn + ":" + tokenOut + ":" + strconv.FormatUint(uint64(fee), 10)
 }
 
 func createExternalIncentiveTx(ctx context.Context, env *researchHarnessEnv, runID int64) (txMetrics, error) {
@@ -465,10 +397,14 @@ func createDisposableProbePool(ctx context.Context, env *researchHarnessEnv, run
 }
 
 func mintPositionRawOutput(ctx context.Context, env *researchHarnessEnv, tickLower, tickUpper int32, amount0Desired, amount1Desired string) (string, error) {
+	return mintPositionRawOutputAtFee(ctx, env, workloadFeeTier, tickLower, tickUpper, amount0Desired, amount1Desired)
+}
+
+func mintPositionRawOutputAtFee(ctx context.Context, env *researchHarnessEnv, fee uint32, tickLower, tickUpper int32, amount0Desired, amount1Desired string) (string, error) {
 	return broadcastCallOutput(ctx, env, "gnoswap_admin", positionPkgPath, "Mint", "",
 		workloadGnsPath,
 		workloadWrappedUgnotPath,
-		strconv.FormatUint(uint64(workloadFeeTier), 10),
+		strconv.FormatUint(uint64(fee), 10),
 		strconv.FormatInt(int64(tickLower), 10),
 		strconv.FormatInt(int64(tickUpper), 10),
 		amount0Desired,
@@ -483,7 +419,11 @@ func mintPositionRawOutput(ctx context.Context, env *researchHarnessEnv, tickLow
 }
 
 func mintPositionTx(ctx context.Context, env *researchHarnessEnv, tickLower, tickUpper int32, amount0Desired, amount1Desired string) (txMetrics, error) {
-	out, err := mintPositionRawOutput(ctx, env, tickLower, tickUpper, amount0Desired, amount1Desired)
+	return mintPositionTxAtFee(ctx, env, workloadFeeTier, tickLower, tickUpper, amount0Desired, amount1Desired)
+}
+
+func mintPositionTxAtFee(ctx context.Context, env *researchHarnessEnv, fee uint32, tickLower, tickUpper int32, amount0Desired, amount1Desired string) (txMetrics, error) {
+	out, err := mintPositionRawOutputAtFee(ctx, env, fee, tickLower, tickUpper, amount0Desired, amount1Desired)
 	if err != nil {
 		return txMetrics{}, err
 	}
