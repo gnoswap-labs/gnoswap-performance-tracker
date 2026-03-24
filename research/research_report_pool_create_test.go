@@ -35,10 +35,11 @@ type researchHarnessEnv struct {
 }
 
 type checkpointPoint struct {
-	N               int64
-	MarginalGas     int64
-	MarginalStorage int64
-	MarginalCost    int64
+	N            int64
+	SampleCount  int
+	GasStats     metricStats
+	StorageStats metricStats
+	CostStats    metricStats
 }
 
 func TestResearchReportPoolCreate(t *testing.T) {
@@ -56,10 +57,24 @@ func TestResearchReportPoolCreate(t *testing.T) {
 	rows := make([]researchRow, 0, len(points))
 	for _, point := range points {
 		rows = append(rows, researchRow{
-			Name:        fmt.Sprintf("research PoolCreate (n=%d)", point.N),
-			GasUsed:     point.MarginalGas,
-			StorageDiff: point.MarginalStorage,
-			CPUCycles:   "-",
+			Name:           fmt.Sprintf("research PoolCreate (n=%d)", point.N),
+			GasUsed:        point.GasStats.Avg,
+			StorageDiff:    point.StorageStats.Avg,
+			CPUCycles:      "-",
+			SampleCount:    point.SampleCount,
+			GasQ1:          point.GasStats.Q1,
+			GasQ3:          point.GasStats.Q3,
+			GasMin:         point.GasStats.Min,
+			GasMax:         point.GasStats.Max,
+			StorageQ1:      point.StorageStats.Q1,
+			StorageQ3:      point.StorageStats.Q3,
+			StorageMin:     point.StorageStats.Min,
+			StorageMax:     point.StorageStats.Max,
+			TotalTxCostAvg: point.CostStats.Avg,
+			TotalTxCostQ1:  point.CostStats.Q1,
+			TotalTxCostQ3:  point.CostStats.Q3,
+			TotalTxCostMin: point.CostStats.Min,
+			TotalTxCostMax: point.CostStats.Max,
 		})
 	}
 	mustWriteResearchRows(t, outputPath, rows)

@@ -43,6 +43,37 @@ fi
 # Parse markdown table and extract unique entries (first occurrence only)
 parse_table() {
     local file="$1"
+    if [[ "$file" == *"/research/"* ]]; then
+        awk -F'|' '
+        NR > 2 && NF > 1 {
+            action = $2
+            n = $3
+            gas = $5
+            storage = $8
+
+            gsub(/^[[:space:]]+|[[:space:]]+$/, "", action)
+            gsub(/^[[:space:]]+|[[:space:]]+$/, "", n)
+            gsub(/^[[:space:]]+|[[:space:]]+$/, "", gas)
+            gsub(/^[[:space:]]+|[[:space:]]+$/, "", storage)
+
+            if (action == "" || action == "Action" || n == "" || n == "N" || n !~ /^[0-9]+$/) next
+
+            name = action " (n=" n ")"
+            if (seen[name]) next
+            seen[name] = 1
+
+            gsub(/[^0-9-]/, "", gas)
+            gsub(/[^0-9-]/, "", storage)
+
+            if (gas == "" || gas == "-") gas = 0
+            if (storage == "" || storage == "-") storage = 0
+
+            print name "\t" gas "\t" storage "\t0"
+        }
+        ' "$file"
+        return
+    fi
+
     awk -F'|' '
     NR > 2 && NF > 1 {
         # Skip header and separator lines
@@ -59,9 +90,9 @@ parse_table() {
         storage = $4; gsub(/[^0-9-]/, "", storage)
         cpu = $5; gsub(/[^0-9-]/, "", cpu)
 
-        if (gas == "") gas = 0
-        if (storage == "") storage = 0
-        if (cpu == "") cpu = 0
+        if (gas == "" || gas == "-") gas = 0
+        if (storage == "" || storage == "-") storage = 0
+        if (cpu == "" || cpu == "-") cpu = 0
         
         print name "\t" gas "\t" storage "\t" cpu
     }

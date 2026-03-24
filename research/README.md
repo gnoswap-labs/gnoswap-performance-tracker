@@ -42,6 +42,13 @@ make report REF=main
 
 For local runs, copy `.env.example` to `.env` and provide a valid `TEST_MNEMONIC`.
 
+The default milestone set is `1,100,10000`. Override it per run when needed.
+
+```bash
+WORKLOAD_NS=1,10 make report REF=main
+WORKLOAD_NS=1,10 make research-report main
+```
+
 ## Boundaries
 
 - Do not move live-chain runtime files into `tests/metric` or `tests/stress`.

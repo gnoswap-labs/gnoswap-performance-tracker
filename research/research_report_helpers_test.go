@@ -20,15 +20,37 @@ var (
 )
 
 type researchRow struct {
-	Name        string
-	GasUsed     int64
-	StorageDiff int64
-	CPUCycles   string
+	Name           string
+	GasUsed        int64
+	StorageDiff    int64
+	CPUCycles      string
+	SampleCount    int
+	GasQ1          int64
+	GasQ3          int64
+	GasMin         int64
+	GasMax         int64
+	StorageQ1      int64
+	StorageQ3      int64
+	StorageMin     int64
+	StorageMax     int64
+	TotalTxCostAvg int64
+	TotalTxCostQ1  int64
+	TotalTxCostQ3  int64
+	TotalTxCostMin int64
+	TotalTxCostMax int64
+}
+
+type metricStats struct {
+	Avg int64
+	Q1  int64
+	Q3  int64
+	Min int64
+	Max int64
 }
 
 func mustProbeCheckpoints(t *testing.T) []int64 {
 	t.Helper()
-	raw := getenvOrDefault(probeCheckpointsEnv, "1,10")
+	raw := getenvOrDefault(probeCheckpointsEnv, "1,100,10000")
 	checkpoints := parseCheckpoints(raw)
 	if len(checkpoints) == 0 {
 		t.Fatalf("no valid %s checkpoints", probeCheckpointsEnv)
@@ -104,44 +126,69 @@ func mustRunCheckpointLoop(t *testing.T, checkpoints []int64, fn func(iteration 
 	}
 
 	points := make([]checkpointPoint, 0, len(checkpoints))
-	var cumGas, cumStorage, cumCost int64
-	prevN := int64(0)
-	prevGas := int64(0)
-	prevStorage := int64(0)
-	prevCost := int64(0)
+	windowGas := make([]int64, 0)
+	windowStorage := make([]int64, 0)
+	windowCost := make([]int64, 0)
 
 	for i := int64(1); i <= maxN; i++ {
 		m, err := fn(i)
 		if err != nil {
 			t.Fatalf("probe iteration %d: %v", i, err)
 		}
-		cumGas += m.GasUsed
-		cumStorage += m.StorageDelta
-		cumCost += m.TotalTxCost
+		windowGas = append(windowGas, m.GasUsed)
+		windowStorage = append(windowStorage, m.StorageDelta)
+		windowCost = append(windowCost, m.TotalTxCost)
 
 		if _, ok := checkpointSet[i]; !ok {
 			continue
 		}
 
-		deltaN := i - prevN
-		deltaGas := cumGas - prevGas
-		deltaStorage := cumStorage - prevStorage
-		deltaCost := cumCost - prevCost
-
 		points = append(points, checkpointPoint{
-			N:               i,
-			MarginalGas:     deltaGas / deltaN,
-			MarginalStorage: deltaStorage / deltaN,
-			MarginalCost:    deltaCost / deltaN,
+			N:            i,
+			SampleCount:  len(windowGas),
+			GasStats:     summarizeMetric(windowGas),
+			StorageStats: summarizeMetric(windowStorage),
+			CostStats:    summarizeMetric(windowCost),
 		})
-
-		prevN = i
-		prevGas = cumGas
-		prevStorage = cumStorage
-		prevCost = cumCost
+		windowGas = windowGas[:0]
+		windowStorage = windowStorage[:0]
+		windowCost = windowCost[:0]
 	}
 
 	return points
+}
+
+func summarizeMetric(values []int64) metricStats {
+	if len(values) == 0 {
+		return metricStats{}
+	}
+	sorted := append([]int64(nil), values...)
+	sort.Slice(sorted, func(i, j int) bool { return sorted[i] < sorted[j] })
+	var sum int64
+	for _, v := range sorted {
+		sum += v
+	}
+	return metricStats{
+		Avg: sum / int64(len(sorted)),
+		Q1:  percentileValue(sorted, 0.25),
+		Q3:  percentileValue(sorted, 0.75),
+		Min: sorted[0],
+		Max: sorted[len(sorted)-1],
+	}
+}
+
+func percentileValue(sorted []int64, percentile float64) int64 {
+	if len(sorted) == 1 {
+		return sorted[0]
+	}
+	idx := int(float64(len(sorted)-1) * percentile)
+	if idx < 0 {
+		idx = 0
+	}
+	if idx >= len(sorted) {
+		idx = len(sorted) - 1
+	}
+	return sorted[idx]
 }
 
 func ensurePoolCreateProbePrereqs(ctx context.Context, env *researchHarnessEnv) error {
@@ -358,7 +405,26 @@ func mustWriteResearchRows(t *testing.T, outputPath string, rows []researchRow) 
 	}
 	defer file.Close()
 	for _, row := range rows {
-		if _, err := fmt.Fprintf(file, "%s\t%d\t%d\t%s\n", row.Name, row.GasUsed, row.StorageDiff, row.CPUCycles); err != nil {
+		if _, err := fmt.Fprintf(file, "%s\t%d\t%d\t%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
+			row.Name,
+			row.GasUsed,
+			row.StorageDiff,
+			row.CPUCycles,
+			row.SampleCount,
+			row.GasQ1,
+			row.GasQ3,
+			row.GasMin,
+			row.GasMax,
+			row.StorageQ1,
+			row.StorageQ3,
+			row.StorageMin,
+			row.StorageMax,
+			row.TotalTxCostAvg,
+			row.TotalTxCostQ1,
+			row.TotalTxCostQ3,
+			row.TotalTxCostMin,
+			row.TotalTxCostMax,
+		); err != nil {
 			t.Fatalf("write report row: %v", err)
 		}
 	}

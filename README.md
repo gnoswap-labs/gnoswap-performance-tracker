@@ -117,6 +117,12 @@ This lane does **not** participate in the default `summary` flow yet.
 
 The first report-capable probe path is `PoolCreate`, and it emits normalized research markdown through the same compare pipeline used by metric and stress reports.
 
+The default research milestones are `1,100,10000`. Override them per run when you want a smaller or denser checkpoint set.
+
+```bash
+WORKLOAD_NS=1,10 make research-report main
+```
+
 ### 5. Output Locations
 
 - **Metric Reports:**
