@@ -371,6 +371,16 @@ func stakeTokenTx(ctx context.Context, env *researchHarnessEnv, positionID uint6
 	return parseSingleTxMetrics(out)
 }
 
+func collectRewardTx(ctx context.Context, env *researchHarnessEnv, positionID uint64) (txMetrics, error) {
+	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", stakerPkgPath, "CollectReward", "",
+		strconv.FormatUint(positionID, 10),
+	)
+	if err != nil {
+		return txMetrics{}, err
+	}
+	return parseSingleTxMetrics(out)
+}
+
 func queryMinimumRewardAmount(_ context.Context, env *researchHarnessEnv) (string, error) {
 	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, stakerPkgPath+`.GetMinimumRewardAmount()`)
 	if err != nil {
@@ -398,6 +408,18 @@ func prepareStakedPosition(ctx context.Context, env *researchHarnessEnv) (uint64
 	if _, err := stakeTokenTx(ctx, env, positionID); err != nil {
 		return 0, err
 	}
+	return positionID, nil
+}
+
+func prepareCollectableStakedPosition(ctx context.Context, env *researchHarnessEnv) (uint64, error) {
+	positionID, err := prepareApprovedStakeablePosition(ctx, env)
+	if err != nil {
+		return 0, err
+	}
+	if _, err := stakeTokenTx(ctx, env, positionID); err != nil {
+		return 0, err
+	}
+	waitForRewardAccrual()
 	return positionID, nil
 }
 
@@ -535,6 +557,10 @@ func firstDecimalString(output string) string {
 
 func checkpointRunID() int64 {
 	return time.Now().Unix()
+}
+
+func waitForRewardAccrual() {
+	time.Sleep(2 * time.Second)
 }
 
 func incentiveSchedule(seed int64) (int64, int64) {
