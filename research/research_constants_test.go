@@ -23,6 +23,8 @@ const (
 	workloadDefaultDeadline       int64  = 9999999999
 	workloadMintAmount0                  = "5000000"
 	workloadMintAmount1                  = "5000000"
+	workloadIncreaseAmount0              = "1000000"
+	workloadIncreaseAmount1              = "1000000"
 )
 
 type txMetrics struct {

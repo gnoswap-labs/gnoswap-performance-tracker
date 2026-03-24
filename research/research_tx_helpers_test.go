@@ -303,6 +303,10 @@ func wrappedPoolSwapExactOutTx(ctx context.Context, env *researchHarnessEnv) (tx
 	return parseSingleTxMetricsAllowMissing(out)
 }
 
+func preparePositionForIncrease(ctx context.Context, env *researchHarnessEnv) (uint64, error) {
+	return mintFreshPosition(ctx, env, workloadWideTickLower, workloadWideTickUpper)
+}
+
 func createDisposableProbePool(ctx context.Context, env *researchHarnessEnv, runTag string, iteration int64) (string, string, error) {
 	baseName := fmt.Sprintf("ptr%s%d", runTag, iteration)
 	token0Package := "gno.land/r/gnoswap_probe_token_" + baseName + "a"
@@ -343,6 +347,55 @@ func mintPositionTx(ctx context.Context, env *researchHarnessEnv, tickLower, tic
 		return txMetrics{}, err
 	}
 	return parseSingleTxMetrics(out)
+}
+
+func increaseLiquidityTx(ctx context.Context, env *researchHarnessEnv, positionID uint64) (txMetrics, error) {
+	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", positionPkgPath, "IncreaseLiquidity", "",
+		strconv.FormatUint(positionID, 10),
+		workloadIncreaseAmount0,
+		workloadIncreaseAmount1,
+		"1",
+		"1",
+		strconv.FormatInt(workloadDefaultDeadline, 10),
+	)
+	if err != nil {
+		return txMetrics{}, err
+	}
+	return parseSingleTxMetricsAllowMissing(out)
+}
+
+type mintedPositionDetails struct {
+	PositionID uint64
+	Liquidity  string
+}
+
+func mintFreshPosition(ctx context.Context, env *researchHarnessEnv, tickLower, tickUpper int32) (uint64, error) {
+	details, err := mintFreshPositionWithLiquidity(ctx, env, tickLower, tickUpper)
+	if err != nil {
+		return 0, err
+	}
+	return details.PositionID, nil
+}
+
+func mintFreshPositionWithLiquidity(ctx context.Context, env *researchHarnessEnv, tickLower, tickUpper int32) (mintedPositionDetails, error) {
+	out, err := mintPositionRawOutput(ctx, env, tickLower, tickUpper, workloadMintAmount0, workloadMintAmount1)
+	if err != nil {
+		return mintedPositionDetails{}, err
+	}
+	return parseMintPositionDetails(out)
+}
+
+func parseMintPositionDetails(output string) (mintedPositionDetails, error) {
+	positionIDMatch := regexp.MustCompile(`"lpPositionId","value":"([0-9]+)"`).FindStringSubmatch(output)
+	liquidityMatch := regexp.MustCompile(`"positionLiquidity","value":"([0-9]+)"`).FindStringSubmatch(output)
+	if len(positionIDMatch) != 2 || len(liquidityMatch) != 2 {
+		return mintedPositionDetails{}, fmt.Errorf("missing minted position details in output: %s", output)
+	}
+	positionID, err := strconv.ParseUint(positionIDMatch[1], 10, 64)
+	if err != nil {
+		return mintedPositionDetails{}, err
+	}
+	return mintedPositionDetails{PositionID: positionID, Liquidity: liquidityMatch[1]}, nil
 }
 
 func addProbeTokenPackage(ctx context.Context, env *researchHarnessEnv, pkgPath, packageName, symbol string) error {
