@@ -7,7 +7,7 @@ ARTIFACTS_DIR := artifacts
 RUNLOGS_DIR := .runlogs
 LAST_REPORT := $(ARTIFACTS_DIR)/latest-report.tsv
 
-.PHONY: up down build logs test report clean ensure-dirs
+.PHONY: up down build logs test test-only test-keep-up report clean ensure-dirs
 
 ensure-dirs:
 	@mkdir -p $(ARTIFACTS_DIR) $(RUNLOGS_DIR)
@@ -25,8 +25,15 @@ logs:
 	@docker compose logs -f
 
 test: ensure-dirs
-	@$(MAKE) report REF="$(REF)" | tee "$(RUNLOGS_DIR)/latest-test.log" >/dev/null
-	@cat "$(RUNLOGS_DIR)/latest-test.log"
+	@docker compose up -d --build --force-recreate
+	@go test -v -timeout 10m -count=1 ./...; ret=$$?; docker compose down -v; exit $$ret
+
+test-only: ensure-dirs
+	@go test -v -timeout 10m -count=1 ./...
+
+test-keep-up: ensure-dirs
+	@docker compose up -d --build --force-recreate
+	@go test -v -timeout 10m -count=1 ./...
 
 report: ensure-dirs
 	@printf "research PlaceholderProbe (n=1)\t0\t0\t0\n" | tee "$(LAST_REPORT)"
