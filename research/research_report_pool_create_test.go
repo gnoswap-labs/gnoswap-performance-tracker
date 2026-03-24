@@ -10,23 +10,26 @@ import (
 )
 
 const (
-	researchReportEnv               = "RESEARCH_REPORT"
-	researchReportOutputEnv         = "RESEARCH_REPORT_OUT"
-	probeCheckpointsEnv             = "WORKLOAD_NS"
-	workloadWrappedUgnotPath        = "gno.land/r/gnoland/wugnot"
-	workloadGnsPath                 = "gno.land/r/gnoswap/gns"
-	poolPkgPath                     = "gno.land/r/gnoswap/pool"
-	positionPkgPath                 = "gno.land/r/gnoswap/position"
-	workloadFeeTier          uint32 = 3000
-	initialSqrtPriceX96             = "79228162514264337593543950337"
-	workloadMaxApprove              = "9223372036854775806"
-	workloadUserAddress             = "g1z437dpuh5s4p64vtq09dulg6jzxpr2hd4q8r5x"
-	workloadWrappedDeposit          = "100000000"
-	workloadWideTickLower    int32  = -887220
-	workloadWideTickUpper    int32  = 887220
-	workloadDefaultDeadline  int64  = 9999999999
-	workloadMintAmount0             = "5000000"
-	workloadMintAmount1             = "5000000"
+	researchReportEnv                   = "RESEARCH_REPORT"
+	researchReportOutputEnv             = "RESEARCH_REPORT_OUT"
+	probeCheckpointsEnv                 = "WORKLOAD_NS"
+	workloadWrappedUgnotPath            = "gno.land/r/gnoland/wugnot"
+	workloadGnsPath                     = "gno.land/r/gnoswap/gns"
+	poolPkgPath                         = "gno.land/r/gnoswap/pool"
+	positionPkgPath                     = "gno.land/r/gnoswap/position"
+	workloadSwapWrapperPkgPath          = "gno.land/r/swap_probe_wrapper"
+	workloadFeeTier              uint32 = 3000
+	initialSqrtPriceX96                 = "79228162514264337593543950337"
+	swapSqrtPriceLimitExactInX96        = "1461446703485210103287273052203988822378723970341"
+	swapAmountSpecifiedExactIn          = "1000000"
+	workloadMaxApprove                  = "9223372036854775806"
+	workloadUserAddress                 = "g1z437dpuh5s4p64vtq09dulg6jzxpr2hd4q8r5x"
+	workloadWrappedDeposit              = "100000000"
+	workloadWideTickLower        int32  = -887220
+	workloadWideTickUpper        int32  = 887220
+	workloadDefaultDeadline      int64  = 9999999999
+	workloadMintAmount0                 = "5000000"
+	workloadMintAmount1                 = "5000000"
 )
 
 type txMetrics struct {
@@ -40,6 +43,7 @@ type researchHarnessEnv struct {
 	poolAddr     string
 	positionAddr string
 	adminAddr    string
+	wrapperAddr  string
 }
 
 type checkpointPoint struct {
@@ -100,6 +104,7 @@ func mustSetupResearchHarnessEnv(t *testing.T) *researchHarnessEnv {
 		poolAddr:     baseEnv.mustQueryAddressByRole(t, "pool"),
 		positionAddr: baseEnv.mustQueryAddressByRole(t, "position"),
 		adminAddr:    adminAddr,
+		wrapperAddr:  querySwapWrapperAddressMaybe(baseEnv.gnoContainer, baseEnv.cfg.GnoGnokeyRemote),
 	}
 }
 
@@ -119,6 +124,44 @@ func TestResearchReportPositionMint(t *testing.T) {
 	for _, point := range points {
 		rows = append(rows, researchRow{
 			Name:           fmt.Sprintf("research PositionMint (n=%d)", point.N),
+			GasUsed:        point.GasStats.Avg,
+			StorageDiff:    point.StorageStats.Avg,
+			CPUCycles:      "-",
+			SampleCount:    point.SampleCount,
+			GasQ1:          point.GasStats.Q1,
+			GasQ3:          point.GasStats.Q3,
+			GasMin:         point.GasStats.Min,
+			GasMax:         point.GasStats.Max,
+			StorageQ1:      point.StorageStats.Q1,
+			StorageQ3:      point.StorageStats.Q3,
+			StorageMin:     point.StorageStats.Min,
+			StorageMax:     point.StorageStats.Max,
+			TotalTxCostAvg: point.CostStats.Avg,
+			TotalTxCostQ1:  point.CostStats.Q1,
+			TotalTxCostQ3:  point.CostStats.Q3,
+			TotalTxCostMin: point.CostStats.Min,
+			TotalTxCostMax: point.CostStats.Max,
+		})
+	}
+	mustWriteResearchRows(t, outputPath, rows)
+}
+
+func TestResearchReportPoolSwapExactIn(t *testing.T) {
+	if os.Getenv(researchReportEnv) != "1" {
+		t.Skip("set RESEARCH_REPORT=1 to run research report probes")
+	}
+
+	outputPath := os.Getenv(researchReportOutputEnv)
+	if outputPath == "" {
+		t.Fatalf("%s is required", researchReportOutputEnv)
+	}
+
+	env := mustSetupResearchHarnessEnv(t)
+	points := mustRunPoolSwapExactInReportProbe(t.Context(), t, env, mustProbeCheckpoints(t))
+	rows := make([]researchRow, 0, len(points))
+	for _, point := range points {
+		rows = append(rows, researchRow{
+			Name:           fmt.Sprintf("research PoolSwapExactIn (n=%d)", point.N),
 			GasUsed:        point.GasStats.Avg,
 			StorageDiff:    point.StorageStats.Avg,
 			CPUCycles:      "-",
@@ -171,5 +214,17 @@ func mustRunPositionMintReportProbe(ctx context.Context, t *testing.T, env *rese
 
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		return mintPositionTx(ctx, env, workloadWideTickLower, workloadWideTickUpper, workloadMintAmount0, workloadMintAmount1)
+	})
+}
+
+func mustRunPoolSwapExactInReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
+	t.Helper()
+	mustEnsureSwapPrereqs(ctx, t, env)
+	if _, err := wrappedPoolSwapExactInTx(ctx, env); err != nil {
+		t.Fatalf("pool swap exact-in warm-up: %v", err)
+	}
+
+	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
+		return wrappedPoolSwapExactInTx(ctx, env)
 	})
 }

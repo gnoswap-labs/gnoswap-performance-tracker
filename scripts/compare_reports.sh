@@ -48,8 +48,8 @@ parse_table() {
         NR > 2 && NF > 1 {
             action = $2
             n = $3
-            gas = $5
-            storage = $8
+            gas = $4
+            storage = $7
 
             gsub(/^[[:space:]]+|[[:space:]]+$/, "", action)
             gsub(/^[[:space:]]+|[[:space:]]+$/, "", n)

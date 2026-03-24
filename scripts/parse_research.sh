@@ -36,8 +36,8 @@ printf '%s\n' "- Measurement: average and quartiles over samples collected withi
 echo ""
 echo "## Benchmarks"
 echo ""
-echo "| Action | N | Samples | Gas (avg) | Q1 | Q3 | Storage (avg) | Q1 | Q3 | GNO (avg) |"
-echo "|--------|---|---------|-----------|----|----|---------------|----|----|-----------|"
+echo "| Action | N | Gas (avg) | Q1 | Q3 | Storage (avg) | Q1 | Q3 | GNO (avg) |"
+echo "|--------|---|-----------|----|----|---------------|----|----|-----------|"
 
 awk -F'\t' '
 function format_number(num,    result, sign, str, len, i) {
@@ -68,7 +68,6 @@ NF >= 18 {
     name = $1
     gas = $2
     storage = $3
-    samples = $5
     gas_q1 = $6
     gas_q3 = $7
     storage_q1 = $10
@@ -91,7 +90,7 @@ NF >= 18 {
     sub(/\).*$/, "", n)
     sub(/ \(n=[0-9]+\)$/, "", action)
 
-    printf "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n", action, n, samples, format_number(gas), format_number(gas_q1), format_number(gas_q3), format_number(storage), format_number(storage_q1), format_number(storage_q3), format_number(cost_avg)
+    printf "| %s | %s | %s | %s | %s | %s | %s | %s | %s |\n", action, n, format_number(gas), format_number(gas_q1), format_number(gas_q3), format_number(storage), format_number(storage_q1), format_number(storage_q3), format_number(cost_avg)
 }
 ' "$tmp_input"
 
@@ -140,8 +139,6 @@ NF >= 18 {
     cost_min = $17
     cost_max = $18
 
-    print ""
-    print "> " name " measured over " sample " sample(s)."
     print ""
     print "- Gas min/max: `" format_number(gas_min) "` / `" format_number(gas_max) "`"
     print "- Storage min/max: `" format_number(storage_min) "` / `" format_number(storage_max) "`"

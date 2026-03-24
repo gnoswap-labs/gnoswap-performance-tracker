@@ -51,13 +51,9 @@ func gnoQEval(containerID, rpcEndpoint, expression string) (string, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	stdout, stderr, err := dockerExec(ctx, containerID,
-		"gnokey", "query", "vm/qeval",
-		"-data", expression,
-		"-remote", rpcEndpoint,
-	)
+	stdout, err := gnoQEvalRawWithContext(ctx, containerID, rpcEndpoint, expression)
 	if err != nil {
-		return "", fmt.Errorf("gnokey qeval %s: %w: %s", expression, err, stderr)
+		return "", err
 	}
 
 	const prefix = "data: "
@@ -67,6 +63,27 @@ func gnoQEval(containerID, rpcEndpoint, expression string) (string, error) {
 	}
 
 	return strings.TrimSpace(stdout[idx+len(prefix):]), nil
+}
+
+func gnoQEvalRaw(containerID, rpcEndpoint, expression string) (string, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	return gnoQEvalRawWithContext(ctx, containerID, rpcEndpoint, expression)
+}
+
+func gnoQEvalRawWithContext(ctx context.Context, containerID, rpcEndpoint, expression string) (string, error) {
+
+	stdout, stderr, err := dockerExec(ctx, containerID,
+		"gnokey", "query", "vm/qeval",
+		"-data", expression,
+		"-remote", rpcEndpoint,
+	)
+	if err != nil {
+		return "", fmt.Errorf("gnokey qeval %s: %w: %s", expression, err, stderr)
+	}
+
+	return stdout, nil
 }
 
 func gnokeyAddress(containerID, keyName string) (string, error) {
