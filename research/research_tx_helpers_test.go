@@ -381,6 +381,16 @@ func collectRewardTx(ctx context.Context, env *researchHarnessEnv, positionID ui
 	return parseSingleTxMetrics(out)
 }
 
+func unstakeTokenTx(ctx context.Context, env *researchHarnessEnv, positionID uint64) (txMetrics, error) {
+	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", stakerPkgPath, "UnStakeToken", "",
+		strconv.FormatUint(positionID, 10),
+	)
+	if err != nil {
+		return txMetrics{}, err
+	}
+	return parseSingleTxMetricsAllowMissing(out)
+}
+
 func queryMinimumRewardAmount(_ context.Context, env *researchHarnessEnv) (string, error) {
 	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, stakerPkgPath+`.GetMinimumRewardAmount()`)
 	if err != nil {
