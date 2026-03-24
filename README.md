@@ -24,7 +24,7 @@ There are now three lanes in the tracker:
 
 - `tests/metric` for canonical `gno test` metric benchmarks
 - `tests/stress` for canonical `gno test` stress benchmarks
-- `research/` for isolated live-chain runtime scaffolding and exploratory measurements
+- `research/` for isolated live-chain runtime and exploratory measurements
 
 The report layer is shared, but the runtime layer is intentionally separated.
 
@@ -40,9 +40,9 @@ The report layer is shared, but the runtime layer is intentionally separated.
 | **`make compare-metric-force`** | Compare metric reports | **Force Regenerate** |
 | **`make compare-stress`** | Compare stress reports | **Skip** (Reuse) |
 | **`make compare-stress-force`** | Compare stress reports | **Force Regenerate** |
-| **`make research-up`** | Start research runtime scaffold | N/A |
+| **`make research-up`** | Start research runtime | N/A |
 | **`make research-down`** | Stop research runtime scaffold | N/A |
-| **`make research-test`** | Run research lane placeholder check | N/A |
+| **`make research-test`** | Run research smoke harness | N/A |
 | **`make research-report <ref>`** | Generate research report | N/A |
 | **`make compare-research <refs>`** | Compare research reports | N/A |
 | **`make clean-worktrees`** | Remove cached benchmark worktrees | N/A |
@@ -114,6 +114,8 @@ make research-down
 ```
 
 This lane does **not** participate in the default `summary` flow yet.
+
+The first report-capable probe path is `PoolCreate`, and it emits normalized research markdown through the same compare pipeline used by metric and stress reports.
 
 ### 5. Output Locations
 

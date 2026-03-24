@@ -1,10 +1,17 @@
 #!/bin/bash
 set -eu
 
-TEST_ADDR="g1z437dpuh5s4p64vtq09dulg6jzxpr2hd4q8r5x"
 READY_FILE="/tmp/gnoswap-ready"
 
 rm -f "$READY_FILE"
+
+KEY_OUTPUT=$(printf "%s\n\n" "$TEST_MNEMONIC" | gnokey add gnoswap_admin --recover --insecure-password-stdin --force)
+TEST_ADDR=$(printf "%s" "$KEY_OUTPUT" | grep -o 'g1[0-9a-z]\+' | head -n 1)
+
+if [ -z "$TEST_ADDR" ]; then
+    echo "failed to recover gnoswap_admin address"
+    exit 1
+fi
 
 gnodev local \
     -node-rpc-listener 0.0.0.0:26657 \
@@ -28,7 +35,6 @@ cd /opt/gnoswap/tests
 
 sed -i 's/gdate -ud/date -ud/g' scripts/config/default.mk
 
-printf "%s\n\n" "$TEST_MNEMONIC" | gnokey add gnoswap_admin --recover --insecure-password-stdin --force >/dev/null 2>&1
 make patch-admin-address ENV=default ADDR_ADMIN="$TEST_ADDR"
 find ../contract -type f \( -name "*_test.gno" -o -name "*_filetest.gno" \) -delete
 

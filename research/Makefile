@@ -3,6 +3,7 @@ SHELL := /bin/bash
 export COMPOSE_PROJECT_NAME ?= gnoswap_performance_research
 
 REF ?= local
+WORKLOAD_NS ?= 1,10
 ARTIFACTS_DIR := artifacts
 RUNLOGS_DIR := .runlogs
 LAST_REPORT := $(ARTIFACTS_DIR)/latest-report.tsv
@@ -36,7 +37,8 @@ test-keep-up: ensure-dirs
 	@go test -v -timeout 10m -count=1 ./...
 
 report: ensure-dirs
-	@printf "research PlaceholderProbe (n=1)\t0\t0\t0\n" | tee "$(LAST_REPORT)"
+	@docker compose up -d --build --force-recreate
+	@RESEARCH_REPORT=1 RESEARCH_REPORT_OUT="$(LAST_REPORT)" WORKLOAD_NS="$(WORKLOAD_NS)" go test -v -timeout 60m -count=1 -run TestResearchReportPoolCreate ./...; ret=$$?; if [ $$ret -eq 0 ]; then cat "$(LAST_REPORT)"; fi; docker compose down -v; exit $$ret
 
 clean:
 	@rm -rf $(ARTIFACTS_DIR)/* $(RUNLOGS_DIR)/*

@@ -10,14 +10,14 @@ This directory is the live-chain research lane for `gnoswap-performance-tracker`
 
 ## Current Scope
 
-This initial version is scaffolding only.
+This lane now includes:
 
-- `Makefile` exposes the runtime command surface
-- `docker-compose.yml` and `gno/` contain placeholder runtime files
-- `artifacts/` and `.runlogs/` hold raw outputs
-- normalized markdown reports are produced by the root tracker via `scripts/parse_research.sh`
+- a Dockerized local `gnodev` runtime with GnoSwap deployment during bootstrap
+- a minimal Go smoke harness for readiness and deployment checks
+- a first report-capable probe path for `PoolCreate`
+- raw TSV output under `artifacts/`, normalized into tracker reports via `scripts/parse_research.sh`
 
-The actual live-chain harness logic should be promoted into this lane incrementally.
+The broader probe matrix should still be expanded incrementally.
 
 ## Commands
 
@@ -39,6 +39,8 @@ make down
 make test
 make report REF=main
 ```
+
+For local runs, copy `.env.example` to `.env` and provide a valid `TEST_MNEMONIC`.
 
 ## Boundaries
 
