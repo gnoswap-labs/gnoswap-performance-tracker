@@ -38,7 +38,8 @@ test-keep-up: ensure-dirs
 
 report: ensure-dirs
 	@docker compose up -d --build --force-recreate
-	@RESEARCH_REPORT=1 RESEARCH_REPORT_OUT="$(LAST_REPORT)" WORKLOAD_NS="$(WORKLOAD_NS)" go test -v -timeout 60m -count=1 -run TestResearchReportPoolCreate ./... > "$(RUNLOGS_DIR)/latest-report.log" 2>&1; ret=$$?; if [ $$ret -ne 0 ]; then cat "$(RUNLOGS_DIR)/latest-report.log"; docker compose down -v; exit $$ret; fi; cat "$(LAST_REPORT)"; docker compose down -v
+	@rm -f "$(LAST_REPORT)"
+	@RESEARCH_REPORT=1 RESEARCH_REPORT_OUT="$(LAST_REPORT)" WORKLOAD_NS="$(WORKLOAD_NS)" go test -v -timeout 60m -count=1 -run 'TestResearchReport' ./... > "$(RUNLOGS_DIR)/latest-report.log" 2>&1; ret=$$?; if [ $$ret -ne 0 ]; then cat "$(RUNLOGS_DIR)/latest-report.log"; docker compose down -v; exit $$ret; fi; cat "$(LAST_REPORT)"; docker compose down -v
 
 clean:
 	@rm -rf $(ARTIFACTS_DIR)/* $(RUNLOGS_DIR)/*

@@ -34,7 +34,7 @@ END {
 printf '%s\n' '- Milestones: `'"$milestones"'`'
 printf '%s\n' "- Measurement: average and quartiles over samples collected within each checkpoint window"
 echo ""
-echo "## PoolCreate"
+echo "## Benchmarks"
 echo ""
 echo "| Action | N | Samples | Gas (avg) | Q1 | Q3 | Storage (avg) | Q1 | Q3 | GNO (avg) |"
 echo "|--------|---|---------|-----------|----|----|---------------|----|----|-----------|"

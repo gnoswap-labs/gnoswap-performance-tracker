@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"regexp"
 	"strings"
 	"time"
 )
@@ -66,4 +67,27 @@ func gnoQEval(containerID, rpcEndpoint, expression string) (string, error) {
 	}
 
 	return strings.TrimSpace(stdout[idx+len(prefix):]), nil
+}
+
+func gnokeyAddress(containerID, keyName string) (string, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	stdout, stderr, err := dockerExec(ctx, containerID, "gnokey", "list")
+	if err != nil {
+		return "", fmt.Errorf("gnokey list: %w: %s", err, stderr)
+	}
+
+	for _, line := range strings.Split(stdout, "\n") {
+		trimmed := strings.TrimSpace(line)
+		if !strings.Contains(trimmed, " "+keyName+" ") && !strings.HasPrefix(trimmed, keyName+" ") {
+			continue
+		}
+		addr := regexp.MustCompile(`g1[0-9a-z]+`).FindString(trimmed)
+		if addr != "" {
+			return addr, nil
+		}
+	}
+
+	return "", fmt.Errorf("address for key %s not found in gnokey list output", keyName)
 }

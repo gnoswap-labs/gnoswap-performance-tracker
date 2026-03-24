@@ -201,6 +201,64 @@ func ensurePoolCreateProbePrereqs(ctx context.Context, env *researchHarnessEnv) 
 	return nil
 }
 
+func mustEnsureMintPrereqs(ctx context.Context, t interface {
+	Helper()
+	Fatalf(string, ...any)
+}, env *researchHarnessEnv) {
+	t.Helper()
+	if err := ensureWrappedUgnotReady(ctx, env); err != nil {
+		t.Fatalf("ensure wrapped ugnot ready: %v", err)
+	}
+	if err := ensurePoolExists(ctx, env); err != nil {
+		t.Fatalf("ensure pool exists: %v", err)
+	}
+	if err := approveToken(ctx, env, workloadWrappedUgnotPath, env.poolAddr, workloadMaxApprove); err != nil {
+		t.Fatalf("approve wugnot to pool: %v", err)
+	}
+	if err := approveToken(ctx, env, workloadWrappedUgnotPath, env.positionAddr, workloadMaxApprove); err != nil {
+		t.Fatalf("approve wugnot to position: %v", err)
+	}
+	if err := approveToken(ctx, env, workloadGnsPath, env.positionAddr, workloadMaxApprove); err != nil {
+		t.Fatalf("approve gns to position: %v", err)
+	}
+}
+
+func ensurePoolExists(ctx context.Context, env *researchHarnessEnv) error {
+	exists, err := queryPoolExistsWithContext(ctx, env)
+	if err == nil && exists {
+		return nil
+	}
+	if err := ensureWrappedUgnotReady(ctx, env); err != nil {
+		return err
+	}
+	if err := approveToken(ctx, env, workloadGnsPath, env.poolAddr, workloadMaxApprove); err != nil {
+		return fmt.Errorf("approve gns to pool before create: %w", err)
+	}
+	_, err = broadcastCallOutput(ctx, env, "gnoswap_admin", poolPkgPath, "CreatePool", "",
+		workloadWrappedUgnotPath,
+		workloadGnsPath,
+		strconv.FormatUint(uint64(workloadFeeTier), 10),
+		initialSqrtPriceX96,
+	)
+	if err != nil {
+		lower := strings.ToLower(err.Error())
+		if strings.Contains(lower, "already") || strings.Contains(lower, "exists") {
+			return nil
+		}
+		return err
+	}
+	return nil
+}
+
+func queryPoolExistsWithContext(_ context.Context, env *researchHarnessEnv) (bool, error) {
+	poolPath := workloadWrappedUgnotPath + ":" + workloadGnsPath + ":" + strconv.FormatUint(uint64(workloadFeeTier), 10)
+	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, fmt.Sprintf(`gno.land/r/gnoswap/pool.ExistsPoolPath(%q)`, poolPath))
+	if err != nil {
+		return false, err
+	}
+	return strings.Contains(out, "true"), nil
+}
+
 func ensureWrappedUgnotReady(ctx context.Context, env *researchHarnessEnv) error {
 	if err := depositWrappedUgnot(ctx, env, workloadWrappedDeposit); err != nil {
 		return err
@@ -273,6 +331,32 @@ func createDisposableProbePool(ctx context.Context, env *researchHarnessEnv, run
 		return "", "", err
 	}
 	return token0Package, token1Package, nil
+}
+
+func mintPositionRawOutput(ctx context.Context, env *researchHarnessEnv, tickLower, tickUpper int32, amount0Desired, amount1Desired string) (string, error) {
+	return broadcastCallOutput(ctx, env, "gnoswap_admin", positionPkgPath, "Mint", "",
+		workloadGnsPath,
+		workloadWrappedUgnotPath,
+		strconv.FormatUint(uint64(workloadFeeTier), 10),
+		strconv.FormatInt(int64(tickLower), 10),
+		strconv.FormatInt(int64(tickUpper), 10),
+		amount0Desired,
+		amount1Desired,
+		"1",
+		"1",
+		strconv.FormatInt(workloadDefaultDeadline, 10),
+		env.adminAddr,
+		env.adminAddr,
+		"",
+	)
+}
+
+func mintPositionTx(ctx context.Context, env *researchHarnessEnv, tickLower, tickUpper int32, amount0Desired, amount1Desired string) (txMetrics, error) {
+	out, err := mintPositionRawOutput(ctx, env, tickLower, tickUpper, amount0Desired, amount1Desired)
+	if err != nil {
+		return txMetrics{}, err
+	}
+	return parseSingleTxMetrics(out)
 }
 
 func addProbeTokenPackage(ctx context.Context, env *researchHarnessEnv, pkgPath, packageName, symbol string) error {
@@ -399,11 +483,20 @@ func mustWriteResearchRows(t *testing.T, outputPath string, rows []researchRow) 
 	if err := os.MkdirAll(filepath.Dir(outputPath), 0o755); err != nil {
 		t.Fatalf("create report output dir: %v", err)
 	}
-	file, err := os.Create(outputPath)
+	flags := os.O_CREATE | os.O_WRONLY | os.O_APPEND
+	if _, err := os.Stat(outputPath); err == nil {
+		flags = os.O_WRONLY | os.O_APPEND
+	}
+	file, err := os.OpenFile(outputPath, flags, 0o644)
 	if err != nil {
 		t.Fatalf("create report output file: %v", err)
 	}
 	defer file.Close()
+	if info, err := file.Stat(); err == nil && info.Size() > 0 {
+		if _, err := file.WriteString("\n"); err != nil {
+			t.Fatalf("separate report rows: %v", err)
+		}
+	}
 	for _, row := range rows {
 		if _, err := fmt.Fprintf(file, "%s\t%d\t%d\t%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
 			row.Name,
