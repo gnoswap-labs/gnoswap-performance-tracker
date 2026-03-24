@@ -1,0 +1,14 @@
+services:
+  research-runner:
+    build:
+      context: .
+      dockerfile: gno/Dockerfile
+    command: ["/bin/bash", "/workspace/gno/entrypoint.sh"]
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    environment:
+      GNOSWAP_REF: ${GNOSWAP_REF:-main}
+      GNO_CHAIN_ID: ${GNO_CHAIN_ID:-dev}
+      GNO_GNOKEY_REMOTE: ${GNO_GNOKEY_REMOTE:-localhost:26657}
+      GNO_REST: ${GNO_REST:-http://localhost:48888}

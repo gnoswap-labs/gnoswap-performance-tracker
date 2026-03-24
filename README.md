@@ -20,6 +20,14 @@ The shared `gnoswap/` and `gno/` submodules are used as seed repositories and ar
 
 The tool provides simplified commands for generating and comparing reports.
 
+There are now three lanes in the tracker:
+
+- `tests/metric` for canonical `gno test` metric benchmarks
+- `tests/stress` for canonical `gno test` stress benchmarks
+- `research/` for isolated live-chain runtime scaffolding and exploratory measurements
+
+The report layer is shared, but the runtime layer is intentionally separated.
+
 ### 1. Basic Commands
 
 | Command | Description | Existing Reports |
@@ -32,6 +40,11 @@ The tool provides simplified commands for generating and comparing reports.
 | **`make compare-metric-force`** | Compare metric reports | **Force Regenerate** |
 | **`make compare-stress`** | Compare stress reports | **Skip** (Reuse) |
 | **`make compare-stress-force`** | Compare stress reports | **Force Regenerate** |
+| **`make research-up`** | Start research runtime scaffold | N/A |
+| **`make research-down`** | Stop research runtime scaffold | N/A |
+| **`make research-test`** | Run research lane placeholder check | N/A |
+| **`make research-report <ref>`** | Generate research report | N/A |
+| **`make compare-research <refs>`** | Compare research reports | N/A |
 | **`make clean-worktrees`** | Remove cached benchmark worktrees | N/A |
 
 ### 2. Examples
@@ -88,7 +101,21 @@ make summary
 make summary-force
 ```
 
-### 4. Output Locations
+### 4. Research Lane
+
+The research lane is a separate live-chain runtime namespace under `research/`.
+
+```bash
+make research-up
+make research-test
+make research-report main
+make compare-research main develop
+make research-down
+```
+
+This lane does **not** participate in the default `summary` flow yet.
+
+### 5. Output Locations
 
 - **Metric Reports:**
   - Individual: `reports/metric/commits/{commit_hash}.md`
@@ -96,9 +123,14 @@ make summary-force
 - **Stress Reports:**
   - Individual: `reports/stress/commits/{commit_hash}.md`
   - Comparison: `reports/stress/compares/diff_{new}_{old}.md`
+- **Research Reports:**
+  - Individual: `reports/research/commits/{ref_hash}.md`
+  - Comparison: `reports/research/compares/diff_{new}_{old}.md`
 - **Summary Report:** `SUMMARY.md`
 
-### 5. Benchmark Workspace Behavior
+Raw research artifacts stay under `research/artifacts/` and `research/.runlogs/`.
+
+### 6. Benchmark Workspace Behavior
 
 - `gnoswap/` stays as the source repository for commit resolution.
 - Each benchmark resolves the requested ref to a full commit and reuses a cached detached `gnoswap` worktree under `.worktrees/gnoswap/{full_commit}`.
@@ -143,6 +175,14 @@ Compare two report files.
 
 ```bash
 ./scripts/compare_reports.sh <latest.md> <previous.md>
+```
+
+### parse_research.sh
+
+Convert live-chain research TSV rows into a markdown table compatible with the compare pipeline.
+
+```bash
+./scripts/parse_research.sh < research/artifacts/latest-report.tsv
 ```
 
 ## Submodules

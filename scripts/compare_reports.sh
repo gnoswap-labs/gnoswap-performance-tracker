@@ -32,6 +32,9 @@ PREVIOUS_COMMIT=$(basename "$PREVIOUS_FILE" .md)
 if [[ "$LATEST_FILE" == *"/stress/"* ]]; then
     mkdir -p reports/stress/compares
     OUTPUT_FILE="reports/stress/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
+elif [[ "$LATEST_FILE" == *"/research/"* ]]; then
+    mkdir -p reports/research/compares
+    OUTPUT_FILE="reports/research/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
 else
     mkdir -p reports/metric/compares
     OUTPUT_FILE="reports/metric/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
@@ -55,6 +58,10 @@ parse_table() {
         gas = $3; gsub(/[^0-9-]/, "", gas)
         storage = $4; gsub(/[^0-9-]/, "", storage)
         cpu = $5; gsub(/[^0-9-]/, "", cpu)
+
+        if (gas == "") gas = 0
+        if (storage == "") storage = 0
+        if (cpu == "") cpu = 0
         
         print name "\t" gas "\t" storage "\t" cpu
     }
@@ -205,4 +212,3 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
 rm -f "$LATEST_DATA" "$PREVIOUS_DATA"
 
 echo "Diff report saved to $OUTPUT_FILE"
-

@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: help init gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force clean-worktrees
+.PHONY: help init gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force clean-worktrees research-up research-down research-test research-report compare-research
 
 # Default target
 help:
@@ -19,6 +19,13 @@ help:
 	@echo "Usage (Summary):"
 	@echo "  make summary                       # Generate summary (skip existing)"
 	@echo "  make summary-force                 # Force regenerate all reports and summary"
+	@echo ""
+	@echo "Usage (Research):"
+	@echo "  make research-up                   # Start live-chain research runtime"
+	@echo "  make research-down                 # Stop live-chain research runtime"
+	@echo "  make research-test                 # Run research lane placeholder checks"
+	@echo "  make research-report <ref>         # Generate research report for a ref label"
+	@echo "  make compare-research <refs>       # Compare research reports"
 	@echo ""
 	@echo "Usage (Setup):"
 	@echo "  make init                          # Initialize project"
@@ -59,6 +66,26 @@ compare-metric-force:
 
 compare-stress-force:
 	@./scripts/compare_multiple.sh --stress $(ARGS)
+
+research-up:
+	@$(MAKE) -C research up
+
+research-down:
+	@$(MAKE) -C research down
+
+research-test:
+	@$(MAKE) -C research test
+
+research-report:
+	@set -eu; \
+	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
+	SHORT_REF="$${REF:0:7}"; \
+	mkdir -p reports/research/commits; \
+	$(MAKE) -C research report REF="$$REF" | ./scripts/parse_research.sh > "reports/research/commits/$$SHORT_REF.md"; \
+	echo "Research report saved to reports/research/commits/$$SHORT_REF.md"
+
+compare-research:
+	@./scripts/compare_multiple_research.sh --skip-exists $(ARGS)
 
 # --- Internal / Legacy Commands ---
 
