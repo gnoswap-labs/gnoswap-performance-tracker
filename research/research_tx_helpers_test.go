@@ -286,6 +286,23 @@ func wrappedPoolSwapExactInTx(ctx context.Context, env *researchHarnessEnv) (txM
 	return parseSingleTxMetricsAllowMissing(out)
 }
 
+func wrappedPoolSwapExactOutTx(ctx context.Context, env *researchHarnessEnv) (txMetrics, error) {
+	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", workloadSwapWrapperPkgPath, "WrappedSwap", "",
+		workloadWrappedUgnotPath,
+		workloadGnsPath,
+		strconv.FormatUint(uint64(workloadFeeTier), 10),
+		env.adminAddr,
+		"false",
+		swapAmountSpecifiedExactOut,
+		swapSqrtPriceLimitExactOutX96,
+		env.adminAddr,
+	)
+	if err != nil {
+		return txMetrics{}, err
+	}
+	return parseSingleTxMetricsAllowMissing(out)
+}
+
 func createDisposableProbePool(ctx context.Context, env *researchHarnessEnv, runTag string, iteration int64) (string, string, error) {
 	baseName := fmt.Sprintf("ptr%s%d", runTag, iteration)
 	token0Package := "gno.land/r/gnoswap_probe_token_" + baseName + "a"

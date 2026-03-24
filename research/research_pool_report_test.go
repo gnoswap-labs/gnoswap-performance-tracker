@@ -85,6 +85,44 @@ func TestResearchReportPoolSwapExactIn(t *testing.T) {
 	mustWriteResearchRows(t, outputPath, rows)
 }
 
+func TestResearchReportPoolSwapExactOut(t *testing.T) {
+	if os.Getenv(researchReportEnv) != "1" {
+		t.Skip("set RESEARCH_REPORT=1 to run research report probes")
+	}
+
+	outputPath := os.Getenv(researchReportOutputEnv)
+	if outputPath == "" {
+		t.Fatalf("%s is required", researchReportOutputEnv)
+	}
+
+	env := mustSetupResearchHarnessEnv(t)
+	points := mustRunPoolSwapExactOutReportProbe(t.Context(), t, env, mustProbeCheckpoints(t))
+	rows := make([]researchRow, 0, len(points))
+	for _, point := range points {
+		rows = append(rows, researchRow{
+			Name:           fmt.Sprintf("research PoolSwapExactOut (n=%d)", point.N),
+			GasUsed:        point.GasStats.Avg,
+			StorageDiff:    point.StorageStats.Avg,
+			CPUCycles:      "-",
+			SampleCount:    point.SampleCount,
+			GasQ1:          point.GasStats.Q1,
+			GasQ3:          point.GasStats.Q3,
+			GasMin:         point.GasStats.Min,
+			GasMax:         point.GasStats.Max,
+			StorageQ1:      point.StorageStats.Q1,
+			StorageQ3:      point.StorageStats.Q3,
+			StorageMin:     point.StorageStats.Min,
+			StorageMax:     point.StorageStats.Max,
+			TotalTxCostAvg: point.CostStats.Avg,
+			TotalTxCostQ1:  point.CostStats.Q1,
+			TotalTxCostQ3:  point.CostStats.Q3,
+			TotalTxCostMin: point.CostStats.Min,
+			TotalTxCostMax: point.CostStats.Max,
+		})
+	}
+	mustWriteResearchRows(t, outputPath, rows)
+}
+
 func mustRunPoolCreateReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	if err := ensurePoolCreateProbePrereqs(ctx, env); err != nil {
@@ -115,5 +153,17 @@ func mustRunPoolSwapExactInReportProbe(ctx context.Context, t *testing.T, env *r
 
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		return wrappedPoolSwapExactInTx(ctx, env)
+	})
+}
+
+func mustRunPoolSwapExactOutReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
+	t.Helper()
+	mustEnsureSwapPrereqs(ctx, t, env)
+	if _, err := wrappedPoolSwapExactOutTx(ctx, env); err != nil {
+		t.Fatalf("pool swap exact-out warm-up: %v", err)
+	}
+
+	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
+		return wrappedPoolSwapExactOutTx(ctx, env)
 	})
 }
