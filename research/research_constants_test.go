@@ -8,6 +8,7 @@ const (
 	workloadGnsPath                      = "gno.land/r/gnoswap/gns"
 	poolPkgPath                          = "gno.land/r/gnoswap/pool"
 	positionPkgPath                      = "gno.land/r/gnoswap/position"
+	gnftPkgPath                          = "gno.land/r/gnoswap/gnft"
 	stakerPkgPath                        = "gno.land/r/gnoswap/staker"
 	workloadSwapWrapperPkgPath           = "gno.land/r/swap_probe_wrapper"
 	workloadFeeTier               uint32 = 3000

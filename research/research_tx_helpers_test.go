@@ -76,6 +76,17 @@ func mustEnsureStakerCreateExternalIncentivePrereqs(ctx context.Context, t inter
 	}
 }
 
+func mustEnsureStakerPoolIncentives(ctx context.Context, t interface {
+	Helper()
+	Fatalf(string, ...any)
+}, env *researchHarnessEnv) {
+	t.Helper()
+	mustEnsureMintPrereqs(ctx, t, env)
+	if err := ensurePoolTierSet(ctx, env); err != nil {
+		t.Fatalf("ensure staker pool tier: %v", err)
+	}
+}
+
 func ensurePoolExists(ctx context.Context, env *researchHarnessEnv) error {
 	exists, err := queryPoolExistsWithContext(ctx, env)
 	if err == nil && exists {
@@ -349,12 +360,45 @@ func createExternalIncentiveTx(ctx context.Context, env *researchHarnessEnv, run
 	return parseSingleTxMetrics(out)
 }
 
+func stakeTokenTx(ctx context.Context, env *researchHarnessEnv, positionID uint64) (txMetrics, error) {
+	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", stakerPkgPath, "StakeToken", "",
+		strconv.FormatUint(positionID, 10),
+		"",
+	)
+	if err != nil {
+		return txMetrics{}, err
+	}
+	return parseSingleTxMetrics(out)
+}
+
 func queryMinimumRewardAmount(_ context.Context, env *researchHarnessEnv) (string, error) {
 	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, stakerPkgPath+`.GetMinimumRewardAmount()`)
 	if err != nil {
 		return "", err
 	}
 	return firstDecimalString(out), nil
+}
+
+func prepareApprovedStakeablePosition(ctx context.Context, env *researchHarnessEnv) (uint64, error) {
+	positionID, err := mintFreshPosition(ctx, env, workloadWideTickLower, workloadWideTickUpper)
+	if err != nil {
+		return 0, err
+	}
+	if _, err := approveTokenTx(ctx, env, gnftPkgPath, env.stakerAddr, positionID); err != nil {
+		return 0, err
+	}
+	return positionID, nil
+}
+
+func prepareStakedPosition(ctx context.Context, env *researchHarnessEnv) (uint64, error) {
+	positionID, err := prepareApprovedStakeablePosition(ctx, env)
+	if err != nil {
+		return 0, err
+	}
+	if _, err := stakeTokenTx(ctx, env, positionID); err != nil {
+		return 0, err
+	}
+	return positionID, nil
 }
 
 func preparePositionForIncrease(ctx context.Context, env *researchHarnessEnv) (uint64, error) {
@@ -568,6 +612,14 @@ EOF`,
 func approveToken(ctx context.Context, env *researchHarnessEnv, pkgPath, spender, amount string) error {
 	_, err := broadcastCallOutput(ctx, env, "gnoswap_admin", pkgPath, "Approve", "", spender, amount)
 	return err
+}
+
+func approveTokenTx(ctx context.Context, env *researchHarnessEnv, pkgPath, spender string, tokenID uint64) (txMetrics, error) {
+	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", pkgPath, "Approve", "", spender, strconv.FormatUint(tokenID, 10))
+	if err != nil {
+		return txMetrics{}, err
+	}
+	return parseSingleTxMetrics(out)
 }
 
 func broadcastCallOutput(ctx context.Context, env *researchHarnessEnv, keyName, pkgPath, funcName, sendCoins string, args ...string) (string, error) {
