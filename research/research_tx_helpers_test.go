@@ -62,6 +62,20 @@ func mustEnsureSwapPrereqs(ctx context.Context, t interface {
 	}
 }
 
+func mustEnsureStakerCreateExternalIncentivePrereqs(ctx context.Context, t interface {
+	Helper()
+	Fatalf(string, ...any)
+}, env *researchHarnessEnv) {
+	t.Helper()
+	mustEnsureMintPrereqs(ctx, t, env)
+	if err := approveToken(ctx, env, workloadGnsPath, env.stakerAddr, workloadMaxApprove); err != nil {
+		t.Fatalf("approve gns to staker: %v", err)
+	}
+	if err := ensurePoolTierSet(ctx, env); err != nil {
+		t.Fatalf("ensure staker pool tier: %v", err)
+	}
+}
+
 func ensurePoolExists(ctx context.Context, env *researchHarnessEnv) error {
 	exists, err := queryPoolExistsWithContext(ctx, env)
 	if err == nil && exists {
@@ -87,6 +101,19 @@ func ensurePoolExists(ctx context.Context, env *researchHarnessEnv) error {
 		return err
 	}
 	return nil
+}
+
+func ensurePoolTierSet(ctx context.Context, env *researchHarnessEnv) error {
+	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, fmt.Sprintf(`%s.GetPoolTier(%q)`, stakerPkgPath, poolPath()))
+	if err == nil && strings.Contains(out, stakerPoolTier) {
+		return nil
+	}
+	_, err = broadcastCallOutput(ctx, env, "gnoswap_admin", stakerPkgPath, "SetPoolTier", "", poolPath(), stakerPoolTier)
+	return err
+}
+
+func poolPath() string {
+	return workloadWrappedUgnotPath + ":" + workloadGnsPath + ":" + strconv.FormatUint(uint64(workloadFeeTier), 10)
 }
 
 func querySwapWrapperAddressMaybe(containerID, rpc string) string {
@@ -303,6 +330,33 @@ func wrappedPoolSwapExactOutTx(ctx context.Context, env *researchHarnessEnv) (tx
 	return parseSingleTxMetricsAllowMissing(out)
 }
 
+func createExternalIncentiveTx(ctx context.Context, env *researchHarnessEnv, runID int64) (txMetrics, error) {
+	rewardAmount, err := queryMinimumRewardAmount(ctx, env)
+	if err != nil {
+		return txMetrics{}, err
+	}
+	startTimestamp, endTimestamp := incentiveSchedule(runID)
+	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", stakerPkgPath, "CreateExternalIncentive", "",
+		poolPath(),
+		workloadGnsPath,
+		rewardAmount,
+		strconv.FormatInt(startTimestamp, 10),
+		strconv.FormatInt(endTimestamp, 10),
+	)
+	if err != nil {
+		return txMetrics{}, err
+	}
+	return parseSingleTxMetrics(out)
+}
+
+func queryMinimumRewardAmount(_ context.Context, env *researchHarnessEnv) (string, error) {
+	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, stakerPkgPath+`.GetMinimumRewardAmount()`)
+	if err != nil {
+		return "", err
+	}
+	return firstDecimalString(out), nil
+}
+
 func preparePositionForIncrease(ctx context.Context, env *researchHarnessEnv) (uint64, error) {
 	return mintFreshPosition(ctx, env, workloadWideTickLower, workloadWideTickUpper)
 }
@@ -421,6 +475,31 @@ func parseMintPositionDetails(output string) (mintedPositionDetails, error) {
 		return mintedPositionDetails{}, err
 	}
 	return mintedPositionDetails{PositionID: positionID, Liquidity: liquidityMatch[1]}, nil
+}
+
+func parseFirstInt64(output string) (int64, error) {
+	match := regexp.MustCompile(`[-]?[0-9]+`).FindString(output)
+	if match == "" {
+		return 0, fmt.Errorf("no integer found in output: %s", output)
+	}
+	return strconv.ParseInt(match, 10, 64)
+}
+
+func firstDecimalString(output string) string {
+	return regexp.MustCompile(`[0-9]+`).FindString(output)
+}
+
+func checkpointRunID() int64 {
+	return time.Now().Unix()
+}
+
+func incentiveSchedule(seed int64) (int64, int64) {
+	_ = seed
+	now := time.Now().UTC()
+	nextMidnight := time.Date(now.Year(), now.Month(), now.Day()+1, 0, 0, 0, 0, time.UTC).Unix()
+	start := nextMidnight
+	end := start + (stakerEmissionEnd - stakerEmissionStart)
+	return start, end
 }
 
 func addProbeTokenPackage(ctx context.Context, env *researchHarnessEnv, pkgPath, packageName, symbol string) error {

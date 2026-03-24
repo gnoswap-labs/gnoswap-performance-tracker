@@ -8,6 +8,7 @@ const (
 	workloadGnsPath                      = "gno.land/r/gnoswap/gns"
 	poolPkgPath                          = "gno.land/r/gnoswap/pool"
 	positionPkgPath                      = "gno.land/r/gnoswap/position"
+	stakerPkgPath                        = "gno.land/r/gnoswap/staker"
 	workloadSwapWrapperPkgPath           = "gno.land/r/swap_probe_wrapper"
 	workloadFeeTier               uint32 = 3000
 	initialSqrtPriceX96                  = "79228162514264337593543950337"
@@ -25,6 +26,9 @@ const (
 	workloadMintAmount1                  = "5000000"
 	workloadIncreaseAmount0              = "1000000"
 	workloadIncreaseAmount1              = "1000000"
+	stakerPoolTier                       = "3"
+	stakerEmissionStart                  = int64(1)
+	stakerEmissionEnd                    = int64(7776001)
 )
 
 type txMetrics struct {
@@ -37,6 +41,7 @@ type researchHarnessEnv struct {
 	*TestEnv
 	poolAddr     string
 	positionAddr string
+	stakerAddr   string
 	adminAddr    string
 	wrapperAddr  string
 }

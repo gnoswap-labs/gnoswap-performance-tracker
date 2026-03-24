@@ -13,6 +13,7 @@ func mustSetupResearchHarnessEnv(t *testing.T) *researchHarnessEnv {
 		TestEnv:      baseEnv,
 		poolAddr:     baseEnv.mustQueryAddressByRole(t, "pool"),
 		positionAddr: baseEnv.mustQueryAddressByRole(t, "position"),
+		stakerAddr:   baseEnv.mustQueryAddressByRole(t, "staker"),
 		adminAddr:    adminAddr,
 		wrapperAddr:  querySwapWrapperAddressMaybe(baseEnv.gnoContainer, baseEnv.cfg.GnoGnokeyRemote),
 	}
