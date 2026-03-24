@@ -307,6 +307,17 @@ func preparePositionForIncrease(ctx context.Context, env *researchHarnessEnv) (u
 	return mintFreshPosition(ctx, env, workloadWideTickLower, workloadWideTickUpper)
 }
 
+func preparePositionForDecrease(ctx context.Context, env *researchHarnessEnv) (uint64, string, error) {
+	details, err := mintFreshPositionWithLiquidity(ctx, env, workloadWideTickLower, workloadWideTickUpper)
+	if err != nil {
+		return 0, "", err
+	}
+	if details.Liquidity == "" || details.Liquidity == "0" {
+		return 0, "", fmt.Errorf("minted liquidity missing for position %d", details.PositionID)
+	}
+	return details.PositionID, details.Liquidity, nil
+}
+
 func createDisposableProbePool(ctx context.Context, env *researchHarnessEnv, runTag string, iteration int64) (string, string, error) {
 	baseName := fmt.Sprintf("ptr%s%d", runTag, iteration)
 	token0Package := "gno.land/r/gnoswap_probe_token_" + baseName + "a"
@@ -362,6 +373,20 @@ func increaseLiquidityTx(ctx context.Context, env *researchHarnessEnv, positionI
 		return txMetrics{}, err
 	}
 	return parseSingleTxMetricsAllowMissing(out)
+}
+
+func decreaseLiquidityTx(ctx context.Context, env *researchHarnessEnv, positionID uint64, liquidity string) (txMetrics, error) {
+	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", positionPkgPath, "DecreaseLiquidity", "",
+		strconv.FormatUint(positionID, 10),
+		liquidity,
+		"0",
+		"0",
+		strconv.FormatInt(workloadDefaultDeadline, 10),
+	)
+	if err != nil {
+		return txMetrics{}, err
+	}
+	return parseSingleTxMetrics(out)
 }
 
 type mintedPositionDetails struct {
