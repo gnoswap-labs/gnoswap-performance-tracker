@@ -48,7 +48,7 @@ run_make_target() {
     attempt=0
     while true; do
         set +e
-        deploy_output=$(make "$target" ENV=default GNOLAND_RPC_URL=localhost:26657 CHAINID=dev ADDR_ADMIN="$TEST_ADDR" TOMORROW_MIDNIGHT=0 INCENTIVE_END=0 2>&1)
+        deploy_output=$(make -f scripts/deploy.mk "$target" ENV=default GNOLAND_RPC_URL=localhost:26657 CHAINID=dev ADDR_ADMIN="$TEST_ADDR" TOMORROW_MIDNIGHT=0 INCENTIVE_END=0 2>&1)
         deploy_status=$?
         set -e
         echo "$deploy_output"
@@ -64,18 +64,14 @@ run_make_target() {
     done
 }
 
-set +e
-initial_output=$(make deploy ENV=default GNOLAND_RPC_URL=localhost:26657 CHAINID=dev ADDR_ADMIN="$TEST_ADDR" TOMORROW_MIDNIGHT=0 INCENTIVE_END=0 2>&1)
-initial_status=$?
-set -e
-echo "$initial_output"
-
-if [ $initial_status -ne 0 ]; then
-    echo "full deploy failed, resuming with staged targets"
-    for target in deploy-tokens deploy-libs deploy-base deploy-realms deploy-v1; do
-        run_make_target "$target"
-    done
-fi
+for target in \
+    deploy-bar deploy-baz deploy-foo deploy-obl deploy-qux deploy-usdc \
+    deploy-uint256 deploy-int256 deploy-rbac deploy-gnsmath deploy-store deploy-version_manager \
+    deploy-access deploy-rbac-realm deploy-halt-realm deploy-referral deploy-gns deploy-emission deploy-common deploy-community_pool deploy-gnft deploy-xgns \
+    deploy-protocol_fee deploy-pool deploy-position deploy-router deploy-staker deploy-gov-staker deploy-governance deploy-launchpad \
+    deploy-protocol_fee-v1 deploy-pool-v1 deploy-position-v1 deploy-router-v1 deploy-staker-v1 deploy-gov-staker-v1 deploy-governance-v1 deploy-launchpad-v1; do
+    run_make_target "$target"
+done
 
 touch "$READY_FILE"
 
