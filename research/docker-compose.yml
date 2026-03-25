@@ -5,7 +5,7 @@ services:
       dockerfile: gno/Dockerfile
       args:
         GNOSWAP_REPO: ${GNOSWAP_REPO:-https://github.com/gnoswap-labs/gnoswap.git}
-        GNOSWAP_REF: ${GNOSWAP_REF:-main}
+        GNOSWAP_REF: ${GNOSWAP_REF:-3f2642b8898ae02d14a14c4050d80919f18f3f21}
     ports:
       - "46657:26657"
       - "48888:8888"
@@ -21,7 +21,7 @@ services:
       retries: 60
       start_period: 180s
     environment:
-      GNOSWAP_REF: ${GNOSWAP_REF:-main}
+      GNOSWAP_REF: ${GNOSWAP_REF:-3f2642b8898ae02d14a14c4050d80919f18f3f21}
       GNOSWAP_REPO: ${GNOSWAP_REPO:-https://github.com/gnoswap-labs/gnoswap.git}
       GNO_CHAIN_ID: ${GNO_CHAIN_ID:-dev}
       GNO_GNOKEY_REMOTE: ${GNO_GNOKEY_REMOTE:-localhost:26657}

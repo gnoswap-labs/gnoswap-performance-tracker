@@ -23,8 +23,8 @@ help:
 	@echo "Usage (Research):"
 	@echo "  make research-up                   # Start live-chain research runtime"
 	@echo "  make research-down                 # Stop live-chain research runtime"
-	@echo "  make research-test                 # Run research lane placeholder checks"
-	@echo "  make research-report <ref>         # Generate research report for a ref label"
+	@echo "  make research-test                 # Run research lane smoke harness"
+	@echo "  make research-report <ref>         # Run integrated deploy + probes + report"
 	@echo "  make compare-research <refs>       # Compare research reports"
 	@echo ""
 	@echo "Usage (Setup):"
@@ -68,20 +68,20 @@ compare-stress-force:
 	@./scripts/compare_multiple.sh --stress $(ARGS)
 
 research-up:
-	@$(MAKE) -C research up
+	@$(MAKE) -C research up GNOSWAP_REF="$(or $(word 2,$(MAKECMDGOALS)),3f2642b8898ae02d14a14c4050d80919f18f3f21)"
 
 research-down:
 	@$(MAKE) -C research down
 
 research-test:
-	@$(MAKE) -C research test
+	@$(MAKE) -C research test GNOSWAP_REF="$(or $(word 2,$(MAKECMDGOALS)),3f2642b8898ae02d14a14c4050d80919f18f3f21)"
 
 research-report:
 	@set -euo pipefail; \
 	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
 	SHORT_REF="$${REF:0:7}"; \
 	mkdir -p reports/research/commits; \
-	$(MAKE) -C research report REF="$$REF" | ./scripts/parse_research.sh > "reports/research/commits/$$SHORT_REF.md"; \
+	$(MAKE) -C research report REF="$$REF" GNOSWAP_REF="$$REF" | ./scripts/parse_research.sh > "reports/research/commits/$$SHORT_REF.md"; \
 	echo "Research report saved to reports/research/commits/$$SHORT_REF.md"
 
 compare-research:

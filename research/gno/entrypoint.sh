@@ -42,6 +42,7 @@ sed -i -E 's/-gas-fee [0-9]+ugnot/-gas-fee 1000000ugnot/g' scripts/deploy.mk
 sed -i -E 's/-gas-wanted [0-9]+/-gas-wanted 120000000/g' scripts/deploy.mk
 
 for target in \
+    deploy-bar deploy-baz deploy-foo deploy-obl deploy-qux deploy-usdc \
     deploy-uint256 deploy-int256 deploy-rbac deploy-gnsmath deploy-store deploy-version_manager \
     deploy-access deploy-rbac-realm deploy-halt-realm deploy-referral deploy-gns deploy-emission deploy-common deploy-gnft \
     deploy-protocol_fee deploy-pool deploy-position deploy-router deploy-staker \
@@ -49,19 +50,19 @@ for target in \
     attempt=0
     while true; do
         set +e
-        output=$(make -f scripts/deploy.mk "$target" ENV=default GNOLAND_RPC_URL=localhost:26657 CHAINID=dev ADDR_ADMIN="$TEST_ADDR" TOMORROW_MIDNIGHT=0 INCENTIVE_END=0 2>&1)
-        status=$?
+        deploy_output=$(make -f scripts/deploy.mk "$target" ENV=default GNOLAND_RPC_URL=localhost:26657 CHAINID=dev ADDR_ADMIN="$TEST_ADDR" TOMORROW_MIDNIGHT=0 INCENTIVE_END=0 2>&1)
+        deploy_status=$?
         set -e
-        echo "$output"
-        if [ $status -eq 0 ] || printf "%s" "$output" | grep -q "package already exists"; then
+        echo "$deploy_output"
+        if [ $deploy_status -eq 0 ] || printf "%s" "$deploy_output" | grep -q "package already exists"; then
             break
         fi
         attempt=$((attempt + 1))
         if [ $attempt -ge 5 ]; then
             echo "failed target $target after retries"
-            exit 1
+            exit $deploy_status
         fi
-        sleep 1
+        sleep 2
     done
 done
 

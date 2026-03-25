@@ -43,7 +43,7 @@ The report layer is shared, but the runtime layer is intentionally separated.
 | **`make research-up`** | Start research runtime | N/A |
 | **`make research-down`** | Stop research runtime scaffold | N/A |
 | **`make research-test`** | Run research smoke harness | N/A |
-| **`make research-report <ref>`** | Generate research report | N/A |
+| **`make research-report <ref>`** | Run integrated deploy + probes + report | N/A |
 | **`make compare-research <refs>`** | Compare research reports | N/A |
 | **`make clean-worktrees`** | Remove cached benchmark worktrees | N/A |
 
@@ -103,24 +103,24 @@ make summary-force
 
 ### 4. Research Lane
 
-The research lane is a separate live-chain runtime namespace under `research/`.
+The research lane is an integrated live-chain runtime namespace under `research/`.
 
 ```bash
 make research-up
 make research-test
-make research-report main
+make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
 make compare-research main develop
 make research-down
 ```
 
 This lane does **not** participate in the default `summary` flow yet.
 
-The first report-capable probe path is `PoolCreate`, and it emits normalized research markdown through the same compare pipeline used by metric and stress reports.
+`make research-report <ref>` is the one-shot path: it boots the local chain, deploys contracts inside the container, executes the probes, and emits normalized markdown through the shared compare pipeline. The `<ref>` argument now drives both the cloned `GNOSWAP_REF` and the output label.
 
 The default research milestones are `1,100,10000`. Override them per run when you want a smaller or denser checkpoint set.
 
 ```bash
-WORKLOAD_NS=1,10 make research-report main
+WORKLOAD_NS=1,10 make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
 ```
 
 ### 5. Output Locations

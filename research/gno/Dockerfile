@@ -3,10 +3,13 @@ FROM golang:1.24-alpine AS builder
 RUN apk add --no-cache git make
 
 ARG GNOSWAP_REPO=https://github.com/gnoswap-labs/gnoswap.git
-ARG GNOSWAP_REF=main
+ARG GNOSWAP_REF=3f2642b8898ae02d14a14c4050d80919f18f3f21
 
 RUN git clone --depth 1 https://github.com/gnolang/gno.git /src/gno
-RUN git clone --depth 1 --branch ${GNOSWAP_REF} ${GNOSWAP_REPO} /src/gnoswap
+RUN git init /src/gnoswap \
+    && git -C /src/gnoswap remote add origin ${GNOSWAP_REPO} \
+    && git -C /src/gnoswap fetch --depth 1 origin ${GNOSWAP_REF} \
+    && git -C /src/gnoswap checkout FETCH_HEAD
 
 WORKDIR /src/gno
 
