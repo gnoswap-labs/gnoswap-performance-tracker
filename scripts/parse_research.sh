@@ -33,6 +33,7 @@ echo "# 컨트랙트 수수료 측정 결과"
 echo ""
 printf '%s\n' "마일스톤: N = $milestones"
 printf '%s\n' "측정: 마일스톤 구간(window) 실행 결과 평균 + Q1/Q3"
+printf '%s\n' "수수료: Total Fee는 tx output에 해당 값이 없는 경우 '-'로 표시"
 echo ""
 awk -F'\t' '
 function format_number(num,    result, sign, str, len, i) {
@@ -83,6 +84,7 @@ NF >= 18 {
     gas_q3 = $7
     storage_q1 = $10
     storage_q3 = $11
+    total_fee_avg = $14
 
     gsub(/^[[:space:]]+|[[:space:]]+$/, "", name)
     gsub(/^[[:space:]]+|[[:space:]]+$/, "", gas)
@@ -101,7 +103,8 @@ NF >= 18 {
     sub(/ \(n=[0-9]+\)$/, "", action)
 
     domain = action_domain(action)
-    row = "| " action " | " n " | " format_number(gas) " | " format_number(gas_q1) " | " format_number(gas_q3) " | " format_number(storage) " | " format_number(storage_q1) " | " format_number(storage_q3) " |"
+    fee_display = (total_fee_avg == "-1") ? "-" : format_number(total_fee_avg)
+    row = "| " action " | " n " | " format_number(gas) " | " format_number(gas_q1) " | " format_number(gas_q3) " | " format_number(storage) " | " format_number(storage_q1) " | " format_number(storage_q3) " | " fee_display " |"
     count[domain]++
     rows[domain, count[domain]] = row
     seen[domain] = 1
@@ -119,8 +122,8 @@ END {
         if (!seen[domain]) continue
         print "## " domain
         print ""
-        print "| Action | N | Gas (avg) | Q1 | Q3 | Storage (avg) | Q1 | Q3 |"
-        print "|--------|---|-----------|----|----|---------------|----|----|"
+        print "| Action | N | Gas (avg) | Q1 | Q3 | Storage (avg) | Q1 | Q3 | Total Fee (avg) |"
+        print "|--------|---|-----------|----|----|---------------|----|----|------------------|"
         for (i = 1; i <= count[domain]; i++) {
             print rows[domain, i]
         }

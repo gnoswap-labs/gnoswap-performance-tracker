@@ -43,6 +43,7 @@ type txMetrics struct {
 	GasUsed      int64
 	StorageDelta int64
 	TotalTxCost  int64
+	HasTotalCost bool
 }
 
 type researchHarnessEnv struct {

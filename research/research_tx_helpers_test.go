@@ -625,6 +625,7 @@ func broadcastCallOutput(ctx context.Context, env *researchHarnessEnv, keyName, 
 	var lastErr error
 	for attempt := 0; attempt < 5; attempt++ {
 		stdout, stderr, err := dockerExec(ctx, env.gnoContainer, "sh", "-lc", command)
+		_ = appendMetricAttemptLog(fmt.Sprintf("%s.%s attempt=%d", pkgPath, funcName, attempt+1), command, stdout, stderr, err)
 		if err == nil {
 			return stdout, nil
 		}

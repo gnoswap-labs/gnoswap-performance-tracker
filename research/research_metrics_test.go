@@ -109,7 +109,7 @@ func parseSingleTxMetrics(output string) (txMetrics, error) {
 		return txMetrics{}, err
 	}
 
-	return txMetrics{GasUsed: gas, StorageDelta: storage, TotalTxCost: total}, nil
+	return txMetrics{GasUsed: gas, StorageDelta: storage, TotalTxCost: total, HasTotalCost: true}, nil
 }
 
 func parseSingleTxMetricsAllowMissing(output string) (txMetrics, error) {
@@ -121,7 +121,7 @@ func parseSingleTxMetricsAllowMissing(output string) (txMetrics, error) {
 	if err != nil {
 		return txMetrics{}, err
 	}
-	m := txMetrics{GasUsed: gas}
+	m := txMetrics{GasUsed: gas, TotalTxCost: -1}
 	if storageMatch := storageDeltaRE.FindStringSubmatch(output); len(storageMatch) == 2 {
 		storage, parseErr := strconv.ParseInt(storageMatch[1], 10, 64)
 		if parseErr != nil {
@@ -135,6 +135,7 @@ func parseSingleTxMetricsAllowMissing(output string) (txMetrics, error) {
 			return txMetrics{}, parseErr
 		}
 		m.TotalTxCost = total
+		m.HasTotalCost = true
 	}
 	return m, nil
 }
@@ -154,6 +155,7 @@ func mustRunCheckpointLoop(t *testing.T, checkpoints []int64, fn func(iteration 
 	windowGas := make([]int64, 0)
 	windowStorage := make([]int64, 0)
 	windowCost := make([]int64, 0)
+	windowCostComplete := true
 
 	for i := int64(1); i <= maxN; i++ {
 		m, err := fn(i)
@@ -163,6 +165,9 @@ func mustRunCheckpointLoop(t *testing.T, checkpoints []int64, fn func(iteration 
 		windowGas = append(windowGas, m.GasUsed)
 		windowStorage = append(windowStorage, m.StorageDelta)
 		windowCost = append(windowCost, m.TotalTxCost)
+		if !m.HasTotalCost {
+			windowCostComplete = false
+		}
 
 		if _, ok := checkpointSet[i]; !ok {
 			continue
@@ -173,11 +178,12 @@ func mustRunCheckpointLoop(t *testing.T, checkpoints []int64, fn func(iteration 
 			SampleCount:  len(windowGas),
 			GasStats:     summarizeMetric(windowGas),
 			StorageStats: summarizeMetric(windowStorage),
-			CostStats:    summarizeMetric(windowCost),
+			CostStats:    summarizeMetricOrMissing(windowCost, windowCostComplete),
 		})
 		windowGas = windowGas[:0]
 		windowStorage = windowStorage[:0]
 		windowCost = windowCost[:0]
+		windowCostComplete = true
 	}
 
 	return points
@@ -200,6 +206,13 @@ func summarizeMetric(values []int64) metricStats {
 		Min: sorted[0],
 		Max: sorted[len(sorted)-1],
 	}
+}
+
+func summarizeMetricOrMissing(values []int64, complete bool) metricStats {
+	if !complete || len(values) == 0 {
+		return metricStats{Avg: -1, Q1: -1, Q3: -1, Min: -1, Max: -1}
+	}
+	return summarizeMetric(values)
 }
 
 func percentileValue(sorted []int64, percentile float64) int64 {
@@ -259,4 +272,28 @@ func mustWriteResearchRows(t *testing.T, outputPath string, rows []researchRow) 
 			t.Fatalf("write report row: %v", err)
 		}
 	}
+}
+
+func appendMetricOutputLog(label, output string) error {
+	if err := os.MkdirAll(".runlogs", 0o755); err != nil {
+		return err
+	}
+	file, err := os.OpenFile(filepath.Join(".runlogs", "metric-output.log"), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o644)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	if _, err := fmt.Fprintf(file, "===== %s =====\n%s\n\n", label, output); err != nil {
+		return err
+	}
+	return nil
+}
+
+func appendMetricAttemptLog(label, command, stdout, stderr string, err error) error {
+	status := "ok"
+	if err != nil {
+		status = err.Error()
+	}
+	body := fmt.Sprintf("command: %s\nstatus: %s\n\nstdout:\n%s\n\nstderr:\n%s\n", command, status, stdout, stderr)
+	return appendMetricOutputLog(label, body)
 }
