@@ -33,7 +33,6 @@ echo "# 컨트랙트 수수료 측정 결과"
 echo ""
 printf '%s\n' "마일스톤: N = $milestones"
 printf '%s\n' "측정: 마일스톤 구간(window) 실행 결과 평균 + Q1/Q3"
-printf '%s\n' "수수료: Total Fee (avg) = 각 구간의 평균 total tx cost"
 echo ""
 awk -F'\t' '
 function format_number(num,    result, sign, str, len, i) {
@@ -84,7 +83,6 @@ NF >= 18 {
     gas_q3 = $7
     storage_q1 = $10
     storage_q3 = $11
-    cost_avg = $14
 
     gsub(/^[[:space:]]+|[[:space:]]+$/, "", name)
     gsub(/^[[:space:]]+|[[:space:]]+$/, "", gas)
@@ -103,7 +101,7 @@ NF >= 18 {
     sub(/ \(n=[0-9]+\)$/, "", action)
 
     domain = action_domain(action)
-    row = "| " action " | " n " | " format_number(gas) " | " format_number(gas_q1) " | " format_number(gas_q3) " | " format_number(storage) " | " format_number(storage_q1) " | " format_number(storage_q3) " | " format_number(cost_avg) " |"
+    row = "| " action " | " n " | " format_number(gas) " | " format_number(gas_q1) " | " format_number(gas_q3) " | " format_number(storage) " | " format_number(storage_q1) " | " format_number(storage_q3) " |"
     count[domain]++
     rows[domain, count[domain]] = row
     seen[domain] = 1
@@ -121,8 +119,8 @@ END {
         if (!seen[domain]) continue
         print "## " domain
         print ""
-        print "| Action | N | Gas (avg) | Q1 | Q3 | Storage (avg) | Q1 | Q3 | Total Fee (avg) |"
-        print "|--------|---|-----------|----|----|---------------|----|----|------------------|"
+        print "| Action | N | Gas (avg) | Q1 | Q3 | Storage (avg) | Q1 | Q3 |"
+        print "|--------|---|-----------|----|----|---------------|----|----|"
         for (i = 1; i <= count[domain]; i++) {
             print rows[domain, i]
         }
