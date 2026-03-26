@@ -33,7 +33,6 @@ echo "# Contract Fee Measurement Results"
 echo ""
 printf '%s\n' "Milestones: N = $milestones"
 printf '%s\n' "Measurement: cumulative per-milestone results with avg + Q1/Q3"
-printf '%s\n' "Fee note: Total Fee shows '-' when tx output omits the total cost line"
 echo ""
 awk -F'\t' '
 function format_number(num,    result, sign, str, len, i) {
@@ -82,9 +81,12 @@ NF >= 18 {
     storage = $3
     gas_q1 = $6
     gas_q3 = $7
+    gas_min = $8
+    gas_max = $9
     storage_q1 = $10
     storage_q3 = $11
-    total_fee_avg = $14
+    storage_min = $12
+    storage_max = $13
 
     gsub(/^[[:space:]]+|[[:space:]]+$/, "", name)
     gsub(/^[[:space:]]+|[[:space:]]+$/, "", gas)
@@ -103,8 +105,7 @@ NF >= 18 {
     sub(/ \(n=[0-9]+\)$/, "", action)
 
     domain = action_domain(action)
-    fee_display = (total_fee_avg == "-1") ? "-" : format_number(total_fee_avg)
-    row = "| " action " | " n " | " format_number(gas) " | " format_number(gas_q1) " | " format_number(gas_q3) " | " format_number(storage) " | " format_number(storage_q1) " | " format_number(storage_q3) " | " fee_display " |"
+    row = "| " action " | " n " | " format_number(gas) " | " format_number(gas_q1) " | " format_number(gas_q3) " | " format_number(gas_min) " | " format_number(gas_max) " | " format_number(storage) " | " format_number(storage_q1) " | " format_number(storage_q3) " | " format_number(storage_min) " | " format_number(storage_max) " |"
     count[domain]++
     rows[domain, count[domain]] = row
     seen[domain] = 1
@@ -122,8 +123,8 @@ END {
         if (!seen[domain]) continue
         print "## " domain
         print ""
-        print "| Action | N | Gas (avg) | Q1 | Q3 | Storage (avg) | Q1 | Q3 | Total Fee (avg) |"
-        print "|--------|---|-----------|----|----|---------------|----|----|------------------|"
+        print "| Action | N | Gas (avg) | Q1 | Q3 | Min | Max | Storage (avg) | Q1 | Q3 | Min | Max |"
+        print "|--------|---|-----------|----|----|-----|-----|---------------|----|----|-----|-----|"
         for (i = 1; i <= count[domain]; i++) {
             print rows[domain, i]
         }
