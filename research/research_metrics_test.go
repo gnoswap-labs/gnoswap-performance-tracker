@@ -14,15 +14,13 @@ import (
 var (
 	gasUsedRE      = regexp.MustCompile(`GAS USED:\s*([0-9]+)`)
 	storageDeltaRE = regexp.MustCompile(`STORAGE DELTA:\s*(-?[0-9]+)\s+bytes`)
-	totalTxCostRE  = regexp.MustCompile(`TOTAL TX COST:\s*([0-9]+)ugnot`)
+	totalTxCostRE  = regexp.MustCompile(`TOTAL TX COST:\s*(-?[0-9]+)ugnot`)
 )
 
 type researchRow struct {
 	Name           string
 	GasUsed        int64
 	StorageDiff    int64
-	CPUCycles      string
-	SampleCount    int
 	GasQ1          int64
 	GasQ3          int64
 	GasMin         int64
@@ -245,12 +243,11 @@ func mustWriteResearchRows(t *testing.T, outputPath string, rows []researchRow) 
 		}
 	}
 	for _, row := range rows {
-		if _, err := fmt.Fprintf(file, "%s\t%d\t%d\t%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
+		if _, err := fmt.Fprintf(file, "%s\t%d\t%d\t-\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n",
 			row.Name,
 			row.GasUsed,
 			row.StorageDiff,
-			row.CPUCycles,
-			row.SampleCount,
+			0,
 			row.GasQ1,
 			row.GasQ3,
 			row.GasMin,
