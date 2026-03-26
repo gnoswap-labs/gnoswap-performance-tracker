@@ -119,6 +119,8 @@ This lane does **not** participate in the default `summary` flow yet.
 
 The default research milestones are `1,100,10000`. Override them per run when you want a smaller or denser checkpoint set.
 
+Milestone summaries are cumulative. For example, `N=10` reflects samples `1..10`, while `N=100` reflects samples `1..100`.
+
 ```bash
 WORKLOAD_NS=1,10 make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
 ```

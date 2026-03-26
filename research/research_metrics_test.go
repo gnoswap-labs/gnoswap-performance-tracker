@@ -180,10 +180,6 @@ func mustRunCheckpointLoop(t *testing.T, checkpoints []int64, fn func(iteration 
 			StorageStats: summarizeMetric(windowStorage),
 			CostStats:    summarizeMetricOrMissing(windowCost, windowCostComplete),
 		})
-		windowGas = windowGas[:0]
-		windowStorage = windowStorage[:0]
-		windowCost = windowCost[:0]
-		windowCostComplete = true
 	}
 
 	return points

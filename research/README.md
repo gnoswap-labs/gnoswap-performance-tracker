@@ -44,6 +44,8 @@ For local runs, copy `.env.example` to `.env` and provide a valid `TEST_MNEMONIC
 
 The default milestone set is `1,100,10000`. Override it per run when needed.
 
+Milestone statistics are cumulative. For example, `N=10` means the summary is computed from samples `1..10`, not only the delta window after `N=1`.
+
 ```bash
 WORKLOAD_NS=1,10 make report REF=3f2642b8898ae02d14a14c4050d80919f18f3f21
 WORKLOAD_NS=1,10 make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
