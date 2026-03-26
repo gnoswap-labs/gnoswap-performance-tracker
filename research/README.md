@@ -46,6 +46,8 @@ The default milestone set is `1,100,10000`. Override it per run when needed.
 
 Milestone statistics are cumulative. For example, `N=10` means the summary is computed from samples `1..10`, not only the delta window after `N=1`.
 
+There is no hidden warm-up run. `N=1` is the true first measured execution for each probe.
+
 ```bash
 WORKLOAD_NS=1,10 make report REF=3f2642b8898ae02d14a14c4050d80919f18f3f21
 WORKLOAD_NS=1,10 make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21

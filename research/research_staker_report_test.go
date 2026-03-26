@@ -162,9 +162,6 @@ func TestResearchReportStakerUnStakeToken(t *testing.T) {
 func mustRunStakerCreateExternalIncentiveReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureStakerCreateExternalIncentivePrereqs(ctx, t, env)
-	if _, err := createExternalIncentiveTx(ctx, env, checkpointRunID()); err != nil {
-		t.Fatalf("staker create external incentive warm-up: %v", err)
-	}
 	return mustRunCheckpointLoop(t, checkpoints, func(iteration int64) (txMetrics, error) {
 		return createExternalIncentiveTx(ctx, env, checkpointRunID()+iteration)
 	})
@@ -173,9 +170,6 @@ func mustRunStakerCreateExternalIncentiveReportProbe(ctx context.Context, t *tes
 func mustRunStakerStakeTokenReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureStakerPoolIncentives(ctx, t, env)
-	if _, err := prepareStakedPosition(ctx, env); err != nil {
-		t.Fatalf("staker stake warm-up: %v", err)
-	}
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		positionID, err := prepareApprovedStakeablePosition(ctx, env)
 		if err != nil {
@@ -188,9 +182,6 @@ func mustRunStakerStakeTokenReportProbe(ctx context.Context, t *testing.T, env *
 func mustRunStakerCollectRewardReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureStakerPoolIncentives(ctx, t, env)
-	if _, err := prepareCollectableStakedPosition(ctx, env); err != nil {
-		t.Fatalf("staker collect reward warm-up: %v", err)
-	}
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		positionID, err := prepareCollectableStakedPosition(ctx, env)
 		if err != nil {
@@ -203,9 +194,6 @@ func mustRunStakerCollectRewardReportProbe(ctx context.Context, t *testing.T, en
 func mustRunStakerUnStakeTokenReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureStakerPoolIncentives(ctx, t, env)
-	if _, err := prepareCollectableStakedPosition(ctx, env); err != nil {
-		t.Fatalf("staker unstake warm-up: %v", err)
-	}
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		positionID, err := prepareCollectableStakedPosition(ctx, env)
 		if err != nil {

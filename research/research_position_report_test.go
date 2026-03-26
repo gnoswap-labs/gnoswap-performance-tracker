@@ -124,9 +124,6 @@ func TestResearchReportPositionDecreaseLiquidity(t *testing.T) {
 func mustRunPositionMintReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureMintPrereqs(ctx, t, env)
-	if _, err := mintPositionTx(ctx, env, workloadWideTickLower, workloadWideTickUpper, workloadMintAmount0, workloadMintAmount1); err != nil {
-		t.Fatalf("position mint warm-up: %v", err)
-	}
 
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		return mintPositionTx(ctx, env, workloadWideTickLower, workloadWideTickUpper, workloadMintAmount0, workloadMintAmount1)
@@ -136,9 +133,6 @@ func mustRunPositionMintReportProbe(ctx context.Context, t *testing.T, env *rese
 func mustRunPositionIncreaseReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureMintPrereqs(ctx, t, env)
-	if _, err := preparePositionForIncrease(ctx, env); err != nil {
-		t.Fatalf("increase warm-up: %v", err)
-	}
 
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		positionID, err := preparePositionForIncrease(ctx, env)
@@ -152,9 +146,6 @@ func mustRunPositionIncreaseReportProbe(ctx context.Context, t *testing.T, env *
 func mustRunPositionDecreaseReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureMintPrereqs(ctx, t, env)
-	if _, _, err := preparePositionForDecrease(ctx, env); err != nil {
-		t.Fatalf("decrease warm-up: %v", err)
-	}
 
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		positionID, liquidity, err := preparePositionForDecrease(ctx, env)

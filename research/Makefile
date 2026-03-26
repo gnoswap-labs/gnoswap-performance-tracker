@@ -40,6 +40,7 @@ test-keep-up: ensure-dirs
 report: ensure-dirs
 	@GNOSWAP_REF="$(GNOSWAP_REF)" docker compose up -d --build --force-recreate
 	@rm -f "$(LAST_REPORT)"
+	@rm -f "$(RUNLOGS_DIR)/metric-output.log" "$(RUNLOGS_DIR)/latest-report.log"
 	@RESEARCH_REPORT=1 RESEARCH_REPORT_OUT="$(LAST_REPORT)" WORKLOAD_NS="$(WORKLOAD_NS)" go test -v -timeout 60m -count=1 -run 'TestResearchReport' ./... > "$(RUNLOGS_DIR)/latest-report.log" 2>&1; ret=$$?; if [ $$ret -ne 0 ]; then cat "$(RUNLOGS_DIR)/latest-report.log"; docker compose down -v; exit $$ret; fi; cat "$(LAST_REPORT)"; docker compose down -v
 
 clean:

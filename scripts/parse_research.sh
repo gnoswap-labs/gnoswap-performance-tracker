@@ -29,11 +29,11 @@ END {
 }
 ' "$tmp_input")
 
-echo "# 컨트랙트 수수료 측정 결과"
+echo "# Contract Fee Measurement Results"
 echo ""
-printf '%s\n' "마일스톤: N = $milestones"
-printf '%s\n' "측정: 마일스톤 구간(window) 실행 결과 평균 + Q1/Q3"
-printf '%s\n' "수수료: Total Fee는 tx output에 해당 값이 없는 경우 '-'로 표시"
+printf '%s\n' "Milestones: N = $milestones"
+printf '%s\n' "Measurement: cumulative per-milestone results with avg + Q1/Q3"
+printf '%s\n' "Fee note: Total Fee shows '-' when tx output omits the total cost line"
 echo ""
 awk -F'\t' '
 function format_number(num,    result, sign, str, len, i) {

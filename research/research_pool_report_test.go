@@ -129,11 +129,6 @@ func mustRunPoolCreateReportProbe(ctx context.Context, t *testing.T, env *resear
 		t.Fatalf("pool create report prerequisites: %v", err)
 	}
 	runTag := strconv.FormatInt(time.Now().UnixNano(), 36)
-	if warmupToken0Path, warmupToken1Path, err := createDisposableProbePool(ctx, env, runTag, 0); err != nil {
-		t.Fatalf("pool create warm-up package: %v", err)
-	} else if _, err := createPoolTx(ctx, env, warmupToken0Path, warmupToken1Path, workloadFeeTier, initialSqrtPriceX96); err != nil {
-		t.Fatalf("pool create warm-up tx: %v", err)
-	}
 
 	return mustRunCheckpointLoop(t, checkpoints, func(iteration int64) (txMetrics, error) {
 		token0Path, token1Path, err := createDisposableProbePool(ctx, env, runTag, iteration)
@@ -147,9 +142,6 @@ func mustRunPoolCreateReportProbe(ctx context.Context, t *testing.T, env *resear
 func mustRunRouterExactInSwapRouteReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureSwapPrereqs(ctx, t, env)
-	if _, err := routerExactInSwapRouteTx(ctx, env); err != nil {
-		t.Fatalf("router exact-in warm-up: %v", err)
-	}
 
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		return routerExactInSwapRouteTx(ctx, env)
@@ -159,9 +151,6 @@ func mustRunRouterExactInSwapRouteReportProbe(ctx context.Context, t *testing.T,
 func mustRunRouterExactOutSwapRouteReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureSwapPrereqs(ctx, t, env)
-	if _, err := routerExactOutSwapRouteTx(ctx, env); err != nil {
-		t.Fatalf("router exact-out warm-up: %v", err)
-	}
 
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		return routerExactOutSwapRouteTx(ctx, env)
