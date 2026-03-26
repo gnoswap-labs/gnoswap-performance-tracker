@@ -59,17 +59,17 @@ func TestResearchReportRouterExactOutSwapRoute(t *testing.T) {
 
 func routerExactInScenarios() []routerResearchScenario {
 	return []routerResearchScenario{
-		{Label: "Router.ExactIn.SingleHop.Pos1", RunTag: "reis1", TickLower: routerSameBoundsTickLower, TickUpper: routerSameBoundsTickUpper, PositionCount: 1, Oscillate: true, ExactInAmountIn: routerExactInAmountInLarge},
-		{Label: "Router.ExactIn.SingleHop.Pos6", RunTag: "reis6", SetupKind: "single-hop-staggered", Oscillate: true, ExactInAmountIn: routerExactInAmountInLarge},
-		{Label: "Router.ExactIn.TwoHop", RunTag: "reit2", SetupKind: "two-hop-mixed-fee", Oscillate: true, ExactInAmountIn: routerExactInAmountIn},
+		{Label: "Router.ExactIn.SingleHop.Pos1", RunTag: "reis1", TickLower: routerSameBoundsTickLower, TickUpper: routerSameBoundsTickUpper, PositionCount: 1, Oscillate: true, ExactInAmountIn: routerExactInSingleHopAmountIn},
+		{Label: "Router.ExactIn.SingleHop.Pos6", RunTag: "reis6", SetupKind: "single-hop-staggered", Oscillate: true, ExactInAmountIn: routerExactInSingleHopAmountIn},
+		{Label: "Router.ExactIn.TwoHop", RunTag: "reit2", SetupKind: "two-hop-mixed-fee", Oscillate: true, ExactInAmountIn: routerExactInTwoHopAmountIn},
 	}
 }
 
 func routerExactOutScenarios() []routerResearchScenario {
 	return []routerResearchScenario{
-		{Label: "Router.ExactOut.SingleHop.Pos1", RunTag: "reos1", TickLower: routerSameBoundsTickLower, TickUpper: routerSameBoundsTickUpper, PositionCount: 1, ExactOut: true, Oscillate: true, ExactOutAmountOut: routerExactOutAmountOutLarge, ExactOutAmountInMax: routerExactOutAmountInMaxLarge},
-		{Label: "Router.ExactOut.SingleHop.Pos6", RunTag: "reos6", SetupKind: "single-hop-staggered", ExactOut: true, Oscillate: true, ExactOutAmountOut: routerExactOutAmountOutLarge, ExactOutAmountInMax: routerExactOutAmountInMaxLarge},
-		{Label: "Router.ExactOut.TwoHop", RunTag: "reot2", SetupKind: "two-hop-mixed-fee", ExactOut: true, Oscillate: true, ExactOutAmountOut: routerExactOutAmountOut, ExactOutAmountInMax: routerExactOutAmountInMax},
+		{Label: "Router.ExactOut.SingleHop.Pos1", RunTag: "reos1", TickLower: routerSameBoundsTickLower, TickUpper: routerSameBoundsTickUpper, PositionCount: 1, ExactOut: true, Oscillate: true, ExactOutAmountOut: routerExactOutSingleHopAmountOut, ExactOutAmountInMax: routerExactOutSingleHopAmountInMax},
+		{Label: "Router.ExactOut.SingleHop.Pos6", RunTag: "reos6", SetupKind: "single-hop-staggered", ExactOut: true, Oscillate: true, ExactOutAmountOut: routerExactOutSingleHopAmountOut, ExactOutAmountInMax: routerExactOutSingleHopAmountInMax},
+		{Label: "Router.ExactOut.TwoHop", RunTag: "reot2", SetupKind: "two-hop-mixed-fee", ExactOut: true, Oscillate: true, ExactOutAmountOut: routerExactOutTwoHopAmountOut, ExactOutAmountInMax: routerExactOutTwoHopAmountInMax},
 	}
 }
 

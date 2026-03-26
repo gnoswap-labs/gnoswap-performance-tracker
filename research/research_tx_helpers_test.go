@@ -36,7 +36,7 @@ func queryPoolSlot0Tick(ctx context.Context, env *researchHarnessEnv, poolPath s
 }
 
 func ensurePoolCreateProbePrereqs(ctx context.Context, env *researchHarnessEnv) error {
-	if err := ensureWrappedUgnotReady(ctx, env); err != nil {
+	if err := ensureWrappedUgnotReady(ctx, env, parseDecimalInt64OrPanic(workloadWrappedDeposit)); err != nil {
 		return err
 	}
 	if err := approveToken(ctx, env, workloadGnsPath, env.poolAddr, workloadMaxApprove); err != nil {
@@ -48,9 +48,9 @@ func ensurePoolCreateProbePrereqs(ctx context.Context, env *researchHarnessEnv) 
 func mustEnsureMintPrereqs(ctx context.Context, t interface {
 	Helper()
 	Fatalf(string, ...any)
-}, env *researchHarnessEnv) {
+}, env *researchHarnessEnv, budget tokenBudget) {
 	t.Helper()
-	if err := ensureWrappedUgnotReady(ctx, env); err != nil {
+	if err := ensureFundingBudget(ctx, env, budget); err != nil {
 		t.Fatalf("ensure wrapped ugnot ready: %v", err)
 	}
 	if err := ensurePoolExists(ctx, env); err != nil {
@@ -70,9 +70,9 @@ func mustEnsureMintPrereqs(ctx context.Context, t interface {
 func mustEnsureSwapPrereqs(ctx context.Context, t interface {
 	Helper()
 	Fatalf(string, ...any)
-}, env *researchHarnessEnv) {
+}, env *researchHarnessEnv, budget tokenBudget) {
 	t.Helper()
-	if err := ensureWrappedUgnotReady(ctx, env); err != nil {
+	if err := ensureFundingBudget(ctx, env, budget); err != nil {
 		t.Fatalf("ensure wrapped ugnot ready: %v", err)
 	}
 	if err := ensureRouterPoolExists(ctx, env); err != nil {
@@ -222,9 +222,9 @@ func staggeredRouterPositionSpecs() []routerPositionSpec {
 func mustEnsureStakerCreateExternalIncentivePrereqs(ctx context.Context, t interface {
 	Helper()
 	Fatalf(string, ...any)
-}, env *researchHarnessEnv) {
+}, env *researchHarnessEnv, budget tokenBudget) {
 	t.Helper()
-	mustEnsureMintPrereqs(ctx, t, env)
+	mustEnsureMintPrereqs(ctx, t, env, budget)
 	if err := approveToken(ctx, env, workloadGnsPath, env.stakerAddr, workloadMaxApprove); err != nil {
 		t.Fatalf("approve gns to staker: %v", err)
 	}
@@ -236,11 +236,14 @@ func mustEnsureStakerCreateExternalIncentivePrereqs(ctx context.Context, t inter
 func mustEnsureStakerPoolIncentives(ctx context.Context, t interface {
 	Helper()
 	Fatalf(string, ...any)
-}, env *researchHarnessEnv) {
+}, env *researchHarnessEnv, budget tokenBudget) {
 	t.Helper()
-	mustEnsureMintPrereqs(ctx, t, env)
+	mustEnsureMintPrereqs(ctx, t, env, budget)
 	if err := ensurePoolTierSet(ctx, env); err != nil {
 		t.Fatalf("ensure staker pool tier: %v", err)
+	}
+	if err := ensureEmissionStartedAndDistributed(ctx, env); err != nil {
+		t.Fatalf("ensure emission started and distributed: %v", err)
 	}
 }
 
@@ -249,7 +252,7 @@ func ensurePoolExists(ctx context.Context, env *researchHarnessEnv) error {
 	if err == nil && exists {
 		return nil
 	}
-	if err := ensureWrappedUgnotReady(ctx, env); err != nil {
+	if err := ensureWrappedUgnotReady(ctx, env, parseDecimalInt64OrPanic(workloadWrappedDeposit)); err != nil {
 		return err
 	}
 	if err := approveToken(ctx, env, workloadGnsPath, env.poolAddr, workloadMaxApprove); err != nil {
@@ -276,7 +279,7 @@ func ensureRouterPoolExists(ctx context.Context, env *researchHarnessEnv) error 
 	if err == nil && exists {
 		return nil
 	}
-	if err := ensureWrappedUgnotReady(ctx, env); err != nil {
+	if err := ensureWrappedUgnotReady(ctx, env, parseDecimalInt64OrPanic(workloadWrappedDeposit)); err != nil {
 		return err
 	}
 	if err := approveToken(ctx, env, workloadGnsPath, env.poolAddr, workloadMaxApprove); err != nil {
@@ -305,6 +308,32 @@ func ensurePoolTierSet(ctx context.Context, env *researchHarnessEnv) error {
 	return err
 }
 
+func ensureEmissionStartedAndDistributed(ctx context.Context, env *researchHarnessEnv) error {
+	startTimestamp, err := queryEmissionDistributionStartTimestamp(ctx, env)
+	if err != nil {
+		return err
+	}
+	if startTimestamp == 0 {
+		startTimestamp = time.Now().Unix() + 1
+		if _, err := broadcastCallOutput(ctx, env, "gnoswap_admin", emissionPkgPath, "SetDistributionStartTime", "", strconv.FormatInt(startTimestamp, 10)); err != nil {
+			return err
+		}
+	}
+	if now := time.Now().Unix(); startTimestamp > now {
+		time.Sleep(time.Duration(startTimestamp-now+1) * time.Second)
+	}
+	_, err = broadcastCallOutput(ctx, env, "gnoswap_admin", emissionPkgPath, "MintAndDistributeGns", "")
+	return err
+}
+
+func queryEmissionDistributionStartTimestamp(ctx context.Context, env *researchHarnessEnv) (int64, error) {
+	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, emissionPkgPath+`.GetDistributionStartTimestamp()`)
+	if err != nil {
+		return 0, err
+	}
+	return parseFirstInt64(out)
+}
+
 func poolPath() string {
 	return workloadWrappedUgnotPath + ":" + workloadGnsPath + ":" + strconv.FormatUint(uint64(workloadFeeTier), 10)
 }
@@ -327,18 +356,78 @@ func queryPoolExistsForFee(_ context.Context, env *researchHarnessEnv, fee uint3
 	return strings.Contains(out, "true"), nil
 }
 
-func ensureWrappedUgnotReady(ctx context.Context, env *researchHarnessEnv) error {
-	if err := depositWrappedUgnot(ctx, env, workloadWrappedDeposit); err != nil {
-		return err
-	}
-	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, fmt.Sprintf(`gno.land/r/gnoswap/common.IsRegistered(%q)`, workloadWrappedUgnotPath))
+func ensureWrappedUgnotReady(ctx context.Context, env *researchHarnessEnv, minBalance int64) error {
+	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, fmt.Sprintf(`%s.IsRegistered(%q)`, commonPkgPath, workloadWrappedUgnotPath))
 	if err != nil {
 		return err
+	}
+	currentBalance, balanceErr := queryTokenBalance(ctx, env, workloadWrappedUgnotPath)
+	if balanceErr != nil {
+		currentBalance = 0
+	}
+	neededBalance := maxInt64(minBalance, parseDecimalInt64OrPanic(workloadWrappedDeposit))
+	if currentBalance < neededBalance {
+		if err := depositWrappedUgnot(ctx, env, strconv.FormatInt(neededBalance-currentBalance, 10)); err != nil {
+			return err
+		}
+		out, err = gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, fmt.Sprintf(`%s.IsRegistered(%q)`, commonPkgPath, workloadWrappedUgnotPath))
+		if err != nil {
+			return err
+		}
 	}
 	if strings.Contains(out, "not registered") {
 		return fmt.Errorf("wrapped ugnot is still not registered: %s", out)
 	}
 	return nil
+}
+
+func ensureFundingBudget(ctx context.Context, env *researchHarnessEnv, budget tokenBudget) error {
+	if err := ensureWrappedUgnotReady(ctx, env, budget.WrappedUgnot); err != nil {
+		return err
+	}
+	if budget.GNS <= 0 {
+		return nil
+	}
+	currentGNS, err := queryTokenBalance(ctx, env, workloadGnsPath)
+	if err != nil {
+		return err
+	}
+	if currentGNS < budget.GNS {
+		return fmt.Errorf("insufficient GNS funding for workload: need >= %d have %d", budget.GNS, currentGNS)
+	}
+	return nil
+}
+
+func queryTokenBalance(ctx context.Context, env *researchHarnessEnv, tokenPath string) (int64, error) {
+	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, fmt.Sprintf(`%s.BalanceOf(%q, address(%q))`, commonPkgPath, tokenPath, env.adminAddr))
+	if err != nil {
+		return 0, err
+	}
+	return parseFirstInt64(out)
+}
+
+func parseDecimalInt64OrPanic(value string) int64 {
+	parsed, err := strconv.ParseInt(value, 10, 64)
+	if err != nil {
+		panic(err)
+	}
+	return parsed
+}
+
+func maxInt64(a, b int64) int64 {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func scaledAmountBudget(amount string, iterations int64) int64 {
+	perOp := big.NewInt(parseDecimalInt64OrPanic(amount))
+	total := new(big.Int).Mul(perOp, big.NewInt(iterations))
+	if !total.IsInt64() {
+		panic(fmt.Sprintf("budget overflow for amount %s x %d", amount, iterations))
+	}
+	return total.Int64()
 }
 
 func depositWrappedUgnot(ctx context.Context, env *researchHarnessEnv, amount string) error {
@@ -390,7 +479,7 @@ func routerExactInSwapRouteTx(ctx context.Context, env *researchHarnessEnv) (txM
 }
 
 func routerExactInSwapRouteTxForPair(ctx context.Context, env *researchHarnessEnv, tokenInPath, tokenOutPath, route string) (txMetrics, error) {
-	return routerExactInSwapRouteTxForPairWithAmount(ctx, env, tokenInPath, tokenOutPath, route, routerExactInAmountIn, routerExactInAmountOutMin)
+	return routerExactInSwapRouteTxForPairWithAmount(ctx, env, tokenInPath, tokenOutPath, route, routerExactInSingleHopAmountIn, routerExactInAmountOutMin)
 }
 
 func routerExactInSwapRouteTxForPairWithAmount(ctx context.Context, env *researchHarnessEnv, tokenInPath, tokenOutPath, route, amountIn, amountOutMin string) (txMetrics, error) {
@@ -415,7 +504,7 @@ func routerExactOutSwapRouteTx(ctx context.Context, env *researchHarnessEnv) (tx
 }
 
 func routerExactOutSwapRouteTxForPair(ctx context.Context, env *researchHarnessEnv, tokenInPath, tokenOutPath, route string) (txMetrics, error) {
-	return routerExactOutSwapRouteTxForPairWithAmount(ctx, env, tokenInPath, tokenOutPath, route, routerExactOutAmountOut, routerExactOutAmountInMax)
+	return routerExactOutSwapRouteTxForPairWithAmount(ctx, env, tokenInPath, tokenOutPath, route, routerExactOutSingleHopAmountOut, routerExactOutSingleHopAmountInMax)
 }
 
 func routerExactOutSwapRouteTxForPairWithAmount(ctx context.Context, env *researchHarnessEnv, tokenInPath, tokenOutPath, route, amountOut, amountInMax string) (txMetrics, error) {

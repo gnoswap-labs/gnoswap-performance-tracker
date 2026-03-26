@@ -153,7 +153,15 @@ func TestResearchReportStakerUnStakeToken(t *testing.T) {
 
 func mustRunStakerCreateExternalIncentiveReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
-	mustEnsureStakerCreateExternalIncentivePrereqs(ctx, t, env)
+	maxIteration := reportMaxIteration(checkpoints)
+	rewardAmount, err := queryMinimumRewardAmount(ctx, env)
+	if err != nil {
+		t.Fatalf("query minimum reward amount: %v", err)
+	}
+	mustEnsureStakerCreateExternalIncentivePrereqs(ctx, t, env, tokenBudget{
+		GNS:          scaledAmountBudget(rewardAmount, maxIteration),
+		WrappedUgnot: parseDecimalInt64OrPanic(workloadWrappedDeposit),
+	})
 	return mustRunCheckpointLoop(t, checkpoints, func(iteration int64) (txMetrics, error) {
 		return createExternalIncentiveTx(ctx, env, checkpointRunID()+iteration)
 	})
@@ -161,7 +169,11 @@ func mustRunStakerCreateExternalIncentiveReportProbe(ctx context.Context, t *tes
 
 func mustRunStakerStakeTokenReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
-	mustEnsureStakerPoolIncentives(ctx, t, env)
+	maxIteration := reportMaxIteration(checkpoints)
+	mustEnsureStakerPoolIncentives(ctx, t, env, tokenBudget{
+		GNS:          scaledAmountBudget(workloadMintAmount0, maxIteration),
+		WrappedUgnot: scaledAmountBudget(workloadMintAmount1, maxIteration),
+	})
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		positionID, err := prepareApprovedStakeablePosition(ctx, env)
 		if err != nil {
@@ -173,7 +185,10 @@ func mustRunStakerStakeTokenReportProbe(ctx context.Context, t *testing.T, env *
 
 func mustRunStakerCollectRewardReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
-	mustEnsureStakerPoolIncentives(ctx, t, env)
+	mustEnsureStakerPoolIncentives(ctx, t, env, tokenBudget{
+		GNS:          parseDecimalInt64OrPanic(workloadMintAmount0),
+		WrappedUgnot: parseDecimalInt64OrPanic(workloadMintAmount1),
+	})
 	positionID, err := prepareStakedPosition(ctx, env)
 	if err != nil {
 		t.Fatalf("prepare staked position for collect: %v", err)
@@ -186,7 +201,11 @@ func mustRunStakerCollectRewardReportProbe(ctx context.Context, t *testing.T, en
 
 func mustRunStakerUnStakeTokenReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
-	mustEnsureStakerPoolIncentives(ctx, t, env)
+	maxIteration := reportMaxIteration(checkpoints)
+	mustEnsureStakerPoolIncentives(ctx, t, env, tokenBudget{
+		GNS:          scaledAmountBudget(workloadMintAmount0, maxIteration),
+		WrappedUgnot: scaledAmountBudget(workloadMintAmount1, maxIteration),
+	})
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		positionID, err := prepareStakedPosition(ctx, env)
 		if err != nil {

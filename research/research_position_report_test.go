@@ -117,7 +117,11 @@ func TestResearchReportPositionDecreaseLiquidity(t *testing.T) {
 
 func mustRunPositionMintReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
-	mustEnsureMintPrereqs(ctx, t, env)
+	maxIteration := reportMaxIteration(checkpoints)
+	mustEnsureMintPrereqs(ctx, t, env, tokenBudget{
+		GNS:          scaledAmountBudget(workloadMintAmount0, maxIteration),
+		WrappedUgnot: scaledAmountBudget(workloadMintAmount1, maxIteration),
+	})
 
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		return mintPositionTx(ctx, env, workloadWideTickLower, workloadWideTickUpper, workloadMintAmount0, workloadMintAmount1)
@@ -126,7 +130,11 @@ func mustRunPositionMintReportProbe(ctx context.Context, t *testing.T, env *rese
 
 func mustRunPositionIncreaseReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
-	mustEnsureMintPrereqs(ctx, t, env)
+	maxIteration := reportMaxIteration(checkpoints)
+	mustEnsureMintPrereqs(ctx, t, env, tokenBudget{
+		GNS:          parseDecimalInt64OrPanic(workloadMintAmount0) + scaledAmountBudget(workloadIncreaseAmount0, maxIteration),
+		WrappedUgnot: parseDecimalInt64OrPanic(workloadMintAmount1) + scaledAmountBudget(workloadIncreaseAmount1, maxIteration),
+	})
 	positionID, err := preparePositionForIncrease(ctx, env)
 	if err != nil {
 		t.Fatalf("prepare position for increase: %v", err)
@@ -139,7 +147,10 @@ func mustRunPositionIncreaseReportProbe(ctx context.Context, t *testing.T, env *
 
 func mustRunPositionDecreaseReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
-	mustEnsureMintPrereqs(ctx, t, env)
+	mustEnsureMintPrereqs(ctx, t, env, tokenBudget{
+		GNS:          parseDecimalInt64OrPanic(workloadDecreaseMintAmount0),
+		WrappedUgnot: parseDecimalInt64OrPanic(workloadDecreaseMintAmount1),
+	})
 	maxIteration := checkpoints[len(checkpoints)-1]
 	positionID, liquidity, err := preparePositionForDecrease(ctx, env, maxIteration)
 	if err != nil {
@@ -149,4 +160,14 @@ func mustRunPositionDecreaseReportProbe(ctx context.Context, t *testing.T, env *
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
 		return decreaseLiquidityTx(ctx, env, positionID, liquidity)
 	})
+}
+
+func reportMaxIteration(checkpoints []int64) int64 {
+	var maxIteration int64
+	for _, checkpoint := range checkpoints {
+		if checkpoint > maxIteration {
+			maxIteration = checkpoint
+		}
+	}
+	return maxIteration
 }

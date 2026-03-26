@@ -1,52 +1,53 @@
 package research
 
 const (
-	researchReportEnv                     = "RESEARCH_REPORT"
-	researchReportOutputEnv               = "RESEARCH_REPORT_OUT"
-	probeCheckpointsEnv                   = "WORKLOAD_NS"
-	workloadWrappedUgnotPath              = "gno.land/r/gnoland/wugnot"
-	workloadGnsPath                       = "gno.land/r/gnoswap/gns"
-	poolPkgPath                           = "gno.land/r/gnoswap/pool"
-	positionPkgPath                       = "gno.land/r/gnoswap/position"
-	gnftPkgPath                           = "gno.land/r/gnoswap/gnft"
-	routerPkgPath                         = "gno.land/r/gnoswap/router"
-	stakerPkgPath                         = "gno.land/r/gnoswap/staker"
-	workloadFeeTier                uint32 = 3000
-	routerMixedFeeTier             uint32 = 100
-	routerWorkloadFeeTier          uint32 = 500
-	routerContractWideTickLower    int32  = -6960
-	routerContractWideTickUpper    int32  = 6960
-	initialSqrtPriceX96                   = "79228162514264337593543950337"
-	routerExactInAmountIn                 = "10000000"
-	routerExactInAmountInLarge            = "50000000"
-	routerExactInQuoteRatios              = "100"
-	routerExactInAmountOutMin             = "1"
-	routerExactOutAmountOut               = "1000"
-	routerExactOutAmountOutLarge          = "50000000"
-	routerExactOutQuoteRatios             = "100"
-	routerExactOutAmountInMax             = "10000"
-	routerExactOutAmountInMaxLarge        = "300000000"
-	routerMintAmount0                     = "100000000"
-	routerMintAmount1                     = "100000000"
-	routerSameBoundsTickLower      int32  = -1920
-	routerSameBoundsTickUpper      int32  = 1920
-	workloadMaxApprove                    = "9223372036854775806"
-	workloadUserAddress                   = "g1z437dpuh5s4p64vtq09dulg6jzxpr2hd4q8r5x"
-	workloadWrappedDeposit                = "100000000"
-	workloadWideTickLower          int32  = -887220
-	workloadWideTickUpper          int32  = 887220
-	workloadNarrowTickLower        int32  = -60
-	workloadNarrowTickUpper        int32  = 60
-	workloadDefaultDeadline        int64  = 9999999999
-	workloadMintAmount0                   = "5000000"
-	workloadMintAmount1                   = "5000000"
-	workloadDecreaseMintAmount0           = "50000000"
-	workloadDecreaseMintAmount1           = "50000000"
-	workloadIncreaseAmount0               = "1000000"
-	workloadIncreaseAmount1               = "1000000"
-	stakerPoolTier                        = "3"
-	stakerEmissionStart                   = int64(1)
-	stakerEmissionEnd                     = int64(7776001)
+	researchReportEnv                         = "RESEARCH_REPORT"
+	researchReportOutputEnv                   = "RESEARCH_REPORT_OUT"
+	probeCheckpointsEnv                       = "WORKLOAD_NS"
+	workloadWrappedUgnotPath                  = "gno.land/r/gnoland/wugnot"
+	workloadGnsPath                           = "gno.land/r/gnoswap/gns"
+	commonPkgPath                             = "gno.land/r/gnoswap/common"
+	poolPkgPath                               = "gno.land/r/gnoswap/pool"
+	positionPkgPath                           = "gno.land/r/gnoswap/position"
+	gnftPkgPath                               = "gno.land/r/gnoswap/gnft"
+	routerPkgPath                             = "gno.land/r/gnoswap/router"
+	stakerPkgPath                             = "gno.land/r/gnoswap/staker"
+	emissionPkgPath                           = "gno.land/r/gnoswap/emission"
+	workloadFeeTier                    uint32 = 3000
+	routerMixedFeeTier                 uint32 = 100
+	routerWorkloadFeeTier              uint32 = 500
+	routerContractWideTickLower        int32  = -6960
+	routerContractWideTickUpper        int32  = 6960
+	initialSqrtPriceX96                       = "79228162514264337593543950337"
+	routerExactInSingleHopAmountIn            = "50000000"
+	routerExactInTwoHopAmountIn               = "10000000"
+	routerExactInQuoteRatios                  = "100"
+	routerExactInAmountOutMin                 = "1"
+	routerExactOutSingleHopAmountOut          = "5000000"
+	routerExactOutTwoHopAmountOut             = "1000"
+	routerExactOutQuoteRatios                 = "100"
+	routerExactOutSingleHopAmountInMax        = "50000000"
+	routerExactOutTwoHopAmountInMax           = "10000"
+	routerMintAmount0                         = "100000000"
+	routerMintAmount1                         = "100000000"
+	routerSameBoundsTickLower          int32  = -1920
+	routerSameBoundsTickUpper          int32  = 1920
+	workloadMaxApprove                        = "9223372036854775806"
+	workloadWrappedDeposit                    = "1000000"
+	workloadWideTickLower              int32  = -887220
+	workloadWideTickUpper              int32  = 887220
+	workloadNarrowTickLower            int32  = -60
+	workloadNarrowTickUpper            int32  = 60
+	workloadDefaultDeadline            int64  = 9999999999
+	workloadMintAmount0                       = "500000"
+	workloadMintAmount1                       = "500000"
+	workloadDecreaseMintAmount0               = "5000000"
+	workloadDecreaseMintAmount1               = "5000000"
+	workloadIncreaseAmount0                   = "100000"
+	workloadIncreaseAmount1                   = "100000"
+	stakerPoolTier                            = "3"
+	stakerEmissionStart                       = int64(1)
+	stakerEmissionEnd                         = int64(7776001)
 )
 
 type txMetrics struct {
@@ -78,6 +79,11 @@ type routerPositionSpec struct {
 	TickUpper      int32
 	Amount0Desired string
 	Amount1Desired string
+}
+
+type tokenBudget struct {
+	GNS          int64
+	WrappedUgnot int64
 }
 
 type checkpointPoint struct {
