@@ -3,6 +3,7 @@ package research
 import (
 	"context"
 	"fmt"
+	"math/big"
 	"path/filepath"
 	"regexp"
 	"strconv"
@@ -353,31 +354,45 @@ func prepareStakedPosition(ctx context.Context, env *researchHarnessEnv) (uint64
 	return positionID, nil
 }
 
-func prepareCollectableStakedPosition(ctx context.Context, env *researchHarnessEnv) (uint64, error) {
-	positionID, err := prepareApprovedStakeablePosition(ctx, env)
-	if err != nil {
-		return 0, err
-	}
-	if _, err := stakeTokenTx(ctx, env, positionID); err != nil {
-		return 0, err
-	}
-	waitForRewardAccrual()
-	return positionID, nil
-}
-
 func preparePositionForIncrease(ctx context.Context, env *researchHarnessEnv) (uint64, error) {
 	return mintFreshPosition(ctx, env, workloadWideTickLower, workloadWideTickUpper)
 }
 
-func preparePositionForDecrease(ctx context.Context, env *researchHarnessEnv) (uint64, string, error) {
-	details, err := mintFreshPositionWithLiquidity(ctx, env, workloadWideTickLower, workloadWideTickUpper)
+func preparePositionForDecrease(ctx context.Context, env *researchHarnessEnv, repeatCount int64) (uint64, string, error) {
+	details, err := mintFreshPositionWithLiquidityForAmounts(
+		ctx,
+		env,
+		workloadNarrowTickLower,
+		workloadNarrowTickUpper,
+		workloadDecreaseMintAmount0,
+		workloadDecreaseMintAmount1,
+	)
 	if err != nil {
 		return 0, "", err
 	}
 	if details.Liquidity == "" || details.Liquidity == "0" {
 		return 0, "", fmt.Errorf("minted liquidity missing for position %d", details.PositionID)
 	}
-	return details.PositionID, details.Liquidity, nil
+	stepLiquidity, err := splitLiquidityForRepeats(details.Liquidity, repeatCount)
+	if err != nil {
+		return 0, "", err
+	}
+	return details.PositionID, stepLiquidity, nil
+}
+
+func splitLiquidityForRepeats(totalLiquidity string, repeatCount int64) (string, error) {
+	if repeatCount <= 0 {
+		return "", fmt.Errorf("repeat count must be positive")
+	}
+	total := new(big.Int)
+	if _, ok := total.SetString(totalLiquidity, 10); !ok {
+		return "", fmt.Errorf("invalid liquidity %q", totalLiquidity)
+	}
+	chunk := new(big.Int).Quo(total, big.NewInt(repeatCount))
+	if chunk.Sign() <= 0 {
+		return "", fmt.Errorf("liquidity %s too small for %d repeats", totalLiquidity, repeatCount)
+	}
+	return chunk.String(), nil
 }
 
 func createDisposableProbePool(ctx context.Context, env *researchHarnessEnv, runTag string, iteration int64) (string, string, error) {
@@ -449,14 +464,14 @@ func decreaseLiquidityTx(ctx context.Context, env *researchHarnessEnv, positionI
 	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", positionPkgPath, "DecreaseLiquidity", "",
 		strconv.FormatUint(positionID, 10),
 		liquidity,
-		"0",
-		"0",
+		"1",
+		"1",
 		strconv.FormatInt(workloadDefaultDeadline, 10),
 	)
 	if err != nil {
 		return txMetrics{}, err
 	}
-	return parseSingleTxMetrics(out)
+	return parseSingleTxMetricsAllowMissing(out)
 }
 
 type mintedPositionDetails struct {
@@ -473,7 +488,11 @@ func mintFreshPosition(ctx context.Context, env *researchHarnessEnv, tickLower, 
 }
 
 func mintFreshPositionWithLiquidity(ctx context.Context, env *researchHarnessEnv, tickLower, tickUpper int32) (mintedPositionDetails, error) {
-	out, err := mintPositionRawOutput(ctx, env, tickLower, tickUpper, workloadMintAmount0, workloadMintAmount1)
+	return mintFreshPositionWithLiquidityForAmounts(ctx, env, tickLower, tickUpper, workloadMintAmount0, workloadMintAmount1)
+}
+
+func mintFreshPositionWithLiquidityForAmounts(ctx context.Context, env *researchHarnessEnv, tickLower, tickUpper int32, amount0Desired, amount1Desired string) (mintedPositionDetails, error) {
+	out, err := mintPositionRawOutput(ctx, env, tickLower, tickUpper, amount0Desired, amount1Desired)
 	if err != nil {
 		return mintedPositionDetails{}, err
 	}

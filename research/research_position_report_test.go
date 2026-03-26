@@ -127,12 +127,12 @@ func mustRunPositionMintReportProbe(ctx context.Context, t *testing.T, env *rese
 func mustRunPositionIncreaseReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureMintPrereqs(ctx, t, env)
+	positionID, err := preparePositionForIncrease(ctx, env)
+	if err != nil {
+		t.Fatalf("prepare position for increase: %v", err)
+	}
 
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
-		positionID, err := preparePositionForIncrease(ctx, env)
-		if err != nil {
-			return txMetrics{}, err
-		}
 		return increaseLiquidityTx(ctx, env, positionID)
 	})
 }
@@ -140,12 +140,13 @@ func mustRunPositionIncreaseReportProbe(ctx context.Context, t *testing.T, env *
 func mustRunPositionDecreaseReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureMintPrereqs(ctx, t, env)
+	maxIteration := checkpoints[len(checkpoints)-1]
+	positionID, liquidity, err := preparePositionForDecrease(ctx, env, maxIteration)
+	if err != nil {
+		t.Fatalf("prepare position for decrease: %v", err)
+	}
 
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
-		positionID, liquidity, err := preparePositionForDecrease(ctx, env)
-		if err != nil {
-			return txMetrics{}, err
-		}
 		return decreaseLiquidityTx(ctx, env, positionID, liquidity)
 	})
 }

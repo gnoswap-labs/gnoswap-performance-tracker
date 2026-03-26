@@ -174,11 +174,12 @@ func mustRunStakerStakeTokenReportProbe(ctx context.Context, t *testing.T, env *
 func mustRunStakerCollectRewardReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	mustEnsureStakerPoolIncentives(ctx, t, env)
+	positionID, err := prepareStakedPosition(ctx, env)
+	if err != nil {
+		t.Fatalf("prepare staked position for collect: %v", err)
+	}
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
-		positionID, err := prepareCollectableStakedPosition(ctx, env)
-		if err != nil {
-			return txMetrics{}, err
-		}
+		waitForRewardAccrual()
 		return collectRewardTx(ctx, env, positionID)
 	})
 }
@@ -187,7 +188,7 @@ func mustRunStakerUnStakeTokenReportProbe(ctx context.Context, t *testing.T, env
 	t.Helper()
 	mustEnsureStakerPoolIncentives(ctx, t, env)
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
-		positionID, err := prepareCollectableStakedPosition(ctx, env)
+		positionID, err := prepareStakedPosition(ctx, env)
 		if err != nil {
 			return txMetrics{}, err
 		}
