@@ -11,6 +11,30 @@ import (
 	"time"
 )
 
+func queryPoolSlot0Tick(ctx context.Context, env *researchHarnessEnv, poolPath string) (int32, error) {
+	out, err := gnoQEvalRawWithContext(ctx, env.gnoContainer, env.cfg.GnoGnokeyRemote,
+		fmt.Sprintf(`%s.GetSlot0Tick(%q)`, poolPkgPath, poolPath),
+	)
+	if err != nil {
+		return 0, err
+	}
+	const prefix = "data: "
+	idx := strings.Index(out, prefix)
+	if idx < 0 {
+		return 0, fmt.Errorf("unexpected gnokey output (no 'data: ' prefix): %s", out)
+	}
+	value := strings.TrimSpace(out[idx+len(prefix):])
+	match := regexp.MustCompile(`-?[0-9]+`).FindString(value)
+	if match == "" {
+		return 0, fmt.Errorf("no tick value in qeval output: %s", out)
+	}
+	parsed, err := strconv.ParseInt(match, 10, 32)
+	if err != nil {
+		return 0, err
+	}
+	return int32(parsed), nil
+}
+
 func ensurePoolCreateProbePrereqs(ctx context.Context, env *researchHarnessEnv) error {
 	if err := ensureWrappedUgnotReady(ctx, env); err != nil {
 		return err
@@ -72,6 +96,20 @@ func mustPrepareRouterSingleHopScenario(ctx context.Context, t interface {
 	Helper()
 	Fatalf(string, ...any)
 }, env *researchHarnessEnv, runTag string, tickLower, tickUpper int32, positionCount int) routerScenarioState {
+	return mustPrepareRouterSingleHopScenarioWithPositionSpecs(ctx, t, env, runTag, repeatRouterPositionSpecs(positionCount, tickLower, tickUpper))
+}
+
+func mustPrepareRouterSingleHopStaggeredScenario(ctx context.Context, t interface {
+	Helper()
+	Fatalf(string, ...any)
+}, env *researchHarnessEnv, runTag string) routerScenarioState {
+	return mustPrepareRouterSingleHopScenarioWithPositionSpecs(ctx, t, env, runTag, staggeredRouterPositionSpecs())
+}
+
+func mustPrepareRouterSingleHopScenarioWithPositionSpecs(ctx context.Context, t interface {
+	Helper()
+	Fatalf(string, ...any)
+}, env *researchHarnessEnv, runTag string, specs []routerPositionSpec) routerScenarioState {
 	t.Helper()
 	tokenInPath, tokenOutPath, err := createDisposableProbePool(ctx, env, runTag, checkpointRunID())
 	if err != nil {
@@ -91,16 +129,94 @@ func mustPrepareRouterSingleHopScenario(ctx context.Context, t interface {
 	if _, err := createPoolTx(ctx, env, tokenInPath, tokenOutPath, routerWorkloadFeeTier, initialSqrtPriceX96); err != nil {
 		t.Fatalf("create router scenario pool: %v", err)
 	}
-	for i := 0; i < positionCount; i++ {
-		if _, err := mintPositionTxForPairAtFee(ctx, env, tokenInPath, tokenOutPath, routerWorkloadFeeTier, tickLower, tickUpper, routerMintAmount0, routerMintAmount1); err != nil {
-			t.Fatalf("mint router scenario position %d/%d: %v", i+1, positionCount, err)
+	for i, spec := range specs {
+		if _, err := mintPositionTxForPairAtFee(ctx, env, tokenInPath, tokenOutPath, routerWorkloadFeeTier, spec.TickLower, spec.TickUpper, spec.Amount0Desired, spec.Amount1Desired); err != nil {
+			t.Fatalf("mint router scenario position %d/%d: %v", i+1, len(specs), err)
 		}
 	}
 	return routerScenarioState{
 		tokenInPath:  tokenInPath,
 		tokenOutPath: tokenOutPath,
 		route:        singleHopRoute(tokenInPath, tokenOutPath, routerWorkloadFeeTier),
+		reverseRoute: singleHopRoute(tokenOutPath, tokenInPath, routerWorkloadFeeTier),
+		poolPaths:    []string{tokenInPath + ":" + tokenOutPath + ":" + strconv.FormatUint(uint64(routerWorkloadFeeTier), 10)},
 	}
+}
+
+func mustPrepareRouterTwoHopMixedFeeScenario(ctx context.Context, t interface {
+	Helper()
+	Fatalf(string, ...any)
+}, env *researchHarnessEnv, runTag string) routerScenarioState {
+	t.Helper()
+	tokenPaths, err := createDisposableProbeTokens(ctx, env, runTag, checkpointRunID(), 3)
+	if err != nil {
+		t.Fatalf("create disposable two-hop router tokens: %v", err)
+	}
+	if err := approveToken(ctx, env, workloadGnsPath, env.poolAddr, workloadMaxApprove); err != nil {
+		t.Fatalf("approve gns to pool for two-hop router scenario: %v", err)
+	}
+	for _, spender := range []string{env.poolAddr, env.positionAddr, env.routerAddr} {
+		for _, tokenPath := range tokenPaths {
+			if err := approveToken(ctx, env, tokenPath, spender, workloadMaxApprove); err != nil {
+				t.Fatalf("approve %s to %s: %v", tokenPath, spender, err)
+			}
+		}
+	}
+	if _, err := createPoolTx(ctx, env, tokenPaths[0], tokenPaths[1], routerMixedFeeTier, initialSqrtPriceX96); err != nil {
+		t.Fatalf("create first two-hop pool: %v", err)
+	}
+	if _, err := createPoolTx(ctx, env, tokenPaths[1], tokenPaths[2], workloadFeeTier, initialSqrtPriceX96); err != nil {
+		t.Fatalf("create second two-hop pool: %v", err)
+	}
+	if _, err := mintPositionTxForPairAtFee(ctx, env, tokenPaths[0], tokenPaths[1], routerMixedFeeTier, routerContractWideTickLower, routerContractWideTickUpper, routerMintAmount0, routerMintAmount1); err != nil {
+		t.Fatalf("mint first two-hop position: %v", err)
+	}
+	if _, err := mintPositionTxForPairAtFee(ctx, env, tokenPaths[1], tokenPaths[2], workloadFeeTier, routerContractWideTickLower, routerContractWideTickUpper, routerMintAmount0, routerMintAmount1); err != nil {
+		t.Fatalf("mint second two-hop position: %v", err)
+	}
+	return routerScenarioState{
+		tokenInPath:  tokenPaths[0],
+		tokenOutPath: tokenPaths[2],
+		route: multiHopRoute(
+			singleHopRoute(tokenPaths[0], tokenPaths[1], routerMixedFeeTier),
+			singleHopRoute(tokenPaths[1], tokenPaths[2], workloadFeeTier),
+		),
+		reverseRoute: multiHopRoute(
+			singleHopRoute(tokenPaths[2], tokenPaths[1], workloadFeeTier),
+			singleHopRoute(tokenPaths[1], tokenPaths[0], routerMixedFeeTier),
+		),
+		poolPaths: []string{
+			tokenPaths[0] + ":" + tokenPaths[1] + ":" + strconv.FormatUint(uint64(routerMixedFeeTier), 10),
+			tokenPaths[1] + ":" + tokenPaths[2] + ":" + strconv.FormatUint(uint64(workloadFeeTier), 10),
+		},
+	}
+}
+
+func repeatRouterPositionSpecs(count int, tickLower, tickUpper int32) []routerPositionSpec {
+	specs := make([]routerPositionSpec, 0, count)
+	for i := 0; i < count; i++ {
+		specs = append(specs, routerPositionSpec{
+			TickLower:      tickLower,
+			TickUpper:      tickUpper,
+			Amount0Desired: routerMintAmount0,
+			Amount1Desired: routerMintAmount1,
+		})
+	}
+	return specs
+}
+
+func staggeredRouterPositionSpecs() []routerPositionSpec {
+	ranges := [][2]int32{{-60, 60}, {-120, 120}, {-240, 240}, {-480, 480}, {-960, 960}, {-1920, 1920}}
+	specs := make([]routerPositionSpec, 0, len(ranges))
+	for _, r := range ranges {
+		specs = append(specs, routerPositionSpec{
+			TickLower:      r[0],
+			TickUpper:      r[1],
+			Amount0Desired: routerMintAmount0,
+			Amount1Desired: routerMintAmount1,
+		})
+	}
+	return specs
 }
 
 func mustEnsureStakerCreateExternalIncentivePrereqs(ctx context.Context, t interface {
@@ -274,13 +390,17 @@ func routerExactInSwapRouteTx(ctx context.Context, env *researchHarnessEnv) (txM
 }
 
 func routerExactInSwapRouteTxForPair(ctx context.Context, env *researchHarnessEnv, tokenInPath, tokenOutPath, route string) (txMetrics, error) {
+	return routerExactInSwapRouteTxForPairWithAmount(ctx, env, tokenInPath, tokenOutPath, route, routerExactInAmountIn, routerExactInAmountOutMin)
+}
+
+func routerExactInSwapRouteTxForPairWithAmount(ctx context.Context, env *researchHarnessEnv, tokenInPath, tokenOutPath, route, amountIn, amountOutMin string) (txMetrics, error) {
 	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", routerPkgPath, "ExactInSwapRoute", "",
 		tokenInPath,
 		tokenOutPath,
-		routerExactInAmountIn,
+		amountIn,
 		route,
 		routerExactInQuoteRatios,
-		routerExactInAmountOutMin,
+		amountOutMin,
 		strconv.FormatInt(workloadDefaultDeadline, 10),
 		"",
 	)
@@ -295,13 +415,17 @@ func routerExactOutSwapRouteTx(ctx context.Context, env *researchHarnessEnv) (tx
 }
 
 func routerExactOutSwapRouteTxForPair(ctx context.Context, env *researchHarnessEnv, tokenInPath, tokenOutPath, route string) (txMetrics, error) {
+	return routerExactOutSwapRouteTxForPairWithAmount(ctx, env, tokenInPath, tokenOutPath, route, routerExactOutAmountOut, routerExactOutAmountInMax)
+}
+
+func routerExactOutSwapRouteTxForPairWithAmount(ctx context.Context, env *researchHarnessEnv, tokenInPath, tokenOutPath, route, amountOut, amountInMax string) (txMetrics, error) {
 	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", routerPkgPath, "ExactOutSwapRoute", "",
 		tokenInPath,
 		tokenOutPath,
-		routerExactOutAmountOut,
+		amountOut,
 		route,
 		routerExactOutQuoteRatios,
-		routerExactOutAmountInMax,
+		amountInMax,
 		strconv.FormatInt(workloadDefaultDeadline, 10),
 		"",
 	)
@@ -313,6 +437,10 @@ func routerExactOutSwapRouteTxForPair(ctx context.Context, env *researchHarnessE
 
 func singleHopRoute(tokenIn, tokenOut string, fee uint32) string {
 	return tokenIn + ":" + tokenOut + ":" + strconv.FormatUint(uint64(fee), 10)
+}
+
+func multiHopRoute(hops ...string) string {
+	return strings.Join(hops, "*POOL*")
 }
 
 func createExternalIncentiveTx(ctx context.Context, env *researchHarnessEnv, runID int64) (txMetrics, error) {
@@ -437,19 +565,27 @@ func splitLiquidityForRepeats(totalLiquidity string, repeatCount int64) (string,
 }
 
 func createDisposableProbePool(ctx context.Context, env *researchHarnessEnv, runTag string, iteration int64) (string, string, error) {
-	baseName := fmt.Sprintf("ptr%s%d", runTag, iteration)
-	token0Package := "gno.land/r/gnoswap_probe_token_" + baseName + "a"
-	token1Package := "gno.land/r/gnoswap_probe_token_" + baseName + "b"
-	token0Name := "p" + baseName + "a"
-	token1Name := "p" + baseName + "b"
+	tokenPackages, err := createDisposableProbeTokens(ctx, env, runTag, iteration, 2)
+	if err != nil {
+		return "", "", err
+	}
+	return tokenPackages[0], tokenPackages[1], nil
+}
 
-	if err := addProbeTokenPackage(ctx, env, token0Package, token0Name, "PTA"); err != nil {
-		return "", "", err
+func createDisposableProbeTokens(ctx context.Context, env *researchHarnessEnv, runTag string, iteration int64, count int) ([]string, error) {
+	baseName := fmt.Sprintf("ptr%s%d", runTag, iteration)
+	tokenPackages := make([]string, 0, count)
+	for i := 0; i < count; i++ {
+		suffix := string(rune('a' + i))
+		pkgPath := "gno.land/r/gnoswap_probe_token_" + baseName + suffix
+		pkgName := "p" + baseName + suffix
+		symbol := "PT" + string(rune('A'+i))
+		if err := addProbeTokenPackage(ctx, env, pkgPath, pkgName, symbol); err != nil {
+			return nil, err
+		}
+		tokenPackages = append(tokenPackages, pkgPath)
 	}
-	if err := addProbeTokenPackage(ctx, env, token1Package, token1Name, "PTB"); err != nil {
-		return "", "", err
-	}
-	return token0Package, token1Package, nil
+	return tokenPackages, nil
 }
 
 func mintPositionRawOutput(ctx context.Context, env *researchHarnessEnv, tickLower, tickUpper int32, amount0Desired, amount1Desired string) (string, error) {

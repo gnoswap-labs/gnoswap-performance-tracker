@@ -8,12 +8,17 @@ import (
 )
 
 type routerResearchScenario struct {
-	Label         string
-	RunTag        string
-	TickLower     int32
-	TickUpper     int32
-	PositionCount int
-	ExactOut      bool
+	Label               string
+	RunTag              string
+	SetupKind           string
+	TickLower           int32
+	TickUpper           int32
+	PositionCount       int
+	ExactOut            bool
+	Oscillate           bool
+	ExactInAmountIn     string
+	ExactOutAmountOut   string
+	ExactOutAmountInMax string
 }
 
 func TestResearchReportRouterExactInSwapRoute(t *testing.T) {
@@ -54,23 +59,17 @@ func TestResearchReportRouterExactOutSwapRoute(t *testing.T) {
 
 func routerExactInScenarios() []routerResearchScenario {
 	return []routerResearchScenario{
-		{Label: "Router.ExactIn.SingleHop.Wide.Pos1", RunTag: "reiw1", TickLower: workloadWideTickLower, TickUpper: workloadWideTickUpper, PositionCount: 1},
-		{Label: "Router.ExactIn.SingleHop.Wide.Pos3", RunTag: "reiw3", TickLower: workloadWideTickLower, TickUpper: workloadWideTickUpper, PositionCount: 3},
-		{Label: "Router.ExactIn.SingleHop.Wide.Pos6", RunTag: "reiw6", TickLower: workloadWideTickLower, TickUpper: workloadWideTickUpper, PositionCount: 6},
-		{Label: "Router.ExactIn.SingleHop.Narrow.Pos1", RunTag: "rein1", TickLower: workloadNarrowTickLower, TickUpper: workloadNarrowTickUpper, PositionCount: 1},
-		{Label: "Router.ExactIn.SingleHop.Narrow.Pos3", RunTag: "rein3", TickLower: workloadNarrowTickLower, TickUpper: workloadNarrowTickUpper, PositionCount: 3},
-		{Label: "Router.ExactIn.SingleHop.Narrow.Pos6", RunTag: "rein6", TickLower: workloadNarrowTickLower, TickUpper: workloadNarrowTickUpper, PositionCount: 6},
+		{Label: "Router.ExactIn.SingleHop.Pos1", RunTag: "reis1", TickLower: routerSameBoundsTickLower, TickUpper: routerSameBoundsTickUpper, PositionCount: 1, Oscillate: true, ExactInAmountIn: routerExactInAmountInLarge},
+		{Label: "Router.ExactIn.SingleHop.Pos6", RunTag: "reis6", SetupKind: "single-hop-staggered", Oscillate: true, ExactInAmountIn: routerExactInAmountInLarge},
+		{Label: "Router.ExactIn.TwoHop", RunTag: "reit2", SetupKind: "two-hop-mixed-fee", Oscillate: true, ExactInAmountIn: routerExactInAmountIn},
 	}
 }
 
 func routerExactOutScenarios() []routerResearchScenario {
 	return []routerResearchScenario{
-		{Label: "Router.ExactOut.SingleHop.Wide.Pos1", RunTag: "reow1", TickLower: workloadWideTickLower, TickUpper: workloadWideTickUpper, PositionCount: 1, ExactOut: true},
-		{Label: "Router.ExactOut.SingleHop.Wide.Pos3", RunTag: "reow3", TickLower: workloadWideTickLower, TickUpper: workloadWideTickUpper, PositionCount: 3, ExactOut: true},
-		{Label: "Router.ExactOut.SingleHop.Wide.Pos6", RunTag: "reow6", TickLower: workloadWideTickLower, TickUpper: workloadWideTickUpper, PositionCount: 6, ExactOut: true},
-		{Label: "Router.ExactOut.SingleHop.Narrow.Pos1", RunTag: "reon1", TickLower: workloadNarrowTickLower, TickUpper: workloadNarrowTickUpper, PositionCount: 1, ExactOut: true},
-		{Label: "Router.ExactOut.SingleHop.Narrow.Pos3", RunTag: "reon3", TickLower: workloadNarrowTickLower, TickUpper: workloadNarrowTickUpper, PositionCount: 3, ExactOut: true},
-		{Label: "Router.ExactOut.SingleHop.Narrow.Pos6", RunTag: "reon6", TickLower: workloadNarrowTickLower, TickUpper: workloadNarrowTickUpper, PositionCount: 6, ExactOut: true},
+		{Label: "Router.ExactOut.SingleHop.Pos1", RunTag: "reos1", TickLower: routerSameBoundsTickLower, TickUpper: routerSameBoundsTickUpper, PositionCount: 1, ExactOut: true, Oscillate: true, ExactOutAmountOut: routerExactOutAmountOutLarge, ExactOutAmountInMax: routerExactOutAmountInMaxLarge},
+		{Label: "Router.ExactOut.SingleHop.Pos6", RunTag: "reos6", SetupKind: "single-hop-staggered", ExactOut: true, Oscillate: true, ExactOutAmountOut: routerExactOutAmountOutLarge, ExactOutAmountInMax: routerExactOutAmountInMaxLarge},
+		{Label: "Router.ExactOut.TwoHop", RunTag: "reot2", SetupKind: "two-hop-mixed-fee", ExactOut: true, Oscillate: true, ExactOutAmountOut: routerExactOutAmountOut, ExactOutAmountInMax: routerExactOutAmountInMax},
 	}
 }
 
@@ -103,11 +102,80 @@ func routerScenarioRows(ctx context.Context, t *testing.T, env *researchHarnessE
 
 func mustRunRouterScenarioReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64, scenario routerResearchScenario) []checkpointPoint {
 	t.Helper()
-	state := mustPrepareRouterSingleHopScenario(ctx, t, env, scenario.RunTag, scenario.TickLower, scenario.TickUpper, scenario.PositionCount)
-	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
-		if scenario.ExactOut {
-			return routerExactOutSwapRouteTxForPair(ctx, env, state.tokenInPath, state.tokenOutPath, state.route)
+	var state routerScenarioState
+	switch scenario.SetupKind {
+	case "single-hop-staggered":
+		state = mustPrepareRouterSingleHopStaggeredScenario(ctx, t, env, scenario.RunTag)
+	case "two-hop-mixed-fee":
+		state = mustPrepareRouterTwoHopMixedFeeScenario(ctx, t, env, scenario.RunTag)
+	default:
+		state = mustPrepareRouterSingleHopScenario(ctx, t, env, scenario.RunTag, scenario.TickLower, scenario.TickUpper, scenario.PositionCount)
+	}
+	return mustRunCheckpointLoop(t, checkpoints, func(iteration int64) (txMetrics, error) {
+		beforeTicks, err := queryPoolTicks(ctx, env, state.poolPaths)
+		if err != nil {
+			return txMetrics{}, err
 		}
-		return routerExactInSwapRouteTxForPair(ctx, env, state.tokenInPath, state.tokenOutPath, state.route)
+		tokenInPath := state.tokenInPath
+		tokenOutPath := state.tokenOutPath
+		route := state.route
+		if scenario.Oscillate && state.reverseRoute != "" && iteration%2 == 0 {
+			tokenInPath, tokenOutPath = state.tokenOutPath, state.tokenInPath
+			route = state.reverseRoute
+		}
+		if scenario.ExactOut {
+			metrics, err := routerExactOutSwapRouteTxForPairWithAmount(ctx, env, tokenInPath, tokenOutPath, route, scenario.ExactOutAmountOut, scenario.ExactOutAmountInMax)
+			if err != nil {
+				return txMetrics{}, err
+			}
+			if scenario.Oscillate {
+				afterTicks, tickErr := queryPoolTicks(ctx, env, state.poolPaths)
+				if tickErr != nil {
+					return txMetrics{}, tickErr
+				}
+				if !ticksChanged(beforeTicks, afterTicks) {
+					return txMetrics{}, fmt.Errorf("expected tick movement but none observed: before=%v after=%v", beforeTicks, afterTicks)
+				}
+			}
+			return metrics, nil
+		}
+		metrics, err := routerExactInSwapRouteTxForPairWithAmount(ctx, env, tokenInPath, tokenOutPath, route, scenario.ExactInAmountIn, routerExactInAmountOutMin)
+		if err != nil {
+			return txMetrics{}, err
+		}
+		if scenario.Oscillate {
+			afterTicks, tickErr := queryPoolTicks(ctx, env, state.poolPaths)
+			if tickErr != nil {
+				return txMetrics{}, tickErr
+			}
+			if !ticksChanged(beforeTicks, afterTicks) {
+				return txMetrics{}, fmt.Errorf("expected tick movement but none observed: before=%v after=%v", beforeTicks, afterTicks)
+			}
+		}
+		return metrics, nil
 	})
+}
+
+func queryPoolTicks(ctx context.Context, env *researchHarnessEnv, poolPaths []string) ([]int32, error) {
+	ticks := make([]int32, 0, len(poolPaths))
+	for _, poolPath := range poolPaths {
+		tick, err := queryPoolSlot0Tick(ctx, env, poolPath)
+		if err != nil {
+			return nil, err
+		}
+		ticks = append(ticks, tick)
+	}
+	return ticks, nil
+}
+
+func ticksChanged(before, after []int32) bool {
+	if len(before) != len(after) {
+		return true
+	}
+	for i := range before {
+		if before[i] != after[i] {
+			return true
+		}
+	}
+	return false
 }
