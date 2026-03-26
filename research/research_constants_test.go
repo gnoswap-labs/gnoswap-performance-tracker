@@ -57,6 +57,12 @@ type researchHarnessEnv struct {
 	adminAddr    string
 }
 
+type routerScenarioState struct {
+	tokenInPath  string
+	tokenOutPath string
+	route        string
+}
+
 type checkpointPoint struct {
 	N            int64
 	SampleCount  int

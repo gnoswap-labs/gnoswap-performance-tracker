@@ -68,6 +68,41 @@ func mustEnsureSwapPrereqs(ctx context.Context, t interface {
 	}
 }
 
+func mustPrepareRouterSingleHopScenario(ctx context.Context, t interface {
+	Helper()
+	Fatalf(string, ...any)
+}, env *researchHarnessEnv, runTag string, tickLower, tickUpper int32, positionCount int) routerScenarioState {
+	t.Helper()
+	tokenInPath, tokenOutPath, err := createDisposableProbePool(ctx, env, runTag, checkpointRunID())
+	if err != nil {
+		t.Fatalf("create disposable router probe pool: %v", err)
+	}
+	if err := approveToken(ctx, env, workloadGnsPath, env.poolAddr, workloadMaxApprove); err != nil {
+		t.Fatalf("approve gns to pool for router scenario: %v", err)
+	}
+	for _, spender := range []string{env.poolAddr, env.positionAddr, env.routerAddr} {
+		if err := approveToken(ctx, env, tokenInPath, spender, workloadMaxApprove); err != nil {
+			t.Fatalf("approve tokenIn to %s: %v", spender, err)
+		}
+		if err := approveToken(ctx, env, tokenOutPath, spender, workloadMaxApprove); err != nil {
+			t.Fatalf("approve tokenOut to %s: %v", spender, err)
+		}
+	}
+	if _, err := createPoolTx(ctx, env, tokenInPath, tokenOutPath, routerWorkloadFeeTier, initialSqrtPriceX96); err != nil {
+		t.Fatalf("create router scenario pool: %v", err)
+	}
+	for i := 0; i < positionCount; i++ {
+		if _, err := mintPositionTxForPairAtFee(ctx, env, tokenInPath, tokenOutPath, routerWorkloadFeeTier, tickLower, tickUpper, routerMintAmount0, routerMintAmount1); err != nil {
+			t.Fatalf("mint router scenario position %d/%d: %v", i+1, positionCount, err)
+		}
+	}
+	return routerScenarioState{
+		tokenInPath:  tokenInPath,
+		tokenOutPath: tokenOutPath,
+		route:        singleHopRoute(tokenInPath, tokenOutPath, routerWorkloadFeeTier),
+	}
+}
+
 func mustEnsureStakerCreateExternalIncentivePrereqs(ctx context.Context, t interface {
 	Helper()
 	Fatalf(string, ...any)
@@ -235,10 +270,13 @@ func createPoolTx(ctx context.Context, env *researchHarnessEnv, token0Path, toke
 }
 
 func routerExactInSwapRouteTx(ctx context.Context, env *researchHarnessEnv) (txMetrics, error) {
-	route := singleHopRoute(workloadWrappedUgnotPath, workloadGnsPath, routerWorkloadFeeTier)
+	return routerExactInSwapRouteTxForPair(ctx, env, workloadWrappedUgnotPath, workloadGnsPath, singleHopRoute(workloadWrappedUgnotPath, workloadGnsPath, routerWorkloadFeeTier))
+}
+
+func routerExactInSwapRouteTxForPair(ctx context.Context, env *researchHarnessEnv, tokenInPath, tokenOutPath, route string) (txMetrics, error) {
 	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", routerPkgPath, "ExactInSwapRoute", "",
-		workloadWrappedUgnotPath,
-		workloadGnsPath,
+		tokenInPath,
+		tokenOutPath,
 		routerExactInAmountIn,
 		route,
 		routerExactInQuoteRatios,
@@ -253,10 +291,13 @@ func routerExactInSwapRouteTx(ctx context.Context, env *researchHarnessEnv) (txM
 }
 
 func routerExactOutSwapRouteTx(ctx context.Context, env *researchHarnessEnv) (txMetrics, error) {
-	route := singleHopRoute(workloadWrappedUgnotPath, workloadGnsPath, routerWorkloadFeeTier)
+	return routerExactOutSwapRouteTxForPair(ctx, env, workloadWrappedUgnotPath, workloadGnsPath, singleHopRoute(workloadWrappedUgnotPath, workloadGnsPath, routerWorkloadFeeTier))
+}
+
+func routerExactOutSwapRouteTxForPair(ctx context.Context, env *researchHarnessEnv, tokenInPath, tokenOutPath, route string) (txMetrics, error) {
 	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", routerPkgPath, "ExactOutSwapRoute", "",
-		workloadWrappedUgnotPath,
-		workloadGnsPath,
+		tokenInPath,
+		tokenOutPath,
 		routerExactOutAmountOut,
 		route,
 		routerExactOutQuoteRatios,
@@ -416,9 +457,13 @@ func mintPositionRawOutput(ctx context.Context, env *researchHarnessEnv, tickLow
 }
 
 func mintPositionRawOutputAtFee(ctx context.Context, env *researchHarnessEnv, fee uint32, tickLower, tickUpper int32, amount0Desired, amount1Desired string) (string, error) {
+	return mintPositionRawOutputForPairAtFee(ctx, env, workloadGnsPath, workloadWrappedUgnotPath, fee, tickLower, tickUpper, amount0Desired, amount1Desired)
+}
+
+func mintPositionRawOutputForPairAtFee(ctx context.Context, env *researchHarnessEnv, token0Path, token1Path string, fee uint32, tickLower, tickUpper int32, amount0Desired, amount1Desired string) (string, error) {
 	return broadcastCallOutput(ctx, env, "gnoswap_admin", positionPkgPath, "Mint", "",
-		workloadGnsPath,
-		workloadWrappedUgnotPath,
+		token0Path,
+		token1Path,
 		strconv.FormatUint(uint64(fee), 10),
 		strconv.FormatInt(int64(tickLower), 10),
 		strconv.FormatInt(int64(tickUpper), 10),
@@ -438,7 +483,11 @@ func mintPositionTx(ctx context.Context, env *researchHarnessEnv, tickLower, tic
 }
 
 func mintPositionTxAtFee(ctx context.Context, env *researchHarnessEnv, fee uint32, tickLower, tickUpper int32, amount0Desired, amount1Desired string) (txMetrics, error) {
-	out, err := mintPositionRawOutputAtFee(ctx, env, fee, tickLower, tickUpper, amount0Desired, amount1Desired)
+	return mintPositionTxForPairAtFee(ctx, env, workloadGnsPath, workloadWrappedUgnotPath, fee, tickLower, tickUpper, amount0Desired, amount1Desired)
+}
+
+func mintPositionTxForPairAtFee(ctx context.Context, env *researchHarnessEnv, token0Path, token1Path string, fee uint32, tickLower, tickUpper int32, amount0Desired, amount1Desired string) (txMetrics, error) {
+	out, err := mintPositionRawOutputForPairAtFee(ctx, env, token0Path, token1Path, fee, tickLower, tickUpper, amount0Desired, amount1Desired)
 	if err != nil {
 		return txMetrics{}, err
 	}
@@ -589,7 +638,7 @@ EOF`,
 		packageName,
 		symbol,
 		symbol,
-		workloadUserAddress,
+		env.adminAddr,
 	)
 	stdout, stderr, err := dockerExec(ctx, env.gnoContainer, "sh", "-lc", writeCmd)
 	if err != nil {
