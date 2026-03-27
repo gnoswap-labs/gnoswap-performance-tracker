@@ -9,7 +9,7 @@ import (
 
 	"gno.land/p/demo/tokens/grc721"
 	prabc "gno.land/p/gnoswap/rbac"
-	"gno.land/p/nt/testutils/v0"
+	"gno.land/p/nt/testutils"
 	"gno.land/r/gnoswap/emission"
 	_ "gno.land/r/gnoswap/rbac"
 
@@ -28,6 +28,8 @@ import (
 	"gno.land/r/onbloc/bar"
 	"gno.land/r/onbloc/foo"
 
+	"gno.land/r/gnoswap/gns"
+
 	"gno.land/r/gnoswap/scenario/metric"
 )
 
@@ -41,20 +43,25 @@ var (
 	aliceAddr  = testutils.TestAddress("alice")
 	aliceRealm = testing.NewUserRealm(aliceAddr)
 
-	barPath = "gno.land/r/onbloc/bar"
-	fooPath = "gno.land/r/onbloc/foo"
+	barPath  = "gno.land/r/onbloc/bar"
+	fooPath  = "gno.land/r/onbloc/foo"
+	poolPath = barPath + ":" + fooPath + ":3000"
 
-	maxInt64 int64 = 9223372036854775807
+	maxInt64       int64 = 9223372036854775807
+	incentiveCount int64 = 1
+
+	TIMESTAMP_90DAYS int64 = 90 * 24 * 60 * 60
 )
 
 var t *testing.T
 
 func main() {
 	initializeSetup()
-	createPoolMetric()
-	mintPositionMetric()
+	createPoolSetup()
+	mintPositionSetup()
 	setPoolTierSetup()
 	stakeTokenSetup()
+	createExternalIncentivesSetup()
 
 	testing.SkipHeights(1)
 	collectRewardMetric()
@@ -67,21 +74,45 @@ func initializeSetup() {
 	emission.SetDistributionStartTime(cross, time.Now().Unix()+1)
 	testing.SkipHeights(1)
 
-	bar.Transfer(cross, aliceAddr, 100000000)
-	foo.Transfer(cross, aliceAddr, 100000000)
+	bar.Transfer(cross, aliceAddr, 10_000_000_000)
+	foo.Transfer(cross, aliceAddr, 10_000_000_000)
+	gns.Transfer(cross, aliceAddr, 10_000_000_000)
 
 	bar.Approve(cross, poolAddr, maxInt64)
 	foo.Approve(cross, poolAddr, maxInt64)
 	bar.Approve(cross, stakerAddr, maxInt64)
 	foo.Approve(cross, stakerAddr, maxInt64)
+	gns.Approve(cross, stakerAddr, maxInt64)
+
+	testing.SetRealm(aliceRealm)
+	gns.Approve(cross, stakerAddr, maxInt64)
+}
+func createExternalIncentivesSetup() {
+	testing.SetRealm(aliceRealm)
+	bar.Approve(cross, stakerAddr, maxInt64)
+
+	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
+	incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
+
+	for i := 0; i < int(incentiveCount); i++ {
+		staker.CreateExternalIncentive(
+			cross,
+			poolPath,
+			barPath,
+			1_000_000_000,
+			incentiveStartTime,
+			incentiveEndTime,
+		)
+	}
+	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 }
 
-func createPoolMetric() {
+func createPoolSetup() {
 	testing.SetRealm(adminRealm)
 	pool.CreatePool(cross, barPath, fooPath, 3000, common.TickMathGetSqrtRatioAtTick(0).ToString())
 }
 
-func mintPositionMetric() {
+func mintPositionSetup() {
 	testing.SetRealm(aliceRealm)
 	bar.Approve(cross, poolAddr, maxInt64)
 	foo.Approve(cross, poolAddr, maxInt64)
@@ -106,13 +137,13 @@ func stakeTokenSetup() {
 func collectRewardMetric() {
 	testing.SetRealm(aliceRealm)
 
-	metric.PrintMetricsBy("CollectReward (only Internal Reward)", func() {
+	metric.PrintMetricsBy("CollectReward With External Rewards (1 incentives)", func() {
 		staker.CollectReward(cross, uint64(1))
 	})
 
 	testing.SkipHeights(1)
 
-	metric.PrintMetricsBy("CollectReward 2nd (only Internal Reward)", func() {
+	metric.PrintMetricsBy("CollectReward With External Rewards 2nd (1 incentives)", func() {
 		staker.CollectReward(cross, uint64(1))
 	})
 }
