@@ -445,8 +445,8 @@ func depositWrappedUgnot(ctx context.Context, env *researchHarnessEnv, amount st
 		"-remote", env.cfg.GnoGnokeyRemote,
 		"-broadcast=true",
 		"-chainid", env.cfg.GnoChainID,
-		"-gas-fee 1000000ugnot",
-		"-gas-wanted 1000000000",
+		"-gas-fee " + workloadTxGasFee,
+		"-gas-wanted " + workloadTxGasWanted,
 		"-memo ''",
 		"gnoswap_admin",
 	}, " ")
@@ -916,8 +916,8 @@ func broadcastCallOutput(ctx context.Context, env *researchHarnessEnv, keyName, 
 		"-remote", shellQuote(env.cfg.GnoGnokeyRemote),
 		"-broadcast=true",
 		"-chainid", shellQuote(env.cfg.GnoChainID),
-		"-gas-fee", "1000000ugnot",
-		"-gas-wanted", "1000000000",
+		"-gas-fee", workloadTxGasFee,
+		"-gas-wanted", workloadTxGasWanted,
 		"-memo", shellQuote(""),
 	)
 	parts = append(parts, shellQuote(keyName))

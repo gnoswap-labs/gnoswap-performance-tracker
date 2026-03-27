@@ -33,6 +33,8 @@ const (
 	routerSameBoundsTickLower          int32  = -1920
 	routerSameBoundsTickUpper          int32  = 1920
 	workloadMaxApprove                        = "9223372036854775806"
+	workloadTxGasFee                          = "3000000ugnot"
+	workloadTxGasWanted                       = "3000000000"
 	workloadWrappedDeposit                    = "1000000"
 	workloadWrappedDepositMinimum             = int64(1000)
 	workloadWideTickLower              int32  = -887220
