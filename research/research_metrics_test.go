@@ -46,7 +46,7 @@ type metricStats struct {
 
 func mustProbeCheckpoints(t *testing.T) []int64 {
 	t.Helper()
-	raw := getenvOrDefault(probeCheckpointsEnv, "1,100,10000")
+	raw := getenvOrDefault(probeCheckpointsEnv, "1,10,100")
 	checkpoints := parseCheckpoints(raw)
 	if len(checkpoints) == 0 {
 		t.Fatalf("no valid %s checkpoints", probeCheckpointsEnv)
@@ -268,10 +268,11 @@ func mustWriteResearchRows(t *testing.T, outputPath string, rows []researchRow) 
 }
 
 func appendMetricOutputLog(label, output string) error {
-	if err := os.MkdirAll(".runlogs", 0o755); err != nil {
+	path := metricOutputLogPath()
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 		return err
 	}
-	file, err := os.OpenFile(filepath.Join(".runlogs", "metric-output.log"), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o644)
+	file, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o644)
 	if err != nil {
 		return err
 	}
@@ -289,4 +290,27 @@ func appendMetricAttemptLog(label, command, stdout, stderr string, err error) er
 	}
 	body := fmt.Sprintf("command: %s\nstatus: %s\n\nstdout:\n%s\n\nstderr:\n%s\n", command, status, stdout, stderr)
 	return appendMetricOutputLog(label, body)
+}
+
+func metricOutputLogPath() string {
+	if path := strings.TrimSpace(os.Getenv("RESEARCH_METRIC_LOG_OUT")); path != "" {
+		return path
+	}
+	return filepath.Join(".runlogs", "metric-output.log")
+}
+
+func TestAppendMetricOutputLogUsesExplicitPath(t *testing.T) {
+	targetPath := filepath.Join(t.TempDir(), "logs", "metric-output-custom.log")
+	t.Setenv("RESEARCH_METRIC_LOG_OUT", targetPath)
+
+	if err := appendMetricOutputLog("probe", "hello"); err != nil {
+		t.Fatalf("appendMetricOutputLog: %v", err)
+	}
+	content, err := os.ReadFile(targetPath)
+	if err != nil {
+		t.Fatalf("read metric log: %v", err)
+	}
+	if !strings.Contains(string(content), "===== probe =====") || !strings.Contains(string(content), "hello") {
+		t.Fatalf("unexpected metric log content: %s", string(content))
+	}
 }

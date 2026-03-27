@@ -15,7 +15,7 @@ This lane now includes:
 - a Dockerized local `gnodev` runtime with integrated contract deployment during bootstrap
 - a minimal Go smoke harness for readiness and deployment checks
 - a first report-capable probe path for `PoolCreate`
-- raw TSV output under `artifacts/`, normalized into tracker reports via `scripts/parse_research.sh`
+- raw TSV output under `artifacts/`, normalized into tracker reports via `scripts/parse_research.sh`, with run-scoped filenames that include the resolved short hash and UTC timestamp
 
 The broader probe matrix should still be expanded incrementally.
 
@@ -27,7 +27,7 @@ From the tracker root:
 make research-up
 make research-down
 make research-test
-make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
+GNO_RPC_PORT=46657 GNO_REST_PORT=48888 make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
 make compare-research main develop
 ```
 
@@ -37,20 +37,21 @@ Or directly inside `research/`:
 make up
 make down
 make test
-make report REF=3f2642b8898ae02d14a14c4050d80919f18f3f21
+COMPOSE_PROJECT_NAME=gnoswap_performance_research_abcd123-20260327-120000-000001 GNO_RPC_PORT=46657 GNO_REST_PORT=48888 GNO_GNOKEY_REMOTE=localhost:46657 GNO_REST=http://localhost:48888 RESEARCH_REPORT_OUT=$PWD/artifacts/research-report-abcd123-20260327-120000-000001.tsv RESEARCH_REPORT_LOG_OUT=$PWD/.runlogs/research-report-abcd123-20260327-120000-000001.log RESEARCH_METRIC_LOG_OUT=$PWD/.runlogs/metric-output-abcd123-20260327-120000-000001.log make report REF=3f2642b8898ae02d14a14c4050d80919f18f3f21
 ```
 
 For local runs, copy `.env.example` to `.env` and provide a valid `TEST_MNEMONIC`.
 
-The default milestone set is `1,100,10000`. Override it per run when needed.
+The default milestone set is `1,10,100`. Override it per run when needed.
 
 Milestone statistics are cumulative. For example, `N=10` means the summary is computed from samples `1..10`, not only the delta window after `N=1`.
 
 There is no hidden warm-up run. `N=1` is the true first measured execution for each probe.
 
 ```bash
-WORKLOAD_NS=1,10 make report REF=3f2642b8898ae02d14a14c4050d80919f18f3f21
-WORKLOAD_NS=1,10 make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
+COMPOSE_PROJECT_NAME=gnoswap_performance_research_abcd123-20260327-120000-000001 GNO_RPC_PORT=46657 GNO_REST_PORT=48888 GNO_GNOKEY_REMOTE=localhost:46657 GNO_REST=http://localhost:48888 RESEARCH_REPORT_OUT=$PWD/artifacts/research-report-abcd123-20260327-120000-000001.tsv RESEARCH_REPORT_LOG_OUT=$PWD/.runlogs/research-report-abcd123-20260327-120000-000001.log RESEARCH_METRIC_LOG_OUT=$PWD/.runlogs/metric-output-abcd123-20260327-120000-000001.log WORKLOAD_NS=1,10,100 make report REF=3f2642b8898ae02d14a14c4050d80919f18f3f21
+GNO_RPC_PORT=46657 GNO_REST_PORT=48888 WORKLOAD_NS=1,10,100 make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
+GNO_RPC_PORT=47657 GNO_REST_PORT=49888 WORKLOAD_NS=1,10,100 make research-report main
 ```
 
 ## Probe Setup Summary

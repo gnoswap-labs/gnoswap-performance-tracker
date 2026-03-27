@@ -1,14 +1,14 @@
 services:
   gno:
     build:
-      context: .
-      dockerfile: gno/Dockerfile
+      context: ${DOCKER_BUILD_CONTEXT:-.}
+      dockerfile: ${DOCKERFILE_PATH:-gno/Dockerfile}
       args:
         GNOSWAP_REPO: ${GNOSWAP_REPO:-https://github.com/gnoswap-labs/gnoswap.git}
         GNOSWAP_REF: ${GNOSWAP_REF:-3f2642b8898ae02d14a14c4050d80919f18f3f21}
     ports:
-      - "46657:26657"
-      - "48888:8888"
+      - "${GNO_RPC_PORT:-46657}:26657"
+      - "${GNO_REST_PORT:-48888}:8888"
     env_file: .env
     healthcheck:
       test:

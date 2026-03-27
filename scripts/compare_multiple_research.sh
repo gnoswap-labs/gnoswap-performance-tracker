@@ -31,11 +31,43 @@ if [ $# -lt 1 ]; then
 fi
 
 REFS=("$@")
+DEFAULT_GNO_RPC_PORT="${GNO_RPC_PORT:-46657}"
+DEFAULT_GNO_REST_PORT="${GNO_REST_PORT:-48888}"
+
+resolve_ref() {
+    local ref="$1"
+    git -C gnoswap fetch origin >/dev/null 2>&1 || true
+    if git -C gnoswap rev-parse -q --verify "${ref}^{commit}" >/dev/null 2>&1; then
+        git -C gnoswap rev-parse "${ref}^{commit}"
+        return
+    fi
+    if git -C gnoswap rev-parse -q --verify "origin/${ref}^{commit}" >/dev/null 2>&1; then
+        git -C gnoswap rev-parse "origin/${ref}^{commit}"
+        return
+    fi
+    echo "Could not resolve ref '$ref'" >&2
+    exit 1
+}
+
 SHORT_REFS=()
 for ref in "${REFS[@]}"; do
-    SHORT_REFS+=("${ref:0:7}")
+    full_ref="$(resolve_ref "$ref")"
+    SHORT_REFS+=("$(git -C gnoswap rev-parse --short=7 "$full_ref")")
 done
 REF_COUNT=${#REFS[@]}
+
+resolve_report_file() {
+    local short_ref="$1"
+    python3 - "$short_ref" <<'PY'
+from pathlib import Path
+import sys
+
+short_ref = sys.argv[1]
+paths = sorted(Path("reports/research/commits").glob(f"{short_ref}-*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
+if paths:
+    print(paths[0])
+PY
+}
 
 echo "=========================================="
 echo "Processing $REF_COUNT research ref(s)..."
@@ -50,13 +82,14 @@ echo "-------------------------------------------"
 for i in "${!REFS[@]}"; do
     ref="${REFS[$i]}"
     short_ref="${SHORT_REFS[$i]}"
-    report_file="reports/research/commits/${short_ref}.md"
+    report_file="$(resolve_report_file "$short_ref")"
 
-    if [[ -f "$report_file" && "$SKIP_EXISTING" = true ]]; then
+    if [[ -n "$report_file" && -f "$report_file" && "$SKIP_EXISTING" = true ]]; then
         echo "Skipping $ref: report already exists ($report_file)"
     else
         echo "Generating research report for ref: $ref"
-        make research-report "$ref"
+        GNO_RPC_PORT="$DEFAULT_GNO_RPC_PORT" GNO_REST_PORT="$DEFAULT_GNO_REST_PORT" make research-report "$ref"
+        report_file="$(resolve_report_file "$short_ref")"
     fi
     echo ""
 done
@@ -71,13 +104,15 @@ echo "-------------------------------------------"
 for ((i = 0; i < REF_COUNT - 1; i++)); do
     current="${SHORT_REFS[$i]}"
     next="${SHORT_REFS[$((i + 1))]}"
+    current_report="$(resolve_report_file "$current")"
+    next_report="$(resolve_report_file "$next")"
     compare_file="reports/research/compares/diff_${current}_${next}.md"
 
     if [[ -f "$compare_file" && "$SKIP_EXISTING" = true ]]; then
         echo "Skipping comparison: $current -> $next (already exists: $compare_file)"
     else
         echo "Comparing: $current -> $next"
-        ./scripts/compare_reports.sh "reports/research/commits/${current}.md" "reports/research/commits/${next}.md"
+        ./scripts/compare_reports.sh "$current_report" "$next_report"
     fi
     echo ""
 done
@@ -88,6 +123,8 @@ if [ $REF_COUNT -gt 2 ]; then
     echo "-------------------------------------------"
     for ((i = 0; i < REF_COUNT - 1; i++)); do
         current="${SHORT_REFS[$i]}"
+        current_report="$(resolve_report_file "$current")"
+        base_report="$(resolve_report_file "$base")"
         if [ $i -eq $((REF_COUNT - 2)) ]; then
             echo "Skipping: $current -> $base (already in consecutive comparisons)"
             continue
@@ -98,7 +135,7 @@ if [ $REF_COUNT -gt 2 ]; then
             echo "Skipping comparison: $current -> $base (already exists: $compare_file)"
         else
             echo "Comparing: $current -> $base"
-            ./scripts/compare_reports.sh "reports/research/commits/${current}.md" "reports/research/commits/${base}.md"
+            ./scripts/compare_reports.sh "$current_report" "$base_report"
         fi
         echo ""
     done

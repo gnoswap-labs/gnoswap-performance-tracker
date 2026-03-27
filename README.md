@@ -108,23 +108,24 @@ The research lane is an integrated live-chain runtime namespace under `research/
 ```bash
 make research-up
 make research-test
-make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
+GNO_RPC_PORT=46657 GNO_REST_PORT=48888 make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
 make compare-research main develop
 make research-down
 ```
 
 This lane does **not** participate in the default `summary` flow yet.
 
-`make research-report <ref>` is the one-shot path: it boots the local chain, deploys contracts inside the container, executes the probes, and emits normalized markdown through the shared compare pipeline. The `<ref>` argument now drives both the cloned `GNOSWAP_REF` and the output label.
+`make research-report <ref>` is the one-shot path: it boots the local chain on the explicit RPC/REST ports you assign, deploys contracts inside the container, executes the probes, and emits normalized markdown through the shared compare pipeline. The `<ref>` argument is resolved to a full commit, and the output filename uses `<resolved-short-hash>-<utc-timestamp>` so concurrent runs do not overwrite each other.
 
-The default research milestones are `1,100,10000`. Override them per run when you want a smaller or denser checkpoint set.
+The default research milestones are `1,10,100`. Override them per run when you want a smaller or denser checkpoint set.
 
 Milestone summaries are cumulative. For example, `N=10` reflects samples `1..10`, while `N=100` reflects samples `1..100`.
 
 There is no hidden warm-up pass in the research probes. `N=1` represents the first measured execution.
 
 ```bash
-WORKLOAD_NS=1,10 make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
+GNO_RPC_PORT=46657 GNO_REST_PORT=48888 WORKLOAD_NS=1,10,100 make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
+GNO_RPC_PORT=47657 GNO_REST_PORT=49888 WORKLOAD_NS=1,10,100 make research-report main
 ```
 
 ### 5. Output Locations
@@ -136,11 +137,11 @@ WORKLOAD_NS=1,10 make research-report 3f2642b8898ae02d14a14c4050d80919f18f3f21
   - Individual: `reports/stress/commits/{commit_hash}.md`
   - Comparison: `reports/stress/compares/diff_{new}_{old}.md`
 - **Research Reports:**
-  - Individual: `reports/research/commits/{ref_hash}.md`
+  - Individual: `reports/research/commits/{short_hash}-{timestamp}.md`
   - Comparison: `reports/research/compares/diff_{new}_{old}.md`
 - **Summary Report:** `SUMMARY.md`
 
-Raw research artifacts stay under `research/artifacts/` and `research/.runlogs/`.
+Raw research artifacts stay under `research/artifacts/` and `research/.runlogs/`, with matching `{short_hash}-{timestamp}` stems per run.
 
 ### 6. Benchmark Workspace Behavior
 
