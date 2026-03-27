@@ -126,6 +126,6 @@ func collectRewardMetric(tokenId uint64) {
 	testing.SetRealm(aliceRealm)
 
 	metric.PrintMetricsBy("stress CollectReward (1000 positions)", func() {
-		staker.CollectReward(cross, tokenId, false)
+		staker.CollectReward(cross, tokenId)
 	})
 }
