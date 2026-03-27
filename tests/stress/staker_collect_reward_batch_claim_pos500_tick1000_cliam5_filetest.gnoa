@@ -220,7 +220,7 @@ func testMultiCollectReward(claimBatchCount int) {
 
 	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d)", positionCount, tickCrossCount, claimBatchCount), func() {
 		for i := 0; i < claimBatchCount; i++ {
-			staker.CollectReward(cross, tokenIds[i], false)
+			staker.CollectReward(cross, tokenIds[i])
 		}
 	})
 }

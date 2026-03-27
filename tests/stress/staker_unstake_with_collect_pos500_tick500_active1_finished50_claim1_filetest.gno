@@ -268,12 +268,12 @@ func testMultiCollectReward(claimBatchCount int, withMetrics bool) {
 	if withMetrics {
 		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, active=%d, finished=%d)", positionCount, tickCrossCount, claimBatchCount, activeIncentiveCount, finishedIncentiveCount), func() {
 			for i := 0; i < claimBatchCount; i++ {
-				staker.CollectReward(cross, tokenIds[i], false)
+				staker.CollectReward(cross, tokenIds[i])
 			}
 		})
 	} else {
 		for i := 0; i < claimBatchCount; i++ {
-			staker.CollectReward(cross, tokenIds[i], false)
+			staker.CollectReward(cross, tokenIds[i])
 		}
 	}
 }
@@ -284,12 +284,12 @@ func testMultiUnstake(claimBatchCount int, withMetrics bool) {
 	if withMetrics {
 		metric.PrintMetricsBy(ufmt.Sprintf("UnstakeToken with collect (pos=%d, tick=%d, claim=%d, active=%d, finished=%d)", positionCount, tickCrossCount, claimBatchCount, activeIncentiveCount, finishedIncentiveCount), func() {
 			for i := 0; i < claimBatchCount; i++ {
-				staker.UnStakeToken(cross, tokenIds[i], false)
+				staker.UnStakeToken(cross, tokenIds[i])
 			}
 		})
 	} else {
 		for i := 0; i < claimBatchCount; i++ {
-			staker.UnStakeToken(cross, tokenIds[i], false)
+			staker.UnStakeToken(cross, tokenIds[i])
 		}
 	}
 }
