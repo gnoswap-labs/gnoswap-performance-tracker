@@ -8,8 +8,8 @@ import (
 
 	"gno.land/p/demo/tokens/grc20"
 	prabc "gno.land/p/gnoswap/rbac"
-	"gno.land/p/nt/testutils"
-	"gno.land/p/nt/ufmt"
+	"gno.land/p/nt/testutils/v0"
+	"gno.land/p/nt/ufmt/v0"
 	"gno.land/r/demo/defi/grc20reg"
 	pf "gno.land/r/gnoswap/protocol_fee"
 	_ "gno.land/r/gnoswap/rbac"

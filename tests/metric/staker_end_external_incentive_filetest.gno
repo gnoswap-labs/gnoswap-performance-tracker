@@ -7,8 +7,8 @@ import (
 	"time"
 
 	prabc "gno.land/p/gnoswap/rbac"
-	"gno.land/p/nt/testutils"
-	"gno.land/p/nt/ufmt"
+	"gno.land/p/nt/testutils/v0"
+	"gno.land/p/nt/ufmt/v0"
 	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gns"
 	_ "gno.land/r/gnoswap/rbac"

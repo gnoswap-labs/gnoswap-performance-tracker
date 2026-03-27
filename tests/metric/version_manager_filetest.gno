@@ -8,7 +8,7 @@ import (
 
 	"gno.land/p/gnoswap/store"
 	"gno.land/p/gnoswap/version_manager"
-	"gno.land/p/nt/testutils"
+	"gno.land/p/nt/testutils/v0"
 	"gno.land/r/gnoswap/scenario/metric"
 )
 
