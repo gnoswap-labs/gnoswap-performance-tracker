@@ -31,8 +31,8 @@ END {
 
 echo "# Contract Fee Measurement Results"
 echo ""
-printf '%s\n' "Milestones: N = $milestones"
-printf '%s\n' "Measurement: cumulative per-milestone results with avg + Q1/Q3"
+printf '%s\n' "Sample buckets: N = $milestones"
+printf '%s\n' "Measurement: per-sample-size summaries; each N uses the first N measured executions with avg + Q1/Q3"
 echo ""
 awk -F'\t' '
 function format_number(num,    result, sign, str, len, i) {

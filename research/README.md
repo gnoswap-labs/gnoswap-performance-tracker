@@ -42,9 +42,9 @@ COMPOSE_PROJECT_NAME=gnoswap_performance_research_abcd123-20260327-120000-000001
 
 For local runs, copy `.env.example` to `.env` and provide a valid `TEST_MNEMONIC`.
 
-The default milestone set is `1,10,100`. Override it per run when needed.
+The default sample bucket set is `1,10,100`. Override it per run when needed.
 
-Milestone statistics are cumulative. For example, `N=10` means the summary is computed from samples `1..10`, not only the delta window after `N=1`.
+These are not interval buckets. The workload runs through the largest requested `N`, and each reported `N` summarizes the first `N` measured executions for that probe. For example, `N=10` means the summary is computed from the first 10 samples, and `N=100` means the summary is computed from the first 100 samples.
 
 There is no hidden warm-up run. `N=1` is the true first measured execution for each probe.
 

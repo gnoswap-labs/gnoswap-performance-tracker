@@ -34,6 +34,7 @@ const (
 	routerSameBoundsTickUpper          int32  = 1920
 	workloadMaxApprove                        = "9223372036854775806"
 	workloadWrappedDeposit                    = "1000000"
+	workloadWrappedDepositMinimum             = int64(1000)
 	workloadWideTickLower              int32  = -887220
 	workloadWideTickUpper              int32  = 887220
 	workloadNarrowTickLower            int32  = -60

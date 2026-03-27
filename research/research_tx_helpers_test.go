@@ -367,7 +367,11 @@ func ensureWrappedUgnotReady(ctx context.Context, env *researchHarnessEnv, minBa
 	}
 	neededBalance := maxInt64(minBalance, parseDecimalInt64OrPanic(workloadWrappedDeposit))
 	if currentBalance < neededBalance {
-		if err := depositWrappedUgnot(ctx, env, strconv.FormatInt(neededBalance-currentBalance, 10)); err != nil {
+		depositAmount := neededBalance - currentBalance
+		if depositAmount < workloadWrappedDepositMinimum {
+			depositAmount = workloadWrappedDepositMinimum
+		}
+		if err := depositWrappedUgnot(ctx, env, strconv.FormatInt(depositAmount, 10)); err != nil {
 			return err
 		}
 		out, err = gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, fmt.Sprintf(`%s.IsRegistered(%q)`, commonPkgPath, workloadWrappedUgnotPath))
