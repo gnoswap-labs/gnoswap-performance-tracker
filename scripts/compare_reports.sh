@@ -35,6 +35,16 @@ if [[ "$LATEST_FILE" == *"/stress/"* ]]; then
 elif [[ "$LATEST_FILE" == *"/research/"* ]]; then
     mkdir -p reports/research/compares
     OUTPUT_FILE="reports/research/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
+
+    ./scripts/compare_research_reports.py \
+        "$LATEST_FILE" \
+        "$PREVIOUS_FILE" \
+        "$OUTPUT_FILE" \
+        "$LATEST_COMMIT" \
+        "$PREVIOUS_COMMIT"
+
+    echo "Diff report saved to $OUTPUT_FILE"
+    exit 0
 else
     mkdir -p reports/metric/compares
     OUTPUT_FILE="reports/metric/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
@@ -49,7 +59,7 @@ parse_table() {
             action = $2
             n = $3
             gas = $4
-            storage = $7
+            storage = $9
 
             gsub(/^[[:space:]]+|[[:space:]]+$/, "", action)
             gsub(/^[[:space:]]+|[[:space:]]+$/, "", n)
