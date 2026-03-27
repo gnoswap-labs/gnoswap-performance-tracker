@@ -811,10 +811,13 @@ func waitForRewardAccrual() {
 }
 
 func incentiveSchedule(seed int64) (int64, int64) {
-	_ = seed
-	now := time.Now().UTC()
-	nextMidnight := time.Date(now.Year(), now.Month(), now.Day()+1, 0, 0, 0, 0, time.UTC).Unix()
-	start := nextMidnight
+	// _ = seed
+	// now := time.Now().UTC()
+	// nextMidnight := time.Date(now.Year(), now.Month(), now.Day()+1, 0, 0, 0, 0, time.UTC).Unix()
+	// start := nextMidnight
+	// end := start + (stakerEmissionEnd - stakerEmissionStart)
+	// return start, end
+	start := time.Now().UTC().Unix() + 1
 	end := start + (stakerEmissionEnd - stakerEmissionStart)
 	return start, end
 }
