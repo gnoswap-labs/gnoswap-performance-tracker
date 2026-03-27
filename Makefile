@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: help init gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force clean-worktrees research-up research-down research-test research-report compare-research
+.PHONY: help init gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force clean-worktrees research-up research-down research-test research-report compare-research research-compare
 
 # Default target
 help:
@@ -27,6 +27,8 @@ help:
 	@echo "  GNO_RPC_PORT=<rpc> GNO_REST_PORT=<rest> make research-report <ref>"
 	@echo "                                   # Run integrated deploy + probes + report"
 	@echo "  make compare-research <refs>       # Compare research reports"
+	@echo "  make research-compare <latest.md> <previous.md>"
+	@echo "                                   # Compare two existing research report files"
 	@echo ""
 	@echo "Usage (Setup):"
 	@echo "  make init                          # Initialize project"
@@ -40,6 +42,15 @@ init:
 
 # Helper to extract commit arguments (everything after the target name)
 ARGS = $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
+ifneq (,$(filter research-compare,$(MAKECMDGOALS)))
+ifneq ($(word 2,$(MAKECMDGOALS)),)
+$(eval $(word 2,$(MAKECMDGOALS)):; @:)
+endif
+ifneq ($(word 3,$(MAKECMDGOALS)),)
+$(eval $(word 3,$(MAKECMDGOALS)):; @:)
+endif
+endif
 
 # Metric Report Generation Only (No Compare)
 metric:
@@ -121,6 +132,17 @@ research-report:
 
 compare-research:
 	@./scripts/compare_multiple_research.sh --skip-exists $(ARGS)
+
+research-compare:
+	@set -euo pipefail; \
+	LATEST="$(word 2,$(MAKECMDGOALS))"; \
+	PREVIOUS="$(word 3,$(MAKECMDGOALS))"; \
+	EXTRA="$(word 4,$(MAKECMDGOALS))"; \
+	if [ -z "$$LATEST" ] || [ -z "$$PREVIOUS" ] || [ -n "$$EXTRA" ]; then \
+		echo "Usage: make research-compare <latest.md> <previous.md>" >&2; \
+		exit 1; \
+	fi; \
+	./scripts/compare_reports.sh "$$LATEST" "$$PREVIOUS"
 
 # --- Internal / Legacy Commands ---
 
