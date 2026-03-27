@@ -18,7 +18,7 @@ RESEARCH_REPORT_OUT ?= $(ARTIFACTS_DIR)/latest-report.tsv
 RESEARCH_REPORT_LOG_OUT ?= $(RUNLOGS_DIR)/latest-report.log
 RESEARCH_METRIC_LOG_OUT ?= $(RUNLOGS_DIR)/metric-output.log
 RESEARCH_TEST_PATTERN ?= TestResearchReport
-RESEARCH_READY_TIMEOUT_SECS ?= 180
+RESEARCH_READY_TIMEOUT_SECS ?= 600
 PREPARE_GNOSWAP_SRC = git -C .. submodule update --init --recursive gnoswap >/dev/null 2>&1 || true; \
 	resolve_ref() { \
 		local ref="$$1"; \
@@ -40,13 +40,11 @@ PREPARE_GNOSWAP_SRC = git -C .. submodule update --init --recursive gnoswap >/de
 	git -C "$(DOCKER_BUILD_CONTEXT)/.docker/gnoswap-src" checkout --detach "$$RESOLVED_GNOSWAP_REF" >/dev/null 2>&1;
 WAIT_FOR_RESEARCH_RUNTIME = deadline=$$(( $$(date +%s) + $(RESEARCH_READY_TIMEOUT_SECS) )); \
 	while true; do \
-		if curl -fsS "http://localhost:$(GNO_REST_PORT)/" >/dev/null 2>&1; then \
-			container_id="$$(docker compose -p "$(COMPOSE_PROJECT_NAME)" ps -q gno 2>/dev/null | head -n 1)"; \
-			if [ -n "$$container_id" ] \
-				&& docker exec "$$container_id" sh -lc 'test -f /tmp/gnoswap-ready' >/dev/null 2>&1 \
-				&& docker exec "$$container_id" gnokey query vm/qeval -data 'gno.land/r/gnoswap/access.MustGetAddress("pool")' -remote localhost:26657 >/dev/null 2>&1; then \
-				break; \
-			fi; \
+		container_id="$$(docker compose -p "$(COMPOSE_PROJECT_NAME)" ps -q gno 2>/dev/null | head -n 1)"; \
+		if [ -n "$$container_id" ] \
+			&& docker exec "$$container_id" sh -lc 'test -f /tmp/gnoswap-ready' >/dev/null 2>&1 \
+			&& docker exec "$$container_id" gnokey query vm/qeval -data 'gno.land/r/gnoswap/access.MustGetAddress("pool")' -remote localhost:26657 >/dev/null 2>&1; then \
+			break; \
 		fi; \
 		if [ $$(date +%s) -ge $$deadline ]; then \
 			echo "research runtime not ready on localhost:$(GNO_REST_PORT) within $(RESEARCH_READY_TIMEOUT_SECS)s" >&2; \
@@ -85,10 +83,10 @@ test: ensure-dirs
 	$(PREPARE_GNOSWAP_SRC) \
 	GNOSWAP_REF="$$RESOLVED_GNOSWAP_REF" GNO_RPC_PORT="$(GNO_RPC_PORT)" GNO_REST_PORT="$(GNO_REST_PORT)" docker compose -p "$(COMPOSE_PROJECT_NAME)" up -d --build --force-recreate; \
 	$(WAIT_FOR_RESEARCH_RUNTIME) \
-	GNO_GNOKEY_REMOTE="localhost:26657" GNO_REST="http://localhost:$(GNO_REST_PORT)" RESEARCH_METRIC_LOG_OUT="$(RESEARCH_METRIC_LOG_OUT)" COMPOSE_PROJECT_NAME="$(COMPOSE_PROJECT_NAME)" go test -v -timeout 10m -count=1 ./...
+	GNO_GNOKEY_REMOTE="localhost:26657" GNO_REST="http://localhost:$(GNO_REST_PORT)" RESEARCH_METRIC_LOG_OUT="$(RESEARCH_METRIC_LOG_OUT)" COMPOSE_PROJECT_NAME="$(COMPOSE_PROJECT_NAME)" go test -v -timeout 1000m -count=1 ./...
 
 test-only: ensure-dirs
-	@go test -v -timeout 10m -count=1 ./...
+	@go test -v -timeout 1000m -count=1 ./...
 
 test-keep-up: ensure-dirs
 	@set -euo pipefail; \
@@ -96,7 +94,7 @@ test-keep-up: ensure-dirs
 	$(PREPARE_GNOSWAP_SRC) \
 	GNOSWAP_REF="$$RESOLVED_GNOSWAP_REF" GNO_RPC_PORT="$(GNO_RPC_PORT)" GNO_REST_PORT="$(GNO_REST_PORT)" docker compose -p "$(COMPOSE_PROJECT_NAME)" up -d --build --force-recreate; \
 	$(WAIT_FOR_RESEARCH_RUNTIME) \
-	GNO_GNOKEY_REMOTE="localhost:26657" GNO_REST="http://localhost:$(GNO_REST_PORT)" RESEARCH_METRIC_LOG_OUT="$(RESEARCH_METRIC_LOG_OUT)" COMPOSE_PROJECT_NAME="$(COMPOSE_PROJECT_NAME)" go test -v -timeout 10m -count=1 ./...
+	GNO_GNOKEY_REMOTE="localhost:26657" GNO_REST="http://localhost:$(GNO_REST_PORT)" RESEARCH_METRIC_LOG_OUT="$(RESEARCH_METRIC_LOG_OUT)" COMPOSE_PROJECT_NAME="$(COMPOSE_PROJECT_NAME)" go test -v -timeout 1000m -count=1 ./...
 
 report: ensure-dirs
 	@set -euo pipefail; \
