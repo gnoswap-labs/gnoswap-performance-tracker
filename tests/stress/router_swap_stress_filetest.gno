@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	prabc "gno.land/p/gnoswap/rbac"
-	"gno.land/p/nt/ufmt"
+	"gno.land/p/nt/ufmt/v0"
 	_ "gno.land/r/gnoswap/rbac"
 
 	_ "gno.land/r/gnoswap/pool/v1"

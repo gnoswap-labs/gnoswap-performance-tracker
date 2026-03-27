@@ -7,7 +7,7 @@ import (
 	"time"
 
 	prabc "gno.land/p/gnoswap/rbac"
-	"gno.land/p/nt/testutils"
+	"gno.land/p/nt/testutils/v0"
 	_ "gno.land/r/gnoswap/rbac"
 
 	_ "gno.land/r/gnoswap/gov/staker"
