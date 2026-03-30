@@ -1,5 +1,8 @@
 SHELL := /bin/bash
 
+# Passed through to research/Makefile; set to the docker binary path if make cannot find `docker` on PATH.
+DOCKER ?= docker
+
 .PHONY: help init gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force clean-worktrees research-up research-down research-test research-report compare-research research-compare
 
 # Default target
@@ -80,13 +83,13 @@ compare-stress-force:
 	@./scripts/compare_multiple.sh --stress $(ARGS)
 
 research-up:
-	@$(MAKE) -C research up GNOSWAP_REF="$(or $(word 2,$(MAKECMDGOALS)),3f2642b8898ae02d14a14c4050d80919f18f3f21)" GNO_RPC_PORT="$(or $(GNO_RPC_PORT),46657)" GNO_REST_PORT="$(or $(GNO_REST_PORT),48888)"
+	@$(MAKE) -C research up DOCKER="$(DOCKER)" GNOSWAP_REF="$(or $(word 2,$(MAKECMDGOALS)),3f2642b8898ae02d14a14c4050d80919f18f3f21)" GNO_RPC_PORT="$(or $(GNO_RPC_PORT),46657)" GNO_REST_PORT="$(or $(GNO_REST_PORT),48888)"
 
 research-down:
-	@$(MAKE) -C research down
+	@$(MAKE) -C research down DOCKER="$(DOCKER)"
 
 research-test:
-	@$(MAKE) -C research test GNOSWAP_REF="$(or $(word 2,$(MAKECMDGOALS)),3f2642b8898ae02d14a14c4050d80919f18f3f21)" GNO_RPC_PORT="$(or $(GNO_RPC_PORT),46657)" GNO_REST_PORT="$(or $(GNO_REST_PORT),48888)"
+	@$(MAKE) -C research test DOCKER="$(DOCKER)" GNOSWAP_REF="$(or $(word 2,$(MAKECMDGOALS)),3f2642b8898ae02d14a14c4050d80919f18f3f21)" GNO_RPC_PORT="$(or $(GNO_RPC_PORT),46657)" GNO_REST_PORT="$(or $(GNO_REST_PORT),48888)"
 
 research-report:
 	@set -euo pipefail; \
@@ -125,7 +128,7 @@ research-report:
 	TMP_REPORT="$$FINAL_REPORT.tmp"; \
 	mkdir -p "$(CURDIR)/reports/research/commits" "$(CURDIR)/research/artifacts" "$(CURDIR)/research/.runlogs"; \
 	trap "rm -f \"$$TMP_REPORT\"" EXIT; \
-	$(MAKE) -C research report REF="$$FULL_REF" GNOSWAP_REF="$$FULL_REF" COMPOSE_PROJECT_NAME="$$PROJECT_NAME" DOCKER_STAGING_DIR="$$DOCKER_STAGING_DIR" DOCKER_BUILD_CONTEXT="$$DOCKER_BUILD_CONTEXT" GNO_RPC_PORT="$$RPC_PORT" GNO_REST_PORT="$$REST_PORT" GNO_GNOKEY_REMOTE="localhost:26657" GNO_REST="http://localhost:$$REST_PORT" RESEARCH_REPORT_OUT="$$REPORT_RAW" RESEARCH_REPORT_LOG_OUT="$$REPORT_LOG" RESEARCH_METRIC_LOG_OUT="$$METRIC_LOG"; \
+	$(MAKE) -C research report DOCKER="$(DOCKER)" REF="$$FULL_REF" GNOSWAP_REF="$$FULL_REF" COMPOSE_PROJECT_NAME="$$PROJECT_NAME" DOCKER_STAGING_DIR="$$DOCKER_STAGING_DIR" DOCKER_BUILD_CONTEXT="$$DOCKER_BUILD_CONTEXT" GNO_RPC_PORT="$$RPC_PORT" GNO_REST_PORT="$$REST_PORT" GNO_GNOKEY_REMOTE="localhost:26657" GNO_REST="http://localhost:$$REST_PORT" RESEARCH_REPORT_OUT="$$REPORT_RAW" RESEARCH_REPORT_LOG_OUT="$$REPORT_LOG" RESEARCH_METRIC_LOG_OUT="$$METRIC_LOG"; \
 	./scripts/parse_research.sh "$$REPORT_RAW" > "$$TMP_REPORT"; \
 	mv "$$TMP_REPORT" "$$FINAL_REPORT"; \
 	echo "Research report saved to $$FINAL_REPORT"

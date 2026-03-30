@@ -1,0 +1,80 @@
+=== RUN   TestResearchReportPoolCreate
+--- PASS: TestResearchReportPoolCreate (133.30s)
+=== RUN   TestResearchReportPositionMint
+--- PASS: TestResearchReportPositionMint (47.39s)
+=== RUN   TestResearchReportPositionIncreaseLiquidity
+--- PASS: TestResearchReportPositionIncreaseLiquidity (46.75s)
+=== RUN   TestResearchReportPositionDecreaseLiquidity
+--- PASS: TestResearchReportPositionDecreaseLiquidity (48.81s)
+=== RUN   TestResearchReportRouterExactInSwapRoute
+--- PASS: TestResearchReportRouterExactInSwapRoute (322.31s)
+=== RUN   TestResearchReportRouterExactOutSwapRoute
+--- PASS: TestResearchReportRouterExactOutSwapRoute (334.76s)
+=== RUN   TestResearchReportStakerCreateExternalIncentive
+    research_staker_report_test.go:21: probe iteration 1: gnokey maketx call gno.land/r/gnoswap/staker.CreateExternalIncentive: exit status 1: stdout=TX HASH:    
+        INFO:       vm.version=develop
+         stderr=Enter password.
+        --= Error =--
+        Data: [GNOSWAP-STAKER-009] invalid incentive start time || startTimestamp(1774839356) must be at least +1 day midnight(1774915200)
+        Msg Traces:
+            0  /src/gno/tm2/pkg/errors/errors.go:103 - deliver transaction failed: log:msg:0,success:false,log:--= Error =--
+        Data: errors.FmtError{format:"[GNOSWAP-STAKER-009] invalid incentive start time || startTimestamp(1774839356) must be at least +1 day midnight(1774915200)", args:[]interface {}(nil)}
+        Msg Traces:
+            0  /src/gno/tm2/pkg/errors/errors.go:103 - VM panic: [GNOSWAP-STAKER-009] invalid incentive start time || startTimestamp(1774839356) must be at least +1 day midnight(1774915200)
+        Stacktrace:
+        panic: [GNOSWAP-STAKER-009] invalid incentive start time || startTimestamp(1774839356) must be at least +1 day midnight(1774915200)
+        assertIsValidIncentiveStartTime<VPBlock(3,14)>(startTimestamp<VPBlock(1,4)>)
+            gno.land/r/gnoswap/staker/v1/assert.gno:132
+        getImplementation<VPBlock(3,128)>().CreateExternalIncentive(targetPoolPath<VPBlock(1,1)>,rewardToken<VPBlock(1,2)>,rewardAmount<VPBlock(1,3)>,startTimestamp<VPBlock(1,4)>,endTimestamp<VPBlock(1,5)>)
+            gno.land/r/gnoswap/staker/v1/external_incentive.gno:47
+        pkg<VPBlock(1,0)>.CreateExternalIncentive(undefined,gno.land/r/gnoland/wugnot:gno.land/r/gnoswap/gns:3000,gno.land/r/gnoswap/gns,1000000000,1774839356,1782615356)
+            gno.land/r/gnoswap/staker/proxy.gno:122
+        
+        
+        Stack Trace:
+            0  /src/gno/tm2/pkg/errors/errors.go:88
+            1  /src/gno/tm2/pkg/errors/errors.go:103
+            2  /src/gno/gno.land/pkg/sdk/vm/keeper.go:826
+            3  /src/gno/gno.land/pkg/sdk/vm/keeper.go:801
+            4  /usr/local/go/src/runtime/panic.go:792
+            5  /src/gno/gnovm/pkg/gnolang/machine.go:1261
+            6  /usr/local/go/src/runtime/panic.go:792
+            7  /src/gno/gnovm/pkg/gnolang/op_call.go:361
+            8  /src/gno/gnovm/pkg/gnolang/machine.go:1591
+            9  /src/gno/gnovm/pkg/gnolang/machine.go:819
+           10  /src/gno/gno.land/pkg/sdk/vm/keeper.go:765
+           11  /src/gno/gno.land/pkg/sdk/vm/handler.go:51
+           12  /src/gno/gno.land/pkg/sdk/vm/handler.go:31
+           13  /src/gno/tm2/pkg/sdk/baseapp.go:671
+           14  /src/gno/tm2/pkg/sdk/baseapp.go:862
+           15  /src/gno/tm2/pkg/sdk/helpers.go:21
+           16  /src/gno/tm2/pkg/sdk/baseapp.go:422
+           17  /src/gno/tm2/pkg/sdk/baseapp.go:399
+           18  /src/gno/tm2/pkg/bft/abci/client/local_client.go:180
+           19  /src/gno/tm2/pkg/bft/appconn/app_conn.go:144
+           20  /src/gno/tm2/pkg/bft/rpc/core/abci.go:62
+           21  /usr/local/go/src/reflect/value.go:584
+           22  /usr/local/go/src/reflect/value.go:368
+           23  /src/gno/tm2/pkg/bft/rpc/lib/server/handlers.go:214
+           24  /src/gno/tm2/pkg/bft/rpc/lib/server/handlers.go:166
+           25  /src/gno/tm2/pkg/bft/rpc/lib/server/handlers.go:238
+           26  /usr/local/go/src/net/http/server.go:2294
+           27  /usr/local/go/src/net/http/server.go:2822
+           28  mod/github.com/rs/cors@v1.11.1/cors.go:289
+           29  /usr/local/go/src/net/http/server.go:2294
+           30  /src/gno/tm2/pkg/bft/rpc/lib/server/http_server.go:225
+           31  /src/gno/tm2/pkg/bft/rpc/lib/server/http_server.go:198
+        --= /Error =--
+        ,events:[]
+        --= /Error =--
+        
+--- FAIL: TestResearchReportStakerCreateExternalIncentive (7.85s)
+=== RUN   TestResearchReportStakerStakeToken
+--- PASS: TestResearchReportStakerStakeToken (118.97s)
+=== RUN   TestResearchReportStakerCollectReward
+--- PASS: TestResearchReportStakerCollectReward (252.57s)
+=== RUN   TestResearchReportStakerUnStakeToken
+--- PASS: TestResearchReportStakerUnStakeToken (156.86s)
+FAIL
+FAIL	github.com/gnoswap-labs/gnoswap-performance-tracker/research	1470.284s
+FAIL
