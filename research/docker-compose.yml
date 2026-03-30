@@ -1,0 +1,28 @@
+services:
+  gno:
+    build:
+      context: ${DOCKER_BUILD_CONTEXT:-.}
+      dockerfile: ${DOCKERFILE_PATH:-gno/Dockerfile}
+      args:
+        GNOSWAP_REPO: ${GNOSWAP_REPO:-https://github.com/gnoswap-labs/gnoswap.git}
+        GNOSWAP_REF: ${GNOSWAP_REF:-3f2642b8898ae02d14a14c4050d80919f18f3f21}
+    ports:
+      - "${GNO_RPC_PORT:-46657}:26657"
+      - "${GNO_REST_PORT:-48888}:8888"
+    env_file: .env
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >
+          curl -fsS http://localhost:26657/status >/dev/null &&
+          [ -f /tmp/gnoswap-ready ]
+      interval: 5s
+      timeout: 10s
+      retries: 60
+      start_period: 180s
+    environment:
+      GNOSWAP_REF: ${GNOSWAP_REF:-3f2642b8898ae02d14a14c4050d80919f18f3f21}
+      GNOSWAP_REPO: ${GNOSWAP_REPO:-https://github.com/gnoswap-labs/gnoswap.git}
+      GNO_CHAIN_ID: ${GNO_CHAIN_ID:-dev}
+      GNO_GNOKEY_REMOTE: ${GNO_GNOKEY_REMOTE:-localhost:26657}
+      GNO_REST: ${GNO_REST:-http://localhost:48888}

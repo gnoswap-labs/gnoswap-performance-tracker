@@ -32,6 +32,19 @@ PREVIOUS_COMMIT=$(basename "$PREVIOUS_FILE" .md)
 if [[ "$LATEST_FILE" == *"/stress/"* ]]; then
     mkdir -p reports/stress/compares
     OUTPUT_FILE="reports/stress/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
+elif [[ "$LATEST_FILE" == *"/research/"* ]]; then
+    mkdir -p reports/research/compares
+    OUTPUT_FILE="reports/research/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
+
+    ./scripts/compare_research_reports.py \
+        "$LATEST_FILE" \
+        "$PREVIOUS_FILE" \
+        "$OUTPUT_FILE" \
+        "$LATEST_COMMIT" \
+        "$PREVIOUS_COMMIT"
+
+    echo "Diff report saved to $OUTPUT_FILE"
+    exit 0
 else
     mkdir -p reports/metric/compares
     OUTPUT_FILE="reports/metric/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
@@ -40,6 +53,37 @@ fi
 # Parse markdown table and extract unique entries (first occurrence only)
 parse_table() {
     local file="$1"
+    if [[ "$file" == *"/research/"* ]]; then
+        awk -F'|' '
+        NR > 2 && NF > 1 {
+            action = $2
+            n = $3
+            gas = $4
+            storage = $9
+
+            gsub(/^[[:space:]]+|[[:space:]]+$/, "", action)
+            gsub(/^[[:space:]]+|[[:space:]]+$/, "", n)
+            gsub(/^[[:space:]]+|[[:space:]]+$/, "", gas)
+            gsub(/^[[:space:]]+|[[:space:]]+$/, "", storage)
+
+            if (action == "" || action == "Action" || n == "" || n == "N" || n !~ /^[0-9]+$/) next
+
+            name = action " (n=" n ")"
+            if (seen[name]) next
+            seen[name] = 1
+
+            gsub(/[^0-9-]/, "", gas)
+            gsub(/[^0-9-]/, "", storage)
+
+            if (gas == "" || gas == "-") gas = 0
+            if (storage == "" || storage == "-") storage = 0
+
+            print name "\t" gas "\t" storage "\t0"
+        }
+        ' "$file"
+        return
+    fi
+
     awk -F'|' '
     NR > 2 && NF > 1 {
         # Skip header and separator lines
@@ -55,6 +99,10 @@ parse_table() {
         gas = $3; gsub(/[^0-9-]/, "", gas)
         storage = $4; gsub(/[^0-9-]/, "", storage)
         cpu = $5; gsub(/[^0-9-]/, "", cpu)
+
+        if (gas == "" || gas == "-") gas = 0
+        if (storage == "" || storage == "-") storage = 0
+        if (cpu == "" || cpu == "-") cpu = 0
         
         print name "\t" gas "\t" storage "\t" cpu
     }
@@ -205,4 +253,3 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
 rm -f "$LATEST_DATA" "$PREVIOUS_DATA"
 
 echo "Diff report saved to $OUTPUT_FILE"
-
