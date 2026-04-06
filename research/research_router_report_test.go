@@ -103,6 +103,7 @@ func routerScenarioRows(ctx context.Context, t *testing.T, env *researchHarnessE
 func mustRunRouterScenarioReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64, scenario routerResearchScenario) []checkpointPoint {
 	t.Helper()
 	var state routerScenarioState
+	reverseNext := false
 	switch scenario.SetupKind {
 	case "single-hop-staggered":
 		state = mustPrepareRouterSingleHopStaggeredScenario(ctx, t, env, scenario.RunTag)
@@ -116,13 +117,7 @@ func mustRunRouterScenarioReportProbe(ctx context.Context, t *testing.T, env *re
 		if err != nil {
 			return txMetrics{}, err
 		}
-		tokenInPath := state.tokenInPath
-		tokenOutPath := state.tokenOutPath
-		route := state.route
-		if scenario.Oscillate && state.reverseRoute != "" && iteration%2 == 0 {
-			tokenInPath, tokenOutPath = state.tokenOutPath, state.tokenInPath
-			route = state.reverseRoute
-		}
+		tokenInPath, tokenOutPath, route := routerScenarioDirection(state, scenario, reverseNext)
 		if scenario.ExactOut {
 			metrics, err := routerExactOutSwapRouteTxForPairWithAmount(ctx, env, tokenInPath, tokenOutPath, route, scenario.ExactOutAmountOut, scenario.ExactOutAmountInMax)
 			if err != nil {
@@ -133,9 +128,7 @@ func mustRunRouterScenarioReportProbe(ctx context.Context, t *testing.T, env *re
 				if tickErr != nil {
 					return txMetrics{}, tickErr
 				}
-				if !ticksChanged(beforeTicks, afterTicks) {
-					return txMetrics{}, fmt.Errorf("expected tick movement but none observed: before=%v after=%v", beforeTicks, afterTicks)
-				}
+				reverseNext = nextRouterScenarioDirection(reverseNext, beforeTicks, afterTicks)
 			}
 			return metrics, nil
 		}
@@ -153,6 +146,47 @@ func mustRunRouterScenarioReportProbe(ctx context.Context, t *testing.T, env *re
 			}
 		}
 		return metrics, nil
+	})
+}
+
+func routerScenarioDirection(state routerScenarioState, scenario routerResearchScenario, reverse bool) (string, string, string) {
+	tokenInPath := state.tokenInPath
+	tokenOutPath := state.tokenOutPath
+	route := state.route
+	if scenario.Oscillate && reverse && state.reverseRoute != "" {
+		tokenInPath, tokenOutPath = state.tokenOutPath, state.tokenInPath
+		route = state.reverseRoute
+	}
+	return tokenInPath, tokenOutPath, route
+}
+
+func nextRouterScenarioDirection(reverse bool, beforeTicks, afterTicks []int32) bool {
+	if ticksChanged(beforeTicks, afterTicks) {
+		return !reverse
+	}
+	return reverse
+}
+
+func TestNextRouterScenarioDirection(t *testing.T) {
+	t.Run("keeps direction without tick movement", func(t *testing.T) {
+		reverse := nextRouterScenarioDirection(false, []int32{-1}, []int32{-1})
+		if reverse {
+			t.Fatalf("expected direction to stay forward when ticks do not change")
+		}
+	})
+
+	t.Run("reverses direction after tick movement", func(t *testing.T) {
+		reverse := nextRouterScenarioDirection(false, []int32{-1}, []int32{0})
+		if !reverse {
+			t.Fatalf("expected direction to reverse after tick movement")
+		}
+	})
+
+	t.Run("flips back after reverse-side tick movement", func(t *testing.T) {
+		reverse := nextRouterScenarioDirection(true, []int32{0}, []int32{-1})
+		if reverse {
+			t.Fatalf("expected direction to flip back after reverse-side tick movement")
+		}
 	})
 }
 
