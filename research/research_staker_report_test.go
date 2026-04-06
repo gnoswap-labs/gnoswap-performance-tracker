@@ -5,7 +5,14 @@ import (
 	"fmt"
 	"os"
 	"testing"
+	"time"
 )
+
+const stakerReportIterationDelay = 100 * time.Millisecond
+
+func waitForStakerReportIteration() {
+	time.Sleep(stakerReportIterationDelay)
+}
 
 func TestResearchReportStakerCreateExternalIncentive(t *testing.T) {
 	if os.Getenv(researchReportEnv) != "1" {
@@ -18,7 +25,7 @@ func TestResearchReportStakerCreateExternalIncentive(t *testing.T) {
 	}
 
 	env := mustSetupResearchHarnessEnv(t)
-	points := mustRunStakerCreateExternalIncentiveReportProbe(t.Context(), t, env, mustProbeCheckpoints(t))
+	points := mustRunStakerCreateExternalIncentiveReportProbe(t.Context(), t, env, mustProbeCheckpointsWithFilter(t, checkpointAtMost(100)))
 	rows := make([]researchRow, 0, len(points))
 	for _, point := range points {
 		rows = append(rows, researchRow{
@@ -163,6 +170,7 @@ func mustRunStakerCreateExternalIncentiveReportProbe(ctx context.Context, t *tes
 		WrappedUgnot: parseDecimalInt64OrPanic(workloadWrappedDeposit),
 	})
 	return mustRunCheckpointLoop(t, checkpoints, func(iteration int64) (txMetrics, error) {
+		waitForStakerReportIteration()
 		return createExternalIncentiveTx(ctx, env, checkpointRunID()+iteration)
 	})
 }
@@ -175,6 +183,7 @@ func mustRunStakerStakeTokenReportProbe(ctx context.Context, t *testing.T, env *
 		WrappedUgnot: scaledAmountBudget(workloadMintAmount1, maxIteration),
 	})
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
+		waitForStakerReportIteration()
 		positionID, err := prepareApprovedStakeablePosition(ctx, env)
 		if err != nil {
 			return txMetrics{}, err
@@ -194,6 +203,7 @@ func mustRunStakerCollectRewardReportProbe(ctx context.Context, t *testing.T, en
 		t.Fatalf("prepare staked position for collect: %v", err)
 	}
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
+		waitForStakerReportIteration()
 		waitForRewardAccrual()
 		return collectRewardTx(ctx, env, positionID)
 	})
@@ -207,6 +217,7 @@ func mustRunStakerUnStakeTokenReportProbe(ctx context.Context, t *testing.T, env
 		WrappedUgnot: scaledAmountBudget(workloadMintAmount1, maxIteration),
 	})
 	return mustRunCheckpointLoop(t, checkpoints, func(_ int64) (txMetrics, error) {
+		waitForStakerReportIteration()
 		positionID, err := prepareStakedPosition(ctx, env)
 		if err != nil {
 			return txMetrics{}, err
