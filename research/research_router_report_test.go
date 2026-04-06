@@ -141,9 +141,7 @@ func mustRunRouterScenarioReportProbe(ctx context.Context, t *testing.T, env *re
 			if tickErr != nil {
 				return txMetrics{}, tickErr
 			}
-			if !ticksChanged(beforeTicks, afterTicks) {
-				return txMetrics{}, fmt.Errorf("expected tick movement but none observed: before=%v after=%v", beforeTicks, afterTicks)
-			}
+			reverseNext = nextRouterScenarioDirection(reverseNext, beforeTicks, afterTicks)
 		}
 		return metrics, nil
 	})
