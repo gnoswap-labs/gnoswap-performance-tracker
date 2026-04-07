@@ -28,12 +28,23 @@ fi
 LATEST_COMMIT=$(basename "$LATEST_FILE" .md)
 PREVIOUS_COMMIT=$(basename "$PREVIOUS_FILE" .md)
 
+extract_short_hash() {
+    local value="$1"
+    if [[ "$value" =~ ^([0-9a-fA-F]{7,40})(-|$) ]]; then
+        printf '%s\n' "${BASH_REMATCH[1]}"
+    else
+        printf '%s\n' "$value"
+    fi
+}
+
 # Detect if this is a stress or metric report
 if [[ "$LATEST_FILE" == *"/stress/"* ]]; then
     mkdir -p reports/stress/compares
     OUTPUT_FILE="reports/stress/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
 elif [[ "$LATEST_FILE" == *"/research/"* ]]; then
     mkdir -p reports/research/compares
+    LATEST_COMMIT=$(extract_short_hash "$LATEST_COMMIT")
+    PREVIOUS_COMMIT=$(extract_short_hash "$PREVIOUS_COMMIT")
     OUTPUT_FILE="reports/research/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
 
     ./scripts/compare_research_reports.py \

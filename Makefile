@@ -121,7 +121,7 @@ research-report:
 	REPORT_RAW="$(CURDIR)/research/artifacts/research-report-$$RUN_STEM.tsv"; \
 	REPORT_LOG="$(CURDIR)/research/.runlogs/research-report-$$RUN_STEM.log"; \
 	METRIC_LOG="$(CURDIR)/research/.runlogs/metric-output-$$RUN_STEM.log"; \
-	FINAL_REPORT="$(CURDIR)/reports/research/commits/$$RUN_STEM.md"; \
+	FINAL_REPORT="$(CURDIR)/reports/research/commits/$$SHORT_REF.md"; \
 	TMP_REPORT="$$FINAL_REPORT.tmp"; \
 	mkdir -p "$(CURDIR)/reports/research/commits" "$(CURDIR)/research/artifacts" "$(CURDIR)/research/.runlogs"; \
 	trap "rm -f \"$$TMP_REPORT\"" EXIT; \
