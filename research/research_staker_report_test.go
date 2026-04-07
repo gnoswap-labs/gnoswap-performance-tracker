@@ -161,17 +161,13 @@ func TestResearchReportStakerUnStakeToken(t *testing.T) {
 func mustRunStakerCreateExternalIncentiveReportProbe(ctx context.Context, t *testing.T, env *researchHarnessEnv, checkpoints []int64) []checkpointPoint {
 	t.Helper()
 	maxIteration := reportMaxIteration(checkpoints)
-	rewardAmount, err := queryMinimumRewardAmount(ctx, env)
-	if err != nil {
-		t.Fatalf("query minimum reward amount: %v", err)
-	}
 	mustEnsureStakerCreateExternalIncentivePrereqs(ctx, t, env, tokenBudget{
-		GNS:          scaledAmountBudget(rewardAmount, maxIteration),
+		GNS:          scaledAmountBudget(stakerFixedExternalIncentiveRewardAmount, maxIteration),
 		WrappedUgnot: parseDecimalInt64OrPanic(workloadWrappedDeposit),
 	})
 	return mustRunCheckpointLoop(t, checkpoints, func(iteration int64) (txMetrics, error) {
 		waitForStakerReportIteration()
-		return createExternalIncentiveTx(ctx, env, checkpointRunID()+iteration)
+		return createExternalIncentiveTx(ctx, env)
 	})
 }
 
