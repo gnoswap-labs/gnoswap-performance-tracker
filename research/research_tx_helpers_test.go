@@ -800,7 +800,7 @@ func waitForRewardAccrual() {
 
 func incentiveSchedule() (int64, int64) {
 	start := time.Now().UTC().Unix() + 1
-	end := start + (stakerEmissionDays * 7776001)
+	end := start + (stakerEmissionDays * 24 * 60 * 60)
 	return start, end
 }
 
@@ -929,5 +929,14 @@ func isRetryableTxError(err error) bool {
 		return false
 	}
 	msg := strings.ToLower(err.Error())
-	return strings.Contains(msg, "signature verification failed") || strings.Contains(msg, "incorrect account sequence") || strings.Contains(msg, "sequence") || strings.Contains(msg, "tx already exists in cache")
+	return strings.Contains(msg, "signature verification failed") ||
+		strings.Contains(msg, "incorrect account sequence") ||
+		strings.Contains(msg, "sequence") ||
+		strings.Contains(msg, "tx already exists in cache") ||
+		strings.Contains(msg, "request timeout") ||
+		strings.Contains(msg, "context deadline exceeded") ||
+		strings.Contains(msg, "eof") ||
+		strings.Contains(msg, "connection refused") ||
+		strings.Contains(msg, "broken pipe") ||
+		strings.Contains(msg, "reset by peer")
 }
