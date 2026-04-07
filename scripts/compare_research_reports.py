@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import sys
+import re
 from collections import defaultdict
 from pathlib import Path
 
@@ -45,6 +46,13 @@ def fmt_pct(latest: int, previous: int) -> str:
         return "N/A"
     pct = ((latest - previous) / previous) * 100
     return f"{pct:.2f}%"
+
+
+def extract_commit_ref(value: str) -> str:
+    match = re.match(r"^([0-9a-fA-F]{7,40})(?:-|$)", value.strip())
+    if match:
+        return match.group(1)
+    return value.strip()
 
 
 def parse_research_report(
@@ -138,6 +146,8 @@ def build_markdown(
     latest_commit: str,
     previous_commit: str,
 ) -> None:
+    latest_ref = extract_commit_ref(latest_commit)
+    previous_ref = extract_commit_ref(previous_commit)
     latest_records, latest_domains, latest_actions = parse_research_report(
         latest_report
     )
@@ -150,14 +160,12 @@ def build_markdown(
     only_latest = sorted(latest_keys - previous_keys)
     only_previous = sorted(previous_keys - latest_keys)
 
-    github_base = "https://github.com/gnoswap-labs/gnoswap/tree"
+    github_base = "https://github.com/gnoswap-labs/gnoswap/commit"
     lines: list[str] = []
     lines.append("# Research Report Comparison")
     lines.append("")
-    lines.append(f"- **Latest**: [`{latest_commit}`]({github_base}/{latest_commit})")
-    lines.append(
-        f"- **Previous**: [`{previous_commit}`]({github_base}/{previous_commit})"
-    )
+    lines.append(f"- **Latest**: [`{latest_ref}`]({github_base}/{latest_ref})")
+    lines.append(f"- **Previous**: [`{previous_ref}`]({github_base}/{previous_ref})")
     lines.append("")
 
     lines.append("## Coverage")
