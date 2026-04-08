@@ -159,12 +159,20 @@ gas-report:
 	trap cleanup EXIT; \
 	(cd "$$GNOSWAP_WORKTREE" && python3 setup.py --exclude-tests -w "$$RUN_ROOT"); \
 	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
-	cp -r tests/metric "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
+	selection_json=$$(python3 "./scripts/prepare_profiled_suite.py" "$(CURDIR)/gnoswap" "$$FULL_COMMIT" "$(CURDIR)/tests/metric" "$(CURDIR)/tests/metric/manifest.json" "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"); \
+	profile_name=$$(python3 -c 'import json,sys; print(json.loads(sys.stdin.read())["profile"])' <<< "$$selection_json"); \
+	profile_reason=$$(python3 -c 'import json,sys; print(json.loads(sys.stdin.read())["reason"])' <<< "$$selection_json"); \
+	echo "metric-compat: $$profile_name ($$profile_reason)"; \
 	mkdir -p reports/metric/commits; \
 	set +e; \
 	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/metric/commits/$$SHORT_COMMIT.md"; \
 	test_exit=$${PIPESTATUS[0]}; \
 	set -e; \
+	metric_rows=$$(python3 -c 'import pathlib, sys; path = pathlib.Path(sys.argv[1]); print(max(sum(1 for _ in path.open()) - 2, 0))' "reports/metric/commits/$$SHORT_COMMIT.md"); \
+	if [ "$$metric_rows" -eq 0 ]; then \
+		echo "Metric run produced no metric rows" >&2; \
+		exit $$( [ "$$test_exit" -ne 0 ] && echo "$$test_exit" || echo 1 ); \
+	fi; \
 	if [ "$$test_exit" -ne 0 ] && [ ! -s "reports/metric/commits/$$SHORT_COMMIT.md" ]; then \
 		echo "Metric run failed before report generation" >&2; \
 		exit "$$test_exit"; \
@@ -183,15 +191,21 @@ stress-report:
 	}; \
 	trap cleanup EXIT; \
 	(cd "$$GNOSWAP_WORKTREE" && python3 setup.py --exclude-tests -w "$$RUN_ROOT"); \
-	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
-	cp -r tests/metric "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
 	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress"; \
-	cp -r tests/stress "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress"; \
+	selection_json=$$(python3 "./scripts/prepare_profiled_suite.py" "$(CURDIR)/gnoswap" "$$FULL_COMMIT" "$(CURDIR)/tests/stress" "$(CURDIR)/tests/stress/manifest.json" "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress"); \
+	stress_profile_name=$$(python3 -c 'import json,sys; print(json.loads(sys.stdin.read())["profile"])' <<< "$$selection_json"); \
+	stress_profile_reason=$$(python3 -c 'import json,sys; print(json.loads(sys.stdin.read())["reason"])' <<< "$$selection_json"); \
+	echo "stress-compat: $$stress_profile_name ($$stress_profile_reason)"; \
 	mkdir -p reports/stress/commits; \
 	set +e; \
 	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/stress/commits/$$SHORT_COMMIT.md"; \
 	test_exit=$${PIPESTATUS[0]}; \
 	set -e; \
+	metric_rows=$$(python3 -c 'import pathlib, sys; path = pathlib.Path(sys.argv[1]); print(max(sum(1 for _ in path.open()) - 2, 0))' "reports/stress/commits/$$SHORT_COMMIT.md"); \
+	if [ "$$metric_rows" -eq 0 ]; then \
+		echo "Stress run produced no metric rows" >&2; \
+		exit $$( [ "$$test_exit" -ne 0 ] && echo "$$test_exit" || echo 1 ); \
+	fi; \
 	if [ "$$test_exit" -ne 0 ] && [ ! -s "reports/stress/commits/$$SHORT_COMMIT.md" ]; then \
 		echo "Stress run failed before report generation" >&2; \
 		exit "$$test_exit"; \

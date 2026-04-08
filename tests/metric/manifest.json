@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "default_profile": "current",
+  "profiles": {
+    "current": {
+      "description": "Canonical tracker-owned metric tests",
+      "overlay_dir": null
+    },
+    "pre-upgradable": {
+      "description": "Legacy metric overrides for historical API shape",
+      "overlay_dir": "profiles/pre-upgradable"
+    }
+  },
+  "rules": [
+    {
+      "type": "exact",
+      "profile": "pre-upgradable",
+      "commits": [
+        "3e051b039ce8226edfb9d703542eb3354c3431c4"
+      ],
+      "reason": "Known historical commit with missing ExistsUserSendCoins and refundAddress-based EndExternalIncentive"
+    },
+    {
+      "type": "shape",
+      "profile": "pre-upgradable",
+      "reason": "Fallback for legacy metric API shape when no explicit history-backed exception matches",
+      "all": [
+        {
+          "path": "contract/r/gnoswap/common",
+          "pattern": "func ExistsUserSendCoins() bool {",
+          "expect": "absent"
+        },
+        {
+          "any_path": [
+            "contract/r/gnoswap/staker",
+            "contract/r/gnoswap/staker/v1"
+          ],
+          "pattern": "refundAddress address",
+          "expect": "present"
+        }
+      ]
+    }
+  ]
+}
