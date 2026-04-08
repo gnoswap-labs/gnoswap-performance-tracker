@@ -150,6 +150,8 @@ research-compare:
 gas-report:
 	@set -eu; \
 	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
+	GNO_BIN="$(CURDIR)/gno/gnovm/build/gno"; \
+	$(MAKE) --no-print-directory -C "$(CURDIR)/gno/gnovm" build; \
 	eval "$$(./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
 	cleanup() { \
 		git -C "$(CURDIR)/gno" worktree remove --force "$$GNO_WORKTREE" >/dev/null 2>&1 || true; \
@@ -165,7 +167,7 @@ gas-report:
 	echo "metric-compat: $$profile_name ($$profile_reason)"; \
 	mkdir -p reports/metric/commits; \
 	set +e; \
-	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/metric/commits/$$SHORT_COMMIT.md"; \
+	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && "$$GNO_BIN" test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/metric/commits/$$SHORT_COMMIT.md"; \
 	test_exit=$${PIPESTATUS[0]}; \
 	set -e; \
 	metric_rows=$$(python3 -c 'import pathlib, sys; path = pathlib.Path(sys.argv[1]); print(max(sum(1 for _ in path.open()) - 2, 0))' "reports/metric/commits/$$SHORT_COMMIT.md"); \
@@ -183,6 +185,8 @@ gas-report:
 stress-report:
 	@set -eu; \
 	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
+	GNO_BIN="$(CURDIR)/gno/gnovm/build/gno"; \
+	$(MAKE) --no-print-directory -C "$(CURDIR)/gno/gnovm" build; \
 	eval "$$(./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
 	cleanup() { \
 		git -C "$(CURDIR)/gno" worktree remove --force "$$GNO_WORKTREE" >/dev/null 2>&1 || true; \
@@ -198,7 +202,7 @@ stress-report:
 	echo "stress-compat: $$stress_profile_name ($$stress_profile_reason)"; \
 	mkdir -p reports/stress/commits; \
 	set +e; \
-	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/stress/commits/$$SHORT_COMMIT.md"; \
+	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && "$$GNO_BIN" test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/stress/commits/$$SHORT_COMMIT.md"; \
 	test_exit=$${PIPESTATUS[0]}; \
 	set -e; \
 	metric_rows=$$(python3 -c 'import pathlib, sys; path = pathlib.Path(sys.argv[1]); print(max(sum(1 for _ in path.open()) - 2, 0))' "reports/stress/commits/$$SHORT_COMMIT.md"); \
