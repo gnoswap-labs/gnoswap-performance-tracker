@@ -15,7 +15,7 @@ This lane now includes:
 - a Dockerized local `gnodev` runtime with integrated contract deployment during bootstrap
 - a minimal Go smoke harness for readiness and deployment checks
 - a first report-capable probe path for `PoolCreate`
-- raw TSV output under `artifacts/`, normalized into tracker reports via `scripts/parse_research.sh`, with run-scoped filenames that include the resolved short hash and UTC timestamp
+- raw TSV output under `artifacts/`, normalized into tracker reports via `scripts/parse_research.sh`; tracker reports use hash-only filenames while raw artifacts/runlogs keep run-scoped filenames with the resolved short hash and UTC timestamp
 
 The broader probe matrix should still be expanded incrementally.
 

@@ -63,9 +63,14 @@ from pathlib import Path
 import sys
 
 short_ref = sys.argv[1]
-paths = sorted(Path("reports/research/commits").glob(f"{short_ref}-*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
-if paths:
-    print(paths[0])
+report_dir = Path("reports/research/commits")
+exact = report_dir / f"{short_ref}.md"
+if exact.exists():
+    print(exact)
+else:
+    paths = sorted(report_dir.glob(f"{short_ref}-*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
+    if paths:
+        print(paths[0])
 PY
 }
 

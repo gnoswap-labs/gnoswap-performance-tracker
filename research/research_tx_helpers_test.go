@@ -536,16 +536,12 @@ func multiHopRoute(hops ...string) string {
 	return strings.Join(hops, "*POOL*")
 }
 
-func createExternalIncentiveTx(ctx context.Context, env *researchHarnessEnv, runID int64) (txMetrics, error) {
-	rewardAmount, err := queryMinimumRewardAmount(ctx, env)
-	if err != nil {
-		return txMetrics{}, err
-	}
-	startTimestamp, endTimestamp := incentiveSchedule(runID)
+func createExternalIncentiveTx(ctx context.Context, env *researchHarnessEnv) (txMetrics, error) {
+	startTimestamp, endTimestamp := incentiveSchedule()
 	out, err := broadcastCallOutput(ctx, env, "gnoswap_admin", stakerPkgPath, "CreateExternalIncentive", "",
 		poolPath(),
 		workloadGnsPath,
-		rewardAmount,
+		stakerFixedExternalIncentiveRewardAmount,
 		strconv.FormatInt(startTimestamp, 10),
 		strconv.FormatInt(endTimestamp, 10),
 	)
@@ -584,14 +580,6 @@ func unstakeTokenTx(ctx context.Context, env *researchHarnessEnv, positionID uin
 		return txMetrics{}, err
 	}
 	return parseSingleTxMetricsAllowMissing(out)
-}
-
-func queryMinimumRewardAmount(_ context.Context, env *researchHarnessEnv) (string, error) {
-	out, err := gnoQEval(env.gnoContainer, env.cfg.GnoGnokeyRemote, stakerPkgPath+`.GetMinimumRewardAmount()`)
-	if err != nil {
-		return "", err
-	}
-	return firstDecimalString(out), nil
 }
 
 func prepareApprovedStakeablePosition(ctx context.Context, env *researchHarnessEnv) (uint64, error) {
@@ -810,15 +798,9 @@ func waitForRewardAccrual() {
 	time.Sleep(2 * time.Second)
 }
 
-func incentiveSchedule(seed int64) (int64, int64) {
-	// _ = seed
-	// now := time.Now().UTC()
-	// nextMidnight := time.Date(now.Year(), now.Month(), now.Day()+1, 0, 0, 0, 0, time.UTC).Unix()
-	// start := nextMidnight
-	// end := start + (stakerEmissionEnd - stakerEmissionStart)
-	// return start, end
+func incentiveSchedule() (int64, int64) {
 	start := time.Now().UTC().Unix() + 1
-	end := start + (stakerEmissionEnd - stakerEmissionStart)
+	end := start + (stakerEmissionDays * 24 * 60 * 60)
 	return start, end
 }
 
@@ -947,5 +929,14 @@ func isRetryableTxError(err error) bool {
 		return false
 	}
 	msg := strings.ToLower(err.Error())
-	return strings.Contains(msg, "signature verification failed") || strings.Contains(msg, "incorrect account sequence") || strings.Contains(msg, "sequence") || strings.Contains(msg, "tx already exists in cache")
+	return strings.Contains(msg, "signature verification failed") ||
+		strings.Contains(msg, "incorrect account sequence") ||
+		strings.Contains(msg, "sequence") ||
+		strings.Contains(msg, "tx already exists in cache") ||
+		strings.Contains(msg, "request timeout") ||
+		strings.Contains(msg, "context deadline exceeded") ||
+		strings.Contains(msg, "eof") ||
+		strings.Contains(msg, "connection refused") ||
+		strings.Contains(msg, "broken pipe") ||
+		strings.Contains(msg, "reset by peer")
 }

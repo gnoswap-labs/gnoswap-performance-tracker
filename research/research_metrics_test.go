@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"reflect"
 	"regexp"
 	"sort"
 	"strconv"
@@ -44,14 +45,56 @@ type metricStats struct {
 	Max int64
 }
 
+type checkpointFilter func(int64) bool
+
 func mustProbeCheckpoints(t *testing.T) []int64 {
+	return mustProbeCheckpointsWithFilter(t, nil)
+}
+
+func mustProbeCheckpointsWithFilter(t *testing.T, filter checkpointFilter) []int64 {
 	t.Helper()
 	raw := getenvOrDefault(probeCheckpointsEnv, "1,10,100")
 	checkpoints := parseCheckpoints(raw)
 	if len(checkpoints) == 0 {
 		t.Fatalf("no valid %s checkpoints", probeCheckpointsEnv)
 	}
-	return checkpoints
+	if filter == nil {
+		return checkpoints
+	}
+	filtered := make([]int64, 0, len(checkpoints))
+	for _, checkpoint := range checkpoints {
+		if filter(checkpoint) {
+			filtered = append(filtered, checkpoint)
+		}
+	}
+	if len(filtered) == 0 {
+		t.Fatalf("no valid %s checkpoints after filter", probeCheckpointsEnv)
+	}
+	return filtered
+}
+
+func checkpointAtMost(max int64) checkpointFilter {
+	return func(checkpoint int64) bool {
+		return checkpoint <= max
+	}
+}
+
+func TestMustProbeCheckpointsWithFilter(t *testing.T) {
+	t.Setenv(probeCheckpointsEnv, "1,10,100,1000")
+	got := mustProbeCheckpointsWithFilter(t, checkpointAtMost(100))
+	want := []int64{1, 10, 100}
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("filtered checkpoints mismatch: got %v want %v", got, want)
+	}
+}
+
+func TestMustProbeCheckpointsWithoutFilter(t *testing.T) {
+	t.Setenv(probeCheckpointsEnv, "1,10,100,1000")
+	got := mustProbeCheckpoints(t)
+	want := []int64{1, 10, 100, 1000}
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("checkpoints mismatch: got %v want %v", got, want)
+	}
 }
 
 func getenvOrDefault(key, fallback string) string {

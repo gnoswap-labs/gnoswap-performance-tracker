@@ -115,7 +115,7 @@ make research-down
 
 This lane does **not** participate in the default `summary` flow yet.
 
-`make research-report <ref>` is the one-shot path: it boots the local chain on the explicit RPC/REST ports you assign, deploys contracts inside the container, executes the probes, and emits normalized markdown through the shared compare pipeline. The `<ref>` argument is resolved to a full commit, and the output filename uses `<resolved-short-hash>-<utc-timestamp>` so concurrent runs do not overwrite each other.
+`make research-report <ref>` is the one-shot path: it boots the local chain on the explicit RPC/REST ports you assign, deploys contracts inside the container, executes the probes, and emits normalized markdown through the shared compare pipeline. The `<ref>` argument is resolved to a full commit, normalized tracker reports are saved as `{short_hash}.md`, and raw artifacts/runlogs keep `<resolved-short-hash>-<utc-timestamp>` stems so concurrent runs do not overwrite each other.
 
 The default research milestones are `1,10,100`. Override them per run when you want a smaller or denser checkpoint set.
 
@@ -137,8 +137,8 @@ GNO_RPC_PORT=47657 GNO_REST_PORT=49888 WORKLOAD_NS=1,10,100 make research-report
   - Individual: `reports/stress/commits/{commit_hash}.md`
   - Comparison: `reports/stress/compares/diff_{new}_{old}.md`
 - **Research Reports:**
-  - Individual: `reports/research/commits/{short_hash}-{timestamp}.md`
-  - Comparison: `reports/research/compares/diff_{new}_{old}.md`
+- Individual: `reports/research/commits/{short_hash}.md`
+- Comparison: `reports/research/compares/diff_{new_short_hash}_{old_short_hash}.md`
 - **Summary Report:** `SUMMARY.md`
 
 Raw research artifacts stay under `research/artifacts/` and `research/.runlogs/`, with matching `{short_hash}-{timestamp}` stems per run.
