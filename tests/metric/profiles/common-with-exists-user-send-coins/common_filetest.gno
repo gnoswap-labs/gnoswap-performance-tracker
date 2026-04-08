@@ -24,6 +24,7 @@ func main() {
 	LiquidityMathAddDelta_Positive()
 	LiquidityMathAddDelta_Negative()
 	LiquidityMathAddDelta()
+	ExistsUserSendCoins()
 }
 
 func TickMathGetSqrtRatioAtTick_MinTick() {
@@ -104,5 +105,11 @@ func LiquidityMathAddDelta() {
 		y := i256.MustFromDecimal("500000")
 
 		common.LiquidityMathAddDelta(x, y)
+	})
+}
+
+func ExistsUserSendCoins() {
+	metric.PrintMetricsBy("ExistsUserSendCoins", func() {
+		common.ExistsUserSendCoins()
 	})
 }

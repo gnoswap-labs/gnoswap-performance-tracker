@@ -1,44 +1,35 @@
 {
-  "version": 1,
-  "default_profile": "current",
-  "profiles": {
-    "current": {
-      "description": "Canonical tracker-owned metric tests",
-      "overlay_dir": null
+  "version": 2,
+  "overlays": {
+    "common-with-exists-user-send-coins": {
+      "root": "profiles/common-with-exists-user-send-coins",
+      "description": "Common metric override for older commits that still expose ExistsUserSendCoins"
     },
-    "pre-upgradable": {
-      "description": "Legacy metric overrides for historical API shape",
-      "overlay_dir": "profiles/pre-upgradable"
+    "staker-no-refund-address-end-external-incentive": {
+      "root": "profiles/staker-no-refund-address-end-external-incentive",
+      "description": "Staker metric override for older commits that still use the no-refundAddress EndExternalIncentive signature"
     }
   },
-  "rules": [
-    {
-      "type": "exact",
-      "profile": "pre-upgradable",
-      "commits": [
-        "3e051b039ce8226edfb9d703542eb3354c3431c4"
-      ],
-      "reason": "Known historical commit with missing ExistsUserSendCoins and refundAddress-based EndExternalIncentive"
+  "files": {
+    "common_filetest.gno": {
+      "rules": [
+        {
+          "type": "range",
+          "overlay": "common-with-exists-user-send-coins",
+          "until": "3e051b039ce8226edfb9d703542eb3354c3431c4",
+          "reason": "Use the older common metric test before the latest commit line removed ExistsUserSendCoins"
+        }
+      ]
     },
-    {
-      "type": "shape",
-      "profile": "pre-upgradable",
-      "reason": "Fallback for legacy metric API shape when no explicit history-backed exception matches",
-      "all": [
+    "staker_end_external_incentive_filetest.gno": {
+      "rules": [
         {
-          "path": "contract/r/gnoswap/common",
-          "pattern": "func ExistsUserSendCoins() bool {",
-          "expect": "absent"
-        },
-        {
-          "any_path": [
-            "contract/r/gnoswap/staker",
-            "contract/r/gnoswap/staker/v1"
-          ],
-          "pattern": "refundAddress address",
-          "expect": "present"
+          "type": "range",
+          "overlay": "staker-no-refund-address-end-external-incentive",
+          "until": "3e051b039ce8226edfb9d703542eb3354c3431c4",
+          "reason": "Use the older staker metric test before the latest commit line switched to refundAddress-based EndExternalIncentive"
         }
       ]
     }
-  ]
+  }
 }
