@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 
-EXCLUDED_ROOT_NAMES = {"base", "profiles", "manifest.json", "README.md"}
+EXCLUDED_ROOT_NAMES = {"base", "latest", "profiles", "manifest.json", "README.md"}
 
 
 def run_git(repo: str, args: list[str]) -> subprocess.CompletedProcess[str]:
@@ -60,14 +60,95 @@ def predicate_matches(repo: str, commit: str, predicate: dict) -> bool:
 
 
 def range_matches(repo: str, commit: str, rule: dict) -> bool:
-    after = rule.get("after")
-    before = rule.get("before")
+    after = rule.get("after") or rule.get("since")
+    before = rule.get("before") or rule.get("until")
 
     if after and not is_ancestor(repo, after, commit):
         return False
     if before and is_ancestor(repo, before, commit):
         return False
     return True
+
+
+def choose_most_recent_rule(repo: str, matches: list[dict]) -> dict:
+    if len(matches) == 1:
+        return matches[0]
+
+    best = matches[0]
+    for candidate in matches[1:]:
+        best_since = best.get("after") or best.get("since")
+        candidate_since = candidate.get("after") or candidate.get("since")
+
+        if not best_since or not candidate_since:
+            raise RuntimeError(
+                f"Cannot disambiguate range rules without since/after: {matches}"
+            )
+
+        if is_ancestor(repo, best_since, candidate_since):
+            best = candidate
+            continue
+        if is_ancestor(repo, candidate_since, best_since):
+            continue
+
+        raise RuntimeError(f"Ambiguous range rules are not linearly ordered: {matches}")
+
+    return best
+
+
+def match_rules(
+    repo: str, commit: str, rules: list[dict]
+) -> tuple[bool, str | None, str | None]:
+    exact_matches: list[tuple[str | None, str]] = []
+    for rule in rules:
+        if rule.get("type") != "exact":
+            continue
+        if commit in rule.get("commits", []):
+            exact_matches.append(
+                (rule.get("overlay"), rule.get("reason", "exact match"))
+            )
+
+    if len(exact_matches) > 1:
+        raise RuntimeError(
+            f"Multiple exact rules matched commit {commit}: {exact_matches}"
+        )
+    if len(exact_matches) == 1:
+        overlay, reason = exact_matches[0]
+        return True, overlay, f"exact:{reason}"
+
+    range_rule_matches: list[dict] = []
+    for rule in rules:
+        if rule.get("type") != "range":
+            continue
+        if range_matches(repo, commit, rule):
+            range_rule_matches.append(rule)
+
+    if len(range_rule_matches) >= 1:
+        selected_rule = choose_most_recent_rule(repo, range_rule_matches)
+        overlay = selected_rule.get("overlay")
+        reason = selected_rule.get("reason", "range match")
+        return True, overlay, f"range:{reason}"
+
+    shape_matches_found: list[tuple[str | None, str]] = []
+    for rule in rules:
+        if rule.get("type") != "shape":
+            continue
+        predicates = rule.get("all", [])
+        if predicates and all(
+            predicate_matches(repo, commit, predicate) for predicate in predicates
+        ):
+            shape_matches_found.append(
+                (rule.get("overlay"), rule.get("reason", "shape match"))
+            )
+
+    if len(shape_matches_found) > 1:
+        raise RuntimeError(
+            f"Multiple shape rules matched commit {commit}: {shape_matches_found}"
+        )
+    if len(shape_matches_found) == 1:
+        overlay, reason = shape_matches_found[0]
+        return True, overlay, f"shape:{reason}"
+
+    return False, None, None
 
 
 def select_profile(repo: str, commit: str, manifest: dict) -> tuple[str, str]:
@@ -121,6 +202,40 @@ def select_profile(repo: str, commit: str, manifest: dict) -> tuple[str, str]:
     return default_profile, "default"
 
 
+def apply_file_overrides(
+    manifest_path: Path, manifest: dict, repo: str, commit: str, destination_dir: Path
+) -> dict[str, dict[str, str]]:
+    overlays = manifest.get("overlays", {})
+    file_rules = manifest.get("files", {})
+    applied: dict[str, dict[str, str]] = {}
+
+    for relative_path, config in file_rules.items():
+        matched, overlay, reason = match_rules(repo, commit, config.get("rules", []))
+        if not matched:
+            continue
+        if reason is None:
+            raise RuntimeError(f"Matched overlay without reason for {relative_path}")
+
+        if overlay is None:
+            applied[relative_path] = {"overlay": "latest", "reason": reason}
+            continue
+
+        overlay_config = overlays.get(overlay)
+        if overlay_config is None:
+            raise ValueError(f"Unknown overlay in file rule: {overlay}")
+
+        source_path = manifest_path.parent / overlay_config["root"] / relative_path
+        if not source_path.is_file():
+            raise RuntimeError(f"Overlay file not found: {source_path}")
+
+        destination = destination_dir / relative_path
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source_path, destination)
+        applied[relative_path] = {"overlay": overlay, "reason": reason}
+
+    return applied
+
+
 def copy_tree_contents(source_dir: Path, destination_dir: Path) -> None:
     for source_path in source_dir.rglob("*"):
         if source_path.is_dir():
@@ -132,6 +247,11 @@ def copy_tree_contents(source_dir: Path, destination_dir: Path) -> None:
 
 
 def copy_suite_base(suite_root: Path, destination_dir: Path) -> None:
+    latest_dir = suite_root / "latest"
+    if latest_dir.is_dir():
+        copy_tree_contents(latest_dir, destination_dir)
+        return
+
     base_dir = suite_root / "base"
     if base_dir.is_dir():
         copy_tree_contents(base_dir, destination_dir)
@@ -183,9 +303,32 @@ def main() -> int:
     destination_dir.mkdir(parents=True, exist_ok=True)
 
     manifest = json.loads(manifest_path.read_text())
-    profile, reason = select_profile(repo, commit, manifest)
 
     copy_suite_base(suite_root, destination_dir)
+
+    if manifest.get("version") == 2 and "files" in manifest:
+        overrides = apply_file_overrides(
+            manifest_path, manifest, repo, commit, destination_dir
+        )
+        override_count = sum(
+            1 for info in overrides.values() if info.get("overlay") != "latest"
+        )
+        print(
+            json.dumps(
+                {
+                    "profile": "per-file",
+                    "reason": (
+                        f"{len(overrides)} file decisions, {override_count} overrides"
+                        if overrides
+                        else "default latest suite"
+                    ),
+                    "overrides": overrides,
+                }
+            )
+        )
+        return 0
+
+    profile, reason = select_profile(repo, commit, manifest)
     apply_profile(manifest_path, manifest, profile, destination_dir)
 
     print(json.dumps({"profile": profile, "reason": reason}))
