@@ -1,7 +1,7 @@
 // PKGPATH: gno.land/r/demo/main
 
-// Multi-position stress test for CollectReward with all finished incentives
-// Tests gas usage when claiming rewards with 10 total incentives (all 10 finished)
+// Multi-position stress test for CollectReward after 34 days with continuous tick crosses
+// Tests gas usage when claiming rewards from multiple positions simultaneously
 package main
 
 import (
@@ -50,19 +50,16 @@ var (
 
 	TIMESTAMP_90DAYS int64 = 90 * 24 * 60 * 60
 
-	// 100 days = ~1,764,000 blocks (to ensure 90-day incentives expire)
-	blocksFor100Days int64 = 1764000
-	tickCrossCount   int64 = 500
+	// 34 days = 600,000 blocks
+	blocksFor34Days int64 = 600000
+	tickCrossCount  int64 = 500
+	incentiveCount  int64 = 1
 
 	// Number of positions to stake
 	positionCount = 500
 	// Number of positions to claim rewards from
-	claimBatchCount      = 1
-	tokenIds             []uint64
-	finishedIncentiveIds []string
-
-	activeIncentiveCount   = 10
-	finishedIncentiveCount = 100
+	claimBatchCount = 5
+	tokenIds        []uint64
 )
 
 var t *testing.T
@@ -72,8 +69,7 @@ func main() {
 	createPoolAndSetTier()
 
 	// Create incentives first (before staking positions)
-	incentiveStartTime := createExternalIncentives(finishedIncentiveCount)
-	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
+	createExternalIncentives()
 
 	// Mint and stake multiple positions
 	println(ufmt.Sprintf("Minting and staking %d positions...", positionCount))
@@ -85,15 +81,6 @@ func main() {
 		}
 	}
 
-	// Skip to the end of the 90-day incentive
-	testing.SkipHeights(TIMESTAMP_90DAYS + 1)
-
-	testMultiCollectReward(claimBatchCount, false)
-
-	// Create active incentives
-	incentiveStartTime = createExternalIncentives(activeIncentiveCount)
-	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
-
 	// Mint liquidity for swaps
 	mintLiquidityPosition()
 
@@ -103,10 +90,10 @@ func main() {
 		testing.SkipHeights(1)
 	}
 
-	// Wait 100 days total - all 90-day incentives will be finished
-	testing.SkipHeights(blocksFor100Days - tickCrossCount)
+	// Wait 34 days
+	testing.SkipHeights(blocksFor34Days)
 
-	testMultiCollectReward(claimBatchCount, true)
+	testMultiCollectReward(claimBatchCount)
 }
 
 func initializeSetup() {
@@ -163,7 +150,9 @@ func mintAndStakePosition(index int) uint64 {
 }
 
 func mintLiquidityPosition() {
+
 	testing.SetRealm(adminRealm)
+
 	// Full-range position for liquidity
 	position.Mint(
 		cross,
@@ -183,33 +172,23 @@ func mintLiquidityPosition() {
 	)
 }
 
-func createExternalIncentives(creationCount int) int64 {
+func createExternalIncentives() {
 	testing.SetRealm(adminRealm)
 
-	// Record currentTime before creating incentives
-	currentTime := time.Now().Unix()
 	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
+	incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
 
-	// Create all 10 incentives with 90 days (all will be finished when we test)
-	endTime := incentiveStartTime + TIMESTAMP_90DAYS
-	for i := 0; i < creationCount; i++ {
+	for i := 0; i < int(incentiveCount); i++ {
 		staker.CreateExternalIncentive(
 			cross,
 			poolPath,
 			barPath,
 			1_000_000_000,
 			incentiveStartTime,
-			endTime,
+			incentiveEndTime,
 		)
-		// Track incentive ID: {creator}:{currentTime}:{counter}
-		// Counter is 1-based: 1, 2, 3, ..., 10
-		incentiveId := ufmt.Sprintf("%s:%d:%d", adminAddr, currentTime, i+1)
-		finishedIncentiveIds = append(finishedIncentiveIds, incentiveId)
 	}
-
-	testing.SkipHeights(1)
-
-	return incentiveStartTime
+	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 }
 
 func swapWithTickCross() {
@@ -262,24 +241,20 @@ func swapWithTickCross() {
 	)
 }
 
-func testMultiCollectReward(claimBatchCount int, withMetrics bool) {
+func testMultiCollectReward(claimBatchCount int) {
 	testing.SetRealm(adminRealm)
 
-	if withMetrics {
-		stress.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, active=%d, finished=%d)", positionCount, tickCrossCount, claimBatchCount, activeIncentiveCount, finishedIncentiveCount), func() {
-			for i := 0; i < claimBatchCount; i++ {
-				staker.CollectReward(cross, tokenIds[i])
-			}
-		})
-
-		stress.PrintMetricsBy(ufmt.Sprintf("UnstakeToken after collect (pos=%d, tick=%d, claim=%d, active=%d, finished=%d)", positionCount, tickCrossCount, claimBatchCount, activeIncentiveCount, finishedIncentiveCount), func() {
-			for i := 0; i < claimBatchCount; i++ {
-				staker.UnStakeToken(cross, tokenIds[i])
-			}
-		})
-	} else {
+	stress.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=%d, skip=%d)", positionCount, tickCrossCount, claimBatchCount, incentiveCount, 0), func() {
 		for i := 0; i < claimBatchCount; i++ {
 			staker.CollectReward(cross, tokenIds[i])
 		}
-	}
+	})
+
+	testing.SkipHeights(1)
+
+	stress.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=%d, skip=%d)", positionCount, tickCrossCount, claimBatchCount, incentiveCount, 1), func() {
+		for i := 0; i < claimBatchCount; i++ {
+			staker.CollectReward(cross, tokenIds[i])
+		}
+	})
 }

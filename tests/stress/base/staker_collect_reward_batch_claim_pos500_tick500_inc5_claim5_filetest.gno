@@ -14,7 +14,6 @@ import (
 	"gno.land/p/nt/ufmt/v0"
 	"gno.land/r/gnoswap/emission"
 	_ "gno.land/r/gnoswap/rbac"
-	"gno.land/r/gnoswap/router"
 
 	_ "gno.land/r/gnoswap/pool/v1"
 	_ "gno.land/r/gnoswap/position/v1"
@@ -24,6 +23,7 @@ import (
 	"gno.land/r/gnoswap/access"
 	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gnft"
+	"gno.land/r/gnoswap/gns"
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
 	"gno.land/r/gnoswap/staker"
@@ -48,14 +48,17 @@ var (
 
 	maxInt64 int64 = 9223372036854775807
 
+	TIMESTAMP_90DAYS int64 = 90 * 24 * 60 * 60
+
 	// 34 days = 600,000 blocks
 	blocksFor34Days int64 = 600000
 	tickCrossCount  int64 = 500
+	incentiveCount  int64 = 5
 
 	// Number of positions to stake
 	positionCount = 500
 	// Number of positions to claim rewards from
-	claimBatchCount = 1
+	claimBatchCount = 5
 	tokenIds        []uint64
 )
 
@@ -64,6 +67,9 @@ var t *testing.T
 func main() {
 	initializeSetup()
 	createPoolAndSetTier()
+
+	// Create incentives first (before staking positions)
+	createExternalIncentives()
 
 	// Mint and stake multiple positions
 	println(ufmt.Sprintf("Minting and staking %d positions...", positionCount))
@@ -93,7 +99,6 @@ func main() {
 func initializeSetup() {
 	testing.SetRealm(adminRealm)
 	pool.SetPoolCreationFee(cross, 0)
-	router.SetSwapFee(cross, 0)
 
 	testing.SetRealm(adminRealm)
 	bar.Approve(cross, poolAddr, maxInt64)
@@ -102,6 +107,7 @@ func initializeSetup() {
 	foo.Approve(cross, stakerAddr, maxInt64)
 	bar.Approve(cross, routerAddr, maxInt64)
 	foo.Approve(cross, routerAddr, maxInt64)
+	gns.Approve(cross, stakerAddr, maxInt64)
 
 	emission.SetDistributionStartTime(cross, time.Now().Unix()+1)
 	testing.SkipHeights(1)
@@ -144,6 +150,7 @@ func mintAndStakePosition(index int) uint64 {
 }
 
 func mintLiquidityPosition() {
+
 	testing.SetRealm(adminRealm)
 
 	// Full-range position for liquidity
@@ -163,6 +170,25 @@ func mintLiquidityPosition() {
 		adminAddr,
 		"",
 	)
+}
+
+func createExternalIncentives() {
+	testing.SetRealm(adminRealm)
+
+	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
+	incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
+
+	for i := 0; i < int(incentiveCount); i++ {
+		staker.CreateExternalIncentive(
+			cross,
+			poolPath,
+			barPath,
+			1_000_000_000,
+			incentiveStartTime,
+			incentiveEndTime,
+		)
+	}
+	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 }
 
 func swapWithTickCross() {
@@ -218,7 +244,15 @@ func swapWithTickCross() {
 func testMultiCollectReward(claimBatchCount int) {
 	testing.SetRealm(adminRealm)
 
-	stress.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d)", positionCount, tickCrossCount, claimBatchCount), func() {
+	stress.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=%d, skip=%d)", positionCount, tickCrossCount, claimBatchCount, incentiveCount, 0), func() {
+		for i := 0; i < claimBatchCount; i++ {
+			staker.CollectReward(cross, tokenIds[i])
+		}
+	})
+
+	testing.SkipHeights(1)
+
+	stress.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=%d, skip=%d)", positionCount, tickCrossCount, claimBatchCount, incentiveCount, 1), func() {
 		for i := 0; i < claimBatchCount; i++ {
 			staker.CollectReward(cross, tokenIds[i])
 		}

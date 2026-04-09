@@ -14,7 +14,6 @@ import (
 	"gno.land/p/nt/ufmt/v0"
 	"gno.land/r/gnoswap/emission"
 	_ "gno.land/r/gnoswap/rbac"
-	"gno.land/r/gnoswap/router"
 
 	_ "gno.land/r/gnoswap/pool/v1"
 	_ "gno.land/r/gnoswap/position/v1"
@@ -109,7 +108,6 @@ func main() {
 func initializeSetup() {
 	testing.SetRealm(adminRealm)
 	pool.SetPoolCreationFee(cross, 0)
-	router.SetSwapFee(cross, 0)
 
 	testing.SetRealm(adminRealm)
 	bar.Approve(cross, poolAddr, maxInt64)
@@ -235,7 +233,15 @@ func swapWithTickCross() {
 func testMultiCollectReward(claimBatchCount int) {
 	testing.SetRealm(adminRealm)
 
-	stress.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, tier=%d)", positionCount, tickCrossCount, claimBatchCount, tierChangeCount), func() {
+	stress.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, tier=%d, skip=%d)", positionCount, tickCrossCount, claimBatchCount, tierChangeCount, 0), func() {
+		for i := 0; i < claimBatchCount; i++ {
+			staker.CollectReward(cross, tokenIds[i])
+		}
+	})
+
+	testing.SkipHeights(1)
+
+	stress.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, tier=%d, skip=%d)", positionCount, tickCrossCount, claimBatchCount, tierChangeCount, 1), func() {
 		for i := 0; i < claimBatchCount; i++ {
 			staker.CollectReward(cross, tokenIds[i])
 		}

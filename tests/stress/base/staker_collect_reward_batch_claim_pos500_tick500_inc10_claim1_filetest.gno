@@ -242,7 +242,15 @@ func swapWithTickCross() {
 func testMultiCollectReward(claimBatchCount int) {
 	testing.SetRealm(adminRealm)
 
-	stress.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=%d)", positionCount, tickCrossCount, claimBatchCount, incentiveCount), func() {
+	stress.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=%d, skip=%d)", positionCount, tickCrossCount, claimBatchCount, incentiveCount, 0), func() {
+		for i := 0; i < claimBatchCount; i++ {
+			staker.CollectReward(cross, tokenIds[i])
+		}
+	})
+
+	testing.SkipHeights(1)
+
+	stress.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, inc=%d, skip=%d)", positionCount, tickCrossCount, claimBatchCount, incentiveCount, 1), func() {
 		for i := 0; i < claimBatchCount; i++ {
 			staker.CollectReward(cross, tokenIds[i])
 		}
