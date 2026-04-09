@@ -11,6 +11,7 @@ import (
 	prabc "gno.land/p/gnoswap/rbac"
 	"gno.land/p/nt/testutils/v0"
 	"gno.land/r/gnoswap/emission"
+	"gno.land/r/gnoswap/gns"
 	_ "gno.land/r/gnoswap/rbac"
 
 	_ "gno.land/r/gnoswap/pool/v1"
@@ -69,13 +70,18 @@ func initializeSetup() {
 	emission.SetDistributionStartTime(cross, time.Now().Unix()+1)
 	testing.SkipHeights(1)
 
-	bar.Transfer(cross, aliceAddr, 100000000)
-	foo.Transfer(cross, aliceAddr, 100000000)
+	bar.Transfer(cross, aliceAddr, 10_000_000_000)
+	foo.Transfer(cross, aliceAddr, 10_000_000_000)
+	gns.Transfer(cross, aliceAddr, 10_000_000_000)
 
 	bar.Approve(cross, poolAddr, maxInt64)
 	foo.Approve(cross, poolAddr, maxInt64)
 	bar.Approve(cross, stakerAddr, maxInt64)
 	foo.Approve(cross, stakerAddr, maxInt64)
+	gns.Approve(cross, stakerAddr, maxInt64)
+
+	testing.SetRealm(aliceRealm)
+	gns.Approve(cross, stakerAddr, maxInt64)
 }
 
 func createPoolMetric() {
