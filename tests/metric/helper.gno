@@ -48,6 +48,32 @@ func PrintCollectRewardMetrics(metricIndex int64, positionID uint64, isInternal 
 	PrintCollectRewardWithAdditionalIncentives(metricIndex, positionID, isInternal, incentiveCount)
 }
 
+func PrintCollectRewardMetricsMulti(metricIndex int64, positionIDs []uint64, isInternal bool, incentiveCount int64) {
+	metricName := MakeDefaultMetricName(metricIndex, isInternal, incentiveCount, false)
+
+	PrintMetricsBy(metricName, func() {
+		for _, positionID := range positionIDs {
+			staker.CollectReward(cross, positionID)
+		}
+	})
+
+	testing.SkipHeights(1)
+
+	PrintMetricsBy(metricName+" 2nd", func() {
+		for _, positionID := range positionIDs {
+			staker.CollectReward(cross, positionID)
+		}
+	})
+
+	PrintMetricsBy(metricName+" 3nd Same time", func() {
+		for _, positionID := range positionIDs {
+			staker.CollectReward(cross, positionID)
+		}
+	})
+
+	PrintCollectRewardWithAdditionalIncentivesMulti(metricIndex, positionIDs, isInternal, incentiveCount)
+}
+
 func PrintCollectRewardWithAdditionalIncentives(metricIndex int64, positionID uint64, isInternal bool, incentiveCount int64) {
 	testing.SetRealm(aliceRealm)
 	foo.Approve(cross, stakerAddr, maxInt64)
@@ -81,6 +107,43 @@ func PrintCollectRewardWithAdditionalIncentives(metricIndex int64, positionID ui
 	})
 }
 
+func PrintCollectRewardWithAdditionalIncentivesMulti(metricIndex int64, positionIDs []uint64, isInternal bool, incentiveCount int64) {
+	testing.SetRealm(aliceRealm)
+	foo.Approve(cross, stakerAddr, maxInt64)
+	barPath := "gno.land/r/onbloc/bar"
+	fooPath := "gno.land/r/onbloc/foo"
+	poolPath := barPath + ":" + fooPath + ":3000"
+
+	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
+	incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
+
+	staker.CreateExternalIncentive(
+		cross,
+		poolPath,
+		fooPath,
+		1_000_000_000,
+		incentiveStartTime,
+		incentiveEndTime,
+	)
+
+	testing.SkipHeights((incentiveStartTime - time.Now().Unix()) + 1)
+
+	metricName := MakeDefaultMetricName(metricIndex, isInternal, incentiveCount, true)
+	PrintMetricsBy(metricName, func() {
+		for _, positionID := range positionIDs {
+			staker.CollectReward(cross, positionID)
+		}
+	})
+
+	testing.SkipHeights(1)
+
+	PrintMetricsBy(metricName+" 2nd", func() {
+		for _, positionID := range positionIDs {
+			staker.CollectReward(cross, positionID)
+		}
+	})
+}
+
 func MakeDefaultMetricName(metricIndex int64, isInternal bool, incentiveCount int64, isAdditional bool) string {
 	descriptions := []string{}
 	if isInternal {
@@ -91,10 +154,10 @@ func MakeDefaultMetricName(metricIndex int64, isInternal bool, incentiveCount in
 	}
 
 	if isAdditional {
-		return ufmt.Sprintf("%d. CollectReward (%s) + Add Incentive", metricIndex, strings.Join(descriptions, " / "))
+		return ufmt.Sprintf("%2d. CollectReward (%s) + Add Incentive", metricIndex, strings.Join(descriptions, " / "))
 	}
 
-	return ufmt.Sprintf("%d. CollectReward (%s)", metricIndex, strings.Join(descriptions, " / "))
+	return ufmt.Sprintf("%2d. CollectReward (%s)", metricIndex, strings.Join(descriptions, " / "))
 }
 
 func MetricsBy(name string, fn func()) (int64, int64, int64) {
