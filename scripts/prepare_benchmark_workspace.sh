@@ -9,6 +9,7 @@ GNO_REPO="$TRACKER_ROOT/gno"
 WORKTREE_ROOT="$TRACKER_ROOT/.worktrees"
 GNOSWAP_WORKTREE_ROOT="$WORKTREE_ROOT/gnoswap"
 RUN_ROOT_PARENT="$WORKTREE_ROOT/runs"
+RUNTIME_MANIFEST="$TRACKER_ROOT/tests/runtime/manifest.json"
 
 REF="${1:-main}"
 
@@ -72,11 +73,26 @@ git -C "$GNO_REPO" worktree prune >/dev/null 2>&1 || true
 FULL_COMMIT=$(resolve_ref "$REF")
 SHORT_COMMIT=$(git -C "$GNOSWAP_REPO" rev-parse --short=7 "$FULL_COMMIT")
 GNOSWAP_WORKTREE="$GNOSWAP_WORKTREE_ROOT/$FULL_COMMIT"
+runtime_json=$(python3 "$TRACKER_ROOT/scripts/select_gno_runtime.py" "$GNOSWAP_REPO" "$FULL_COMMIT" "$RUNTIME_MANIFEST")
+GNO_REF=$(python3 -c 'import json,sys; print(json.loads(sys.stdin.read())["gno_ref"])' <<< "$runtime_json")
+GNO_REASON=$(python3 -c 'import json,sys; print(json.loads(sys.stdin.read())["reason"])' <<< "$runtime_json")
 
 ensure_worktree_at_commit "$GNOSWAP_REPO" "$GNOSWAP_WORKTREE" "$FULL_COMMIT"
 
 RUN_ROOT=$(mktemp -d "$RUN_ROOT_PARENT/${SHORT_COMMIT}.XXXXXX")
-GNO_COMMIT=$(git -C "$GNO_REPO" rev-parse HEAD)
+if [ "$GNO_REF" = "local-head" ]; then
+    GNO_COMMIT=$(git -C "$GNO_REPO" rev-parse HEAD)
+else
+    if git -C "$GNO_REPO" rev-parse -q --verify "${GNO_REF}^{commit}" >/dev/null 2>&1; then
+        GNO_COMMIT=$(git -C "$GNO_REPO" rev-parse "${GNO_REF}^{commit}")
+    elif git -C "$GNO_REPO" rev-parse -q --verify "origin/${GNO_REF}^{commit}" >/dev/null 2>&1; then
+        git -C "$GNO_REPO" fetch origin >/dev/null 2>&1
+        GNO_COMMIT=$(git -C "$GNO_REPO" rev-parse "origin/${GNO_REF}^{commit}")
+    else
+        echo "Error: could not resolve gno ref '$GNO_REF'" >&2
+        exit 1
+    fi
+fi
 GNO_WORKTREE="$RUN_ROOT/gno"
 
 git -C "$GNO_REPO" worktree add --detach "$GNO_WORKTREE" "$GNO_COMMIT" >/dev/null
@@ -87,3 +103,6 @@ printf 'FULL_COMMIT=%q\n' "$FULL_COMMIT"
 printf 'SHORT_COMMIT=%q\n' "$SHORT_COMMIT"
 printf 'GNOSWAP_WORKTREE=%q\n' "$GNOSWAP_WORKTREE"
 printf 'GNO_WORKTREE=%q\n' "$GNO_WORKTREE"
+printf 'GNO_COMMIT=%q\n' "$GNO_COMMIT"
+printf 'GNO_REF=%q\n' "$GNO_REF"
+printf 'GNO_REASON=%q\n' "$GNO_REASON"

@@ -150,9 +150,9 @@ research-compare:
 gas-report:
 	@set -eu; \
 	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
-	GNO_BIN="$(CURDIR)/gno/gnovm/build/gno"; \
-	$(MAKE) --no-print-directory -C "$(CURDIR)/gno/gnovm" build; \
 	eval "$$(./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
+	$(MAKE) --no-print-directory -C "$$GNO_WORKTREE/gnovm" build; \
+	GNO_BIN="$$GNO_WORKTREE/gnovm/build/gno"; \
 	cleanup() { \
 		git -C "$(CURDIR)/gno" worktree remove --force "$$GNO_WORKTREE" >/dev/null 2>&1 || true; \
 		git -C "$(CURDIR)/gno" worktree prune >/dev/null 2>&1 || true; \
@@ -185,9 +185,9 @@ gas-report:
 stress-report:
 	@set -eu; \
 	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
-	GNO_BIN="$(CURDIR)/gno/gnovm/build/gno"; \
-	$(MAKE) --no-print-directory -C "$(CURDIR)/gno/gnovm" build; \
 	eval "$$(./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
+	$(MAKE) --no-print-directory -C "$$GNO_WORKTREE/gnovm" build; \
+	GNO_BIN="$$GNO_WORKTREE/gnovm/build/gno"; \
 	cleanup() { \
 		git -C "$(CURDIR)/gno" worktree remove --force "$$GNO_WORKTREE" >/dev/null 2>&1 || true; \
 		git -C "$(CURDIR)/gno" worktree prune >/dev/null 2>&1 || true; \
