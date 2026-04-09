@@ -113,6 +113,6 @@ func endExternalIncentiveMetric() {
 	testing.SkipHeights(1234569600 + 60*60*24*90/5)
 
 	metric.PrintMetricsBy("EndExternalIncentive", func() {
-		staker.EndExternalIncentive(cross, poolPath, incentiveID)
+		staker.EndExternalIncentive(cross, poolPath, incentiveID, aliceAddr)
 	})
 }
