@@ -28,6 +28,10 @@ There are now three lanes in the tracker:
 
 The report layer is shared, but the runtime layer is intentionally separated.
 
+Benchmark routing details live here:
+
+- [docs/benchmark-routing.md](docs/benchmark-routing.md)
+
 ### 1. Basic Commands
 
 | Command | Description | Existing Reports |
