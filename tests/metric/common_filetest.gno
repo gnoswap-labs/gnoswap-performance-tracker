@@ -24,7 +24,6 @@ func main() {
 	LiquidityMathAddDelta_Positive()
 	LiquidityMathAddDelta_Negative()
 	LiquidityMathAddDelta()
-	ExistsUserSendCoins()
 }
 
 // Common Package Functions - Identical to common_gas_measurement.txtar
@@ -110,8 +109,3 @@ func LiquidityMathAddDelta() {
 	})
 }
 
-func ExistsUserSendCoins() {
-	metric.PrintMetricsBy("ExistsUserSendCoins", func() {
-		common.ExistsUserSendCoins()
-	})
-}
