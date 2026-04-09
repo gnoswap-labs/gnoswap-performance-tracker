@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 1,
   "overlays": {
     "common-with-exists-user-send-coins": {
       "root": "profiles/common-with-exists-user-send-coins",

@@ -1,11 +1,5 @@
 {
   "version": 1,
-  "default_profile": "current",
-  "profiles": {
-    "current": {
-      "description": "Canonical tracker-owned stress tests",
-      "overlay_dir": null
-    }
-  },
-  "rules": []
+  "overlays": {},
+  "files": {}
 }

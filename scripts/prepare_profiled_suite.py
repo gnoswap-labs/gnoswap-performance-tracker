@@ -151,57 +151,6 @@ def match_rules(
     return False, None, None
 
 
-def select_profile(repo: str, commit: str, manifest: dict) -> tuple[str, str]:
-    profiles = manifest["profiles"]
-    default_profile = manifest["default_profile"]
-
-    if default_profile not in profiles:
-        raise ValueError(f"Unknown default profile: {default_profile}")
-
-    rules = manifest.get("rules", [])
-
-    for rule in rules:
-        if rule.get("type") != "exact":
-            continue
-        if commit in rule.get("commits", []):
-            profile = rule["profile"]
-            if profile not in profiles:
-                raise ValueError(f"Unknown profile in exact rule: {profile}")
-            return profile, f"exact:{rule.get('reason', 'exact match')}"
-
-    range_matches_found: list[tuple[str, str]] = []
-    for rule in rules:
-        if rule.get("type") != "range":
-            continue
-        if range_matches(repo, commit, rule):
-            profile = rule["profile"]
-            if profile not in profiles:
-                raise ValueError(f"Unknown profile in range rule: {profile}")
-            range_matches_found.append((profile, rule.get("reason", "range match")))
-
-    if len(range_matches_found) > 1:
-        raise RuntimeError(
-            f"Multiple range rules matched commit {commit}: {range_matches_found}"
-        )
-    if len(range_matches_found) == 1:
-        profile, reason = range_matches_found[0]
-        return profile, f"range:{reason}"
-
-    for rule in rules:
-        if rule.get("type") != "shape":
-            continue
-        predicates = rule.get("all", [])
-        if predicates and all(
-            predicate_matches(repo, commit, predicate) for predicate in predicates
-        ):
-            profile = rule["profile"]
-            if profile not in profiles:
-                raise ValueError(f"Unknown profile in shape rule: {profile}")
-            return profile, f"shape:{rule.get('reason', 'shape match')}"
-
-    return default_profile, "default"
-
-
 def apply_file_overrides(
     manifest_path: Path, manifest: dict, repo: str, commit: str, destination_dir: Path
 ) -> dict[str, dict[str, str]]:
@@ -268,24 +217,6 @@ def copy_suite_base(suite_root: Path, destination_dir: Path) -> None:
         shutil.copy2(entry, destination)
 
 
-def apply_profile(
-    manifest_path: Path, manifest: dict, profile: str, destination_dir: Path
-) -> None:
-    profile_config = manifest["profiles"].get(profile)
-    if profile_config is None:
-        raise ValueError(f"Unknown selected profile: {profile}")
-
-    overlay_dir = profile_config.get("overlay_dir")
-    if overlay_dir is None:
-        return
-
-    profile_root = manifest_path.parent
-    source_dir = profile_root / overlay_dir
-    if not source_dir.is_dir():
-        raise RuntimeError(f"Profile overlay not found: {source_dir}")
-    copy_tree_contents(source_dir, destination_dir)
-
-
 def main() -> int:
     if len(sys.argv) != 6:
         print(
@@ -305,33 +236,25 @@ def main() -> int:
     manifest = json.loads(manifest_path.read_text())
 
     copy_suite_base(suite_root, destination_dir)
-
-    if manifest.get("version") == 2 and "files" in manifest:
-        overrides = apply_file_overrides(
-            manifest_path, manifest, repo, commit, destination_dir
+    overrides = apply_file_overrides(
+        manifest_path, manifest, repo, commit, destination_dir
+    )
+    override_count = sum(
+        1 for info in overrides.values() if info.get("overlay") != "latest"
+    )
+    print(
+        json.dumps(
+            {
+                "profile": "per-file",
+                "reason": (
+                    f"{len(overrides)} file decisions, {override_count} overrides"
+                    if overrides
+                    else "default canonical suite"
+                ),
+                "overrides": overrides,
+            }
         )
-        override_count = sum(
-            1 for info in overrides.values() if info.get("overlay") != "latest"
-        )
-        print(
-            json.dumps(
-                {
-                    "profile": "per-file",
-                    "reason": (
-                        f"{len(overrides)} file decisions, {override_count} overrides"
-                        if overrides
-                        else "default latest suite"
-                    ),
-                    "overrides": overrides,
-                }
-            )
-        )
-        return 0
-
-    profile, reason = select_profile(repo, commit, manifest)
-    apply_profile(manifest_path, manifest, profile, destination_dir)
-
-    print(json.dumps({"profile": profile, "reason": reason}))
+    )
     return 0
 
 
