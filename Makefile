@@ -162,13 +162,18 @@ gas-report:
 	cp -r tests/metric "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
 	mkdir -p reports/metric/commits; \
 	set +e; \
-	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/metric/commits/$$SHORT_COMMIT.md"; \
-	test_exit=$${PIPESTATUS[0]}; \
-	set -e; \
-	if [ "$$test_exit" -ne 0 ] && [ ! -s "reports/metric/commits/$$SHORT_COMMIT.md" ]; then \
-		echo "Metric run failed before report generation" >&2; \
-		exit "$$test_exit"; \
+	RAW_OUT="$$(mktemp -t gnoswap-metric-gnotest.XXXXXX)"; \
+	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && gno test . -v -run .) >"$$RAW_OUT" 2>&1; \
+	test_exit=$$?; \
+	./scripts/parse_metrics_gnot.sh "$$RAW_OUT" > "reports/metric/commits/$$SHORT_COMMIT.md"; \
+	if [ "$$test_exit" -ne 0 ]; then \
+		echo "gno test failed (metric). Raw output:" >&2; \
+		cat "$$RAW_OUT" >&2; \
+		echo "Metric report saved to reports/metric/commits/$$SHORT_COMMIT.md" >&2; \
 	fi; \
+	rm -f "$$RAW_OUT"; \
+	set -e; \
+	if [ "$$test_exit" -ne 0 ]; then exit "$$test_exit"; fi; \
 	echo "Report saved to reports/metric/commits/$$SHORT_COMMIT.md"
 
 # Usage: make stress-report [commit]
@@ -189,13 +194,18 @@ stress-report:
 	cp -r tests/stress "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress"; \
 	mkdir -p reports/stress/commits; \
 	set +e; \
-	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/stress/commits/$$SHORT_COMMIT.md"; \
-	test_exit=$${PIPESTATUS[0]}; \
-	set -e; \
-	if [ "$$test_exit" -ne 0 ] && [ ! -s "reports/stress/commits/$$SHORT_COMMIT.md" ]; then \
-		echo "Stress run failed before report generation" >&2; \
-		exit "$$test_exit"; \
+	RAW_OUT="$$(mktemp -t gnoswap-stress-gnotest.XXXXXX)"; \
+	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && gno test . -v -run .) >"$$RAW_OUT" 2>&1; \
+	test_exit=$$?; \
+	./scripts/parse_metrics_gnot.sh "$$RAW_OUT" > "reports/stress/commits/$$SHORT_COMMIT.md"; \
+	if [ "$$test_exit" -ne 0 ]; then \
+		echo "gno test failed (stress). Raw output:" >&2; \
+		cat "$$RAW_OUT" >&2; \
+		echo "Stress report saved to reports/stress/commits/$$SHORT_COMMIT.md" >&2; \
 	fi; \
+	rm -f "$$RAW_OUT"; \
+	set -e; \
+	if [ "$$test_exit" -ne 0 ]; then exit "$$test_exit"; fi; \
 	echo "Report saved to reports/stress/commits/$$SHORT_COMMIT.md"
 
 # Generate summary report from commit-history.txt
