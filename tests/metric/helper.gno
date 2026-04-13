@@ -80,28 +80,29 @@ func PrintCollectRewardMetricsMulti(metricIndex int64, positionIDs []uint64, isI
 func PrintCollectRewardMetricsMultiWithTickCross(metricIndex int64, positionIDs []uint64, isInternal bool, incentiveCount int64, tickCross int64, tickCrossSetup func()) {
 	metricName := MakeDefaultMetricName(metricIndex, isInternal, incentiveCount, tickCross, false)
 
+	tickCrossSetup()
+	testing.SkipHeights(1)
+
 	PrintMetricsBy(metricName, func() {
 		for _, positionID := range positionIDs {
-			tickCrossSetup()
-			testing.SkipHeights(1)
 			staker.CollectReward(cross, positionID)
 		}
 	})
 
 	testing.SkipHeights(1)
 
+	tickCrossSetup()
+	testing.SkipHeights(1)
 	PrintMetricsBy(metricName+" 2nd", func() {
 		for _, positionID := range positionIDs {
-			tickCrossSetup()
-			testing.SkipHeights(1)
 			staker.CollectReward(cross, positionID)
 		}
 	})
 
+	tickCrossSetup()
+	testing.SkipHeights(1)
 	PrintMetricsBy(metricName+" 3nd Same time", func() {
 		for _, positionID := range positionIDs {
-			tickCrossSetup()
-			testing.SkipHeights(1)
 			staker.CollectReward(cross, positionID)
 		}
 	})
@@ -201,20 +202,20 @@ func PrintCollectRewardWithAdditionalIncentivesMultiWithTickCross(metricIndex in
 	testing.SkipHeights((incentiveStartTime - time.Now().Unix()) + 1)
 
 	metricName := MakeDefaultMetricName(metricIndex, isInternal, incentiveCount, tickCross, true)
+	tickCrossSetup()
+	testing.SkipHeights(1)
 	PrintMetricsBy(metricName, func() {
 		for _, positionID := range positionIDs {
-			tickCrossSetup()
-			testing.SkipHeights(1)
 			staker.CollectReward(cross, positionID)
 		}
 	})
 
 	testing.SkipHeights(1)
 
+	tickCrossSetup()
+	testing.SkipHeights(1)
 	PrintMetricsBy(metricName+" 2nd", func() {
 		for _, positionID := range positionIDs {
-			tickCrossSetup()
-			testing.SkipHeights(1)
 			staker.CollectReward(cross, positionID)
 		}
 	})
