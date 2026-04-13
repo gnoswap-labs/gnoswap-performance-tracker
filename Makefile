@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: help init gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force clean-worktrees research-up research-down research-test research-report compare-research research-compare
+.PHONY: help init gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force clean-worktrees research-up research-down research-test research-report compare-research research-compare gas-patterns
 
 # Default target
 help:
@@ -197,6 +197,37 @@ stress-report:
 		exit "$$test_exit"; \
 	fi; \
 	echo "Report saved to reports/stress/commits/$$SHORT_COMMIT.md"
+
+# Run language-level gas pattern tests (bad vs good) from tests/gas_patterns.
+# Does NOT require a gnoswap worktree — only needs the gno submodule HEAD.
+gas-patterns:
+	@set -eu; \
+	GNO_COMMIT=$$(git -C "$(CURDIR)/gno" rev-parse HEAD); \
+	SHORT=$$(git -C "$(CURDIR)/gno" rev-parse --short=7 $$GNO_COMMIT); \
+	RUN_ROOT=$$(mktemp -d "$(CURDIR)/.worktrees/runs/gaspat.XXXXXX"); \
+	GNO_WT="$$RUN_ROOT/gno"; \
+	cleanup() { \
+		git -C "$(CURDIR)/gno" worktree remove --force "$$GNO_WT" >/dev/null 2>&1 || true; \
+		git -C "$(CURDIR)/gno" worktree prune >/dev/null 2>&1 || true; \
+		rm -rf "$$RUN_ROOT"; \
+	}; \
+	trap cleanup EXIT; \
+	mkdir -p "$(CURDIR)/.worktrees/runs"; \
+	git -C "$(CURDIR)/gno" worktree add --detach "$$GNO_WT" "$$GNO_COMMIT" >/dev/null; \
+	DST="$$GNO_WT/examples/gno.land/r/gnoswap/scenario/gaspatterns"; \
+	mkdir -p "$$(dirname "$$DST")"; \
+	rm -rf "$$DST"; \
+	cp -r tests/gas_patterns "$$DST"; \
+	mkdir -p reports/gas_patterns/commits; \
+	set +e; \
+	(cd "$$DST" && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/gas_patterns/commits/$$SHORT.md"; \
+	test_exit=$${PIPESTATUS[0]}; \
+	set -e; \
+	if [ "$$test_exit" -ne 0 ] && [ ! -s "reports/gas_patterns/commits/$$SHORT.md" ]; then \
+		echo "gas-patterns run failed before report generation" >&2; \
+		exit "$$test_exit"; \
+	fi; \
+	echo "Gas pattern report saved to reports/gas_patterns/commits/$$SHORT.md"
 
 # Generate summary report from commit-history.txt
 summary:
