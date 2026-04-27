@@ -1,0 +1,92 @@
+| Name | Gas Used | Storage Diff | CPU Cycles |
+|------|----------|--------------|------------|
+| TickMathGetSqrtRatioAtTick (minTick) | 1,695,130 | 0 | 1,571,470 |
+| TickMathGetSqrtRatioAtTick (maxTick) | 2,029,277 | 0 | 2,022,644 |
+| TickMathGetSqrtRatioAtTick (zero) | 309,295 | 0 | 309,295 |
+| TickMathGetSqrtRatioAtTick | 1,507,990 | 0 | 1,506,049 |
+| TickMathGetTickAtSqrtRatio | 3,782,961 | 0 | 3,721,194 |
+| GetLiquidityForAmounts | 3,154,763 | 0 | 3,134,693 |
+| GetAmountsForLiquidity | 2,936,903 | 0 | 2,927,576 |
+| LiquidityMathAddDelta (positive) | 449,062 | 0 | 434,317 |
+| LiquidityMathAddDelta (negative) | 468,158 | 0 | 468,158 |
+| LiquidityMathAddDelta | 434,317 | 0 | 434,317 |
+| GetAmount0Delta | 3,591,016 | 0 | 3,332,860 |
+| GetAmount1Delta | 2,290,240 | 0 | 2,282,356 |
+| SwapMathComputeSwapStep | 4,175,388 | 0 | 4,159,071 |
+| Propose Community Pool Spend | 3,056,320 | 13,370 | 2,713,228 |
+| Propose Parameter Change | 3,497,568 | 12,351 | 3,320,952 |
+| Vote | 2,115,232 | 2,064 | 2,063,851 |
+| Execute | 1,490,909 | 76 | 1,269,614 |
+| Propose Text | 2,396,725 | 11,152 | 2,301,211 |
+| Propose Text with Inactive: 100 | 3,293,547 | 11,654 | 3,178,296 |
+| CollectUndelegatedGns (100 delegations, 1 withdraws) | 78,546,346 | 0 | 77,790,334 |
+| CollectUndelegatedGns (10 delegations, 10 withdraws) | 8,886,950 | 0 | 8,796,089 |
+| CollectUndelegatedGns (10 delegations, 1 withdraws) | 2,627,429 | 0 | 2,536,949 |
+| CollectUndelegatedGns (10 delegations, 50 withdraws) | 36,705,689 | 0 | 36,614,489 |
+| CollectUndelegatedGns (10 delegations, 5 withdraws) | 5,409,269 | 0 | 5,318,789 |
+| CollectUndelegatedGns (1 delegation, 10 withdraws) | 539,816 | 0 | 515,021 |
+| CollectUndelegatedGns (1 delegation, 1 withdraws) | 345,713 | 0 | 320,918 |
+| CollectUndelegatedGns (1 delegation, 50 withdraws) | 1,402,511 | 0 | 1,377,701 |
+| CollectUndelegatedGns (1 delegation, 5 withdraws) | 431,981 | 0 | 407,186 |
+| Delegate | 3,025,695 | 33,219 | 2,132,250 |
+| Undelegate | 3,214,358 | 977 | 3,039,416 |
+| Undelegate (5 delegations, cached external calls) | 14,508,333 | 3,450 | 14,334,090 |
+| Delegate (cached external calls) | 3,199,987 | 17,566 | 3,021,634 |
+| Undelegate (early exit, 3 of 10 delegations) | 9,631,889 | 2,076 | 9,485,357 |
+| Redelegate | 5,236,174 | 17,853 | 5,000,173 |
+| Redelegate (50 of 100 delegations, optimized) | 152,510,826 | 17,885 | 151,566,129 |
+| Undelegate (50 delegatees, large AVL traversal) | 3,495,412 | 747 | 3,332,851 |
+| CollectDepositGns (deposit 1/5, remaining 4) | 3,328,129 | 202 | 3,138,178 |
+| CollectDepositGns (deposit 2/5, remaining 3) | 2,936,679 | -3,685 | 2,792,385 |
+| CollectDepositGns (deposit 3/5, remaining 2) | 2,877,878 | -3,870 | 2,738,261 |
+| CollectDepositGns (deposit 4/5, remaining 1) | 2,908,829 | -3,870 | 2,765,030 |
+| CollectDepositGns (deposit 5/5, remaining 0) | 2,867,145 | -5,972 | 2,733,813 |
+| Launchpad CollectDepositGns | 3,126,785 | -1,864 | 2,955,593 |
+| Launchpad CollectRewardByDepositId | 1,332,974 | 2,047 | 1,250,006 |
+| Create Launchpad Project | 4,974,714 | 29,077 | 4,136,397 |
+| Launchpad DepositGns | 3,663,881 | 12,118 | 2,976,449 |
+| Launchpad TransferLeftFromProjectByAdmin | 1,130,509 | 5 | 1,038,643 |
+| CreatePool | 5,465,784 | 11,336 | 5,027,430 |
+| Mint (fee:3000, wide range) | 28,485,481 | 17,577 | 27,572,140 |
+| Swap (gns -> wugnot, fee:500) | 46,384,376 | 735 | 44,814,761 |
+| DecreaseLiquidity | 22,413,322 | 18 | 22,149,199 |
+| IncreaseLiquidity | 20,394,920 | -2,138 | 20,298,554 |
+| Mint (bar:foo:500) | 27,052,729 | 17,580 | 25,650,763 |
+| CollectFee (with unwrap) | 5,779,381 | 4,254 | 5,384,494 |
+| DecreaseLiquidity (w. Remove) | 18,087,468 | 4,262 | 17,644,968 |
+| Mint (reposition) | 27,685,554 | 14,978 | 27,528,702 |
+| SetPoolTier (tier 1) | 3,965,563 | 48,587 | 3,378,475 |
+| StakeToken | 16,608,855 | 22,178 | 16,009,671 |
+| ExactInSingleSwapRoute(grc20) - fee:10000 | 24,959,756 | 2,289 | 22,474,682 |
+| ExactInSingleSwapRoute(grc20) - fee:100 | 29,592,551 | 2,393 | 27,111,047 |
+| ExactInSingleSwapRoute(grc20) - fee:3000 | 25,196,113 | 2,291 | 22,612,858 |
+| ExactInSingleSwapRoute(grc20) - fee:500 | 24,895,567 | 2,289 | 22,416,040 |
+| ExactInSwapRoute(grc20) - fee:10000 | 24,291,421 | 2,289 | 21,811,213 |
+| ExactInSwapRoute(grc20) - fee:100 | 28,941,800 | 2,393 | 26,465,162 |
+| ExactInSwapRoute(grc20) - fee:3000 | 24,536,570 | 2,291 | 21,958,181 |
+| ExactInSwapRoute(grc20) - fee:500 | 24,244,816 | 2,289 | 21,770,155 |
+| ExactOutSingleSwapRoute(grc20) - fee:10000 | 26,808,405 | 2,289 | 24,321,018 |
+| ExactOutSingleSwapRoute(grc20) - fee:100 | 31,287,635 | 2,393 | 28,804,091 |
+| ExactOutSingleSwapRoute(grc20) - fee:3000 | 26,914,514 | 2,291 | 24,333,101 |
+| ExactOutSingleSwapRoute(grc20) - fee:500 | 26,650,193 | 2,289 | 24,170,567 |
+| ExactOutSwapRoute(grc20) - fee:10000 | 26,162,304 | 2,289 | 23,679,789 |
+| ExactOutSwapRoute(grc20) - fee:100 | 30,659,118 | 2,393 | 28,180,446 |
+| ExactOutSwapRoute(grc20) - fee:3000 | 26,277,205 | 2,291 | 23,700,664 |
+| ExactOutSwapRoute(grc20) - fee:500 | 26,021,676 | 2,289 | 23,546,922 |
+| BuildSingleHopRoutePath | 206,648 | 0 | 54,830 |
+| MultiHop ExactIn (2 hops) | 47,323,158 | 2,509 | 46,271,067 |
+| MultiHop ExactOut (2 hops) | 69,674,282 | 33 | 69,478,850 |
+| MultiHop ExactIn (3 hops) | 67,357,335 | 238 | 67,134,846 |
+| MultiHop ExactOut (3 hops) | 106,704,990 | 13 | 106,485,708 |
+| MultiRoute ExactIn (50:50 split) | 66,398,261 | 112 | 66,061,610 |
+| MultiRoute ExactOut (50:50 split) | 92,080,773 | 2 | 91,782,057 |
+| CollectReward (only Internal Reward) | 24,678,914 | 4,696 | 24,247,001 |
+| CollectReward 2nd (only Internal Reward) | 25,031,104 | 451 | 24,749,896 |
+| CollectReward With External Rewards (1 incentives) | 38,900,877 | 5,334 | 38,345,196 |
+| CollectReward With External Rewards 2nd (1 incentives) | 39,103,346 | 469 | 38,718,350 |
+| CollectReward With External Rewards (5 incentives) | 94,418,427 | 7,153 | 93,363,564 |
+| CollectReward With External Rewards 2nd (5 incentives) | 95,051,322 | 453 | 94,188,582 |
+| CreateExternalIncentive | 4,430,731 | 64,744 | 4,018,642 |
+| EndExternalIncentive | 3,030,505 | -12,200 | 2,919,127 |
+| RegisterInitializer (v1) | 127,397 | 0 | 85,997 |
+| RegisterInitializer (v2) | 85,997 | 0 | 85,997 |
