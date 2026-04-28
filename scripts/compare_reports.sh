@@ -37,10 +37,13 @@ extract_short_hash() {
     fi
 }
 
-# Detect if this is a stress or metric report
+# Detect report lane (stress, integration, research, or metric)
 if [[ "$LATEST_FILE" == *"/stress/"* ]]; then
     mkdir -p reports/stress/compares
     OUTPUT_FILE="reports/stress/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
+elif [[ "$LATEST_FILE" == *"/integration/"* ]]; then
+    mkdir -p reports/integration/compares
+    OUTPUT_FILE="reports/integration/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
 elif [[ "$LATEST_FILE" == *"/research/"* ]]; then
     mkdir -p reports/research/compares
     LATEST_COMMIT=$(extract_short_hash "$LATEST_COMMIT")
@@ -140,13 +143,12 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
     
     # Process each entry from latest
     while IFS=$'\t' read -r name latest_gas latest_storage latest_cpu; do
-        # Find matching entry in previous
-        prev_line=$(grep "^${name}	" "$PREVIOUS_DATA" 2>/dev/null | head -1)
-        
-        if [ -n "$prev_line" ]; then
-            prev_gas=$(echo "$prev_line" | cut -f2)
-            prev_storage=$(echo "$prev_line" | cut -f3)
-            prev_cpu=$(echo "$prev_line" | cut -f4)
+        # Use exact-key lookup to avoid regex issues in metric names.
+        prev_values=$(awk -F'\t' -v key="$name" '$1 == key { print $2 "\t" $3 "\t" $4; exit }' "$PREVIOUS_DATA")
+        if [ -n "$prev_values" ]; then
+            IFS=$'\t' read -r prev_gas prev_storage prev_cpu <<EOF
+$prev_values
+EOF
         else
             prev_gas=0
             prev_storage=0

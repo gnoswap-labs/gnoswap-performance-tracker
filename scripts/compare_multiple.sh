@@ -3,11 +3,12 @@
 # Compare multiple commits by generating gas reports and comparing them.
 #
 # Usage:
-#   ./compare_multiple.sh [--skip-exists] [--stress] <commit1> <commit2> [commit3] ...
+#   ./compare_multiple.sh [--skip-exists] [--stress|--integration] <commit1> <commit2> [commit3] ...
 #
 # Options:
 #   --skip-exists, -s    Skip generating gas report if file already exists
 #   --stress             Run stress tests instead of standard metric tests
+#   --integration        Run integration scenario tests (gno.land/r/gnoswap/scenario/integration)
 #
 # This script will:
 #   1. Generate gas reports for each commit
@@ -19,6 +20,7 @@ set -e
 # Parse options
 SKIP_EXISTING=false
 STRESS_MODE=false
+INTEGRATION_MODE=false
 REPORT_ONLY=false
 
 while [[ $# -gt 0 ]]; do
@@ -31,16 +33,21 @@ while [[ $# -gt 0 ]]; do
             STRESS_MODE=true
             shift
             ;;
+        --integration)
+            INTEGRATION_MODE=true
+            shift
+            ;;
         --report-only)
             REPORT_ONLY=true
             shift
             ;;
         --help|-h)
-            echo "Usage: $0 [--skip-exists] [--stress] [--report-only] <commit1> <commit2> [commit3] ..."
+            echo "Usage: $0 [--skip-exists] [--stress|--integration] [--report-only] <commit1> <commit2> [commit3] ..."
             echo ""
             echo "Options:"
             echo "  --skip-exists, -s    Skip generating gas report if file already exists"
             echo "  --stress             Run stress tests instead of standard metric tests"
+            echo "  --integration        Run integration scenario tests instead of metric tests"
             echo "  --report-only        Only generate reports, skip comparisons"
             echo "  --help, -h           Show this help message"
             echo ""
@@ -54,8 +61,13 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ $# -lt 1 ]; then
-    echo "Usage: $0 [--skip-exists] [--stress] [--report-only] <commit1> <commit2> [commit3] ..."
+    echo "Usage: $0 [--skip-exists] [--stress|--integration] [--report-only] <commit1> <commit2> [commit3] ..."
     echo "Example: $0 --skip-exists abc12345"
+    exit 1
+fi
+
+if [ "$STRESS_MODE" = true ] && [ "$INTEGRATION_MODE" = true ]; then
+    echo "Error: --stress and --integration cannot be used together." >&2
     exit 1
 fi
 
@@ -70,6 +82,8 @@ echo "=========================================="
 echo "Processing $COMMIT_COUNT commits..."
 if [ "$STRESS_MODE" = true ]; then
     echo "Mode: STRESS TEST"
+elif [ "$INTEGRATION_MODE" = true ]; then
+    echo "Mode: INTEGRATION"
 else
     echo "Mode: STANDARD METRIC"
 fi
@@ -86,6 +100,9 @@ for commit in "${COMMITS[@]}"; do
     if [ "$STRESS_MODE" = true ]; then
         REPORT_FILE="reports/stress/commits/${commit}.md"
         TARGET="stress-report"
+    elif [ "$INTEGRATION_MODE" = true ]; then
+        REPORT_FILE="reports/integration/commits/${commit}.md"
+        TARGET="integration-report"
     else
         REPORT_FILE="reports/metric/commits/${commit}.md"
         TARGET="gas-report"
@@ -95,7 +112,12 @@ for commit in "${COMMITS[@]}"; do
         echo "Skipping $commit: report already exists ($REPORT_FILE)"
     else
         echo "Generating gas report for commit: $commit"
-        make "$TARGET" "$commit"
+        if ! make "$TARGET" "$commit"; then
+            if [ "$INTEGRATION_MODE" = true ]; then
+                echo "Integration log: reports/integration/logs/${commit}.log" >&2
+            fi
+            exit 1
+        fi
     fi
     echo ""
 done
@@ -117,6 +139,10 @@ for ((i = 0; i < COMMIT_COUNT - 1; i++)); do
         REPORT_CURRENT="reports/stress/commits/${current}.md"
         REPORT_NEXT="reports/stress/commits/${next}.md"
         COMPARE_FILE="reports/stress/compares/diff_${current}_${next}.md"
+    elif [ "$INTEGRATION_MODE" = true ]; then
+        REPORT_CURRENT="reports/integration/commits/${current}.md"
+        REPORT_NEXT="reports/integration/commits/${next}.md"
+        COMPARE_FILE="reports/integration/compares/diff_${current}_${next}.md"
     else
         REPORT_CURRENT="reports/metric/commits/${current}.md"
         REPORT_NEXT="reports/metric/commits/${next}.md"
@@ -151,6 +177,10 @@ if [ $COMMIT_COUNT -gt 2 ]; then
             REPORT_CURRENT="reports/stress/commits/${current}.md"
             REPORT_BASE="reports/stress/commits/${base}.md"
             COMPARE_FILE="reports/stress/compares/diff_${current}_${base}.md"
+        elif [ "$INTEGRATION_MODE" = true ]; then
+            REPORT_CURRENT="reports/integration/commits/${current}.md"
+            REPORT_BASE="reports/integration/commits/${base}.md"
+            COMPARE_FILE="reports/integration/compares/diff_${current}_${base}.md"
         else
             REPORT_CURRENT="reports/metric/commits/${current}.md"
             REPORT_BASE="reports/metric/commits/${base}.md"
@@ -176,6 +206,9 @@ echo "Generated reports:"
 if [ "$STRESS_MODE" = true ]; then
     echo "  - Individual reports: reports/stress/commits/"
     echo "  - Comparison reports: reports/stress/compares/"
+elif [ "$INTEGRATION_MODE" = true ]; then
+    echo "  - Individual reports: reports/integration/commits/"
+    echo "  - Comparison reports: reports/integration/compares/"
 else
     echo "  - Individual reports: reports/metric/commits/"
     echo "  - Comparison reports: reports/metric/compares/"

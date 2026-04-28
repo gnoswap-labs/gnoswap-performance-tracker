@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: help init gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force clean-worktrees research-up research-down research-test research-report compare-research research-compare
+.PHONY: help init gas-report stress-report integration-report metric metric-force stress stress-force integration integration-force make-integration make-integration-force compare-metric compare-metric-force compare-stress compare-stress-force compare-integration compare-integration-force summary summary-force clean-worktrees research-up research-down research-test research-report compare-research research-compare
 
 # Default target
 help:
@@ -9,12 +9,16 @@ help:
 	@echo "  make metric-force <commits>        # Force regenerate all metric reports"
 	@echo "  make stress <commits>              # Generate stress reports (skip existing)"
 	@echo "  make stress-force <commits>        # Force regenerate all stress reports"
+	@echo "  make integration <commits>         # Generate integration reports (skip existing)"
+	@echo "  make integration-force <commits>   # Force regenerate all integration reports"
 	@echo ""
 	@echo "Usage (Compare):"
 	@echo "  make compare-metric <commits>             # Compare metric reports (skip existing)"
 	@echo "  make compare-metric-force <commits>       # Force regenerate metric comparisons"
 	@echo "  make compare-stress <commits>             # Compare stress reports (skip existing)"
 	@echo "  make compare-stress-force <commits>       # Force regenerate stress comparisons"
+	@echo "  make compare-integration <commits>        # Compare integration reports (skip existing)"
+	@echo "  make compare-integration-force <commits>  # Force regenerate integration comparisons"
 	@echo ""
 	@echo "Usage (Summary):"
 	@echo "  make summary                       # Generate summary (skip existing)"
@@ -65,6 +69,16 @@ stress:
 stress-force:
 	@./scripts/compare_multiple.sh --stress --report-only $(ARGS)
 
+integration:
+	@./scripts/compare_multiple.sh --integration --skip-exists --report-only $(ARGS)
+
+integration-force:
+	@./scripts/compare_multiple.sh --integration --report-only $(ARGS)
+
+make-integration: integration
+
+make-integration-force: integration-force
+
 # Compare (Generate if missing + Compare)
 compare-metric:
 	@./scripts/compare_multiple.sh --skip-exists $(ARGS)
@@ -78,6 +92,12 @@ compare-metric-force:
 
 compare-stress-force:
 	@./scripts/compare_multiple.sh --stress $(ARGS)
+
+compare-integration:
+	@./scripts/compare_multiple.sh --integration --skip-exists $(ARGS)
+
+compare-integration-force:
+	@./scripts/compare_multiple.sh --integration $(ARGS)
 
 research-up:
 	@$(MAKE) -C research up GNOSWAP_REF="$(or $(word 2,$(MAKECMDGOALS)),3f2642b8898ae02d14a14c4050d80919f18f3f21)" GNO_RPC_PORT="$(or $(GNO_RPC_PORT),46657)" GNO_REST_PORT="$(or $(GNO_REST_PORT),48888)"
@@ -197,6 +217,39 @@ stress-report:
 		exit "$$test_exit"; \
 	fi; \
 	echo "Report saved to reports/stress/commits/$$SHORT_COMMIT.md"
+
+# Usage: make integration-report [commit]
+integration-report:
+	@set -eu; \
+	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
+	eval "$$(./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
+	LOG_FILE="reports/integration/logs/$$SHORT_COMMIT.log"; \
+	cleanup() { \
+		git -C "$(CURDIR)/gno" worktree remove --force "$$GNO_WORKTREE" >/dev/null 2>&1 || true; \
+		git -C "$(CURDIR)/gno" worktree prune >/dev/null 2>&1 || true; \
+		rm -rf "$$RUN_ROOT"; \
+	}; \
+	trap cleanup EXIT; \
+	(cd "$$GNOSWAP_WORKTREE" && python3 setup.py --exclude-tests -w "$$RUN_ROOT"); \
+	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
+	cp -r tests/metric "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
+	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/integration"; \
+	cp -r tests/integration "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/integration"; \
+	mkdir -p reports/integration/commits reports/integration/logs; \
+	set +e; \
+	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/integration" && gno test . -v -run .) 2>&1 | tee "$$LOG_FILE" | ./scripts/parse_metrics.sh > "reports/integration/commits/$$SHORT_COMMIT.md"; \
+	test_exit=$${PIPESTATUS[0]}; \
+	set -e; \
+	if [ "$$test_exit" -ne 0 ] && [ ! -s "reports/integration/commits/$$SHORT_COMMIT.md" ]; then \
+		echo "Integration run failed before report generation" >&2; \
+		echo "Integration log: $$LOG_FILE" >&2; \
+		exit "$$test_exit"; \
+	fi; \
+	if [ "$$test_exit" -ne 0 ]; then \
+		echo "Integration tests failed, but report was generated." >&2; \
+		echo "Integration log: $$LOG_FILE" >&2; \
+	fi; \
+	echo "Report saved to reports/integration/commits/$$SHORT_COMMIT.md"
 
 # Generate summary report from commit-history.txt
 summary:
