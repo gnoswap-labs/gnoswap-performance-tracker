@@ -127,8 +127,8 @@ parse_table() {
 LATEST_DATA=$(mktemp)
 PREVIOUS_DATA=$(mktemp)
 
-parse_table "$LATEST_FILE" > "$LATEST_DATA"
-parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
+parse_table "$LATEST_FILE" | LC_ALL=C sort -t$'\t' -k1,1 > "$LATEST_DATA"
+parse_table "$PREVIOUS_FILE" | LC_ALL=C sort -t$'\t' -k1,1 > "$PREVIOUS_DATA"
 
 # Generate diff report
 {

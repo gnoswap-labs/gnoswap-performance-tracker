@@ -522,8 +522,21 @@ func iterateMetric(name string, count int32, fn func()) {
 	}
 
 	if isContains {
-		integration.PrintMetricsBy(ufmt.Sprintf("%s (iteration: %d)", name, count), fn)
+		integration.PrintMetricsBy(ufmt.Sprintf("%s (iteration: %s)", name, formatIteration(count)), fn)
 	} else {
 		fn()
 	}
+}
+
+func formatIteration(count int32) string {
+	countStr := strconv.Itoa(int(count))
+
+	if count < 10 {
+		return "00" + countStr
+	}
+	if count < 100 {
+		return "0" + countStr
+	}
+
+	return countStr
 }
