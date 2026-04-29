@@ -189,7 +189,7 @@ stress-report:
 	cp -r tests/stress "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress"; \
 	mkdir -p reports/stress/commits; \
 	set +e; \
-	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/stress/commits/$$SHORT_COMMIT.md"; \
+	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && GNOROOT="$$GNO_WORKTREE" gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/stress/commits/$$SHORT_COMMIT.md"; \
 	test_exit=$${PIPESTATUS[0]}; \
 	set -e; \
 	if [ "$$test_exit" -ne 0 ] && [ ! -s "reports/stress/commits/$$SHORT_COMMIT.md" ]; then \
