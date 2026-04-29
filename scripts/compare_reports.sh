@@ -37,10 +37,50 @@ extract_short_hash() {
     fi
 }
 
-# Detect if this is a stress or metric report
+format_micro_gnot() {
+    local micro="$1"
+    awk -v n="$micro" '
+    function add_commas(num,    s, out, i, len) {
+        s = sprintf("%.0f", num)
+        out = ""
+        len = length(s)
+        for (i = 1; i <= len; i++) {
+            if (i > 1 && (len - i + 1) % 3 == 0) out = out ","
+            out = out substr(s, i, 1)
+        }
+        return out
+    }
+    BEGIN {
+        sign = ""
+        if (n < 0) {
+            sign = "-"
+            n = -n
+        }
+
+        intp = int(n / 1000000)
+        frac = n - (intp * 1000000)
+        frac_str = sprintf("%06d", frac)
+        sub(/0+$/, "", frac_str)
+
+        out = sign add_commas(intp)
+        if (frac_str != "") out = out "." frac_str
+        print out
+    }'
+}
+
+calc_pct() {
+    local diff="$1"
+    local base="$2"
+    awk -v d="$diff" -v b="$base" 'BEGIN { printf "%.2f", (d / b) * 100 }'
+}
+
+# Detect report lane (stress, integration, research, or metric)
 if [[ "$LATEST_FILE" == *"/stress/"* ]]; then
     mkdir -p reports/stress/compares
     OUTPUT_FILE="reports/stress/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
+elif [[ "$LATEST_FILE" == *"/integration/"* ]]; then
+    mkdir -p reports/integration/compares
+    OUTPUT_FILE="reports/integration/compares/diff_${LATEST_COMMIT}_${PREVIOUS_COMMIT}.md"
 elif [[ "$LATEST_FILE" == *"/research/"* ]]; then
     mkdir -p reports/research/compares
     LATEST_COMMIT=$(extract_short_hash "$LATEST_COMMIT")
@@ -96,6 +136,13 @@ parse_table() {
     fi
 
     awk -F'|' '
+    function to_int(v) {
+        gsub(/^[[:space:]]+|[[:space:]]+$/, "", v)
+        gsub(/[^0-9-]/, "", v)
+        if (v == "" || v == "-") return 0
+        return v + 0
+    }
+
     NR > 2 && NF > 1 {
         # Skip header and separator lines
         name = $2
@@ -107,8 +154,10 @@ parse_table() {
         if (seen[name]) next
         seen[name] = 1
         
-        gas = $3; gsub(/[^0-9-]/, "", gas)
-        storage = $4; gsub(/[^0-9-]/, "", storage)
+        raw_gas = to_int($3)
+        raw_storage = to_int($4)
+        gas = int(raw_gas / 1000)              # Gas GNOT micro-units
+        storage = int(raw_storage * 100)       # Storage GNOT micro-units
         cpu = $5; gsub(/[^0-9-]/, "", cpu)
 
         if (gas == "" || gas == "-") gas = 0
@@ -124,8 +173,8 @@ parse_table() {
 LATEST_DATA=$(mktemp)
 PREVIOUS_DATA=$(mktemp)
 
-parse_table "$LATEST_FILE" > "$LATEST_DATA"
-parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
+parse_table "$LATEST_FILE" | LC_ALL=C sort -t$'\t' -k1,1 > "$LATEST_DATA"
+parse_table "$PREVIOUS_FILE" | LC_ALL=C sort -t$'\t' -k1,1 > "$PREVIOUS_DATA"
 
 # Generate diff report
 {
@@ -140,13 +189,12 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
     
     # Process each entry from latest
     while IFS=$'\t' read -r name latest_gas latest_storage latest_cpu; do
-        # Find matching entry in previous
-        prev_line=$(grep "^${name}	" "$PREVIOUS_DATA" 2>/dev/null | head -1)
-        
-        if [ -n "$prev_line" ]; then
-            prev_gas=$(echo "$prev_line" | cut -f2)
-            prev_storage=$(echo "$prev_line" | cut -f3)
-            prev_cpu=$(echo "$prev_line" | cut -f4)
+        # Use exact-key lookup to avoid regex issues in metric names.
+        prev_values=$(awk -F'\t' -v key="$name" '$1 == key { print $2 "\t" $3 "\t" $4; exit }' "$PREVIOUS_DATA")
+        if [ -n "$prev_values" ]; then
+            IFS=$'\t' read -r prev_gas prev_storage prev_cpu <<EOF
+$prev_values
+EOF
         else
             prev_gas=0
             prev_storage=0
@@ -156,17 +204,17 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
         # Calculate changes for Gas Used
         gas_diff=$((latest_gas - prev_gas))
         if [ "$prev_gas" -ne 0 ]; then
-            gas_pct=$(awk "BEGIN {printf \"%.2f\", ($gas_diff / $prev_gas) * 100}")
+            gas_pct=$(calc_pct "$gas_diff" "$prev_gas")
         else
             gas_pct="N/A"
         fi
         
         # Format gas change with sign and emoji
         if [ "$gas_diff" -gt 0 ]; then
-            gas_change="+$(printf "%'d" $gas_diff)"
+            gas_change="+$(format_micro_gnot "$gas_diff")"
             gas_emoji="⚠️"
         elif [ "$gas_diff" -lt 0 ]; then
-            gas_change="$(printf "%'d" $gas_diff)"
+            gas_change="$(format_micro_gnot "$gas_diff")"
             gas_emoji="⚡️"
         else
             gas_change="0"
@@ -183,19 +231,19 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
             prev_abs=${prev_storage#-}  # Remove minus sign
             latest_abs=${latest_storage#-}
             abs_diff=$((latest_abs - prev_abs))
-            storage_pct=$(awk "BEGIN {printf \"%.2f\", ($abs_diff / $prev_abs) * 100}")
+            storage_pct=$(calc_pct "$abs_diff" "$prev_abs")
 
             # More refund (larger absolute value) = improvement
             if [ "$abs_diff" -gt 0 ]; then
-                storage_change="$(printf "%'d" $storage_diff)"
+                storage_change="$(format_micro_gnot "$storage_diff")"
                 storage_emoji="⚡️"
                 # Negate the percentage to show improvement
-                storage_pct=$(awk "BEGIN {printf \"%.2f\", -1 * $storage_pct}")
+                storage_pct=$(awk -v p="$storage_pct" 'BEGIN {printf "%.2f", -1 * p}')
             elif [ "$abs_diff" -lt 0 ]; then
-                storage_change="+$(printf "%'d" ${storage_diff#-})"
+                storage_change="+$(format_micro_gnot "${storage_diff#-}")"
                 storage_emoji="⚠️"
                 # Negate the percentage (it's already negative from abs_diff)
-                storage_pct=$(awk "BEGIN {printf \"%.2f\", -1 * $storage_pct}")
+                storage_pct=$(awk -v p="$storage_pct" 'BEGIN {printf "%.2f", -1 * p}')
             else
                 storage_change="0"
                 storage_emoji=""
@@ -203,7 +251,7 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
         else
             # Normal calculation for positive values
             if [ "$prev_storage" -ne 0 ]; then
-                storage_pct=$(awk "BEGIN {printf \"%.2f\", ($storage_diff / $prev_storage) * 100}")
+                storage_pct=$(calc_pct "$storage_diff" "$prev_storage")
             else
                 if [ "$storage_diff" -ne 0 ]; then
                     storage_pct="N/A"
@@ -213,10 +261,10 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
             fi
 
             if [ "$storage_diff" -gt 0 ]; then
-                storage_change="+$(printf "%'d" $storage_diff)"
+                storage_change="+$(format_micro_gnot "$storage_diff")"
                 storage_emoji="⚠️"
             elif [ "$storage_diff" -lt 0 ]; then
-                storage_change="$(printf "%'d" $storage_diff)"
+                storage_change="$(format_micro_gnot "$storage_diff")"
                 storage_emoji="⚡️"
             else
                 storage_change="0"
@@ -227,7 +275,7 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
         # Calculate changes for CPU Cycles
         cpu_diff=$((latest_cpu - prev_cpu))
         if [ "$prev_cpu" -ne 0 ]; then
-            cpu_pct=$(awk "BEGIN {printf \"%.2f\", ($cpu_diff / $prev_cpu) * 100}")
+            cpu_pct=$(calc_pct "$cpu_diff" "$prev_cpu")
         else
             cpu_pct="N/A"
         fi
@@ -244,16 +292,16 @@ parse_table "$PREVIOUS_FILE" > "$PREVIOUS_DATA"
         fi
         
         # Format numbers with commas
-        latest_gas_fmt=$(printf "%'d" $latest_gas)
-        prev_gas_fmt=$(printf "%'d" $prev_gas)
-        latest_storage_fmt=$(printf "%'d" $latest_storage)
-        prev_storage_fmt=$(printf "%'d" $prev_storage)
+        latest_gas_fmt=$(format_micro_gnot "$latest_gas")
+        prev_gas_fmt=$(format_micro_gnot "$prev_gas")
+        latest_storage_fmt=$(format_micro_gnot "$latest_storage")
+        prev_storage_fmt=$(format_micro_gnot "$prev_storage")
         latest_cpu_fmt=$(printf "%'d" $latest_cpu)
         prev_cpu_fmt=$(printf "%'d" $prev_cpu)
         
         # Output rows for each metric
-        echo "| **$name** | Gas Used | $latest_gas_fmt | $prev_gas_fmt | $gas_change | $gas_emoji ${gas_pct}% |"
-        echo "| | Storage Diff | $latest_storage_fmt | $prev_storage_fmt | $storage_change | $storage_emoji ${storage_pct}% |"
+        echo "| **$name** | Gas Used (GNOT) | $latest_gas_fmt | $prev_gas_fmt | $gas_change | $gas_emoji ${gas_pct}% |"
+        echo "| | Storage Diff (GNOT) | $latest_storage_fmt | $prev_storage_fmt | $storage_change | $storage_emoji ${storage_pct}% |"
         echo "| | CPU Cycles | $latest_cpu_fmt | $prev_cpu_fmt | $cpu_change | $cpu_emoji ${cpu_pct}% |"
         
     done < "$LATEST_DATA"
