@@ -149,12 +149,8 @@ for ((i = 0; i < COMMIT_COUNT - 1; i++)); do
         COMPARE_FILE="reports/metric/compares/diff_${current}_${next}.md"
     fi
 
-    if [[ -f "$COMPARE_FILE" && "$SKIP_EXISTING" = true ]]; then
-        echo "Skipping comparison: $current -> $next (already exists: $COMPARE_FILE)"
-    else
-        echo "Comparing: $current -> $next"
-        ./scripts/compare_reports.sh "$REPORT_CURRENT" "$REPORT_NEXT"
-    fi
+    echo "Comparing: $current -> $next"
+    ./scripts/compare_reports.sh "$REPORT_CURRENT" "$REPORT_NEXT"
     echo ""
 done
 
@@ -186,13 +182,9 @@ if [ $COMMIT_COUNT -gt 2 ]; then
             REPORT_BASE="reports/metric/commits/${base}.md"
             COMPARE_FILE="reports/metric/compares/diff_${current}_${base}.md"
         fi
-
-        if [[ -f "$COMPARE_FILE" && "$SKIP_EXISTING" = true ]]; then
-            echo "Skipping comparison: $current -> $base (already exists: $COMPARE_FILE)"
-        else
-            echo "Comparing: $current -> $base"
-            ./scripts/compare_reports.sh "$REPORT_CURRENT" "$REPORT_BASE"
-        fi
+        
+        echo "Comparing: $current -> $base"
+        ./scripts/compare_reports.sh "$REPORT_CURRENT" "$REPORT_BASE"
         echo ""
     done
 fi
