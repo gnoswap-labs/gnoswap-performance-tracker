@@ -86,6 +86,7 @@ var (
 
 	// Shared addresses for gov / launchpad phases.
 	govAliceAddr      = testutils.TestAddress("gov-alice")
+	govBobAddr        = testutils.TestAddress("gov-bob")
 	launchpadUserAddr = testutils.TestAddress("lp-user")
 	launchpadUserRlm  = testing.NewUserRealm(launchpadUserAddr)
 	projectOwnerAddr  = testutils.TestAddress("project-owner")
@@ -159,13 +160,16 @@ func main() {
 	initializeGovStakerPhase()
 	for i := int32(0); i < iterations; i++ {
 		count := i + int32(1)
-		govDelegateMetric(count)
+		govDelegateMetric(adminAddr, govAliceAddr, count)
 		testing.SkipHeights(1)
 	}
 
+	govDelegateMetric(govBobAddr, govAliceAddr, 1)
+	govDelegateMetric(adminAddr, govBobAddr, 1)
+
 	for i := int32(0); i < iterations; i++ {
 		count := i + int32(1)
-		govUndelegateMetric(count)
+		govUndelegateMetric(adminAddr, govAliceAddr, count)
 		testing.SkipHeights(1)
 	}
 
@@ -373,21 +377,43 @@ func stakerCollectRewardMetric(count int32) {
 func initializeGovStakerPhase() {
 	testing.SetRealm(adminRealm)
 	gns.Approve(cross, govStakerAddr, maxInt64)
+	gns.Transfer(cross, govBobAddr, 10000000000)
+	gns.Transfer(cross, govAliceAddr, 10000000000)
+
+	testing.SetRealm(testing.NewUserRealm(govBobAddr))
+	gns.Approve(cross, govStakerAddr, maxInt64)
+
+	testing.SetRealm(testing.NewUserRealm(govAliceAddr))
+	gns.Approve(cross, govStakerAddr, maxInt64)
+
 	testing.SkipHeights(1)
 }
 
-func govDelegateMetric(count int32) {
-	testing.SetRealm(adminRealm)
-	iterateMetric("07. GovStaker Delegate", count, func() {
-		govstaker.Delegate(cross, govAliceAddr, govDelegateAmount, "")
+func govDelegateMetric(from, to address, count int32) {
+	testing.SetRealm(testing.NewUserRealm(from))
+	iterateMetric("07. GovStaker Delegate (from: "+mapGovName(from)+" to: "+mapGovName(to)+")", count, func() {
+		govstaker.Delegate(cross, to, govDelegateAmount, "")
 	})
 }
 
-func govUndelegateMetric(count int32) {
-	testing.SetRealm(adminRealm)
-	iterateMetric("08. GovStaker Undelegate", count, func() {
-		govstaker.Undelegate(cross, govAliceAddr, govUndelegateAmount)
+func govUndelegateMetric(from, to address, count int32) {
+	testing.SetRealm(testing.NewUserRealm(from))
+	iterateMetric("08. GovStaker Undelegate (from: "+mapGovName(from)+" to: "+mapGovName(to)+")", count, func() {
+		govstaker.Undelegate(cross, to, govUndelegateAmount)
 	})
+}
+
+func mapGovName(addr address) string {
+	switch addr {
+	case govBobAddr:
+		return "gov-bob"
+	case govAliceAddr:
+		return "gov-alice"
+	case adminAddr:
+		return "admin"
+	}
+
+	return addr.String()
 }
 
 func accumulateProtocolFee() {
