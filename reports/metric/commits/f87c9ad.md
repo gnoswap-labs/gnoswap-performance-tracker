@@ -73,7 +73,34 @@
 | ExactOutSwapRoute(grc20) - fee:100 | 31,009,303 | 9,149 | 28,487,596 |
 | ExactOutSwapRoute(grc20) - fee:3000 | 26,608,252 | 9,047 | 24,008,962 |
 | ExactOutSwapRoute(grc20) - fee:500 | 26,370,817 | 9,045 | 23,853,028 |
-| ExactInSwapRoute tick cross 100 ticks with 100 positions | 1,257,796,364 | 911,202 | 1,238,732,954 |
+| ExactInSwapRoute tick cross 0 ticks with 0 positions (tier: 100) | 3,881,832,245 | 102,783 | 3,880,359,356 |
+| ExactInSwapRoute tick cross 0 ticks with 0 positions (tier: 500) | 408,770,000 | 9,594 | 408,480,965 |
+| ExactInSwapRoute tick cross 0 ticks with 0 positions (tier: 3000) | 85,610,295 | 1,748 | 85,344,639 |
+| ExactInSwapRoute tick cross 0 ticks with 0 positions (tier: 10000) | 43,379,653 | 705 | 43,117,111 |
+| ExactInSwapRoute tick cross 1000 ticks with 1000 positions (tier: 100) | 16,211,465,364 | 9,064,810 | 15,239,559,348 |
+| ExactInSwapRoute tick cross 1000 ticks with 1000 positions (tier: 500) | 12,963,854,979 | 8,965,602 | 11,993,059,233 |
+| ExactInSwapRoute tick cross 1000 ticks with 1000 positions (tier: 3000) | 12,793,705,895 | 8,959,651 | 11,822,773,943 |
+| ExactInSwapRoute tick cross 1000 ticks with 1000 positions (tier: 10000) | 12,884,496,848 | 8,960,788 | 11,913,557,732 |
+| ExactInSwapRoute tick cross 100 ticks with 100 positions (tier: 100) | 5,012,956,163 | 1,005,877 | 4,993,507,490 |
+| ExactInSwapRoute tick cross 100 ticks with 100 positions (tier: 500) | 1,567,997,972 | 905,431 | 1,549,761,560 |
+| ExactInSwapRoute tick cross 100 ticks with 100 positions (tier: 3000) | 1,257,503,328 | 897,692 | 1,239,280,410 |
+| ExactInSwapRoute tick cross 100 ticks with 100 positions (tier: 10000) | 1,220,938,299 | 896,494 | 1,202,717,808 |
+| ExactInSwapRoute tick cross 1 ticks with 1 positions (tier: 100) | 3,902,946,909 | 121,481 | 3,901,158,297 |
+| ExactInSwapRoute tick cross 1 ticks with 1 positions (tier: 500) | 431,296,783 | 20,758 | 430,741,048 |
+| ExactInSwapRoute tick cross 1 ticks with 1 positions (tier: 3000) | 108,491,457 | 12,919 | 107,959,098 |
+| ExactInSwapRoute tick cross 1 ticks with 1 positions (tier: 10000) | 65,626,763 | 11,881 | 65,097,494 |
+| ExactInSwapRoute tick cross 250 ticks with 250 positions (tier: 100) | 6,760,286,330 | 2,346,035 | 6,678,348,731 |
+| ExactInSwapRoute tick cross 250 ticks with 250 positions (tier: 500) | 3,343,445,330 | 2,245,489 | 3,262,679,696 |
+| ExactInSwapRoute tick cross 250 ticks with 250 positions (tier: 3000) | 3,059,932,087 | 2,237,820 | 2,979,188,575 |
+| ExactInSwapRoute tick cross 250 ticks with 250 positions (tier: 10000) | 3,031,563,816 | 2,236,948 | 2,950,817,463 |
+| ExactInSwapRoute tick cross 500 ticks with 500 positions (tier: 100) | 9,787,417,044 | 4,589,312 | 9,513,623,496 |
+| ExactInSwapRoute tick cross 500 ticks with 500 positions (tier: 500) | 6,422,881,562 | 4,489,037 | 6,150,249,008 |
+| ExactInSwapRoute tick cross 500 ticks with 500 positions (tier: 3000) | 6,188,377,488 | 4,481,547 | 5,915,757,495 |
+| ExactInSwapRoute tick cross 500 ticks with 500 positions (tier: 10000) | 6,197,279,546 | 4,481,152 | 5,924,615,258 |
+| ExactInSwapRoute tick cross 50 ticks with 50 positions (tier: 100) | 4,448,352,276 | 558,937 | 4,438,407,063 |
+| ExactInSwapRoute tick cross 50 ticks with 50 positions (tier: 500) | 989,346,377 | 458,268 | 980,616,785 |
+| ExactInSwapRoute tick cross 50 ticks with 50 positions (tier: 3000) | 673,253,783 | 450,513 | 664,546,541 |
+| ExactInSwapRoute tick cross 50 ticks with 50 positions (tier: 10000) | 632,865,029 | 449,556 | 624,156,503 |
 | BuildSingleHopRoutePath | 206,648 | 0 | 54,830 |
 | MultiHop ExactIn (2 hops) | 47,668,924 | 9,265 | 46,542,658 |
 | MultiHop ExactOut (2 hops) | 70,072,967 | 73 | 69,811,652 |

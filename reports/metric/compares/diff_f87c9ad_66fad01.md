@@ -107,9 +107,90 @@
 | **ExactInSingleSwapRoute(grc20) - fee:500** | Gas Used (GNOT) | 0.025244 | 0.025374 | -0.00013 | ⚡️ -0.51% |
 | | Storage Diff (GNOT) | 0.9045 | 0.9045 | 0 |  0.00% |
 | | CPU Cycles | 22,722,146 | 22,849,311 | -127,165 | ⚡️ -0.56% |
-| **ExactInSwapRoute tick cross 100 ticks with 100 positions** | Gas Used (GNOT) | 1.257796 | 1.276412 | -0.018616 | ⚡️ -1.46% |
-| | Storage Diff (GNOT) | 91.1202 | 91.1202 | 0 |  0.00% |
-| | CPU Cycles | 1,238,732,954 | 1,257,344,410 | -18,611,456 | ⚡️ -1.48% |
+| **ExactInSwapRoute tick cross 0 ticks with 0 positions (tier: 100)** | Gas Used (GNOT) | 3.881832 | 3.881961 | -0.000129 | ⚡️ -0.00% |
+| | Storage Diff (GNOT) | 10.2783 | 10.2783 | 0 |  0.00% |
+| | CPU Cycles | 3,880,359,356 | 3,880,487,108 | -127,752 | ⚡️ -0.00% |
+| **ExactInSwapRoute tick cross 0 ticks with 0 positions (tier: 10000)** | Gas Used (GNOT) | 0.043379 | 0.043507 | -0.000128 | ⚡️ -0.29% |
+| | Storage Diff (GNOT) | 0.0705 | 0.0705 | 0 |  0.00% |
+| | CPU Cycles | 43,117,111 | 43,244,863 | -127,752 | ⚡️ -0.30% |
+| **ExactInSwapRoute tick cross 0 ticks with 0 positions (tier: 3000)** | Gas Used (GNOT) | 0.08561 | 0.085738 | -0.000128 | ⚡️ -0.15% |
+| | Storage Diff (GNOT) | 0.1748 | 0.1748 | 0 |  0.00% |
+| | CPU Cycles | 85,344,639 | 85,472,391 | -127,752 | ⚡️ -0.15% |
+| **ExactInSwapRoute tick cross 0 ticks with 0 positions (tier: 500)** | Gas Used (GNOT) | 0.40877 | 0.408897 | -0.000127 | ⚡️ -0.03% |
+| | Storage Diff (GNOT) | 0.9594 | 0.9594 | 0 |  0.00% |
+| | CPU Cycles | 408,480,965 | 408,608,717 | -127,752 | ⚡️ -0.03% |
+| **ExactInSwapRoute tick cross 1 ticks with 1 positions (tier: 100)** | Gas Used (GNOT) | 3.902946 | 3.903216 | -0.00027 | ⚡️ -0.01% |
+| | Storage Diff (GNOT) | 12.1481 | 12.1481 | 0 |  0.00% |
+| | CPU Cycles | 3,901,158,297 | 3,901,422,749 | -264,452 | ⚡️ -0.01% |
+| **ExactInSwapRoute tick cross 1 ticks with 1 positions (tier: 10000)** | Gas Used (GNOT) | 0.065626 | 0.065886 | -0.00026 | ⚡️ -0.39% |
+| | Storage Diff (GNOT) | 1.1881 | 1.1881 | 0 |  0.00% |
+| | CPU Cycles | 65,097,494 | 65,357,672 | -260,178 | ⚡️ -0.40% |
+| **ExactInSwapRoute tick cross 1 ticks with 1 positions (tier: 3000)** | Gas Used (GNOT) | 0.108491 | 0.108754 | -0.000263 | ⚡️ -0.24% |
+| | Storage Diff (GNOT) | 1.2919 | 1.2919 | 0 |  0.00% |
+| | CPU Cycles | 107,959,098 | 108,222,527 | -263,429 | ⚡️ -0.24% |
+| **ExactInSwapRoute tick cross 1 ticks with 1 positions (tier: 500)** | Gas Used (GNOT) | 0.431296 | 0.431561 | -0.000265 | ⚡️ -0.06% |
+| | Storage Diff (GNOT) | 2.0758 | 2.0758 | 0 |  0.00% |
+| | CPU Cycles | 430,741,048 | 431,005,500 | -264,452 | ⚡️ -0.06% |
+| **ExactInSwapRoute tick cross 100 ticks with 100 positions (tier: 100)** | Gas Used (GNOT) | 5.012956 | 5.031674 | -0.018718 | ⚡️ -0.37% |
+| | Storage Diff (GNOT) | 100.5877 | 100.5877 | 0 |  0.00% |
+| | CPU Cycles | 4,993,507,490 | 5,012,221,494 | -18,714,004 | ⚡️ -0.37% |
+| **ExactInSwapRoute tick cross 100 ticks with 100 positions (tier: 10000)** | Gas Used (GNOT) | 1.220938 | 1.239226 | -0.018288 | ⚡️ -1.48% |
+| | Storage Diff (GNOT) | 89.6494 | 89.6494 | 0 |  0.00% |
+| | CPU Cycles | 1,202,717,808 | 1,221,006,296 | -18,288,488 | ⚡️ -1.50% |
+| **ExactInSwapRoute tick cross 100 ticks with 100 positions (tier: 3000)** | Gas Used (GNOT) | 1.257503 | 1.276115 | -0.018612 | ⚡️ -1.46% |
+| | Storage Diff (GNOT) | 89.7692 | 89.7692 | 0 |  0.00% |
+| | CPU Cycles | 1,239,280,410 | 1,257,893,066 | -18,612,656 | ⚡️ -1.48% |
+| **ExactInSwapRoute tick cross 100 ticks with 100 positions (tier: 500)** | Gas Used (GNOT) | 1.567997 | 1.586712 | -0.018715 | ⚡️ -1.18% |
+| | Storage Diff (GNOT) | 90.5431 | 90.5431 | 0 |  0.00% |
+| | CPU Cycles | 1,549,761,560 | 1,568,476,552 | -18,714,992 | ⚡️ -1.19% |
+| **ExactInSwapRoute tick cross 1000 ticks with 1000 positions (tier: 100)** | Gas Used (GNOT) | 16.211465 | 16.414751 | -0.203286 | ⚡️ -1.24% |
+| | Storage Diff (GNOT) | 906.481 | 906.481 | 0 |  0.00% |
+| | CPU Cycles | 15,239,559,348 | 15,442,840,693 | -203,281,345 | ⚡️ -1.32% |
+| **ExactInSwapRoute tick cross 1000 ticks with 1000 positions (tier: 10000)** | Gas Used (GNOT) | 12.884496 | 13.083548 | -0.199052 | ⚡️ -1.52% |
+| | Storage Diff (GNOT) | 896.0788 | 896.0788 | 0 |  0.00% |
+| | CPU Cycles | 11,913,557,732 | 12,112,609,589 | -199,051,857 | ⚡️ -1.64% |
+| **ExactInSwapRoute tick cross 1000 ticks with 1000 positions (tier: 3000)** | Gas Used (GNOT) | 12.793705 | 12.995991 | -0.202286 | ⚡️ -1.56% |
+| | Storage Diff (GNOT) | 895.9651 | 895.9651 | 0 |  0.00% |
+| | CPU Cycles | 11,822,773,943 | 12,025,059,048 | -202,285,105 | ⚡️ -1.68% |
+| **ExactInSwapRoute tick cross 1000 ticks with 1000 positions (tier: 500)** | Gas Used (GNOT) | 12.963854 | 13.16715 | -0.203296 | ⚡️ -1.54% |
+| | Storage Diff (GNOT) | 896.5602 | 896.5602 | 0 |  0.00% |
+| | CPU Cycles | 11,993,059,233 | 12,196,354,434 | -203,295,201 | ⚡️ -1.67% |
+| **ExactInSwapRoute tick cross 250 ticks with 250 positions (tier: 100)** | Gas Used (GNOT) | 6.760286 | 6.807518 | -0.047232 | ⚡️ -0.69% |
+| | Storage Diff (GNOT) | 234.6035 | 234.6035 | 0 |  0.00% |
+| | CPU Cycles | 6,678,348,731 | 6,725,576,623 | -47,227,892 | ⚡️ -0.70% |
+| **ExactInSwapRoute tick cross 250 ticks with 250 positions (tier: 10000)** | Gas Used (GNOT) | 3.031563 | 3.07773 | -0.046167 | ⚡️ -1.50% |
+| | Storage Diff (GNOT) | 223.6948 | 223.6948 | 0 |  0.00% |
+| | CPU Cycles | 2,950,817,463 | 2,996,983,667 | -46,166,204 | ⚡️ -1.54% |
+| **ExactInSwapRoute tick cross 250 ticks with 250 positions (tier: 3000)** | Gas Used (GNOT) | 3.059932 | 3.106907 | -0.046975 | ⚡️ -1.51% |
+| | Storage Diff (GNOT) | 223.782 | 223.782 | 0 |  0.00% |
+| | CPU Cycles | 2,979,188,575 | 3,026,164,137 | -46,975,562 | ⚡️ -1.55% |
+| **ExactInSwapRoute tick cross 250 ticks with 250 positions (tier: 500)** | Gas Used (GNOT) | 3.343445 | 3.390675 | -0.04723 | ⚡️ -1.39% |
+| | Storage Diff (GNOT) | 224.5489 | 224.5489 | 0 |  0.00% |
+| | CPU Cycles | 3,262,679,696 | 3,309,910,144 | -47,230,448 | ⚡️ -1.43% |
+| **ExactInSwapRoute tick cross 50 ticks with 50 positions (tier: 100)** | Gas Used (GNOT) | 4.448352 | 4.457772 | -0.00942 | ⚡️ -0.21% |
+| | Storage Diff (GNOT) | 55.8937 | 55.8937 | 0 |  0.00% |
+| | CPU Cycles | 4,438,407,063 | 4,447,822,141 | -9,415,078 | ⚡️ -0.21% |
+| **ExactInSwapRoute tick cross 50 ticks with 50 positions (tier: 10000)** | Gas Used (GNOT) | 0.632865 | 0.642067 | -0.009202 | ⚡️ -1.43% |
+| | Storage Diff (GNOT) | 44.9556 | 44.9556 | 0 |  0.00% |
+| | CPU Cycles | 624,156,503 | 633,358,681 | -9,202,178 | ⚡️ -1.45% |
+| **ExactInSwapRoute tick cross 50 ticks with 50 positions (tier: 3000)** | Gas Used (GNOT) | 0.673253 | 0.682618 | -0.009365 | ⚡️ -1.37% |
+| | Storage Diff (GNOT) | 45.0513 | 45.0513 | 0 |  0.00% |
+| | CPU Cycles | 664,546,541 | 673,911,237 | -9,364,696 | ⚡️ -1.39% |
+| **ExactInSwapRoute tick cross 50 ticks with 50 positions (tier: 500)** | Gas Used (GNOT) | 0.989346 | 0.998761 | -0.009415 | ⚡️ -0.94% |
+| | Storage Diff (GNOT) | 45.8268 | 45.8268 | 0 |  0.00% |
+| | CPU Cycles | 980,616,785 | 990,032,159 | -9,415,374 | ⚡️ -0.95% |
+| **ExactInSwapRoute tick cross 500 ticks with 500 positions (tier: 100)** | Gas Used (GNOT) | 9.787417 | 9.884168 | -0.096751 | ⚡️ -0.98% |
+| | Storage Diff (GNOT) | 458.9312 | 458.9312 | 0 |  0.00% |
+| | CPU Cycles | 9,513,623,496 | 9,610,370,013 | -96,746,517 | ⚡️ -1.01% |
+| **ExactInSwapRoute tick cross 500 ticks with 500 positions (tier: 10000)** | Gas Used (GNOT) | 6.197279 | 6.291907 | -0.094628 | ⚡️ -1.50% |
+| | Storage Diff (GNOT) | 448.1152 | 448.1152 | 0 |  0.00% |
+| | CPU Cycles | 5,924,615,258 | 6,019,243,699 | -94,628,441 | ⚡️ -1.57% |
+| **ExactInSwapRoute tick cross 500 ticks with 500 positions (tier: 3000)** | Gas Used (GNOT) | 6.188377 | 6.284627 | -0.09625 | ⚡️ -1.53% |
+| | Storage Diff (GNOT) | 448.1547 | 448.1547 | 0 |  0.00% |
+| | CPU Cycles | 5,915,757,495 | 6,012,007,384 | -96,249,889 | ⚡️ -1.60% |
+| **ExactInSwapRoute tick cross 500 ticks with 500 positions (tier: 500)** | Gas Used (GNOT) | 6.422881 | 6.519632 | -0.096751 | ⚡️ -1.48% |
+| | Storage Diff (GNOT) | 448.9037 | 448.9037 | 0 |  0.00% |
+| | CPU Cycles | 6,150,249,008 | 6,247,000,421 | -96,751,413 | ⚡️ -1.55% |
 | **ExactInSwapRoute(grc20) - fee:100** | Gas Used (GNOT) | 0.029291 | 0.029421 | -0.00013 | ⚡️ -0.44% |
 | | Storage Diff (GNOT) | 0.9149 | 0.9149 | 0 |  0.00% |
 | | CPU Cycles | 26,772,312 | 26,899,477 | -127,165 | ⚡️ -0.47% |

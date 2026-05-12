@@ -51,7 +51,7 @@ var (
 	maxInt64 int64 = 9223372036854775807
 )
 
-const positionCount = 100
+const positionCount = 1000
 
 var (
 	tierTickSpacings = map[uint32]int32{100: 1, 500: 10, 3000: 60, 10000: 200}
