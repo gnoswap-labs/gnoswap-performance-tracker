@@ -97,7 +97,6 @@ func mintPosition() {
 		"1",
 		9999999999,
 		aliceAddr,
-		aliceAddr,
 		"",
 	)
 }

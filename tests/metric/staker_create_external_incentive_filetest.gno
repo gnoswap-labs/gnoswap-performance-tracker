@@ -84,7 +84,7 @@ func mintPositionMetric() {
 	bar.Approve(cross, poolAddr, maxInt64)
 	foo.Approve(cross, poolAddr, maxInt64)
 
-	position.Mint(cross, barPath, fooPath, 100, -1, 1, "5000000", "5000000", "0", "0", time.Now().Unix()+3600, aliceAddr, aliceAddr, "")
+	position.Mint(cross, barPath, fooPath, 100, -1, 1, "5000000", "5000000", "0", "0", time.Now().Unix()+3600, aliceAddr, "")
 }
 
 func createExternalIncentiveMetric() {

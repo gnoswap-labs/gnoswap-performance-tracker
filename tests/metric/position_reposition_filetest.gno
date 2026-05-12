@@ -92,7 +92,6 @@ func mintInitialPosition() {
 		"0",
 		9999999999,
 		aliceAddr,
-		aliceAddr,
 		"",
 	)
 }
@@ -128,7 +127,6 @@ func mintNewPositionMetric() {
 			"0",
 			"0",
 			9999999999,
-			aliceAddr,
 			aliceAddr,
 			"",
 		)

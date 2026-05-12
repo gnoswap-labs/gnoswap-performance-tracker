@@ -113,8 +113,12 @@ for commit in "${COMMITS[@]}"; do
     else
         echo "Generating gas report for commit: $commit"
         if ! make "$TARGET" "$commit"; then
-            if [ "$INTEGRATION_MODE" = true ]; then
+            if [ "$STRESS_MODE" = true ]; then
+                echo "Stress log: reports/stress/logs/${commit}.log" >&2
+            elif [ "$INTEGRATION_MODE" = true ]; then
                 echo "Integration log: reports/integration/logs/${commit}.log" >&2
+            else
+                echo "Metric log: reports/metric/logs/${commit}.log" >&2
             fi
             exit 1
         fi

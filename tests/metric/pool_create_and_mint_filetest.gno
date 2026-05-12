@@ -93,7 +93,6 @@ func mintPositionMetric() {
 			"1",
 			9999999999,
 			adminAddr,
-			adminAddr,
 			"",
 		)
 	})

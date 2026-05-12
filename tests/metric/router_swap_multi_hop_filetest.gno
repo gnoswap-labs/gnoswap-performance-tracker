@@ -153,7 +153,6 @@ func mintPositions() {
 		"0",
 		9999999999,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 
@@ -170,7 +169,6 @@ func mintPositions() {
 		"0",
 		"0",
 		9999999999,
-		adminAddr,
 		adminAddr,
 		"",
 	)
@@ -189,7 +187,6 @@ func mintPositions() {
 		"0",
 		9999999999,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 
@@ -207,7 +204,6 @@ func mintPositions() {
 		"0",
 		9999999999,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 
@@ -224,7 +220,6 @@ func mintPositions() {
 		"0",
 		"0",
 		9999999999,
-		adminAddr,
 		adminAddr,
 		"",
 	)
