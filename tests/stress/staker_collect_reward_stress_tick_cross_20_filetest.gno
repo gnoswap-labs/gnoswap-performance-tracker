@@ -5,6 +5,7 @@
 package main
 
 import (
+	"gno.land/p/gnoswap/gnsmath"
 	"strconv"
 	"testing"
 	"time"
@@ -55,56 +56,56 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	createPoolAndSetTier()
+func main(cur realm) {
+	initializeSetup(cur)
+	createPoolAndSetTier(cur)
 
-	mintAndStakePositions()
-	mintPositionWithFullRange()
+	mintAndStakePositions(cur)
+	mintPositionWithFullRange(cur)
 
 	// Run tests for different position counts
 	for i := int64(0); i < iterations; i++ {
 		println(ufmt.Sprintf("swap with cross range (%d/%d) - position %d", i+1, iterations, i+1))
-		swapWithCrossRange()
+		swapWithCrossRange(cur)
 	}
 
 	testing.SkipHeights(600000)
-	collectRewardMetric(1, iterations)
+	collectRewardMetric(cur, 1, iterations)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
-	router.SetSwapFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
+	router.SetSwapFee(cross(cur), 0)
 
 	testing.SetRealm(adminRealm)
-	bar.Approve(cross, poolAddr, maxInt64)
-	foo.Approve(cross, poolAddr, maxInt64)
-	bar.Approve(cross, stakerAddr, maxInt64)
-	foo.Approve(cross, stakerAddr, maxInt64)
-	bar.Approve(cross, routerAddr, maxInt64)
-	foo.Approve(cross, routerAddr, maxInt64)
+	bar.Approve(cross(cur), poolAddr, maxInt64)
+	foo.Approve(cross(cur), poolAddr, maxInt64)
+	bar.Approve(cross(cur), stakerAddr, maxInt64)
+	foo.Approve(cross(cur), stakerAddr, maxInt64)
+	bar.Approve(cross(cur), routerAddr, maxInt64)
+	foo.Approve(cross(cur), routerAddr, maxInt64)
 
-	emission.SetDistributionStartTime(cross, time.Now().Unix()+1)
+	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
 	testing.SkipHeights(1)
 }
 
-func createPoolAndSetTier() {
+func createPoolAndSetTier(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.CreatePool(cross, barPath, fooPath, 3000, common.TickMathGetSqrtRatioAtTick(0).ToString())
+	pool.CreatePool(cross(cur), barPath, fooPath, 3000, gnsmath.TickMathGetSqrtRatioAtTick(0).ToString())
 
 	poolPath := barPath + ":" + fooPath + ":3000"
-	staker.SetPoolTier(cross, poolPath, 1)
+	staker.SetPoolTier(cross(cur), poolPath, 1)
 }
 
-func mintAndStakePositions() uint64 {
+func mintAndStakePositions(cur realm) uint64 {
 	testing.SetRealm(adminRealm)
 
 	startTokenId := uint64(1)
 
 	// Mint position with different tick ranges to simulate real scenarios
 	tokenId, _, _, _ := position.Mint(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		3000,
@@ -116,22 +117,21 @@ func mintAndStakePositions() uint64 {
 		"0",
 		time.Now().Unix()+3600,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 
 	// Approve and stake
-	gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.FormatUint(tokenId, 10)))
-	staker.StakeToken(cross, tokenId, "")
+	gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.FormatUint(tokenId, 10)))
+	staker.StakeToken(cross(cur), tokenId, "")
 
 	return startTokenId
 }
 
-func mintPositionWithFullRange() {
+func mintPositionWithFullRange(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	position.Mint(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		3000,
@@ -143,31 +143,30 @@ func mintPositionWithFullRange() {
 		"0",
 		time.Now().Unix()+3600,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 }
 
-func swapWithCrossRange() {
+func swapWithCrossRange(cur realm) {
 	testing.SetRealm(testing.NewCodeRealm("gno.land/r/gnoswap/router"))
 	pool.Swap(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		3000,
 		adminAddr,
 		false,
 		"-500000",
-		common.TickMathGetSqrtRatioAtTick(887220).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(887220).ToString(),
 		adminAddr,
 		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
 			testing.SetRealm(adminRealm)
 			if amount0Delta > 0 {
-				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)
+				common.SafeGRC20Transfer(cross(cur), barPath, poolAddr, amount0Delta)
 			}
 
 			if amount1Delta > 0 {
-				common.SafeGRC20Transfer(cross, fooPath, poolAddr, amount1Delta)
+				common.SafeGRC20Transfer(cross(cur), fooPath, poolAddr, amount1Delta)
 			}
 			return nil
 		},
@@ -177,23 +176,23 @@ func swapWithCrossRange() {
 	beforeTick := pool.GetSlot0Tick(poolPath)
 
 	pool.Swap(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		3000,
 		adminAddr,
 		true,
 		"501505",
-		common.TickMathGetSqrtRatioAtTick(-887220).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(-887220).ToString(),
 		adminAddr,
 		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
 			testing.SetRealm(adminRealm)
 			if amount0Delta > 0 {
-				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)
+				common.SafeGRC20Transfer(cross(cur), barPath, poolAddr, amount0Delta)
 			}
 
 			if amount1Delta > 0 {
-				common.SafeGRC20Transfer(cross, fooPath, poolAddr, amount1Delta)
+				common.SafeGRC20Transfer(cross(cur), fooPath, poolAddr, amount1Delta)
 			}
 			return nil
 		},
@@ -203,10 +202,10 @@ func swapWithCrossRange() {
 	println(ufmt.Sprintf("(in range) pool current tick: %d -> %d", beforeTick, pool.GetSlot0Tick(poolPath)))
 }
 
-func collectRewardMetric(tokenId uint64, iterations int64) {
+func collectRewardMetric(cur realm, tokenId uint64, iterations int64) {
 	testing.SetRealm(adminRealm)
 
 	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward tick cross (iterations=%d)", iterations), func() {
-		staker.CollectReward(cross, tokenId)
+		staker.CollectReward(cross(cur), tokenId)
 	})
 }

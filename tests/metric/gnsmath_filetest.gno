@@ -5,9 +5,9 @@ package main
 import (
 	"testing"
 
+	"gno.land/p/gnoswap/gnsmath"
 	i256 "gno.land/p/gnoswap/int256"
 	u256 "gno.land/p/gnoswap/uint256"
-	"gno.land/p/gnoswap/gnsmath"
 	"gno.land/r/gnoswap/scenario/metric"
 )
 
@@ -58,3 +58,17 @@ func TestSwapMathComputeSwapStep() {
 		)
 	})
 }
+
+// Output:
+// GetAmount0Delta
+// - Gas Used: 3799290
+// - Storage Diff: 0
+// - CPU Cycles: 3326245
+// GetAmount1Delta
+// - Gas Used: 2439253
+// - Storage Diff: 0
+// - CPU Cycles: 2275741
+// SwapMathComputeSwapStep
+// - Gas Used: 4458177
+// - Storage Diff: 0
+// - CPU Cycles: 4152456

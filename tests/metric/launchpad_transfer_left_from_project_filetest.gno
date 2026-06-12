@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for launchpad TransferLeftFromProjectByAdmin
 // Test cases based on gnoswap/contract/r/scenario/launchpad/launchpad_refund_ended_project_no_deposit_filetest.gno
 package main
@@ -34,23 +36,23 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	projectId := createLaunchpadProject()
+func main(cur realm) {
+	initializeSetup(cur)
+	projectId := createLaunchpadProject(cur)
 	skipToProjectEnd()
-	transferLeftFromProjectMetric(projectId)
+	transferLeftFromProjectMetric(cur, projectId)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	obl.Approve(cross, launchpadAddr, maxInt64)
+	obl.Approve(cross(cur), launchpadAddr, maxInt64)
 }
 
-func createLaunchpadProject() string {
+func createLaunchpadProject(cur realm) string {
 	testing.SetRealm(adminRealm)
 
 	projectId := launchpad.CreateProject(
-		cross,
+		cross(cur),
 		"OBL Launchpad Project",
 		"gno.land/r/onbloc/obl",
 		projectAddr,
@@ -74,10 +76,16 @@ func skipToProjectEnd() {
 	testing.SkipHeights(projectDurationSeconds/blockTimeSeconds + 1)
 }
 
-func transferLeftFromProjectMetric(projectId string) {
+func transferLeftFromProjectMetric(cur realm, projectId string) {
 	testing.SetRealm(adminRealm)
 
 	metric.PrintMetricsBy("Launchpad TransferLeftFromProjectByAdmin", func() {
-		_ = launchpad.TransferLeftFromProjectByAdmin(cross, projectId, projectAddr)
+		_ = launchpad.TransferLeftFromProjectByAdmin(cross(cur), projectId, projectAddr)
 	})
 }
+
+// Output:
+// Launchpad TransferLeftFromProjectByAdmin
+// - Gas Used: 1290643
+// - Storage Diff: 5
+// - CPU Cycles: 1057110

@@ -1,8 +1,11 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/stress/main
+
 // Gas and performance metrics for StakeToken with 5 existing external incentives
 // Tests the gas cost of staking a position when there are multiple active incentives
 package main
 
 import (
+	"gno.land/p/gnoswap/gnsmath"
 	"strconv"
 	"testing"
 	"time"
@@ -20,7 +23,6 @@ import (
 	_ "gno.land/r/gnoswap/staker/v1"
 
 	"gno.land/r/gnoswap/access"
-	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gnft"
 	"gno.land/r/gnoswap/gns"
 	"gno.land/r/gnoswap/pool"
@@ -57,40 +59,40 @@ const (
 	incentiveCount = 5
 )
 
-func main() {
-	initializeSetup()
-	createPoolAndSetTier()
-	createExternalIncentives()
-	mintAndStakePositionsMetric()
+func main(cur realm) {
+	initializeSetup(cur)
+	createPoolAndSetTier(cur)
+	createExternalIncentives(cur)
+	mintAndStakePositionsMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
-	bar.Transfer(cross, aliceAddr, 10000000000000)
-	foo.Transfer(cross, aliceAddr, 10000000000000)
+	bar.Transfer(cross(cur), aliceAddr, 10000000000000)
+	foo.Transfer(cross(cur), aliceAddr, 10000000000000)
 
 	testing.SetRealm(aliceRealm)
-	bar.Approve(cross, poolAddr, maxInt64)
-	foo.Approve(cross, poolAddr, maxInt64)
-	bar.Approve(cross, stakerAddr, maxInt64)
-	foo.Approve(cross, stakerAddr, maxInt64)
+	bar.Approve(cross(cur), poolAddr, maxInt64)
+	foo.Approve(cross(cur), poolAddr, maxInt64)
+	bar.Approve(cross(cur), stakerAddr, maxInt64)
+	foo.Approve(cross(cur), stakerAddr, maxInt64)
 
 	testing.SetRealm(adminRealm)
-	bar.Approve(cross, stakerAddr, maxInt64)
-	gns.Approve(cross, stakerAddr, maxInt64)
-	emission.SetDistributionStartTime(cross, time.Now().Unix()+1)
+	bar.Approve(cross(cur), stakerAddr, maxInt64)
+	gns.Approve(cross(cur), stakerAddr, maxInt64)
+	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
 	testing.SkipHeights(1)
 }
 
-func createPoolAndSetTier() {
+func createPoolAndSetTier(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.CreatePool(cross, barPath, fooPath, 3000, common.TickMathGetSqrtRatioAtTick(0).ToString())
-	staker.SetPoolTier(cross, poolPath, 1)
+	pool.CreatePool(cross(cur), barPath, fooPath, 3000, gnsmath.TickMathGetSqrtRatioAtTick(0).ToString())
+	staker.SetPoolTier(cross(cur), poolPath, 1)
 }
 
-func createExternalIncentives() {
+func createExternalIncentives(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
@@ -99,7 +101,7 @@ func createExternalIncentives() {
 	// Create multiple external incentives before staking
 	for i := 0; i < incentiveCount; i++ {
 		staker.CreateExternalIncentive(
-			cross,
+			cross(cur),
 			poolPath,
 			barPath,
 			1_000_000_000,
@@ -109,7 +111,7 @@ func createExternalIncentives() {
 	}
 }
 
-func mintAndStakePositionsMetric() {
+func mintAndStakePositionsMetric(cur realm) {
 	testing.SetRealm(aliceRealm)
 
 	// Mint positions first (without staking)
@@ -119,7 +121,7 @@ func mintAndStakePositionsMetric() {
 		maxTick := int32(600 + (i%10)*60)
 
 		tokenId, _, _, _ := position.Mint(
-			cross,
+			cross(cur),
 			barPath,
 			fooPath,
 			3000,
@@ -131,7 +133,6 @@ func mintAndStakePositionsMetric() {
 			"0",
 			time.Now().Unix()+3600,
 			aliceAddr,
-			aliceAddr,
 			"",
 		)
 		tokenIds[i] = tokenId
@@ -139,16 +140,16 @@ func mintAndStakePositionsMetric() {
 
 	// Approve and stake first positions without measurement
 	for i := 0; i < positionCount-1; i++ {
-		gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.FormatUint(tokenIds[i], 10)))
-		staker.StakeToken(cross, tokenIds[i], "")
+		gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.FormatUint(tokenIds[i], 10)))
+		staker.StakeToken(cross(cur), tokenIds[i], "")
 		testing.SkipHeights(1)
 	}
 
 	// Measure gas for staking the last position
 	lastTokenId := tokenIds[positionCount-1]
-	gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.FormatUint(lastTokenId, 10)))
+	gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.FormatUint(lastTokenId, 10)))
 
 	metric.PrintMetricsBy(ufmt.Sprintf("stress StakeToken (pos=%d, inc=%d)", positionCount, incentiveCount), func() {
-		staker.StakeToken(cross, lastTokenId, "")
+		staker.StakeToken(cross(cur), lastTokenId, "")
 	})
 }

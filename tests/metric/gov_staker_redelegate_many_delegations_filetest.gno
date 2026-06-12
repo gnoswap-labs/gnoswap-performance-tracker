@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Performance test for redelegate with many delegations
 // Tests getUserDelegationsWithDelegatee optimization with large delegation set
 package main
@@ -30,18 +32,24 @@ var (
 	maxInt64 int64 = 9223372036854775807
 )
 
-func main() {
+func main(cur realm) {
 	testing.SetRealm(adminRealm)
 
-	gns.Approve(cross, govStakerAddr, maxInt64)
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
 
 	// Create 100 delegations to same delegatee (alice)
 	for i := 0; i < 100; i++ {
-		govstaker.Delegate(cross, aliceAddr, int64(1000000), "")
+		govstaker.Delegate(cross(cur), aliceAddr, int64(1000000), "")
 	}
 
 	// Redelegate 50M to bob - processes 50 of 100 delegations
 	metric.PrintMetricsBy("Redelegate (50 of 100 delegations, optimized)", func() {
-		govstaker.Redelegate(cross, aliceAddr, bobAddr, int64(50000000))
+		govstaker.Redelegate(cross(cur), aliceAddr, bobAddr, int64(50000000))
 	})
 }
+
+// Output:
+// Redelegate (50 of 100 delegations, optimized)
+// - Gas Used: 177463048
+// - Storage Diff: -118830
+// - CPU Cycles: 132808947

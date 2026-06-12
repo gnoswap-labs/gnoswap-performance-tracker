@@ -1,7 +1,7 @@
 [submodule "gno"]
 	path = gno
 	url = git@github.com:gnoswap-labs/gno.git
-	branch = new-metric-gas
+	branch = interrealm-v2-gas
 	ignore = all
 [submodule "gnoswap"]
 	path = gnoswap

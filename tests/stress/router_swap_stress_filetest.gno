@@ -1,9 +1,12 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/stress/main
+
 // Gas and performance metrics for router swap routes (stress test)
 // Creates 1478 positions with different tick ranges, then runs ExactIn/ExactOut swaps
 package main
 
 import (
 	"chain"
+	"gno.land/p/gnoswap/gnsmath"
 	"testing"
 
 	prabc "gno.land/p/gnoswap/rbac"
@@ -17,7 +20,6 @@ import (
 	_ "gno.land/r/gnoswap/staker/v1"
 
 	"gno.land/r/gnoswap/access"
-	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gns"
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
@@ -53,68 +55,68 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
+func main(cur realm) {
+	initializeSetup(cur)
 
 	// setup pool and mint position
-	createPool()
+	createPool(cur)
 
 	for i := int32(0); i < iterations; i++ {
 		tickDiff := i * tickSpacing * iterationAdjustment
 		minTick := minTick + tickDiff
 		maxTick := tickDiff
-		gas, _, _ := mintPosition(minTick, maxTick, "10000000", "10000000")
+		gas, _, _ := mintPosition(cur, minTick, maxTick, "10000000", "10000000")
 		println(ufmt.Sprintf("minted position (%d/%d) - gas: %d", i, iterations, gas))
 	}
 
-	mintPositionMetric()
+	mintPositionMetric(cur)
 
 	// ExactIn swaps
-	exactInSwapGnsToWugnotMetric()
-	exactInSwapWugnotToGnsMetric()
-	exactInSwapAccumulateFeesMetric()
+	exactInSwapGnsToWugnotMetric(cur)
+	exactInSwapWugnotToGnsMetric(cur)
+	exactInSwapAccumulateFeesMetric(cur)
 
 	// ExactOut swaps
-	exactOutSwapGnsToWugnotMetric()
-	exactOutSwapWugnotToGnsMetric()
-	exactOutSwapAccumulateFeesMetric()
+	exactOutSwapGnsToWugnotMetric(cur)
+	exactOutSwapWugnotToGnsMetric(cur)
+	exactOutSwapAccumulateFeesMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
 	testing.IssueCoins(chain.PackageAddress("gno.land/r/gnoland/wugnot"), chain.Coins{{"ugnot", 100000000000000}})
 	testing.IssueCoins(adminAddr, chain.Coins{{"ugnot", 100000000000000}})
 	testing.SetOriginSend(chain.Coins{{"ugnot", 100000000000000}})
 	testing.SetRealm(adminRealm)
-	wugnot.Deposit(cross)
+	wugnot.Deposit(cross(cur))
 
-	gns.Approve(cross, poolAddr, maxInt64)
-	wugnot.Approve(cross, poolAddr, maxInt64)
-	gns.Approve(cross, routerAddr, maxInt64)
-	wugnot.Approve(cross, routerAddr, maxInt64)
+	gns.Approve(cross(cur), poolAddr, maxInt64)
+	wugnot.Approve(cross(cur), poolAddr, maxInt64)
+	gns.Approve(cross(cur), routerAddr, maxInt64)
+	wugnot.Approve(cross(cur), routerAddr, maxInt64)
 }
 
-func createPool() {
+func createPool(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		wugnotPath,
 		gnsPath,
 		3000,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 }
 
-func mintPosition(minTick int32, maxTick int32, amount0 string, amount1 string) (int64, int64, int64) {
+func mintPosition(cur realm, minTick int32, maxTick int32, amount0 string, amount1 string) (int64, int64, int64) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	gas, realmStorageDiff, cycles := metric.MetricsBy("Mint Position", func() {
 		position.Mint(
-			cross,
+			cross(cur),
 			wugnotPath,
 			gnsPath,
 			3000,
@@ -126,7 +128,6 @@ func mintPosition(minTick int32, maxTick int32, amount0 string, amount1 string) 
 			"0",
 			9999999999,
 			adminAddr,
-			adminAddr,
 			"",
 		)
 	})
@@ -134,13 +135,13 @@ func mintPosition(minTick int32, maxTick int32, amount0 string, amount1 string) 
 	return gas, realmStorageDiff, cycles
 }
 
-func mintPositionMetric() {
+func mintPositionMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("Mint Position(for stress swap)", func() {
 		position.Mint(
-			cross,
+			cross(cur),
 			wugnotPath,
 			gnsPath,
 			3000,
@@ -152,19 +153,18 @@ func mintPositionMetric() {
 			"1",
 			9999999999,
 			adminAddr,
-			adminAddr,
 			"",
 		)
 	})
 }
 
-func exactInSwapGnsToWugnotMetric() {
+func exactInSwapGnsToWugnotMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("Stress ExactInSwapRoute(grc20) gns->wugnot", func() {
 		router.ExactInSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"1000000000",
@@ -177,13 +177,13 @@ func exactInSwapGnsToWugnotMetric() {
 	})
 }
 
-func exactInSwapWugnotToGnsMetric() {
+func exactInSwapWugnotToGnsMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("Stress ExactInSwapRoute(grc20) wugnot->gns", func() {
 		router.ExactInSwapRoute(
-			cross,
+			cross(cur),
 			wugnotPath,
 			gnsPath,
 			"1000000000",
@@ -196,13 +196,13 @@ func exactInSwapWugnotToGnsMetric() {
 	})
 }
 
-func exactOutSwapGnsToWugnotMetric() {
+func exactOutSwapGnsToWugnotMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("Stress ExactOutSwapRoute(grc20) gns->wugnot", func() {
 		router.ExactOutSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"100000000",
@@ -215,13 +215,13 @@ func exactOutSwapGnsToWugnotMetric() {
 	})
 }
 
-func exactOutSwapWugnotToGnsMetric() {
+func exactOutSwapWugnotToGnsMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("Stress ExactOutSwapRoute(grc20) wugnot->gns", func() {
 		router.ExactOutSwapRoute(
-			cross,
+			cross(cur),
 			wugnotPath,
 			gnsPath,
 			"100000000",
@@ -234,13 +234,13 @@ func exactOutSwapWugnotToGnsMetric() {
 	})
 }
 
-func exactInSwapAccumulateFeesMetric() {
+func exactInSwapAccumulateFeesMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("Stress ExactInSwapRoute(grc20) gns->wugnot (accumulate fees)", func() {
 		router.ExactInSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"1000000000",
@@ -253,13 +253,13 @@ func exactInSwapAccumulateFeesMetric() {
 	})
 }
 
-func exactOutSwapAccumulateFeesMetric() {
+func exactOutSwapAccumulateFeesMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("Stress ExactOutSwapRoute(grc20) gns->wugnot (accumulate fees)", func() {
 		router.ExactOutSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"100000000",

@@ -1,11 +1,12 @@
-// Gas and performance metrics for router ExactOutSingleSwapRoute(grc20) - fee:10000
-
 // PKGPATH: gno.land/r/gnoswap/v1/main
+
+// Gas and performance metrics for router ExactOutSingleSwapRoute(grc20) - fee:10000
 
 package main
 
 import (
 	"chain"
+	"gno.land/p/gnoswap/gnsmath"
 	"testing"
 
 	prabc "gno.land/p/gnoswap/rbac"
@@ -18,7 +19,6 @@ import (
 	_ "gno.land/r/gnoswap/staker/v1"
 
 	"gno.land/r/gnoswap/access"
-	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gns"
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
@@ -44,48 +44,48 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
+func main(cur realm) {
+	initializeSetup(cur)
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{{"ugnot", 100000000000000}})
-	wugnot.Deposit(cross)
+	wugnot.Deposit(cross(cur))
 	testing.SetOriginSend(chain.Coins{})
-	createPool()
-	mintPosition()
-	doSwap()
+	createPool(cur)
+	mintPosition(cur)
+	doSwap(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
 	testing.IssueCoins(chain.PackageAddress("gno.land/r/gnoland/wugnot"), chain.Coins{{"ugnot", 100000000000000}})
 	testing.IssueCoins(adminAddr, chain.Coins{{"ugnot", 100000000000000}})
 
-	gns.Approve(cross, poolAddr, maxInt64)
-	wugnot.Approve(cross, poolAddr, maxInt64)
-	gns.Approve(cross, routerAddr, maxInt64)
-	wugnot.Approve(cross, routerAddr, maxInt64)
+	gns.Approve(cross(cur), poolAddr, maxInt64)
+	wugnot.Approve(cross(cur), poolAddr, maxInt64)
+	gns.Approve(cross(cur), routerAddr, maxInt64)
+	wugnot.Approve(cross(cur), routerAddr, maxInt64)
 }
 
-func createPool() {
+func createPool(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		wugnotPath,
 		gnsPath,
 		10000,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 }
 
-func mintPosition() {
+func mintPosition(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	position.Mint(
-		cross,
+		cross(cur),
 		gnsPath,
 		wugnotPath,
 		10000,
@@ -97,18 +97,17 @@ func mintPosition() {
 		"0",
 		9999999999,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 }
 
-func doSwap() {
+func doSwap(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("ExactOutSingleSwapRoute(grc20) - fee:10000", func() {
 		router.ExactOutSingleSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"1000000",
@@ -120,3 +119,9 @@ func doSwap() {
 		)
 	})
 }
+
+// Output:
+// ExactOutSingleSwapRoute(grc20) - fee:10000
+// - Gas Used: 30462484
+// - Storage Diff: 9047
+// - CPU Cycles: 25342586

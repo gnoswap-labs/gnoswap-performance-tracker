@@ -1,8 +1,11 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for position staking
 // Test cases based on tests/integration/testdata/position/stake_position.txtar
 package main
 
 import (
+	"gno.land/p/gnoswap/gnsmath"
 	"strconv"
 	"testing"
 
@@ -17,7 +20,6 @@ import (
 	_ "gno.land/r/gnoswap/staker/v1"
 
 	"gno.land/r/gnoswap/access"
-	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gnft"
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
@@ -47,45 +49,45 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	createBarFooPool()
-	mintPosition()
+func main(cur realm) {
+	initializeSetup(cur)
+	createBarFooPool(cur)
+	mintPosition(cur)
 
-	setPoolTierMetric()
-	stakePositionMetric()
+	setPoolTierMetric(cur)
+	stakePositionMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
-	bar.Transfer(cross, aliceAddr, 100000000)
-	foo.Transfer(cross, aliceAddr, 100000000)
+	bar.Transfer(cross(cur), aliceAddr, 100000000)
+	foo.Transfer(cross(cur), aliceAddr, 100000000)
 
-	bar.Approve(cross, poolAddr, maxInt64)
-	foo.Approve(cross, poolAddr, maxInt64)
+	bar.Approve(cross(cur), poolAddr, maxInt64)
+	foo.Approve(cross(cur), poolAddr, maxInt64)
 }
 
-func createBarFooPool() {
+func createBarFooPool(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		3000,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 }
 
-func mintPosition() {
+func mintPosition(cur realm) {
 	testing.SetRealm(aliceRealm)
-	bar.Approve(cross, poolAddr, maxInt64)
-	foo.Approve(cross, poolAddr, maxInt64)
+	bar.Approve(cross(cur), poolAddr, maxInt64)
+	foo.Approve(cross(cur), poolAddr, maxInt64)
 
 	position.Mint(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		3000,
@@ -97,25 +99,34 @@ func mintPosition() {
 		"1",
 		9999999999,
 		aliceAddr,
-		aliceAddr,
 		"",
 	)
 }
 
-func setPoolTierMetric() {
+func setPoolTierMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	poolPath := barPath + ":" + fooPath + ":3000"
 	metric.PrintMetricsBy("SetPoolTier (tier 1)", func() {
-		staker.SetPoolTier(cross, poolPath, 1)
+		staker.SetPoolTier(cross(cur), poolPath, 1)
 	})
 }
 
-func stakePositionMetric() {
+func stakePositionMetric(cur realm) {
 	testing.SetRealm(aliceRealm)
-	gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.Itoa(1)))
+	gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.Itoa(1)))
 
 	metric.PrintMetricsBy("StakeToken", func() {
-		staker.StakeToken(cross, uint64(1), "")
+		staker.StakeToken(cross(cur), uint64(1), "")
 	})
 }
+
+// Output:
+// SetPoolTier (tier 1)
+// - Gas Used: 6005318
+// - Storage Diff: 45381
+// - CPU Cycles: 3534897
+// StakeToken
+// - Gas Used: 18720238
+// - Storage Diff: 22344
+// - CPU Cycles: 16101656

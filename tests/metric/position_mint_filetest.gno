@@ -1,10 +1,11 @@
-// position mint swap burn
-
 // PKGPATH: gno.land/r/demo/main
+
+// position mint swap burn
 
 package main
 
 import (
+	"gno.land/p/gnoswap/gnsmath"
 	"testing"
 	"time"
 
@@ -19,7 +20,6 @@ import (
 	_ "gno.land/r/gnoswap/staker/v1"
 
 	"gno.land/r/gnoswap/access"
-	"gno.land/r/gnoswap/common"
 
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
@@ -53,44 +53,44 @@ var (
 	fee500  uint32 = 500
 )
 
-func main() {
-	initPool()
+func main(cur realm) {
+	initPool(cur)
 
-	mintPosition()
+	mintPosition(cur)
 }
 
-func initPool() {
+func initPool(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
 	testing.SetRealm(adminRealm)
 
 	defaultTokenAmount := int64(100000000)
 
-	bar.Transfer(cross, aliceAddr, defaultTokenAmount)
+	bar.Transfer(cross(cur), aliceAddr, defaultTokenAmount)
 
-	foo.Transfer(cross, aliceAddr, defaultTokenAmount)
+	foo.Transfer(cross(cur), aliceAddr, defaultTokenAmount)
 
-	bar.Approve(cross, poolAddr, INT64_MAX)
-	foo.Approve(cross, poolAddr, INT64_MAX)
+	bar.Approve(cross(cur), poolAddr, INT64_MAX)
+	foo.Approve(cross(cur), poolAddr, INT64_MAX)
 
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		fee500,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 }
 
-func mintPosition() {
+func mintPosition(cur realm) {
 	testing.SetRealm(aliceRealm)
-	bar.Approve(cross, poolAddr, INT64_MAX)
-	foo.Approve(cross, poolAddr, INT64_MAX)
+	bar.Approve(cross(cur), poolAddr, INT64_MAX)
+	foo.Approve(cross(cur), poolAddr, INT64_MAX)
 
 	metric.PrintMetricsBy("Mint (bar:foo:500)", func() {
 		position.Mint(
-			cross,
+			cross(cur),
 			barPath,
 			fooPath,
 			fee500,
@@ -102,8 +102,13 @@ func mintPosition() {
 			"0",
 			time.Now().Unix()+3600,
 			aliceAddr,
-			aliceAddr,
 			"",
 		)
 	})
 }
+
+// Output:
+// Mint (bar:foo:500)
+// - Gas Used: 24899536
+// - Storage Diff: 24694
+// - CPU Cycles: 21312002

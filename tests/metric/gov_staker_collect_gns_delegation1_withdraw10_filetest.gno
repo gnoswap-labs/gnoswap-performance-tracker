@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 package main
 
 import (
@@ -34,23 +36,29 @@ var (
 	delegateAmount   int64 = undelegateAmount * undelegateCount
 )
 
-func main() {
+func main(cur realm) {
 	testing.SetRealm(adminRealm)
-	gns.Approve(cross, govStakerAddr, maxInt64)
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
 
 	for i := int64(0); i < delegateCount; i++ {
-		govstaker.Delegate(cross, aliceAddr, delegateAmount, "")
+		govstaker.Delegate(cross(cur), aliceAddr, delegateAmount, "")
 		testing.SkipHeights(1)
 	}
 
 	for i := int64(0); i < undelegateCount; i++ {
-		govstaker.Undelegate(cross, aliceAddr, undelegateAmount)
+		govstaker.Undelegate(cross(cur), aliceAddr, undelegateAmount)
 		testing.SkipHeights(1)
 	}
 
 	testing.SkipHeights(17280)
 
 	metric.PrintMetricsBy(ufmt.Sprintf("CollectUndelegatedGns (%d delegation, %d withdraws)", delegateCount, undelegateCount/delegateCount), func() {
-		govstaker.CollectUndelegatedGns(cross)
+		govstaker.CollectUndelegatedGns(cross(cur))
 	})
 }
+
+// Output:
+// CollectUndelegatedGns (1 delegation, 10 withdraws)
+// - Gas Used: 673968
+// - Storage Diff: 0
+// - CPU Cycles: 551501

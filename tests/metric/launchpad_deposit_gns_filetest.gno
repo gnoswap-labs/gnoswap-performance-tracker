@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for launchpad DepositGns
 // Test cases based on gnoswap/contract/r/scenario/launchpad/launchpad_deposit_gns_basic_filetest.gno
 package main
@@ -38,22 +40,22 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	projectId := createLaunchpadProject()
-	depositGnsMetric(projectId)
+func main(cur realm) {
+	initializeSetup(cur)
+	projectId := createLaunchpadProject(cur)
+	depositGnsMetric(cur, projectId)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	obl.Approve(cross, launchpadAddr, maxInt64)
+	obl.Approve(cross(cur), launchpadAddr, maxInt64)
 }
 
-func createLaunchpadProject() string {
+func createLaunchpadProject(cur realm) string {
 	testing.SetRealm(adminRealm)
 
 	projectId := launchpad.CreateProject(
-		cross,
+		cross(cur),
 		"OBL Launchpad Project",
 		"gno.land/r/onbloc/obl",
 		projectAddr,
@@ -72,17 +74,23 @@ func createLaunchpadProject() string {
 	return projectId
 }
 
-func depositGnsMetric(projectId string) {
+func depositGnsMetric(cur realm, projectId string) {
 	projectTierId := projectId + ":30"
 	depositAmount := int64(1_000_000)
 
 	testing.SetRealm(adminRealm)
-	gns.Transfer(cross, aliceAddr, depositAmount)
+	gns.Transfer(cross(cur), aliceAddr, depositAmount)
 
 	testing.SetRealm(aliceRealm)
-	gns.Approve(cross, launchpadAddr, depositAmount)
+	gns.Approve(cross(cur), launchpadAddr, depositAmount)
 
 	metric.PrintMetricsBy("Launchpad DepositGns", func() {
-		launchpad.DepositGns(cross, projectTierId, depositAmount, "")
+		launchpad.DepositGns(cross(cur), projectTierId, depositAmount, "")
 	})
 }
+
+// Output:
+// Launchpad DepositGns
+// - Gas Used: 5403816
+// - Storage Diff: 24234
+// - CPU Cycles: 3066566

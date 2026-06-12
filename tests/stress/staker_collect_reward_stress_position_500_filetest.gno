@@ -1,8 +1,11 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/stress/main
+
 // Gas and performance metrics for staker CollectReward with 500 staked positions
 // NOTE: Position count has minimal impact on gas (~3.7M gas even at 10000 positions, never reaches 1B)
 package main
 
 import (
+	"gno.land/p/gnoswap/gnsmath"
 	"strconv"
 	"testing"
 	"time"
@@ -19,7 +22,6 @@ import (
 	_ "gno.land/r/gnoswap/staker/v1"
 
 	"gno.land/r/gnoswap/access"
-	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gnft"
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
@@ -49,42 +51,42 @@ var (
 
 const positionCount = 500
 
-func main() {
-	initializeSetup()
-	createPoolAndSetTier()
+func main(cur realm) {
+	initializeSetup(cur)
+	createPoolAndSetTier(cur)
 
-	startTokenId := mintAndStakePositions(positionCount)
+	startTokenId := mintAndStakePositions(cur, positionCount)
 	testing.SkipHeights(600000)
-	collectRewardMetric(startTokenId)
+	collectRewardMetric(cur, startTokenId)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
-	bar.Transfer(cross, aliceAddr, 10000000000000)
-	foo.Transfer(cross, aliceAddr, 10000000000000)
+	bar.Transfer(cross(cur), aliceAddr, 10000000000000)
+	foo.Transfer(cross(cur), aliceAddr, 10000000000000)
 
 	testing.SetRealm(aliceRealm)
-	bar.Approve(cross, poolAddr, maxInt64)
-	foo.Approve(cross, poolAddr, maxInt64)
-	bar.Approve(cross, stakerAddr, maxInt64)
-	foo.Approve(cross, stakerAddr, maxInt64)
+	bar.Approve(cross(cur), poolAddr, maxInt64)
+	foo.Approve(cross(cur), poolAddr, maxInt64)
+	bar.Approve(cross(cur), stakerAddr, maxInt64)
+	foo.Approve(cross(cur), stakerAddr, maxInt64)
 
 	testing.SetRealm(adminRealm)
-	emission.SetDistributionStartTime(cross, time.Now().Unix()+1)
+	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
 	testing.SkipHeights(1)
 }
 
-func createPoolAndSetTier() {
+func createPoolAndSetTier(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.CreatePool(cross, barPath, fooPath, 3000, common.TickMathGetSqrtRatioAtTick(0).ToString())
+	pool.CreatePool(cross(cur), barPath, fooPath, 3000, gnsmath.TickMathGetSqrtRatioAtTick(0).ToString())
 
 	poolPath := barPath + ":" + fooPath + ":3000"
-	staker.SetPoolTier(cross, poolPath, 1)
+	staker.SetPoolTier(cross(cur), poolPath, 1)
 }
 
-func mintAndStakePositions(count int) uint64 {
+func mintAndStakePositions(cur realm, count int) uint64 {
 	testing.SetRealm(aliceRealm)
 
 	startTokenId := uint64(1)
@@ -94,7 +96,7 @@ func mintAndStakePositions(count int) uint64 {
 		maxTick := int32(600 + (i%10)*60)
 
 		tokenId, _, _, _ := position.Mint(
-			cross,
+			cross(cur),
 			barPath,
 			fooPath,
 			3000,
@@ -106,7 +108,6 @@ func mintAndStakePositions(count int) uint64 {
 			"0",
 			time.Now().Unix()+3600,
 			aliceAddr,
-			aliceAddr,
 			"",
 		)
 
@@ -114,18 +115,18 @@ func mintAndStakePositions(count int) uint64 {
 			startTokenId = tokenId
 		}
 
-		gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.FormatUint(tokenId, 10)))
-		staker.StakeToken(cross, tokenId, "")
+		gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.FormatUint(tokenId, 10)))
+		staker.StakeToken(cross(cur), tokenId, "")
 		testing.SkipHeights(1)
 	}
 
 	return startTokenId
 }
 
-func collectRewardMetric(tokenId uint64) {
+func collectRewardMetric(cur realm, tokenId uint64) {
 	testing.SetRealm(aliceRealm)
 
 	metric.PrintMetricsBy("stress CollectReward (500 positions)", func() {
-		staker.CollectReward(cross, tokenId)
+		staker.CollectReward(cross(cur), tokenId)
 	})
 }

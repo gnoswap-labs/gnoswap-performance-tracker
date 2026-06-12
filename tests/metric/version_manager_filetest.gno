@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for p/gnoswap/version_manager package
 // Measures optimizations from perf-version-manager-string-concat:
 // Replaced ufmt.Sprintf with + operator for string concatenation (~28% gas reduction)
@@ -14,16 +16,16 @@ import (
 
 var t *testing.T
 
-func main() {
-	RegisterInitializer_V1()
-	RegisterInitializer_V2()
+func main(cur realm) {
+	RegisterInitializer_V1(cur)
+	RegisterInitializer_V2(cur)
 }
 
 // Version Manager Package Functions
 
 // RegisterInitializer - Core optimization: string concatenation in isContainDomainPath
 // This function internally calls isContainDomainPath which was optimized
-func RegisterInitializer_V1() {
+func RegisterInitializer_V1(cur realm) {
 	// Create test address for domain
 	domainAddr := testutils.TestAddress("test_domain")
 
@@ -39,19 +41,19 @@ func RegisterInitializer_V1() {
 	vm := version_manager.NewVersionManager(
 		"gno.land/r/gnoswap/test_domain",
 		domainStore,
-		func(kvStore store.KVStore) any {
+		func(_ int, rlm realm, kvStore store.KVStore) any {
 			return kvStore
 		},
 	)
 
 	metric.PrintMetricsBy("RegisterInitializer (v1)", func() {
-		vm.RegisterInitializer(func(store any) any {
+		vm.RegisterInitializer(0, cur, func(_ int, rlm realm, store any) any {
 			return "v1_implementation"
 		})
 	})
 }
 
-func RegisterInitializer_V2() {
+func RegisterInitializer_V2(cur realm) {
 	// Create test address for domain
 	domainAddr := testutils.TestAddress("test_domain_2")
 
@@ -66,14 +68,24 @@ func RegisterInitializer_V2() {
 	vm := version_manager.NewVersionManager(
 		"gno.land/r/gnoswap/test_domain_2",
 		domainStore,
-		func(kvStore store.KVStore) any {
+		func(_ int, rlm realm, kvStore store.KVStore) any {
 			return kvStore
 		},
 	)
 
 	metric.PrintMetricsBy("RegisterInitializer (v2)", func() {
-		vm.RegisterInitializer(func(store any) any {
+		vm.RegisterInitializer(0, cur, func(_ int, rlm realm, store any) any {
 			return "v2_implementation"
 		})
 	})
 }
+
+// Output:
+// RegisterInitializer (v1)
+// - Gas Used: 79533
+// - Storage Diff: 0
+// - CPU Cycles: 52142
+// RegisterInitializer (v2)
+// - Gas Used: 61518
+// - Storage Diff: 0
+// - CPU Cycles: 54856

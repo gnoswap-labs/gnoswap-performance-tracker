@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for governance propose parameter change
 // Test cases based on tests/integration/testdata/gov/governance/create_parameter_change_proposal.txtar
 package main
@@ -31,31 +33,31 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	proposeParameterChangeMetric()
-	voteMetric()
-	executeMetric()
+func main(cur realm) {
+	initializeSetup(cur)
+	proposeParameterChangeMetric(cur)
+	voteMetric(cur)
+	executeMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	// Set votingPeriod to 1 for quick testing
-	governance.Reconfigure(cross, 0, 1, 0, 50, 0, 0, 2592000)
+	governance.Reconfigure(cross(cur), 0, 1, 0, 50, 0, 0, 2592000)
 
-	gns.Approve(cross, govStakerAddr, maxInt64)
-	govstaker.Delegate(cross, adminAddr, int64(1000000000), "")
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
+	govstaker.Delegate(cross(cur), adminAddr, int64(1000000000), "")
 
 	testing.SkipHeights(5)
 }
 
-func proposeParameterChangeMetric() {
+func proposeParameterChangeMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	metric.PrintMetricsBy("Propose Parameter Change", func() {
 		governance.ProposeParameterChange(
-			cross,
+			cross(cur),
 			"poolcreationfee",
 			"set",
 			1,
@@ -64,21 +66,35 @@ func proposeParameterChangeMetric() {
 	})
 }
 
-func voteMetric() {
+func voteMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	metric.PrintMetricsBy("Vote", func() {
-		governance.Vote(cross, 1, true)
+		governance.Vote(cross(cur), 1, true)
 	})
 
 	// Skip blocks for voting period to end
 	testing.SkipHeights(2)
 }
 
-func executeMetric() {
+func executeMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	metric.PrintMetricsBy("Execute", func() {
-		governance.Execute(cross, 1)
+		governance.Execute(cross(cur), 1)
 	})
 }
+
+// Output:
+// Propose Parameter Change
+// - Gas Used: 3988063
+// - Storage Diff: 19533
+// - CPU Cycles: 3372700
+// Vote
+// - Gas Used: 1088674
+// - Storage Diff: 4486
+// - CPU Cycles: 876238
+// Execute
+// - Gas Used: 2788598
+// - Storage Diff: 76
+// - CPU Cycles: 1385192

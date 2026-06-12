@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 package main
 
 import (
@@ -40,44 +42,54 @@ var (
 	delegateAmount   int64 = undelegateAmount * undelegateCount
 )
 
-func main() {
-	initializeSetup()
+func main(cur realm) {
+	initializeSetup(cur)
 
-	delegateTokens()
-	setupProtocolFee()
+	delegateTokens(cur)
+	setupProtocolFee(cur)
 
 	testing.SkipHeights(1)
-	collectRewardMetric()
+	collectRewardMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	gns.Approve(cross, govStakerAddr, maxInt64)
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
 }
 
-func delegateTokens() {
+func delegateTokens(cur realm) {
 	testing.SetRealm(adminRealm)
 	for i := int64(0); i < delegateCount; i++ {
-		govstaker.Delegate(cross, aliceAddr, delegateAmount, "")
+		govstaker.Delegate(cross(cur), aliceAddr, delegateAmount, "")
 		testing.SkipHeights(1)
 	}
 }
 
-func setupProtocolFee() {
+func setupProtocolFee(cur realm) {
+	protocolFeeV1Addr := testing.NewCodeRealm("gno.land/r/gnoswap/protocol_fee/v1").Address()
+
 	testing.SetRealm(adminRealm)
-	gns.Transfer(cross, protocolFeeAddr, 1000000)
+	gns.Transfer(cross(cur), stakerAddr, 1000000)
 
 	testing.SetRealm(stakerRealm)
-	protocol_fee.AddToProtocolFee(cross, "gno.land/r/gnoswap/gns", 1000000)
+	gns.Approve(cross(cur), protocolFeeAddr, 1000000)
+	gns.Approve(cross(cur), protocolFeeV1Addr, 1000000)
+	protocol_fee.AddToProtocolFee(cross(cur), "gno.land/r/gnoswap/gns", 1000000)
 
 	testing.SetRealm(govStakerRealm)
-	protocol_fee.DistributeProtocolFee(cross)
+	protocol_fee.DistributeProtocolFee(cross(cur))
 }
 
-func collectRewardMetric() {
+func collectRewardMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (%d delegation, %d withdraws)", delegateCount, undelegateCount/delegateCount), func() {
-		govstaker.CollectReward(cross)
+		govstaker.CollectReward(cross(cur))
 	})
 }
+
+// Output:
+// CollectReward (1 delegation, 50 withdraws)
+// - Gas Used: 2845300
+// - Storage Diff: 2447
+// - CPU Cycles: 2000631

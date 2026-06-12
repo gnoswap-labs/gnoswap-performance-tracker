@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for launchpad protocol fee collection
 // Test cases based on gnoswap/contract/r/scenario/launchpad/launchpad_deposit_project_single_recipient_filetest.gno
 package main
@@ -21,6 +23,7 @@ import (
 	_ "gno.land/r/gnoswap/protocol_fee/v1"
 
 	"gno.land/r/gnoswap/access"
+	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gns"
 	"gno.land/r/gnoswap/launchpad"
 	"gno.land/r/onbloc/obl"
@@ -52,10 +55,10 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	projectId := createLaunchpadProject()
-	depositGns(projectId)
+func main(cur realm) {
+	initializeSetup(cur)
+	projectId := createLaunchpadProject(cur)
+	depositGns(cur, projectId)
 
 	// setup protocol fee for each token
 	for index := 0; index < tokenCount; index++ {
@@ -63,26 +66,26 @@ func main() {
 		name := ufmt.Sprintf("Token%d", index)
 		symbol := ufmt.Sprintf("TKN%d", index)
 		mintAmount := int64(1000)
-		addToProtocolFee(tokenPath, name, symbol, mintAmount)
+		addToProtocolFee(cur, tokenPath, name, symbol, mintAmount)
 	}
 	testing.SkipHeights(1)
 
-	distributeProtocolFee()
+	distributeProtocolFee(cur)
 	testing.SkipHeights(1)
 
-	collectProtocolFeeMetric()
+	collectProtocolFeeMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	obl.Approve(cross, launchpadAddr, maxInt64)
+	obl.Approve(cross(cur), launchpadAddr, maxInt64)
 }
 
-func createLaunchpadProject() string {
+func createLaunchpadProject(cur realm) string {
 	testing.SetRealm(adminRealm)
 
 	projectId := launchpad.CreateProject(
-		cross,
+		cross(cur),
 		"OBL Launchpad Project",
 		"gno.land/r/onbloc/obl",
 		projectAddr,
@@ -101,45 +104,54 @@ func createLaunchpadProject() string {
 	return projectId
 }
 
-func addToProtocolFee(tokenPath string, name string, symbol string, mintAmount int64) {
+func addToProtocolFee(cur realm, tokenPath string, name string, symbol string, mintAmount int64) {
 	testing.SetRealm(testing.NewCodeRealm(tokenPath))
 
-	token, ledger := grc20.NewToken(name, symbol, 6)
-	ledger.Mint(protocolFeeAddr, mintAmount)
-	grc20reg.Register(cross, token, "")
+	token, ledger := grc20.NewToken(0, cur, name, symbol, 6)
+	ledger.Mint(stakerAddr, mintAmount)
+	grc20reg.Register(cross(cur), token, "")
 
-	recordProtocolFees(tokenPath, mintAmount)
+	recordProtocolFees(cur, tokenPath, mintAmount)
 }
 
-func recordProtocolFees(tokenPath string, amount int64) {
+func recordProtocolFees(cur realm, tokenPath string, amount int64) {
+	protocolFeeV1Addr := testing.NewCodeRealm("gno.land/r/gnoswap/protocol_fee/v1").Address()
+
 	testing.SetRealm(stakerRealm)
-
-	pf.AddToProtocolFee(cross, tokenPath, amount)
+	common.SafeGRC20Approve(cross(cur), tokenPath, protocolFeeAddr, amount)
+	common.SafeGRC20Approve(cross(cur), tokenPath, protocolFeeV1Addr, amount)
+	pf.AddToProtocolFee(cross(cur), tokenPath, amount)
 }
 
-func distributeProtocolFee() {
+func distributeProtocolFee(cur realm) {
 	testing.SetRealm(govStakerRealm)
-	protocol_fee.DistributeProtocolFee(cross)
+	protocol_fee.DistributeProtocolFee(cross(cur))
 }
 
-func depositGns(projectId string) {
+func depositGns(cur realm, projectId string) {
 	projectTierId := projectId + ":30"
 	depositAmount := int64(1_000_000)
 
 	testing.SetRealm(adminRealm)
-	gns.Transfer(cross, aliceAddr, depositAmount)
+	gns.Transfer(cross(cur), aliceAddr, depositAmount)
 
 	testing.SetRealm(aliceRealm)
-	gns.Approve(cross, launchpadAddr, depositAmount)
-	launchpad.DepositGns(cross, projectTierId, depositAmount, "")
+	gns.Approve(cross(cur), launchpadAddr, depositAmount)
+	launchpad.DepositGns(cross(cur), projectTierId, depositAmount, "")
 
 	testing.SkipHeights(1)
 }
 
-func collectProtocolFeeMetric() {
+func collectProtocolFeeMetric(cur realm) {
 	testing.SetRealm(projectRealm)
 
 	metric.PrintMetricsBy(ufmt.Sprintf("Launchpad CollectProtocolFee (tokens: %d)", tokenCount), func() {
-		launchpad.CollectProtocolFee(cross)
+		launchpad.CollectProtocolFee(cross(cur))
 	})
 }
+
+// Output:
+// Launchpad CollectProtocolFee (tokens: 10)
+// - Gas Used: 15149882
+// - Storage Diff: 44289
+// - CPU Cycles: 12365056

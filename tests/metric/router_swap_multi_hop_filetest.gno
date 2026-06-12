@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for multi-hop and multi-route stress test
 // Tests: 2 hops, 3 hops, and multi-route (split across multiple paths)
 // Uses gns, wugnot, obl, and bar tokens
@@ -5,6 +7,7 @@ package main
 
 import (
 	"chain"
+	"gno.land/p/gnoswap/gnsmath"
 	"testing"
 
 	prabc "gno.land/p/gnoswap/rbac"
@@ -17,7 +20,6 @@ import (
 	_ "gno.land/r/gnoswap/staker/v1"
 
 	"gno.land/r/gnoswap/access"
-	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gns"
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
@@ -47,101 +49,101 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
+func main(cur realm) {
+	initializeSetup(cur)
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{{"ugnot", 100000000000000}})
-	wugnot.Deposit(cross)
+	wugnot.Deposit(cross(cur))
 	testing.SetOriginSend(chain.Coins{})
-	createPools()
-	mintPositions()
+	createPools(cur)
+	mintPositions(cur)
 
 	// 2 hops: gns -> obl -> wugnot
-	doubleHopExactIn()
-	doubleHopExactOut()
+	doubleHopExactIn(cur)
+	doubleHopExactOut(cur)
 
 	// 3 hops: gns -> obl -> bar -> wugnot
-	tripleHopExactIn()
-	tripleHopExactOut()
+	tripleHopExactIn(cur)
+	tripleHopExactOut(cur)
 
 	// Multi-route: 50% direct (gns -> wugnot) + 50% via obl (gns -> obl -> wugnot)
-	multiRouteExactIn()
-	multiRouteExactOut()
+	multiRouteExactIn(cur)
+	multiRouteExactOut(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
 	testing.IssueCoins(chain.PackageAddress("gno.land/r/gnoland/wugnot"), chain.Coins{{"ugnot", 100000000000000}})
 	testing.IssueCoins(adminAddr, chain.Coins{{"ugnot", 100000000000000}})
 
-	gns.Approve(cross, poolAddr, maxInt64)
-	wugnot.Approve(cross, poolAddr, maxInt64)
-	obl.Approve(cross, poolAddr, maxInt64)
-	bar.Approve(cross, poolAddr, maxInt64)
-	gns.Approve(cross, routerAddr, maxInt64)
-	wugnot.Approve(cross, routerAddr, maxInt64)
-	obl.Approve(cross, routerAddr, maxInt64)
-	bar.Approve(cross, routerAddr, maxInt64)
+	gns.Approve(cross(cur), poolAddr, maxInt64)
+	wugnot.Approve(cross(cur), poolAddr, maxInt64)
+	obl.Approve(cross(cur), poolAddr, maxInt64)
+	bar.Approve(cross(cur), poolAddr, maxInt64)
+	gns.Approve(cross(cur), routerAddr, maxInt64)
+	wugnot.Approve(cross(cur), routerAddr, maxInt64)
+	obl.Approve(cross(cur), routerAddr, maxInt64)
+	bar.Approve(cross(cur), routerAddr, maxInt64)
 }
 
-func createPools() {
+func createPools(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	// Pool 1: gns <-> wugnot (for direct route)
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		wugnotPath,
 		gnsPath,
 		3000,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 
 	// Pool 2: gns <-> obl
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		gnsPath,
 		oblPath,
 		3000,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 
 	// Pool 3: obl <-> wugnot
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		wugnotPath,
 		oblPath,
 		3000,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 
 	// Pool 4: obl <-> bar (for 3-hop)
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		oblPath,
 		barPath,
 		3000,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 
 	// Pool 5: bar <-> wugnot (for 3-hop)
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		wugnotPath,
 		barPath,
 		3000,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 }
 
-func mintPositions() {
+func mintPositions(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	// Mint position for gns <-> wugnot pool
 	position.Mint(
-		cross,
+		cross(cur),
 		wugnotPath,
 		gnsPath,
 		3000,
@@ -152,14 +154,13 @@ func mintPositions() {
 		"0",
 		"0",
 		9999999999,
-		adminAddr,
 		adminAddr,
 		"",
 	)
 
 	// Mint position for gns <-> obl pool
 	position.Mint(
-		cross,
+		cross(cur),
 		gnsPath,
 		oblPath,
 		3000,
@@ -171,13 +172,12 @@ func mintPositions() {
 		"0",
 		9999999999,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 
 	// Mint position for obl <-> wugnot pool
 	position.Mint(
-		cross,
+		cross(cur),
 		wugnotPath,
 		oblPath,
 		3000,
@@ -188,14 +188,13 @@ func mintPositions() {
 		"0",
 		"0",
 		9999999999,
-		adminAddr,
 		adminAddr,
 		"",
 	)
 
 	// Mint position for obl <-> bar pool
 	position.Mint(
-		cross,
+		cross(cur),
 		oblPath,
 		barPath,
 		3000,
@@ -207,13 +206,12 @@ func mintPositions() {
 		"0",
 		9999999999,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 
 	// Mint position for bar <-> wugnot pool
 	position.Mint(
-		cross,
+		cross(cur),
 		wugnotPath,
 		barPath,
 		3000,
@@ -225,18 +223,17 @@ func mintPositions() {
 		"0",
 		9999999999,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 }
 
-func doubleHopExactIn() {
+func doubleHopExactIn(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("MultiHop ExactIn (2 hops)", func() {
 		router.ExactInSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"10000000",
@@ -249,13 +246,13 @@ func doubleHopExactIn() {
 	})
 }
 
-func doubleHopExactOut() {
+func doubleHopExactOut(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("MultiHop ExactOut (2 hops)", func() {
 		router.ExactOutSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"10000000",
@@ -268,13 +265,13 @@ func doubleHopExactOut() {
 	})
 }
 
-func tripleHopExactIn() {
+func tripleHopExactIn(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("MultiHop ExactIn (3 hops)", func() {
 		router.ExactInSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"10000000",
@@ -287,13 +284,13 @@ func tripleHopExactIn() {
 	})
 }
 
-func tripleHopExactOut() {
+func tripleHopExactOut(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("MultiHop ExactOut (3 hops)", func() {
 		router.ExactOutSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"10000000",
@@ -306,7 +303,7 @@ func tripleHopExactOut() {
 	})
 }
 
-func multiRouteExactIn() {
+func multiRouteExactIn(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
@@ -315,7 +312,7 @@ func multiRouteExactIn() {
 	// Route 2: gns -> obl -> wugnot (2 hops)
 	metric.PrintMetricsBy("MultiRoute ExactIn (50:50 split)", func() {
 		router.ExactInSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"10000000",
@@ -328,14 +325,14 @@ func multiRouteExactIn() {
 	})
 }
 
-func multiRouteExactOut() {
+func multiRouteExactOut(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	// Multi-route: 50% direct + 50% via obl
 	metric.PrintMetricsBy("MultiRoute ExactOut (50:50 split)", func() {
 		router.ExactOutSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"10000000",
@@ -347,3 +344,29 @@ func multiRouteExactOut() {
 		)
 	})
 }
+
+// Output:
+// MultiHop ExactIn (2 hops)
+// - Gas Used: 55022713
+// - Storage Diff: 9265
+// - CPU Cycles: 47669413
+// MultiHop ExactOut (2 hops)
+// - Gas Used: 77339084
+// - Storage Diff: 73
+// - CPU Cycles: 70910799
+// MultiHop ExactIn (3 hops)
+// - Gas Used: 75679403
+// - Storage Diff: 253
+// - CPU Cycles: 68920710
+// MultiHop ExactOut (3 hops)
+// - Gas Used: 117856427
+// - Storage Diff: 0
+// - CPU Cycles: 108300073
+// MultiRoute ExactIn (50:50 split)
+// - Gas Used: 75104640
+// - Storage Diff: 110
+// - CPU Cycles: 68272518
+// MultiRoute ExactOut (50:50 split)
+// - Gas Used: 102667046
+// - Storage Diff: 4
+// - CPU Cycles: 94011325

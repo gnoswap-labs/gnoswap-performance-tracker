@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for launchpad protocol fee collection with 5 protocol fee tokens
 package main
 
@@ -11,9 +13,9 @@ import (
 
 	_ "gno.land/r/gnoswap/gov/staker"
 	_ "gno.land/r/gnoswap/gov/staker/v1"
+	_ "gno.land/r/gnoswap/launchpad/v1"
 	"gno.land/r/gnoswap/protocol_fee"
 	_ "gno.land/r/gnoswap/protocol_fee/v1"
-	_ "gno.land/r/gnoswap/launchpad/v1"
 
 	"gno.land/r/gnoswap/access"
 	"gno.land/r/gnoswap/gns"
@@ -49,24 +51,24 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	projectId := createLaunchpadProject()
-	depositGns(projectId)
-	setupProtocolFee()
-	collectProtocolFeeMetric()
+func main(cur realm) {
+	initializeSetup(cur)
+	projectId := createLaunchpadProject(cur)
+	depositGns(cur, projectId)
+	setupProtocolFee(cur)
+	collectProtocolFeeMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	obl.Approve(cross, launchpadAddr, maxInt64)
+	obl.Approve(cross(cur), launchpadAddr, maxInt64)
 }
 
-func createLaunchpadProject() string {
+func createLaunchpadProject(cur realm) string {
 	testing.SetRealm(adminRealm)
 
 	projectId := launchpad.CreateProject(
-		cross,
+		cross(cur),
 		"OBL Launchpad Project",
 		"gno.land/r/onbloc/obl",
 		projectAddr,
@@ -83,43 +85,60 @@ func createLaunchpadProject() string {
 	return projectId
 }
 
-func depositGns(projectId string) {
+func depositGns(cur realm, projectId string) {
 	projectTierId := projectId + ":30"
 	depositAmount := int64(1_000_000)
 
 	testing.SetRealm(adminRealm)
-	gns.Transfer(cross, aliceAddr, depositAmount)
+	gns.Transfer(cross(cur), aliceAddr, depositAmount)
 
 	testing.SetRealm(aliceRealm)
-	gns.Approve(cross, launchpadAddr, depositAmount)
-	launchpad.DepositGns(cross, projectTierId, depositAmount, "")
+	gns.Approve(cross(cur), launchpadAddr, depositAmount)
+	launchpad.DepositGns(cross(cur), projectTierId, depositAmount, "")
 
 	testing.SkipHeights(1)
 }
 
-func setupProtocolFee() {
+func setupProtocolFee(cur realm) {
 	testing.SetRealm(adminRealm)
-	bar.Transfer(cross, protocolFeeAddr, 1000)
-	qux.Transfer(cross, protocolFeeAddr, 2500)
-	foo.Transfer(cross, protocolFeeAddr, 1500)
-	baz.Transfer(cross, protocolFeeAddr, 2000)
-	obl.Transfer(cross, protocolFeeAddr, 3000)
+	bar.Transfer(cross(cur), stakerAddr, 1000)
+	qux.Transfer(cross(cur), stakerAddr, 2500)
+	foo.Transfer(cross(cur), stakerAddr, 1500)
+	baz.Transfer(cross(cur), stakerAddr, 2000)
+	obl.Transfer(cross(cur), stakerAddr, 3000)
 
 	testing.SetRealm(stakerRealm)
-	protocol_fee.AddToProtocolFee(cross, "gno.land/r/onbloc/bar", 1000)
-	protocol_fee.AddToProtocolFee(cross, "gno.land/r/onbloc/qux", 2500)
-	protocol_fee.AddToProtocolFee(cross, "gno.land/r/onbloc/foo", 1500)
-	protocol_fee.AddToProtocolFee(cross, "gno.land/r/onbloc/baz", 2000)
-	protocol_fee.AddToProtocolFee(cross, "gno.land/r/onbloc/obl", 3000)
+	protocolFeeV1Addr := testing.NewCodeRealm("gno.land/r/gnoswap/protocol_fee/v1").Address()
+	bar.Approve(cross(cur), protocolFeeAddr, 1000)
+	bar.Approve(cross(cur), protocolFeeV1Addr, 1000)
+	qux.Approve(cross(cur), protocolFeeAddr, 2500)
+	qux.Approve(cross(cur), protocolFeeV1Addr, 2500)
+	foo.Approve(cross(cur), protocolFeeAddr, 1500)
+	foo.Approve(cross(cur), protocolFeeV1Addr, 1500)
+	baz.Approve(cross(cur), protocolFeeAddr, 2000)
+	baz.Approve(cross(cur), protocolFeeV1Addr, 2000)
+	obl.Approve(cross(cur), protocolFeeAddr, 3000)
+	obl.Approve(cross(cur), protocolFeeV1Addr, 3000)
+	protocol_fee.AddToProtocolFee(cross(cur), "gno.land/r/onbloc/bar", 1000)
+	protocol_fee.AddToProtocolFee(cross(cur), "gno.land/r/onbloc/qux", 2500)
+	protocol_fee.AddToProtocolFee(cross(cur), "gno.land/r/onbloc/foo", 1500)
+	protocol_fee.AddToProtocolFee(cross(cur), "gno.land/r/onbloc/baz", 2000)
+	protocol_fee.AddToProtocolFee(cross(cur), "gno.land/r/onbloc/obl", 3000)
 
 	testing.SetRealm(govStakerRealm)
-	protocol_fee.DistributeProtocolFee(cross)
+	protocol_fee.DistributeProtocolFee(cross(cur))
 }
 
-func collectProtocolFeeMetric() {
+func collectProtocolFeeMetric(cur realm) {
 	testing.SetRealm(projectRealm)
 
 	metric.PrintMetricsBy("CollectProtocolFee (5 tokens)", func() {
-		launchpad.CollectProtocolFee(cross)
+		launchpad.CollectProtocolFee(cross(cur))
 	})
 }
+
+// Output:
+// CollectProtocolFee (5 tokens)
+// - Gas Used: 8391672
+// - Storage Diff: 22044
+// - CPU Cycles: 6704463

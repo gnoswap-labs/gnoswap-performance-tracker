@@ -25,3 +25,9 @@ func BuildSingleHopRoutePath() {
 		)
 	})
 }
+
+// Output:
+// BuildSingleHopRoutePath
+// - Gas Used: 206104
+// - Storage Diff: 0
+// - CPU Cycles: 48215
