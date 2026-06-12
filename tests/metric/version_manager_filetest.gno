@@ -79,13 +79,3 @@ func RegisterInitializer_V2(cur realm) {
 		})
 	})
 }
-
-// Output:
-// RegisterInitializer (v1)
-// - Gas Used: 79533
-// - Storage Diff: 0
-// - CPU Cycles: 52142
-// RegisterInitializer (v2)
-// - Gas Used: 61518
-// - Storage Diff: 0
-// - CPU Cycles: 54856

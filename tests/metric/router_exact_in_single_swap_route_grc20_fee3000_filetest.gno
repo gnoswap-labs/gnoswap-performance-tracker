@@ -119,9 +119,3 @@ func doSwap(cur realm) {
 		)
 	})
 }
-
-// Output:
-// ExactInSingleSwapRoute(grc20) - fee:3000
-// - Gas Used: 28772659
-// - Storage Diff: 9047
-// - CPU Cycles: 23653619

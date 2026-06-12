@@ -106,9 +106,3 @@ func collectDepositGnsMetric(cur realm, depositId string) {
 		_, _ = launchpad.CollectDepositGns(cross(cur), depositId)
 	})
 }
-
-// Output:
-// Launchpad CollectDepositGns
-// - Gas Used: 4487761
-// - Storage Diff: -4155
-// - CPU Cycles: 3210588

@@ -127,9 +127,3 @@ func swapGnsToWugnotMetric(cur realm) {
 		}(cross(cur))
 	})
 }
-
-// Output:
-// Swap (gns -> wugnot, fee:500)
-// - Gas Used: 50429420
-// - Storage Diff: 735
-// - CPU Cycles: 44934400

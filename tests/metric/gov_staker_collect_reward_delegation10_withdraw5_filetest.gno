@@ -87,9 +87,3 @@ func collectRewardMetric(cur realm) {
 		govstaker.CollectReward(cross(cur))
 	})
 }
-
-// Output:
-// CollectReward (10 delegations, 5 withdraws)
-// - Gas Used: 2780698
-// - Storage Diff: 2375
-// - CPU Cycles: 2000631

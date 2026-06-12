@@ -55,9 +55,3 @@ func proposeCommunityPoolSpendMetric(cur realm) {
 		governance.ProposeCommunityPoolSpend(cross(cur), "Test Proposal", "This is a test proposal", adminAddr, "gno.land/r/gnoswap/gns", int64(100))
 	})
 }
-
-// Output:
-// Propose Community Pool Spend
-// - Gas Used: 3372011
-// - Storage Diff: 20552
-// - CPU Cycles: 2789020

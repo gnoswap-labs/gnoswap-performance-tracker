@@ -83,9 +83,3 @@ func transferLeftFromProjectMetric(cur realm, projectId string) {
 		_ = launchpad.TransferLeftFromProjectByAdmin(cross(cur), projectId, projectAddr)
 	})
 }
-
-// Output:
-// Launchpad TransferLeftFromProjectByAdmin
-// - Gas Used: 1290643
-// - Storage Diff: 5
-// - CPU Cycles: 1057110

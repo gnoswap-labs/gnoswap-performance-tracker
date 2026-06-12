@@ -84,17 +84,3 @@ func executeMetric(cur realm) {
 		governance.Execute(cross(cur), 1)
 	})
 }
-
-// Output:
-// Propose Parameter Change
-// - Gas Used: 3988063
-// - Storage Diff: 19533
-// - CPU Cycles: 3372700
-// Vote
-// - Gas Used: 1088674
-// - Storage Diff: 4486
-// - CPU Cycles: 876238
-// Execute
-// - Gas Used: 2788598
-// - Storage Diff: 76
-// - CPU Cycles: 1385192

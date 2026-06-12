@@ -117,9 +117,3 @@ func collectProtocolFeeMetric(cur realm) {
 		launchpad.CollectProtocolFee(cross(cur))
 	})
 }
-
-// Output:
-// CollectProtocolFee (1 token)
-// - Gas Used: 2944631
-// - Storage Diff: 4477
-// - CPU Cycles: 2144889

@@ -62,13 +62,3 @@ func undelegateMetric(cur realm) {
 		govstaker.Undelegate(cross(cur), aliceAddr, int64(1000000))
 	})
 }
-
-// Output:
-// Delegate
-// - Gas Used: 5186772
-// - Storage Diff: 38288
-// - CPU Cycles: 2062308
-// Undelegate
-// - Gas Used: 3322646
-// - Storage Diff: 840
-// - CPU Cycles: 2417628

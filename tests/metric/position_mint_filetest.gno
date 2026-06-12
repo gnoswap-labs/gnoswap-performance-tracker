@@ -106,9 +106,3 @@ func mintPosition(cur realm) {
 		)
 	})
 }
-
-// Output:
-// Mint (bar:foo:500)
-// - Gas Used: 24899536
-// - Storage Diff: 24694
-// - CPU Cycles: 21312002

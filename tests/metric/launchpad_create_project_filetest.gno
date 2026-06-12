@@ -59,9 +59,3 @@ func createLaunchpadProjectMetric(cur realm) {
 		)
 	})
 }
-
-// Output:
-// Create Launchpad Project
-// - Gas Used: 7302283
-// - Storage Diff: 30726
-// - CPU Cycles: 4681463

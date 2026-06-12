@@ -88,9 +88,3 @@ func depositGnsMetric(cur realm, projectId string) {
 		launchpad.DepositGns(cross(cur), projectTierId, depositAmount, "")
 	})
 }
-
-// Output:
-// Launchpad DepositGns
-// - Gas Used: 5403816
-// - Storage Diff: 24234
-// - CPU Cycles: 3066566

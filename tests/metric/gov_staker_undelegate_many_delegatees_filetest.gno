@@ -72,9 +72,3 @@ func main(cur realm) {
 		govstaker.Undelegate(cross(cur), delegatees[len(delegatees)-1], int64(1000000))
 	})
 }
-
-// Output:
-// Undelegate (50 delegatees, large AVL traversal)
-// - Gas Used: 3458914
-// - Storage Diff: 708
-// - CPU Cycles: 2561872

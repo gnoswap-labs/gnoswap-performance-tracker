@@ -344,29 +344,3 @@ func multiRouteExactOut(cur realm) {
 		)
 	})
 }
-
-// Output:
-// MultiHop ExactIn (2 hops)
-// - Gas Used: 55022713
-// - Storage Diff: 9265
-// - CPU Cycles: 47669413
-// MultiHop ExactOut (2 hops)
-// - Gas Used: 77339084
-// - Storage Diff: 73
-// - CPU Cycles: 70910799
-// MultiHop ExactIn (3 hops)
-// - Gas Used: 75679403
-// - Storage Diff: 253
-// - CPU Cycles: 68920710
-// MultiHop ExactOut (3 hops)
-// - Gas Used: 117856427
-// - Storage Diff: 0
-// - CPU Cycles: 108300073
-// MultiRoute ExactIn (50:50 split)
-// - Gas Used: 75104640
-// - Storage Diff: 110
-// - CPU Cycles: 68272518
-// MultiRoute ExactOut (50:50 split)
-// - Gas Used: 102667046
-// - Storage Diff: 4
-// - CPU Cycles: 94011325

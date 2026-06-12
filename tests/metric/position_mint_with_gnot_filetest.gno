@@ -105,9 +105,3 @@ func collectFeeMetric(cur realm) {
 		)
 	})
 }
-
-// Output:
-// CollectFee (with unwrap)
-// - Gas Used: 6622884
-// - Storage Diff: 45
-// - CPU Cycles: 5612900

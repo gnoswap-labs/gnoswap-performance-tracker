@@ -56,9 +56,3 @@ func main(cur realm) {
 		govstaker.CollectUndelegatedGns(cross(cur))
 	})
 }
-
-// Output:
-// CollectUndelegatedGns (10 delegations, 1 withdraws)
-// - Gas Used: 3087456
-// - Storage Diff: 0
-// - CPU Cycles: 2438651

@@ -47,9 +47,3 @@ func main(cur realm) {
 		govstaker.Redelegate(cross(cur), aliceAddr, bobAddr, int64(50000000))
 	})
 }
-
-// Output:
-// Redelegate (50 of 100 delegations, optimized)
-// - Gas Used: 177463048
-// - Storage Diff: -118830
-// - CPU Cycles: 132808947

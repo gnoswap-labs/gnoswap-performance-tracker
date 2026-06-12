@@ -132,13 +132,3 @@ func collectRewardMetric(cur realm) {
 		staker.CollectReward(cross(cur), uint64(1))
 	})
 }
-
-// Output:
-// CollectReward (only Internal Reward)
-// - Gas Used: 28560930
-// - Storage Diff: 11489
-// - CPU Cycles: 24855508
-// CollectReward 2nd (only Internal Reward)
-// - Gas Used: 28773012
-// - Storage Diff: 491
-// - CPU Cycles: 25373557

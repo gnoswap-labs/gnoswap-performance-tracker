@@ -125,17 +125,3 @@ func earlyExitUndelegateMetric(cur realm) {
 		govstaker.Undelegate(cross(cur), daveAddr, int64(3000000))
 	})
 }
-
-// Output:
-// Undelegate (5 delegations, cached external calls)
-// - Gas Used: 14842132
-// - Storage Diff: 3510
-// - CPU Cycles: 10891166
-// Delegate (cached external calls)
-// - Gas Used: 3902315
-// - Storage Diff: 3210
-// - CPU Cycles: 2961818
-// Undelegate (early exit, 3 of 10 delegations)
-// - Gas Used: 9744713
-// - Storage Diff: 2088
-// - CPU Cycles: 7250297

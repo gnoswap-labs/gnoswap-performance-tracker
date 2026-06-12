@@ -58,9 +58,3 @@ func proposeTextMetric(cur realm) {
 		governance.ProposeText(cross(cur), "Test Proposal", "This is a test proposal")
 	})
 }
-
-// Output:
-// Propose Text
-// - Gas Used: 2831118
-// - Storage Diff: 18334
-// - CPU Cycles: 2391216

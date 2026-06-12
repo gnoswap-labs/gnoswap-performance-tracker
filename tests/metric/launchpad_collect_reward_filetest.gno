@@ -100,9 +100,3 @@ func collectRewardMetric(cur realm, depositId string) {
 		launchpad.CollectRewardByDepositId(cross(cur), depositId)
 	})
 }
-
-// Output:
-// Launchpad CollectRewardByDepositId
-// - Gas Used: 1699464
-// - Storage Diff: 2070
-// - CPU Cycles: 1304620

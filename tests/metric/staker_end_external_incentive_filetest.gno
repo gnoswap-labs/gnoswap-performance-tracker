@@ -132,9 +132,3 @@ func endExternalIncentiveMetric(cur realm) {
 		staker.EndExternalIncentive(cross(cur), poolPath, incentiveID, aliceAddr)
 	})
 }
-
-// Output:
-// EndExternalIncentive
-// - Gas Used: 3576899
-// - Storage Diff: -1992
-// - CPU Cycles: 3124337

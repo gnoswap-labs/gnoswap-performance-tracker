@@ -130,25 +130,3 @@ func itoa(n int) string {
 	}
 	return s
 }
-
-// Output:
-// CollectDepositGns (deposit 1/5, remaining 4)
-// - Gas Used: 4554684
-// - Storage Diff: 1850
-// - CPU Cycles: 3249976
-// CollectDepositGns (deposit 2/5, remaining 3)
-// - Gas Used: 4065750
-// - Storage Diff: -2257
-// - CPU Cycles: 2940887
-// CollectDepositGns (deposit 3/5, remaining 2)
-// - Gas Used: 4045093
-// - Storage Diff: -2257
-// - CPU Cycles: 2923539
-// CollectDepositGns (deposit 4/5, remaining 1)
-// - Gas Used: 4051724
-// - Storage Diff: -2257
-// - CPU Cycles: 2932093
-// CollectDepositGns (deposit 5/5, remaining 0)
-// - Gas Used: 4011886
-// - Storage Diff: -8456
-// - CPU Cycles: 2915285

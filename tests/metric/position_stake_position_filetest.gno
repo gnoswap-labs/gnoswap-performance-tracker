@@ -120,13 +120,3 @@ func stakePositionMetric(cur realm) {
 		staker.StakeToken(cross(cur), uint64(1), "")
 	})
 }
-
-// Output:
-// SetPoolTier (tier 1)
-// - Gas Used: 6005318
-// - Storage Diff: 45381
-// - CPU Cycles: 3534897
-// StakeToken
-// - Gas Used: 18720238
-// - Storage Diff: 22344
-// - CPU Cycles: 16101656

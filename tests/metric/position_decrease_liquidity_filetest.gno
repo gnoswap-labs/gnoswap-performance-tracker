@@ -165,9 +165,3 @@ func mockSwapCallback(cur realm, token0Path string, token1Path string, amount0De
 
 	return nil
 }
-
-// Output:
-// DecreaseLiquidity
-// - Gas Used: 25930720
-// - Storage Diff: -2101
-// - CPU Cycles: 22943956

@@ -63,9 +63,3 @@ func redelegateMetric(cur realm) {
 		govstaker.Redelegate(cross(cur), aliceAddr, bobAddr, int64(1000000))
 	})
 }
-
-// Output:
-// Redelegate
-// - Gas Used: 6389589
-// - Storage Diff: 1423
-// - CPU Cycles: 4702160

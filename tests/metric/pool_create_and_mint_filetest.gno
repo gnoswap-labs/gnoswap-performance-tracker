@@ -99,13 +99,3 @@ func mintPositionMetric(cur realm) {
 		)
 	})
 }
-
-// Output:
-// CreatePool
-// - Gas Used: 6226955
-// - Storage Diff: 15264
-// - CPU Cycles: 5192440
-// Mint (fee:3000, wide range)
-// - Gas Used: 26822078
-// - Storage Diff: 24702
-// - CPU Cycles: 23234825

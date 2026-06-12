@@ -124,9 +124,3 @@ func createExternalIncentiveMetric(cur realm) {
 		)
 	})
 }
-
-// Output:
-// CreateExternalIncentive
-// - Gas Used: 6910203
-// - Storage Diff: 71222
-// - CPU Cycles: 4444327

@@ -134,13 +134,3 @@ func mintNewPositionMetric(cur realm) {
 		)
 	})
 }
-
-// Output:
-// DecreaseLiquidity (w. Remove)
-// - Gas Used: 21163551
-// - Storage Diff: 72
-// - CPU Cycles: 18373912
-// Mint (reposition)
-// - Gas Used: 25702013
-// - Storage Diff: 8623
-// - CPU Cycles: 23186146
