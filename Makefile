@@ -160,14 +160,14 @@ gas-report:
 	(cd "$$GNOSWAP_WORKTREE" && python3 setup.py --exclude-tests -w "$$RUN_ROOT"); \
 	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
 	cp -r tests/metric "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
+	mkdir -p "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests"; \
+	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) -exec mv {} "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests/" \;; \
 	mkdir -p reports/metric/commits; \
-	set +e; \
-	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/metric/commits/$$SHORT_COMMIT.md"; \
-	test_exit=$${PIPESTATUS[0]}; \
-	set -e; \
-	if [ "$$test_exit" -ne 0 ] && [ ! -s "reports/metric/commits/$$SHORT_COMMIT.md" ]; then \
-		echo "Metric run failed before report generation" >&2; \
-		exit "$$test_exit"; \
+	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && GNOROOT="$$GNO_WORKTREE" gno test . -v -run . -update-golden-tests); \
+	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) | sort | xargs cat | ./scripts/parse_metrics.sh > "reports/metric/commits/$$SHORT_COMMIT.md"; \
+	if [ "$$(tail -n +3 "reports/metric/commits/$$SHORT_COMMIT.md" | wc -l | tr -d ' ')" -eq 0 ]; then \
+		echo "Metric report contained no metric rows" >&2; \
+		exit 1; \
 	fi; \
 	echo "Report saved to reports/metric/commits/$$SHORT_COMMIT.md"
 
@@ -187,14 +187,14 @@ stress-report:
 	cp -r tests/metric "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
 	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress"; \
 	cp -r tests/stress "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress"; \
+	mkdir -p "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests"; \
+	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) -exec mv {} "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests/" \;; \
 	mkdir -p reports/stress/commits; \
-	set +e; \
-	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && gno test . -v -run .) 2>&1 | ./scripts/parse_metrics.sh > "reports/stress/commits/$$SHORT_COMMIT.md"; \
-	test_exit=$${PIPESTATUS[0]}; \
-	set -e; \
-	if [ "$$test_exit" -ne 0 ] && [ ! -s "reports/stress/commits/$$SHORT_COMMIT.md" ]; then \
-		echo "Stress run failed before report generation" >&2; \
-		exit "$$test_exit"; \
+	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && GNOROOT="$$GNO_WORKTREE" gno test . -v -run . -update-golden-tests); \
+	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) | sort | xargs cat | ./scripts/parse_metrics.sh > "reports/stress/commits/$$SHORT_COMMIT.md"; \
+	if [ "$$(tail -n +3 "reports/stress/commits/$$SHORT_COMMIT.md" | wc -l | tr -d ' ')" -eq 0 ]; then \
+		echo "Stress report contained no metric rows" >&2; \
+		exit 1; \
 	fi; \
 	echo "Report saved to reports/stress/commits/$$SHORT_COMMIT.md"
 
