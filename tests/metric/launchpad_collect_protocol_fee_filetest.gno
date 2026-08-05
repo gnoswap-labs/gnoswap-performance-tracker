@@ -13,6 +13,7 @@ import (
 	"gno.land/p/nt/testutils/v0"
 	"gno.land/p/nt/ufmt/v0"
 	"gno.land/r/demo/defi/grc20reg"
+	"gno.land/r/gnoswap/launchpad"
 	pf "gno.land/r/gnoswap/protocol_fee"
 	_ "gno.land/r/gnoswap/rbac"
 
@@ -25,7 +26,6 @@ import (
 	"gno.land/r/gnoswap/access"
 	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gns"
-	"gno.land/r/gnoswap/launchpad"
 	"gno.land/r/onbloc/obl"
 
 	"gno.land/r/gnoswap/scenario/metric"
@@ -107,7 +107,7 @@ func createLaunchpadProject(cur realm) string {
 func addToProtocolFee(cur realm, tokenPath string, name string, symbol string, mintAmount int64) {
 	testing.SetRealm(testing.NewCodeRealm(tokenPath))
 
-	token, ledger := grc20.NewToken(0, cur, name, symbol, 6)
+	token, ledger := grc20.NewToken(name, symbol, 6, 0, cur)
 	ledger.Mint(stakerAddr, mintAmount)
 	grc20reg.Register(cross(cur), token, "")
 

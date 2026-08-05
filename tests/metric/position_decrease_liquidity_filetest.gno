@@ -9,6 +9,8 @@ import (
 	"testing"
 
 	prbac "gno.land/p/gnoswap/rbac"
+	"gno.land/r/gnoswap/pool"
+	"gno.land/r/gnoswap/position"
 	_ "gno.land/r/gnoswap/rbac"
 
 	_ "gno.land/r/gnoswap/pool/v1"
@@ -18,9 +20,6 @@ import (
 
 	"gno.land/r/gnoswap/access"
 	"gno.land/r/gnoswap/common"
-
-	"gno.land/r/gnoswap/pool"
-	"gno.land/r/gnoswap/position"
 
 	"gno.land/r/gnoland/wugnot"
 	"gno.land/r/onbloc/bar"
@@ -114,7 +113,6 @@ func executeSwap(cur realm) {
 		true,
 		"20000000",
 		MIN_PRICE,
-		adminAddr,
 		func(cur realm, amount0Delta, amount1Delta int64, callbackMarker *pool.CallbackMarker) error {
 			return mockSwapCallback(cur, barPath, fooPath, amount0Delta, amount1Delta, true)
 		},
