@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Benchmark: CollectDepositGns storage cost vs accumulated deposits
 // Measures whether cumulative state (string length / map size) affects storage diff
 package main
@@ -40,15 +42,15 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	projectId := createLaunchpadProject()
+func main(cur realm) {
+	initializeSetup(cur)
+	projectId := createLaunchpadProject(cur)
 
 	// Create multiple deposits to accumulate state
 	numDeposits := 5
 	depositIds := make([]string, numDeposits)
 	for i := 0; i < numDeposits; i++ {
-		depositIds[i] = depositGns(projectId, int64(1_000_000*(i+1)))
+		depositIds[i] = depositGns(cur, projectId, int64(1_000_000*(i+1)))
 		testing.SkipHeights(100) // advance between deposits
 	}
 
@@ -58,20 +60,20 @@ func main() {
 	// Collect each deposit and measure individually
 	// As earlier deposits are collected, accumulated state changes
 	for i := 0; i < numDeposits; i++ {
-		collectDepositGnsMetric(depositIds[i], i+1, numDeposits)
+		collectDepositGnsMetric(cur, depositIds[i], i+1, numDeposits)
 	}
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	obl.Approve(cross, launchpadAddr, maxInt64)
+	obl.Approve(cross(cur), launchpadAddr, maxInt64)
 }
 
-func createLaunchpadProject() string {
+func createLaunchpadProject(cur realm) string {
 	testing.SetRealm(adminRealm)
 
 	projectId := launchpad.CreateProject(
-		cross,
+		cross(cur),
 		"OBL Launchpad Project",
 		"gno.land/r/onbloc/obl",
 		projectAddr,
@@ -90,15 +92,15 @@ func createLaunchpadProject() string {
 	return projectId
 }
 
-func depositGns(projectId string, amount int64) string {
+func depositGns(cur realm, projectId string, amount int64) string {
 	projectTierId := projectId + ":30"
 
 	testing.SetRealm(adminRealm)
-	gns.Transfer(cross, aliceAddr, amount)
+	gns.Transfer(cross(cur), aliceAddr, amount)
 
 	testing.SetRealm(aliceRealm)
-	gns.Approve(cross, launchpadAddr, amount)
-	depositId := launchpad.DepositGns(cross, projectTierId, amount, "")
+	gns.Approve(cross(cur), launchpadAddr, amount)
+	depositId := launchpad.DepositGns(cross(cur), projectTierId, amount, "")
 
 	return depositId
 }
@@ -108,12 +110,12 @@ func skipToProjectEnd() {
 	testing.SkipHeights(projectDurationSeconds/blockTimeSeconds + 1)
 }
 
-func collectDepositGnsMetric(depositId string, nth int, total int) {
+func collectDepositGnsMetric(cur realm, depositId string, nth int, total int) {
 	testing.SetRealm(aliceRealm)
 
 	label := "CollectDepositGns (deposit " + itoa(nth) + "/" + itoa(total) + ", remaining " + itoa(total-nth) + ")"
 	metric.PrintMetricsBy(label, func() {
-		_, _ = launchpad.CollectDepositGns(cross, depositId)
+		_, _ = launchpad.CollectDepositGns(cross(cur), depositId)
 	})
 }
 

@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for gov staker delegate and undelegate
 // Test cases based on tests/integration/testdata/gov/staker/delegate_and_undelegate.txtar
 package main
@@ -32,31 +34,31 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	delegateMetric()
-	undelegateMetric()
+func main(cur realm) {
+	initializeSetup(cur)
+	delegateMetric(cur)
+	undelegateMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
 
-	gns.Transfer(cross, aliceAddr, 100000000)
-	gns.Approve(cross, govStakerAddr, maxInt64)
+	gns.Transfer(cross(cur), aliceAddr, 100000000)
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
 }
 
-func delegateMetric() {
+func delegateMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	metric.PrintMetricsBy("Delegate", func() {
-		govstaker.Delegate(cross, aliceAddr, int64(1000000), "")
+		govstaker.Delegate(cross(cur), aliceAddr, int64(1000000), "")
 	})
 }
 
-func undelegateMetric() {
+func undelegateMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	metric.PrintMetricsBy("Undelegate", func() {
-		govstaker.Undelegate(cross, aliceAddr, int64(1000000))
+		govstaker.Undelegate(cross(cur), aliceAddr, int64(1000000))
 	})
 }

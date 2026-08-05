@@ -1,8 +1,11 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for position reposition
 // Test cases based on tests/integration/testdata/position/reposition.txtar
 package main
 
 import (
+	"gno.land/p/gnoswap/gnsmath"
 	"testing"
 
 	prabc "gno.land/p/gnoswap/rbac"
@@ -15,7 +18,6 @@ import (
 	_ "gno.land/r/gnoswap/staker/v1"
 
 	"gno.land/r/gnoswap/access"
-	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
 
@@ -42,45 +44,45 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	createPool500()
-	mintInitialPosition()
+func main(cur realm) {
+	initializeSetup(cur)
+	createPool500(cur)
+	mintInitialPosition(cur)
 
-	decreaseAndRemovePositionMetric()
-	mintNewPositionMetric()
+	decreaseAndRemovePositionMetric(cur)
+	mintNewPositionMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
-	bar.Transfer(cross, aliceAddr, 100000000)
-	foo.Transfer(cross, aliceAddr, 100000000)
+	bar.Transfer(cross(cur), aliceAddr, 100000000)
+	foo.Transfer(cross(cur), aliceAddr, 100000000)
 
-	bar.Approve(cross, poolAddr, maxInt64)
-	foo.Approve(cross, poolAddr, maxInt64)
+	bar.Approve(cross(cur), poolAddr, maxInt64)
+	foo.Approve(cross(cur), poolAddr, maxInt64)
 }
 
-func createPool500() {
+func createPool500(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		500,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 }
 
-func mintInitialPosition() {
+func mintInitialPosition(cur realm) {
 	testing.SetRealm(aliceRealm)
-	bar.Approve(cross, poolAddr, maxInt64)
-	foo.Approve(cross, poolAddr, maxInt64)
+	bar.Approve(cross(cur), poolAddr, maxInt64)
+	foo.Approve(cross(cur), poolAddr, maxInt64)
 
 	position.Mint(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		500,
@@ -92,17 +94,16 @@ func mintInitialPosition() {
 		"0",
 		9999999999,
 		aliceAddr,
-		aliceAddr,
 		"",
 	)
 }
 
-func decreaseAndRemovePositionMetric() {
+func decreaseAndRemovePositionMetric(cur realm) {
 	testing.SetRealm(aliceRealm)
 
 	metric.PrintMetricsBy("DecreaseLiquidity (w. Remove)", func() {
 		position.DecreaseLiquidity(
-			cross,
+			cross(cur),
 			1,
 			"100",
 			"0",
@@ -112,12 +113,12 @@ func decreaseAndRemovePositionMetric() {
 	})
 }
 
-func mintNewPositionMetric() {
+func mintNewPositionMetric(cur realm) {
 	testing.SetRealm(aliceRealm)
 
 	metric.PrintMetricsBy("Mint (reposition)", func() {
 		position.Mint(
-			cross,
+			cross(cur),
 			barPath,
 			fooPath,
 			500,
@@ -128,7 +129,6 @@ func mintNewPositionMetric() {
 			"0",
 			"0",
 			9999999999,
-			aliceAddr,
 			aliceAddr,
 			"",
 		)

@@ -3,11 +3,11 @@
 package main
 
 import (
+	"gno.land/p/gnoswap/gnsmath"
 	"testing"
 
 	i256 "gno.land/p/gnoswap/int256"
 	u256 "gno.land/p/gnoswap/uint256"
-	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/scenario/metric"
 )
 
@@ -30,32 +30,32 @@ func main() {
 
 func TickMathGetSqrtRatioAtTick_MinTick() {
 	metric.PrintMetricsBy("TickMathGetSqrtRatioAtTick (minTick)", func() {
-		common.TickMathGetSqrtRatioAtTick(-887272)
+		gnsmath.TickMathGetSqrtRatioAtTick(-887272)
 	})
 }
 
 func TickMathGetSqrtRatioAtTick_MaxTick() {
 	metric.PrintMetricsBy("TickMathGetSqrtRatioAtTick (maxTick)", func() {
-		common.TickMathGetSqrtRatioAtTick(887272)
+		gnsmath.TickMathGetSqrtRatioAtTick(887272)
 	})
 }
 
 func TickMathGetSqrtRatioAtTick_Zero() {
 	metric.PrintMetricsBy("TickMathGetSqrtRatioAtTick (zero)", func() {
-		common.TickMathGetSqrtRatioAtTick(0)
+		gnsmath.TickMathGetSqrtRatioAtTick(0)
 	})
 }
 
 func TickMathGetSqrtRatioAtTick() {
 	metric.PrintMetricsBy("TickMathGetSqrtRatioAtTick", func() {
-		common.TickMathGetSqrtRatioAtTick(1000)
+		gnsmath.TickMathGetSqrtRatioAtTick(1000)
 	})
 }
 
 func TickMathGetTickAtSqrtRatio() {
 	metric.PrintMetricsBy("TickMathGetTickAtSqrtRatio", func() {
 		sqrtPriceX96 := u256.MustFromDecimal("79228162514264337593543950336")
-		common.TickMathGetTickAtSqrtRatio(sqrtPriceX96)
+		gnsmath.TickMathGetTickAtSqrtRatio(sqrtPriceX96)
 	})
 }
 
@@ -67,7 +67,7 @@ func GetLiquidityForAmounts() {
 		amount0 := u256.MustFromDecimal("1000000")
 		amount1 := u256.MustFromDecimal("1000000")
 
-		common.GetLiquidityForAmounts(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, amount0, amount1)
+		gnsmath.GetLiquidityForAmounts(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, amount0, amount1)
 	})
 }
 
@@ -78,7 +78,7 @@ func GetAmountsForLiquidity() {
 		sqrtPriceBX96 := u256.MustFromDecimal("88817841970012523233890533447")
 		liquidity := u256.MustFromDecimal("1000000")
 
-		common.GetAmountsForLiquidity(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, liquidity)
+		gnsmath.GetAmountsForLiquidity(sqrtPriceX96, sqrtPriceAX96, sqrtPriceBX96, liquidity)
 	})
 }
 
@@ -87,7 +87,7 @@ func LiquidityMathAddDelta_Positive() {
 		x := u256.MustFromDecimal("1000000")
 		y := i256.MustFromDecimal("500000")
 
-		common.LiquidityMathAddDelta(x, y)
+		gnsmath.LiquidityMathAddDelta(x, y)
 	})
 }
 
@@ -96,7 +96,7 @@ func LiquidityMathAddDelta_Negative() {
 		x := u256.MustFromDecimal("1000000")
 		y := i256.MustFromDecimal("-300000")
 
-		common.LiquidityMathAddDelta(x, y)
+		gnsmath.LiquidityMathAddDelta(x, y)
 	})
 }
 
@@ -105,7 +105,6 @@ func LiquidityMathAddDelta() {
 		x := u256.MustFromDecimal("1000000")
 		y := i256.MustFromDecimal("500000")
 
-		common.LiquidityMathAddDelta(x, y)
+		gnsmath.LiquidityMathAddDelta(x, y)
 	})
 }
-

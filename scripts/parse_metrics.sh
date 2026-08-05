@@ -14,6 +14,17 @@ echo "| Name | Gas Used | Storage Diff | CPU Cycles |"
 echo "|------|----------|--------------|------------|"
 
 awk '
+function normalize(line) {
+    sub(/\r$/, "", line)
+    if (line ~ /^[[:space:]]*\/\/[[:space:]]?/) {
+        sub(/^[[:space:]]*\/\/[[:space:]]?/, "", line)
+        from_comment = 1
+    } else {
+        from_comment = 0
+    }
+    return line
+}
+
 function format_number(num) {
     # Add comma separators
     result = ""
@@ -49,21 +60,34 @@ function format_number(num) {
 skip_duplicate { next }
 
 !/^[[:space:]]*$/ {
-    if (/^- Gas Used:/) {
-        gas = $NF
-    } else if (/^- Storage Diff:/) {
-        storage = $NF
-    } else if (/^- CPU Cycles:/) {
-        cpu = $NF
+    line = normalize($0)
+
+    if (from_comment && line == "Output:") {
+        in_output = 1
+        next
+    }
+
+    if (from_comment && !in_output) {
+        next
+    }
+
+    if (line ~ /^- Gas Used:/) {
+        split(line, parts, " ")
+        gas = parts[length(parts)]
+    } else if (line ~ /^- Storage Diff:/) {
+        split(line, parts, " ")
+        storage = parts[length(parts)]
+    } else if (line ~ /^- CPU Cycles:/) {
+        split(line, parts, " ")
+        cpu = parts[length(parts)]
         # Print entry only if not already printed
         if (name != "" && !printed[name]) {
             printf "| %s | %s | %s | %s |\n", name, format_number(gas), format_number(storage), format_number(cpu)
             printed[name] = 1
         }
-    } else if (!/^-/) {
+    } else if (line !~ /^-/) {
         # This is a name line
-        name = $0
+        name = line
     }
 }
 ' "$input"
-

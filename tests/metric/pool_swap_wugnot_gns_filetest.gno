@@ -6,6 +6,7 @@ package main
 
 import (
 	"chain"
+	"gno.land/p/gnoswap/gnsmath"
 	"testing"
 
 	prabc "gno.land/p/gnoswap/rbac"
@@ -42,49 +43,49 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSwapSetup()
+func main(cur realm) {
+	initializeSwapSetup(cur)
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{{"ugnot", 100000000000000}})
-	wugnot.Deposit(cross)
+	wugnot.Deposit(cross(cur))
 	testing.SetOriginSend(chain.Coins{})
-	createPool500()
-	mintPosition500()
+	createPool500(cur)
+	mintPosition500(cur)
 
-	swapGnsToWugnotMetric()
+	swapGnsToWugnotMetric(cur)
 }
 
-func initializeSwapSetup() {
+func initializeSwapSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
 	testing.IssueCoins(adminAddr, chain.Coins{{"ugnot", 1000000000000000}})
 
-	gns.Approve(cross, poolAddr, maxInt64)
-	wugnot.Approve(cross, poolAddr, maxInt64)
-	gns.Approve(cross, positionAddr, maxInt64)
-	wugnot.Approve(cross, positionAddr, maxInt64)
+	gns.Approve(cross(cur), poolAddr, maxInt64)
+	wugnot.Approve(cross(cur), poolAddr, maxInt64)
+	gns.Approve(cross(cur), positionAddr, maxInt64)
+	wugnot.Approve(cross(cur), positionAddr, maxInt64)
 }
 
-func createPool500() {
+func createPool500(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		wugnotPath,
 		gnsPath,
 		500,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 }
 
-func mintPosition500() {
+func mintPosition500(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	testing.SetOriginSend(chain.Coins{})
 
 	position.Mint(
-		cross,
+		cross(cur),
 		gnsPath,
 		wugnotPath,
 		500,
@@ -96,32 +97,33 @@ func mintPosition500() {
 		"1",
 		9999999999,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 }
 
-func swapGnsToWugnotMetric() {
+func swapGnsToWugnotMetric(cur realm) {
 	testing.SetRealm(adminRealm)
-	gns.Approve(cross, poolAddr, maxInt64)
+	gns.Approve(cross(cur), poolAddr, maxInt64)
 
 	metric.PrintMetricsBy("Swap (gns -> wugnot, fee:500)", func() {
 		testing.SetRealm(testing.NewCodeRealm("gno.land/r/gnoswap/router"))
-		pool.Swap(
-			cross,
-			wugnotPath,
-			gnsPath,
-			500,
-			adminAddr,
-			false,
-			"60283363",
-			"1461446703485210103287273052203988822378723970341",
-			adminAddr,
-			func(cur realm, amount0Delta, amount1Delta int64, callbackMarker *pool.CallbackMarker) error {
-				testing.SetRealm(adminRealm)
-				common.SafeGRC20Transfer(cross, gnsPath, poolAddr, amount1Delta)
-				return nil
-			},
-		)
+		func(cur realm) {
+			pool.Swap(
+				cross(cur),
+				wugnotPath,
+				gnsPath,
+				500,
+				adminAddr,
+				false,
+				"60283363",
+				"1461446703485210103287273052203988822378723970341",
+				adminAddr,
+				func(cur realm, amount0Delta, amount1Delta int64, callbackMarker *pool.CallbackMarker) error {
+					testing.SetRealm(adminRealm)
+					common.SafeGRC20Transfer(cross(cur), gnsPath, poolAddr, amount1Delta)
+					return nil
+				},
+			)
+		}(cross(cur))
 	})
 }

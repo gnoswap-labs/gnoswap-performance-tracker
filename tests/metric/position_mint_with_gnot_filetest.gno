@@ -6,6 +6,7 @@ package main
 
 import (
 	"chain"
+	"gno.land/p/gnoswap/gnsmath"
 	"testing"
 
 	prabc "gno.land/p/gnoswap/rbac"
@@ -18,7 +19,6 @@ import (
 	_ "gno.land/r/gnoswap/staker/v1"
 
 	"gno.land/r/gnoswap/access"
-	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gns"
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
@@ -41,49 +41,49 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
+func main(cur realm) {
+	initializeSetup(cur)
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{{"ugnot", 100000000000000}})
-	wugnot.Deposit(cross)
+	wugnot.Deposit(cross(cur))
 	testing.SetOriginSend(chain.Coins{})
-	poolSetup()
+	poolSetup(cur)
 
-	collectFeeMetric()
+	collectFeeMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
 	testing.IssueCoins(chain.PackageAddress("gno.land/r/gnoland/wugnot"), chain.Coins{{"ugnot", 100000000000000}})
 	testing.IssueCoins(adminAddr, chain.Coins{{"ugnot", 100000000000000}})
 
-	gns.Approve(cross, poolAddr, maxInt64)
+	gns.Approve(cross(cur), poolAddr, maxInt64)
 }
 
-func poolSetup() {
+func poolSetup(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		wugnotPath,
 		gnsPath,
 		3000,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 }
 
-func collectFeeMetric() {
+func collectFeeMetric(cur realm) {
 	testing.SetRealm(adminRealm)
-	gns.Approve(cross, poolAddr, maxInt64)
-	wugnot.Approve(cross, poolAddr, maxInt64)
-	gns.Approve(cross, positionAddr, maxInt64)
-	wugnot.Approve(cross, positionAddr, maxInt64)
+	gns.Approve(cross(cur), poolAddr, maxInt64)
+	wugnot.Approve(cross(cur), poolAddr, maxInt64)
+	gns.Approve(cross(cur), positionAddr, maxInt64)
+	wugnot.Approve(cross(cur), positionAddr, maxInt64)
 	testing.SetOriginSend(chain.Coins{})
 
 	position.Mint(
-		cross,
+		cross(cur),
 		wugnotPath,
 		gnsPath,
 		3000,
@@ -95,13 +95,12 @@ func collectFeeMetric() {
 		"1",
 		9999999999,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 
 	metric.PrintMetricsBy("CollectFee (with unwrap)", func() {
 		position.CollectFee(
-			cross,
+			cross(cur),
 			1,
 		)
 	})

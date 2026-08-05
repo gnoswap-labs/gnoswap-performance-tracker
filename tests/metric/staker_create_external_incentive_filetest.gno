@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for staker create external incentive
 // Test cases based on tests/integration/testdata/staker/staker_create_external_incentive.txtar
 package main
@@ -46,48 +48,62 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	createBarFooPool()
+func main(cur realm) {
+	initializeSetup(cur)
+	createBarFooPool(cur)
 
-	mintPositionMetric()
-	createExternalIncentiveMetric()
+	mintPositionMetric(cur)
+	createExternalIncentiveMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
-	bar.Transfer(cross, aliceAddr, 2000000000)
-	foo.Transfer(cross, aliceAddr, 2000000000)
-	gns.Transfer(cross, aliceAddr, 2000000000)
+	bar.Transfer(cross(cur), aliceAddr, 2000000000)
+	foo.Transfer(cross(cur), aliceAddr, 2000000000)
+	gns.Transfer(cross(cur), aliceAddr, 2000000000)
 
-	bar.Approve(cross, poolAddr, maxInt64)
-	foo.Approve(cross, poolAddr, maxInt64)
-	bar.Approve(cross, stakerAddr, maxInt64)
-	foo.Approve(cross, stakerAddr, maxInt64)
+	bar.Approve(cross(cur), poolAddr, maxInt64)
+	foo.Approve(cross(cur), poolAddr, maxInt64)
+	bar.Approve(cross(cur), stakerAddr, maxInt64)
+	foo.Approve(cross(cur), stakerAddr, maxInt64)
 
 	testing.SetRealm(aliceRealm)
-	bar.Approve(cross, stakerAddr, maxInt64)
-	foo.Approve(cross, stakerAddr, maxInt64)
-	gns.Approve(cross, stakerAddr, maxInt64)
+	bar.Approve(cross(cur), stakerAddr, maxInt64)
+	foo.Approve(cross(cur), stakerAddr, maxInt64)
+	gns.Approve(cross(cur), stakerAddr, maxInt64)
 }
 
-func createBarFooPool() {
+func createBarFooPool(cur realm) {
 	testing.SetRealm(adminRealm)
 
-	pool.CreatePool(cross, barPath, fooPath, 100, "70710695859404174631")
+	pool.CreatePool(cross(cur), barPath, fooPath, 100, "70710695859404174631")
 }
 
-func mintPositionMetric() {
+func mintPositionMetric(cur realm) {
 	testing.SetRealm(aliceRealm)
-	bar.Approve(cross, poolAddr, maxInt64)
-	foo.Approve(cross, poolAddr, maxInt64)
+	bar.Approve(cross(cur), poolAddr, maxInt64)
+	foo.Approve(cross(cur), poolAddr, maxInt64)
 
-	position.Mint(cross, barPath, fooPath, 100, -1, 1, "5000000", "5000000", "0", "0", time.Now().Unix()+3600, aliceAddr, aliceAddr, "")
+	position.Mint(
+		cross(cur),
+		barPath,
+		fooPath,
+		100,
+		-1,
+		1,
+		"5000000",
+		"5000000",
+		"0",
+		"0",
+		time.Now().Unix()+3600,
+		aliceAddr,
+		"",
+	)
 }
 
-func createExternalIncentiveMetric() {
+func createExternalIncentiveMetric(cur realm) {
 	testing.SetRealm(aliceRealm)
 
 	poolPath := barPath + ":" + fooPath + ":100"
@@ -99,7 +115,7 @@ func createExternalIncentiveMetric() {
 
 	metric.PrintMetricsBy("CreateExternalIncentive", func() {
 		staker.CreateExternalIncentive(
-			cross,
+			cross(cur),
 			poolPath,
 			barPath,
 			int64(1000000000),

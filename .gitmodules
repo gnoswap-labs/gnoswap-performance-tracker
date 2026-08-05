@@ -1,10 +1,10 @@
 [submodule "gno"]
 	path = gno
 	url = git@github.com:gnoswap-labs/gno.git
-	branch = new-metric-gas
+	branch = gas-a319894c
 	ignore = all
 [submodule "gnoswap"]
 	path = gnoswap
 	url = git@github.com:gnoswap-labs/gnoswap.git
-	branch = main
+	branch = fix/latest-gno-api-compat
 	ignore = all

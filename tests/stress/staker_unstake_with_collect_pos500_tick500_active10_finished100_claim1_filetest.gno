@@ -5,6 +5,7 @@
 package main
 
 import (
+	"gno.land/p/gnoswap/gnsmath"
 	"strconv"
 	"testing"
 	"time"
@@ -67,18 +68,18 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	createPoolAndSetTier()
+func main(cur realm) {
+	initializeSetup(cur)
+	createPoolAndSetTier(cur)
 
 	// Create incentives first (before staking positions)
-	incentiveStartTime := createExternalIncentives(finishedIncentiveCount)
+	incentiveStartTime := createExternalIncentives(cur, finishedIncentiveCount)
 	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 
 	// Mint and stake multiple positions
 	println(ufmt.Sprintf("Minting and staking %d positions...", positionCount))
 	for i := 0; i < positionCount; i++ {
-		tokenId := mintAndStakePosition(i)
+		tokenId := mintAndStakePosition(cur, i)
 		tokenIds = append(tokenIds, tokenId)
 		if (i+1)%10 == 0 {
 			println(ufmt.Sprintf("  Staked %d/%d positions", i+1, positionCount))
@@ -88,51 +89,51 @@ func main() {
 	// Skip to the end of the 90-day incentive
 	testing.SkipHeights(TIMESTAMP_90DAYS + 1)
 
-	testMultiCollectReward(claimBatchCount, false)
+	testMultiCollectReward(cur, claimBatchCount, false)
 
 	// Create active incentives
-	incentiveStartTime = createExternalIncentives(activeIncentiveCount)
+	incentiveStartTime = createExternalIncentives(cur, activeIncentiveCount)
 	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 
 	// Mint liquidity for swaps
-	mintLiquidityPosition()
+	mintLiquidityPosition(cur)
 
 	// Perform tick crosses
 	for i := int64(0); i < tickCrossCount; i++ {
-		swapWithTickCross()
+		swapWithTickCross(cur)
 		testing.SkipHeights(1)
 	}
 
 	// Wait 100 days total - all 90-day incentives will be finished
 	testing.SkipHeights(blocksFor100Days - tickCrossCount)
 
-	testMultiUnstake(claimBatchCount, true)
+	testMultiUnstake(cur, claimBatchCount, true)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
 	testing.SetRealm(adminRealm)
-	bar.Approve(cross, poolAddr, maxInt64)
-	foo.Approve(cross, poolAddr, maxInt64)
-	bar.Approve(cross, stakerAddr, maxInt64)
-	foo.Approve(cross, stakerAddr, maxInt64)
-	bar.Approve(cross, routerAddr, maxInt64)
-	foo.Approve(cross, routerAddr, maxInt64)
-	gns.Approve(cross, stakerAddr, maxInt64)
+	bar.Approve(cross(cur), poolAddr, maxInt64)
+	foo.Approve(cross(cur), poolAddr, maxInt64)
+	bar.Approve(cross(cur), stakerAddr, maxInt64)
+	foo.Approve(cross(cur), stakerAddr, maxInt64)
+	bar.Approve(cross(cur), routerAddr, maxInt64)
+	foo.Approve(cross(cur), routerAddr, maxInt64)
+	gns.Approve(cross(cur), stakerAddr, maxInt64)
 
-	emission.SetDistributionStartTime(cross, time.Now().Unix()+1)
+	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
 	testing.SkipHeights(1)
 }
 
-func createPoolAndSetTier() {
+func createPoolAndSetTier(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.CreatePool(cross, barPath, fooPath, 3000, common.TickMathGetSqrtRatioAtTick(0).ToString())
-	staker.SetPoolTier(cross, poolPath, 1)
+	pool.CreatePool(cross(cur), barPath, fooPath, 3000, gnsmath.TickMathGetSqrtRatioAtTick(0).ToString())
+	staker.SetPoolTier(cross(cur), poolPath, 1)
 }
 
-func mintAndStakePosition(index int) uint64 {
+func mintAndStakePosition(cur realm, index int) uint64 {
 	testing.SetRealm(adminRealm)
 
 	// Mint full-range position
@@ -140,7 +141,7 @@ func mintAndStakePosition(index int) uint64 {
 	tickUpper := int32(887220)
 
 	tokenId, _, _, _ := position.Mint(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		3000,
@@ -152,21 +153,20 @@ func mintAndStakePosition(index int) uint64 {
 		"0",
 		time.Now().Unix()+3600,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 
-	gnft.Approve(cross, stakerAddr, grc721.TokenID(strconv.FormatUint(tokenId, 10)))
-	staker.StakeToken(cross, tokenId, "")
+	gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.FormatUint(tokenId, 10)))
+	staker.StakeToken(cross(cur), tokenId, "")
 
 	return tokenId
 }
 
-func mintLiquidityPosition() {
+func mintLiquidityPosition(cur realm) {
 	testing.SetRealm(adminRealm)
 	// Full-range position for liquidity
 	position.Mint(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		3000,
@@ -178,12 +178,11 @@ func mintLiquidityPosition() {
 		"0",
 		time.Now().Unix()+3600,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 }
 
-func createExternalIncentives(creationCount int) int64 {
+func createExternalIncentives(cur realm, creationCount int) int64 {
 	testing.SetRealm(adminRealm)
 
 	// Record currentTime before creating incentives
@@ -194,7 +193,7 @@ func createExternalIncentives(creationCount int) int64 {
 	endTime := incentiveStartTime + TIMESTAMP_90DAYS
 	for i := 0; i < creationCount; i++ {
 		staker.CreateExternalIncentive(
-			cross,
+			cross(cur),
 			poolPath,
 			barPath,
 			1_000_000_000,
@@ -212,27 +211,27 @@ func createExternalIncentives(creationCount int) int64 {
 	return incentiveStartTime
 }
 
-func swapWithTickCross() {
+func swapWithTickCross(cur realm) {
 	testing.SetRealm(testing.NewCodeRealm("gno.land/r/gnoswap/router"))
 
 	// Swap to cross ticks in one direction
 	pool.Swap(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		3000,
 		adminAddr,
 		true,
 		"1000000",
-		common.TickMathGetSqrtRatioAtTick(-887220).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(-887220).ToString(),
 		adminAddr,
 		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
 			testing.SetRealm(adminRealm)
 			if amount0Delta > 0 {
-				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)
+				common.SafeGRC20Transfer(cross(cur), barPath, poolAddr, amount0Delta)
 			}
 			if amount1Delta > 0 {
-				common.SafeGRC20Transfer(cross, fooPath, poolAddr, amount1Delta)
+				common.SafeGRC20Transfer(cross(cur), fooPath, poolAddr, amount1Delta)
 			}
 			return nil
 		},
@@ -240,56 +239,56 @@ func swapWithTickCross() {
 
 	// Swap back to cross ticks in other direction
 	pool.Swap(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		3000,
 		adminAddr,
 		false,
 		"1000000",
-		common.TickMathGetSqrtRatioAtTick(887220).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(887220).ToString(),
 		adminAddr,
 		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
 			testing.SetRealm(adminRealm)
 			if amount0Delta > 0 {
-				common.SafeGRC20Transfer(cross, barPath, poolAddr, amount0Delta)
+				common.SafeGRC20Transfer(cross(cur), barPath, poolAddr, amount0Delta)
 			}
 			if amount1Delta > 0 {
-				common.SafeGRC20Transfer(cross, fooPath, poolAddr, amount1Delta)
+				common.SafeGRC20Transfer(cross(cur), fooPath, poolAddr, amount1Delta)
 			}
 			return nil
 		},
 	)
 }
 
-func testMultiCollectReward(claimBatchCount int, withMetrics bool) {
+func testMultiCollectReward(cur realm, claimBatchCount int, withMetrics bool) {
 	testing.SetRealm(adminRealm)
 
 	if withMetrics {
 		metric.PrintMetricsBy(ufmt.Sprintf("CollectReward (pos=%d, tick=%d, claim=%d, active=%d, finished=%d)", positionCount, tickCrossCount, claimBatchCount, activeIncentiveCount, finishedIncentiveCount), func() {
 			for i := 0; i < claimBatchCount; i++ {
-				staker.CollectReward(cross, tokenIds[i])
+				staker.CollectReward(cross(cur), tokenIds[i])
 			}
 		})
 	} else {
 		for i := 0; i < claimBatchCount; i++ {
-			staker.CollectReward(cross, tokenIds[i])
+			staker.CollectReward(cross(cur), tokenIds[i])
 		}
 	}
 }
 
-func testMultiUnstake(claimBatchCount int, withMetrics bool) {
+func testMultiUnstake(cur realm, claimBatchCount int, withMetrics bool) {
 	testing.SetRealm(adminRealm)
 
 	if withMetrics {
 		metric.PrintMetricsBy(ufmt.Sprintf("UnstakeToken with collect (pos=%d, tick=%d, claim=%d, active=%d, finished=%d)", positionCount, tickCrossCount, claimBatchCount, activeIncentiveCount, finishedIncentiveCount), func() {
 			for i := 0; i < claimBatchCount; i++ {
-				staker.UnStakeToken(cross, tokenIds[i])
+				staker.UnStakeToken(cross(cur), tokenIds[i])
 			}
 		})
 	} else {
 		for i := 0; i < claimBatchCount; i++ {
-			staker.UnStakeToken(cross, tokenIds[i])
+			staker.UnStakeToken(cross(cur), tokenIds[i])
 		}
 	}
 }

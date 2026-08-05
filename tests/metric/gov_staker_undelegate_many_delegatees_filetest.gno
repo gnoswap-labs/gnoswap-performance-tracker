@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Performance test for undelegate with many delegatees
 // Tests getUserDelegations optimization with large delegation tree traversal
 package main
@@ -27,10 +29,10 @@ var (
 	maxInt64 int64 = 9223372036854775807
 )
 
-func main() {
+func main(cur realm) {
 	testing.SetRealm(adminRealm)
 
-	gns.Approve(cross, govStakerAddr, maxInt64)
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
 
 	// Create 50 delegations to different delegatees
 	delegatees := []address{
@@ -62,11 +64,11 @@ func main() {
 	}
 
 	for _, delegatee := range delegatees {
-		govstaker.Delegate(cross, delegatee, int64(1000000), "")
+		govstaker.Delegate(cross(cur), delegatee, int64(1000000), "")
 	}
 
 	// Undelegate from the last delegatee to force a large-tree lookup under current semantics
 	metric.PrintMetricsBy("Undelegate (50 delegatees, large AVL traversal)", func() {
-		govstaker.Undelegate(cross, delegatees[len(delegatees)-1], int64(1000000))
+		govstaker.Undelegate(cross(cur), delegatees[len(delegatees)-1], int64(1000000))
 	})
 }

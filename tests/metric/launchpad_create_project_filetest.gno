@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for launchpad create project
 // Test cases based on tests/integration/testdata/launchpad/create_new_launchpad_project.txtar
 package main
@@ -28,22 +30,22 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	createLaunchpadProjectMetric()
+func main(cur realm) {
+	initializeSetup(cur)
+	createLaunchpadProjectMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	bar.Approve(cross, launchpadAddr, maxInt64)
+	bar.Approve(cross(cur), launchpadAddr, maxInt64)
 }
 
-func createLaunchpadProjectMetric() {
+func createLaunchpadProjectMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	metric.PrintMetricsBy("Create Launchpad Project", func() {
 		launchpad.CreateProject(
-			cross,
+			cross(cur),
 			"Bar Launchpad Project",
 			"gno.land/r/onbloc/bar",
 			adminAddr,

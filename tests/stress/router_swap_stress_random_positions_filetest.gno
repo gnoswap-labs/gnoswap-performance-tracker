@@ -1,9 +1,12 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/stress/main
+
 // Gas and performance metrics for stress test with random positions
 // Creates 100 positions with random tick ranges (generated from fuzzing test patterns)
 package main
 
 import (
 	"chain"
+	"gno.land/p/gnoswap/gnsmath"
 	"testing"
 
 	prabc "gno.land/p/gnoswap/rbac"
@@ -17,7 +20,6 @@ import (
 	_ "gno.land/r/gnoswap/staker/v1"
 
 	"gno.land/r/gnoswap/access"
-	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gns"
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
@@ -151,51 +153,51 @@ var randomPositions = []struct {
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	createPool()
-	mintRandomPositions()
+func main(cur realm) {
+	initializeSetup(cur)
+	createPool(cur)
+	mintRandomPositions(cur)
 
 	// Swap tests
-	exactInSwapMetric()
-	exactOutSwapMetric()
+	exactInSwapMetric(cur)
+	exactOutSwapMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
 	testing.IssueCoins(chain.PackageAddress("gno.land/r/gnoland/wugnot"), chain.Coins{{"ugnot", 100000000000000}})
 	testing.IssueCoins(adminAddr, chain.Coins{{"ugnot", 100000000000000}})
 	testing.SetOriginSend(chain.Coins{{"ugnot", 100000000000000}})
 	testing.SetRealm(adminRealm)
-	wugnot.Deposit(cross)
+	wugnot.Deposit(cross(cur))
 
-	gns.Approve(cross, poolAddr, maxInt64)
-	wugnot.Approve(cross, poolAddr, maxInt64)
-	gns.Approve(cross, routerAddr, maxInt64)
-	wugnot.Approve(cross, routerAddr, maxInt64)
+	gns.Approve(cross(cur), poolAddr, maxInt64)
+	wugnot.Approve(cross(cur), poolAddr, maxInt64)
+	gns.Approve(cross(cur), routerAddr, maxInt64)
+	wugnot.Approve(cross(cur), routerAddr, maxInt64)
 }
 
-func createPool() {
+func createPool(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		wugnotPath,
 		gnsPath,
 		3000,
-		common.TickMathGetSqrtRatioAtTick(0).ToString(),
+		gnsmath.TickMathGetSqrtRatioAtTick(0).ToString(),
 	)
 }
 
-func mintRandomPositions() {
+func mintRandomPositions(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	for i, pos := range randomPositions {
 		position.Mint(
-			cross,
+			cross(cur),
 			wugnotPath,
 			gnsPath,
 			3000,
@@ -207,7 +209,6 @@ func mintRandomPositions() {
 			"0",
 			9999999999,
 			adminAddr,
-			adminAddr,
 			"",
 		)
 		if i%10 == 0 {
@@ -217,13 +218,13 @@ func mintRandomPositions() {
 	println("minted all 100 random positions")
 }
 
-func exactInSwapMetric() {
+func exactInSwapMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("Stress RandomPositions ExactInSwapRoute gns->wugnot", func() {
 		router.ExactInSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"100000000",
@@ -237,7 +238,7 @@ func exactInSwapMetric() {
 
 	metric.PrintMetricsBy("Stress RandomPositions ExactInSwapRoute wugnot->gns", func() {
 		router.ExactInSwapRoute(
-			cross,
+			cross(cur),
 			wugnotPath,
 			gnsPath,
 			"100000000",
@@ -250,13 +251,13 @@ func exactInSwapMetric() {
 	})
 }
 
-func exactOutSwapMetric() {
+func exactOutSwapMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 	testing.SetOriginSend(chain.Coins{})
 
 	metric.PrintMetricsBy("Stress RandomPositions ExactOutSwapRoute gns->wugnot", func() {
 		router.ExactOutSwapRoute(
-			cross,
+			cross(cur),
 			gnsPath,
 			wugnotPath,
 			"10000000",
@@ -270,7 +271,7 @@ func exactOutSwapMetric() {
 
 	metric.PrintMetricsBy("Stress RandomPositions ExactOutSwapRoute wugnot->gns", func() {
 		router.ExactOutSwapRoute(
-			cross,
+			cross(cur),
 			wugnotPath,
 			gnsPath,
 			"10000000",

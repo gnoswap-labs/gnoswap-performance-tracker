@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Performance metrics for gov staker optimizations
 // Tests various delegation and collection scenarios
 package main
@@ -44,82 +46,82 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
+func main(cur realm) {
+	initializeSetup(cur)
 
-	multipleDelegationsUndelegateMetric()
-	singleDelegateMetric()
-	earlyExitUndelegateMetric()
+	multipleDelegationsUndelegateMetric(cur)
+	singleDelegateMetric(cur)
+	earlyExitUndelegateMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	// Give tokens to all test users
-	gns.Transfer(cross, aliceAddr, 1000000000)
-	gns.Transfer(cross, bobAddr, 1000000000)
-	gns.Transfer(cross, carolAddr, 1000000000)
-	gns.Transfer(cross, daveAddr, 1000000000)
-	gns.Transfer(cross, eveAddr, 1000000000)
+	gns.Transfer(cross(cur), aliceAddr, 1000000000)
+	gns.Transfer(cross(cur), bobAddr, 1000000000)
+	gns.Transfer(cross(cur), carolAddr, 1000000000)
+	gns.Transfer(cross(cur), daveAddr, 1000000000)
+	gns.Transfer(cross(cur), eveAddr, 1000000000)
 
 	// Approve gov staker
-	gns.Approve(cross, govStakerAddr, maxInt64)
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
 
 	testing.SetRealm(aliceRealm)
-	gns.Approve(cross, govStakerAddr, maxInt64)
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
 
 	testing.SetRealm(bobRealm)
-	gns.Approve(cross, govStakerAddr, maxInt64)
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
 
 	testing.SetRealm(carolRealm)
-	gns.Approve(cross, govStakerAddr, maxInt64)
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
 
 	testing.SetRealm(daveRealm)
-	gns.Approve(cross, govStakerAddr, maxInt64)
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
 
 	testing.SetRealm(eveRealm)
-	gns.Approve(cross, govStakerAddr, maxInt64)
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
 }
 
 // Undelegate with 5 delegations to same delegatee
 // Tests external call caching optimization
-func multipleDelegationsUndelegateMetric() {
+func multipleDelegationsUndelegateMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	// Create 5 separate delegations to alice
-	govstaker.Delegate(cross, aliceAddr, int64(1000000), "")
-	govstaker.Delegate(cross, aliceAddr, int64(1000000), "")
-	govstaker.Delegate(cross, aliceAddr, int64(1000000), "")
-	govstaker.Delegate(cross, aliceAddr, int64(1000000), "")
-	govstaker.Delegate(cross, aliceAddr, int64(1000000), "")
+	govstaker.Delegate(cross(cur), aliceAddr, int64(1000000), "")
+	govstaker.Delegate(cross(cur), aliceAddr, int64(1000000), "")
+	govstaker.Delegate(cross(cur), aliceAddr, int64(1000000), "")
+	govstaker.Delegate(cross(cur), aliceAddr, int64(1000000), "")
+	govstaker.Delegate(cross(cur), aliceAddr, int64(1000000), "")
 
 	// Measure undelegating across all 5 delegations
 	metric.PrintMetricsBy("Undelegate (5 delegations, cached external calls)", func() {
-		govstaker.Undelegate(cross, aliceAddr, int64(5000000))
+		govstaker.Undelegate(cross(cur), aliceAddr, int64(5000000))
 	})
 }
 
 // Single delegate with cached external calls
-func singleDelegateMetric() {
+func singleDelegateMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	metric.PrintMetricsBy("Delegate (cached external calls)", func() {
-		govstaker.Delegate(cross, bobAddr, int64(1000000), "")
+		govstaker.Delegate(cross(cur), bobAddr, int64(1000000), "")
 	})
 }
 
 // Undelegate with early exit optimization
 // Tests processing only necessary delegations when undelegating partial amount
-func earlyExitUndelegateMetric() {
+func earlyExitUndelegateMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	// Create 10 delegations to dave (minimum 1M each)
 	for i := 0; i < 10; i++ {
-		govstaker.Delegate(cross, daveAddr, int64(1000000), "")
+		govstaker.Delegate(cross(cur), daveAddr, int64(1000000), "")
 	}
 
 	// Undelegate only 3M (needs only 3 delegations)
 	metric.PrintMetricsBy("Undelegate (early exit, 3 of 10 delegations)", func() {
-		govstaker.Undelegate(cross, daveAddr, int64(3000000))
+		govstaker.Undelegate(cross(cur), daveAddr, int64(3000000))
 	})
 }

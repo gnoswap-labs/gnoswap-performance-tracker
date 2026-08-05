@@ -190,6 +190,29 @@ Compare two report files.
 ./scripts/compare_reports.sh <latest.md> <previous.md>
 ```
 
+### compare_gno_txtar_gas.sh
+
+Compare production-path `GAS USED` values for one fixed GnoSwap ref across
+multiple `gnolang/gno` refs. The script links the selected GnoSwap checkout into
+each Gno worktree, runs integration txtars through `gnoland`/`gnokey`, and emits
+matching `gnokey maketx` gas rows.
+
+```bash
+./scripts/compare_gno_txtar_gas.sh \
+  --gnoswap-ref main \
+  --ref master:origin/master \
+  --ref pr5937:refs/pull/5937/head \
+  --ref pr5938:refs/pull/5938/head \
+  --test pool_swap_wugnot_gns_tokens \
+  --test router_exact_in_swap_route \
+  --target WrappedSwap \
+  --target gno.land/r/gnoswap/router:ExactInSwapRoute \
+  --format markdown
+```
+
+Use this lane when a Gno change affects `gnoland` app/store gas accounting and
+therefore cannot be represented by the canonical `gno test` metric lane.
+
 ### parse_research.sh
 
 Convert live-chain research TSV rows into a markdown table compatible with the compare pipeline.

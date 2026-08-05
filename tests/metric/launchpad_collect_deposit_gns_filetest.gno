@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for launchpad CollectDepositGns
 // Test cases based on gnoswap/contract/r/scenario/launchpad/launchpad_deposit_gns_basic_filetest.gno
 package main
@@ -40,24 +42,24 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	projectId := createLaunchpadProject()
-	depositId := depositGns(projectId)
+func main(cur realm) {
+	initializeSetup(cur)
+	projectId := createLaunchpadProject(cur)
+	depositId := depositGns(cur, projectId)
 	skipToProjectEnd()
-	collectDepositGnsMetric(depositId)
+	collectDepositGnsMetric(cur, depositId)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
-	obl.Approve(cross, launchpadAddr, maxInt64)
+	obl.Approve(cross(cur), launchpadAddr, maxInt64)
 }
 
-func createLaunchpadProject() string {
+func createLaunchpadProject(cur realm) string {
 	testing.SetRealm(adminRealm)
 
 	projectId := launchpad.CreateProject(
-		cross,
+		cross(cur),
 		"OBL Launchpad Project",
 		"gno.land/r/onbloc/obl",
 		projectAddr,
@@ -76,16 +78,16 @@ func createLaunchpadProject() string {
 	return projectId
 }
 
-func depositGns(projectId string) string {
+func depositGns(cur realm, projectId string) string {
 	projectTierId := projectId + ":30"
 	depositAmount := int64(1_000_000)
 
 	testing.SetRealm(adminRealm)
-	gns.Transfer(cross, aliceAddr, depositAmount)
+	gns.Transfer(cross(cur), aliceAddr, depositAmount)
 
 	testing.SetRealm(aliceRealm)
-	gns.Approve(cross, launchpadAddr, depositAmount)
-	depositId := launchpad.DepositGns(cross, projectTierId, depositAmount, "")
+	gns.Approve(cross(cur), launchpadAddr, depositAmount)
+	depositId := launchpad.DepositGns(cross(cur), projectTierId, depositAmount, "")
 
 	testing.SkipHeights(1)
 
@@ -97,10 +99,10 @@ func skipToProjectEnd() {
 	testing.SkipHeights(projectDurationSeconds/blockTimeSeconds + 1)
 }
 
-func collectDepositGnsMetric(depositId string) {
+func collectDepositGnsMetric(cur realm, depositId string) {
 	testing.SetRealm(aliceRealm)
 
 	metric.PrintMetricsBy("Launchpad CollectDepositGns", func() {
-		_, _ = launchpad.CollectDepositGns(cross, depositId)
+		_, _ = launchpad.CollectDepositGns(cross(cur), depositId)
 	})
 }

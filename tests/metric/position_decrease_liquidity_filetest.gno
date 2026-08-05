@@ -1,6 +1,6 @@
-// position increase decrease test
-
 // PKGPATH: gno.land/r/demo/main
+
+// position increase decrease test
 
 package main
 
@@ -42,19 +42,19 @@ var (
 	fee500 uint32 = 500
 )
 
-func main() {
-	initPool()
-	mintInitialPosition()
-	executeSwap()
-	decreasePositionLiquidity()
+func main(cur realm) {
+	initPool(cur)
+	mintInitialPosition(cur)
+	executeSwap(cur)
+	decreasePositionLiquidity(cur)
 }
 
-func initPool() {
+func initPool(cur realm) {
 	testing.SetRealm(adminRealm)
-	pool.SetPoolCreationFee(cross, 0)
+	pool.SetPoolCreationFee(cross(cur), 0)
 
 	pool.CreatePool(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		fee500,
@@ -62,13 +62,13 @@ func initPool() {
 	)
 }
 
-func mintInitialPosition() {
+func mintInitialPosition(cur realm) {
 	testing.SetRealm(adminRealm)
-	bar.Approve(cross, poolAddr, 18394892)
-	foo.Approve(cross, poolAddr, 50000000)
+	bar.Approve(cross(cur), poolAddr, 18394892)
+	foo.Approve(cross(cur), poolAddr, 50000000)
 
 	_, _, _, _ = position.Mint(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		fee500,
@@ -80,18 +80,17 @@ func mintInitialPosition() {
 		"0",
 		9999999999,
 		adminAddr,
-		adminAddr,
 		"",
 	)
 }
 
-func increasePositionLiquidity() {
+func increasePositionLiquidity(cur realm) {
 	testing.SetRealm(adminRealm)
-	bar.Approve(cross, poolAddr, 18394892)
-	foo.Approve(cross, poolAddr, 50000000)
+	bar.Approve(cross(cur), poolAddr, 18394892)
+	foo.Approve(cross(cur), poolAddr, 50000000)
 
 	_, _, _, _, _ = position.IncreaseLiquidity(
-		cross,
+		cross(cur),
 		1,
 		"50000000",
 		"50000000",
@@ -101,13 +100,13 @@ func increasePositionLiquidity() {
 	)
 }
 
-func executeSwap() {
+func executeSwap(cur realm) {
 	testing.SetRealm(adminRealm)
-	bar.Approve(cross, poolAddr, 20000000)
+	bar.Approve(cross(cur), poolAddr, 20000000)
 
 	testing.SetRealm(testing.NewCodeRealm("gno.land/r/gnoswap/router"))
 	_, _ = pool.Swap(
-		cross,
+		cross(cur),
 		barPath,
 		fooPath,
 		fee500,
@@ -117,22 +116,22 @@ func executeSwap() {
 		MIN_PRICE,
 		adminAddr,
 		func(cur realm, amount0Delta, amount1Delta int64, callbackMarker *pool.CallbackMarker) error {
-			return mockSwapCallback(barPath, fooPath, amount0Delta, amount1Delta, true)
+			return mockSwapCallback(cur, barPath, fooPath, amount0Delta, amount1Delta, true)
 		},
 	)
 }
 
-func decreasePositionLiquidity() {
+func decreasePositionLiquidity(cur realm) {
 	testing.SetRealm(adminRealm)
 
-	bar.Approve(cross, poolAddr, 100000000)
-	foo.Approve(cross, poolAddr, 100000000)
+	bar.Approve(cross(cur), poolAddr, 100000000)
+	foo.Approve(cross(cur), poolAddr, 100000000)
 
-	_, _, _, _, _, _ = position.CollectFee(cross, 1)
+	_, _, _, _, _, _ = position.CollectFee(cross(cur), 1)
 
 	metric.PrintMetricsBy("DecreaseLiquidity", func() {
 		_, _, _, _, _, _, _ = position.DecreaseLiquidity(
-			cross,
+			cross(cur),
 			1,
 			"100000000",
 			"0",
@@ -142,7 +141,7 @@ func decreasePositionLiquidity() {
 	})
 }
 
-func mockSwapCallback(token0Path string, token1Path string, amount0Delta int64, amount1Delta int64, zeroForOne bool) error {
+func mockSwapCallback(cur realm, token0Path string, token1Path string, amount0Delta int64, amount1Delta int64, zeroForOne bool) error {
 	testing.SetRealm(adminRealm)
 
 	const wugnotPath = "gno.land/r/gnoland/wugnot"
@@ -151,17 +150,17 @@ func mockSwapCallback(token0Path string, token1Path string, amount0Delta int64, 
 	if zeroForOne {
 		if token0Path == wugnotPath {
 			testing.SetOriginSend(chain.Coins{{ugnotDenom, amount0Delta}})
-			wugnot.Deposit(cross)
+			wugnot.Deposit(cross(cur))
 		}
 
-		common.SafeGRC20Transfer(cross, token0Path, poolAddr, amount0Delta)
+		common.SafeGRC20Transfer(cross(cur), token0Path, poolAddr, amount0Delta)
 	} else {
 		if token1Path == wugnotPath {
 			testing.SetOriginSend(chain.Coins{{ugnotDenom, amount1Delta}})
-			wugnot.Deposit(cross)
+			wugnot.Deposit(cross(cur))
 		}
 
-		common.SafeGRC20Transfer(cross, token1Path, poolAddr, amount1Delta)
+		common.SafeGRC20Transfer(cross(cur), token1Path, poolAddr, amount1Delta)
 	}
 
 	return nil

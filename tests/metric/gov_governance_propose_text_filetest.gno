@@ -1,3 +1,5 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
 // Gas and performance metrics for governance propose text
 // Test cases based on tests/integration/testdata/gov/governance/create_text_proposal.txtar
 package main
@@ -30,29 +32,29 @@ var (
 
 var t *testing.T
 
-func main() {
-	initializeSetup()
-	proposeTextMetric()
+func main(cur realm) {
+	initializeSetup(cur)
+	proposeTextMetric(cur)
 }
 
-func initializeSetup() {
+func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	// Reconfigure governance with votingWeightSmoothingDuration set to 0
-	governance.Reconfigure(cross, 0, 604800, 0, 50, 0, 86400, 2592000)
+	governance.Reconfigure(cross(cur), 0, 604800, 0, 50, 0, 86400, 2592000)
 
 	// Approve and delegate GNS to get voting power
-	gns.Approve(cross, govStakerAddr, maxInt64)
-	govstaker.Delegate(cross, adminAddr, int64(1000000000), "")
+	gns.Approve(cross(cur), govStakerAddr, maxInt64)
+	govstaker.Delegate(cross(cur), adminAddr, int64(1000000000), "")
 
 	// Skip blocks for delegation to be counted
 	testing.SkipHeights(5)
 }
 
-func proposeTextMetric() {
+func proposeTextMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	metric.PrintMetricsBy("Propose Text", func() {
-		governance.ProposeText(cross, "Test Proposal", "This is a test proposal")
+		governance.ProposeText(cross(cur), "Test Proposal", "This is a test proposal")
 	})
 }
