@@ -6,5 +6,5 @@
 [submodule "gnoswap"]
 	path = gnoswap
 	url = git@github.com:gnoswap-labs/gnoswap.git
-	branch = main
+	branch = origin/main
 	ignore = all
