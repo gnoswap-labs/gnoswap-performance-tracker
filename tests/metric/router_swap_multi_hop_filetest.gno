@@ -39,10 +39,10 @@ var (
 	poolAddr, _   = access.GetAddress(prabc.ROLE_POOL.String())
 	routerAddr, _ = access.GetAddress(prabc.ROLE_ROUTER.String())
 
-	wugnotPath = "gno.land/r/gnoland/wugnot"
-	gnsPath    = "gno.land/r/gnoswap/gns"
-	oblPath    = "gno.land/r/onbloc/obl"
-	barPath    = "gno.land/r/onbloc/bar"
+	wugnotPath = "gno.land/r/gnoland/wugnot.wugnot"
+	gnsPath    = "gno.land/r/gnoswap/gns.GNS"
+	oblPath    = "gno.land/r/onbloc/obl.OBL"
+	barPath    = "gno.land/r/onbloc/bar.BAR"
 
 	maxInt64 int64 = 9223372036854775807
 )
@@ -237,7 +237,7 @@ func doubleHopExactIn(cur realm) {
 			gnsPath,
 			wugnotPath,
 			"10000000",
-			"gno.land/r/gnoswap/gns:gno.land/r/onbloc/obl:3000*POOL*gno.land/r/onbloc/obl:gno.land/r/gnoland/wugnot:3000",
+			"gno.land/r/gnoswap/gns.GNS:gno.land/r/onbloc/obl.OBL:3000*POOL*gno.land/r/onbloc/obl.OBL:gno.land/r/gnoland/wugnot.wugnot:3000",
 			"100",
 			"0",
 			9999999999,
@@ -256,7 +256,7 @@ func doubleHopExactOut(cur realm) {
 			gnsPath,
 			wugnotPath,
 			"10000000",
-			"gno.land/r/gnoswap/gns:gno.land/r/onbloc/obl:3000*POOL*gno.land/r/onbloc/obl:gno.land/r/gnoland/wugnot:3000",
+			"gno.land/r/gnoswap/gns.GNS:gno.land/r/onbloc/obl.OBL:3000*POOL*gno.land/r/onbloc/obl.OBL:gno.land/r/gnoland/wugnot.wugnot:3000",
 			"100",
 			"100000000",
 			9999999999,
@@ -275,7 +275,7 @@ func tripleHopExactIn(cur realm) {
 			gnsPath,
 			wugnotPath,
 			"10000000",
-			"gno.land/r/gnoswap/gns:gno.land/r/onbloc/obl:3000*POOL*gno.land/r/onbloc/obl:gno.land/r/onbloc/bar:3000*POOL*gno.land/r/onbloc/bar:gno.land/r/gnoland/wugnot:3000",
+			"gno.land/r/gnoswap/gns.GNS:gno.land/r/onbloc/obl.OBL:3000*POOL*gno.land/r/onbloc/obl.OBL:gno.land/r/onbloc/bar.BAR:3000*POOL*gno.land/r/onbloc/bar.BAR:gno.land/r/gnoland/wugnot.wugnot:3000",
 			"100",
 			"0",
 			9999999999,
@@ -294,7 +294,7 @@ func tripleHopExactOut(cur realm) {
 			gnsPath,
 			wugnotPath,
 			"10000000",
-			"gno.land/r/gnoswap/gns:gno.land/r/onbloc/obl:3000*POOL*gno.land/r/onbloc/obl:gno.land/r/onbloc/bar:3000*POOL*gno.land/r/onbloc/bar:gno.land/r/gnoland/wugnot:3000",
+			"gno.land/r/gnoswap/gns.GNS:gno.land/r/onbloc/obl.OBL:3000*POOL*gno.land/r/onbloc/obl.OBL:gno.land/r/onbloc/bar.BAR:3000*POOL*gno.land/r/onbloc/bar.BAR:gno.land/r/gnoland/wugnot.wugnot:3000",
 			"100",
 			"100000000",
 			9999999999,
@@ -316,7 +316,7 @@ func multiRouteExactIn(cur realm) {
 			gnsPath,
 			wugnotPath,
 			"10000000",
-			"gno.land/r/gnoswap/gns:gno.land/r/gnoland/wugnot:3000,gno.land/r/gnoswap/gns:gno.land/r/onbloc/obl:3000*POOL*gno.land/r/onbloc/obl:gno.land/r/gnoland/wugnot:3000",
+			"gno.land/r/gnoswap/gns.GNS:gno.land/r/gnoland/wugnot.wugnot:3000,gno.land/r/gnoswap/gns.GNS:gno.land/r/onbloc/obl.OBL:3000*POOL*gno.land/r/onbloc/obl.OBL:gno.land/r/gnoland/wugnot.wugnot:3000",
 			"50,50",
 			"0",
 			9999999999,
@@ -336,7 +336,7 @@ func multiRouteExactOut(cur realm) {
 			gnsPath,
 			wugnotPath,
 			"10000000",
-			"gno.land/r/gnoswap/gns:gno.land/r/gnoland/wugnot:3000,gno.land/r/gnoswap/gns:gno.land/r/onbloc/obl:3000*POOL*gno.land/r/onbloc/obl:gno.land/r/gnoland/wugnot:3000",
+			"gno.land/r/gnoswap/gns.GNS:gno.land/r/gnoland/wugnot.wugnot:3000,gno.land/r/gnoswap/gns.GNS:gno.land/r/onbloc/obl.OBL:3000*POOL*gno.land/r/onbloc/obl.OBL:gno.land/r/gnoland/wugnot.wugnot:3000",
 			"50,50",
 			"100000000",
 			9999999999,

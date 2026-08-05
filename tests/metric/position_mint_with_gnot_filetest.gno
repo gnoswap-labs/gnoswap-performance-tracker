@@ -33,8 +33,8 @@ var (
 	poolAddr, _     = access.GetAddress(prabc.ROLE_POOL.String())
 	positionAddr, _ = access.GetAddress(prabc.ROLE_POSITION.String())
 
-	wugnotPath = "gno.land/r/gnoland/wugnot"
-	gnsPath    = "gno.land/r/gnoswap/gns"
+	wugnotPath = "gno.land/r/gnoland/wugnot.wugnot"
+	gnsPath    = "gno.land/r/gnoswap/gns.GNS"
 
 	maxInt64 int64 = 9223372036854775807
 )

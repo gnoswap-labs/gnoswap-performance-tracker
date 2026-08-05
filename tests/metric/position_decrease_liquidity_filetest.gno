@@ -35,8 +35,8 @@ var (
 	adminRealm = testing.NewUserRealm(adminAddr)
 	poolAddr   = access.MustGetAddress(prbac.ROLE_POOL.String())
 
-	barPath = "gno.land/r/onbloc/bar"
-	fooPath = "gno.land/r/onbloc/foo"
+	barPath = "gno.land/r/onbloc/bar.BAR"
+	fooPath = "gno.land/r/onbloc/foo.FOO"
 
 	fee500 uint32 = 500
 )
@@ -142,7 +142,7 @@ func decreasePositionLiquidity(cur realm) {
 func mockSwapCallback(cur realm, token0Path string, token1Path string, amount0Delta int64, amount1Delta int64, zeroForOne bool) error {
 	testing.SetRealm(adminRealm)
 
-	const wugnotPath = "gno.land/r/gnoland/wugnot"
+	const wugnotPath = "gno.land/r/gnoland/wugnot.wugnot"
 	const ugnotDenom = "ugnot"
 
 	if zeroForOne {

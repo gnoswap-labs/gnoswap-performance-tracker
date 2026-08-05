@@ -36,8 +36,8 @@ var (
 	poolAddr, _   = access.GetAddress(prabc.ROLE_POOL.String())
 	routerAddr, _ = access.GetAddress(prabc.ROLE_ROUTER.String())
 
-	wugnotPath = "gno.land/r/gnoland/wugnot"
-	gnsPath    = "gno.land/r/gnoswap/gns"
+	wugnotPath = "gno.land/r/gnoland/wugnot.wugnot"
+	gnsPath    = "gno.land/r/gnoswap/gns.GNS"
 
 	maxInt64 int64 = 9223372036854775807
 )
@@ -111,7 +111,7 @@ func doSwap(cur realm) {
 			gnsPath,
 			wugnotPath,
 			"1000000",
-			"gno.land/r/gnoswap/gns:gno.land/r/gnoland/wugnot:3000",
+			"gno.land/r/gnoswap/gns.GNS:gno.land/r/gnoland/wugnot.wugnot:3000",
 			"100",
 			"0",
 			9999999999,

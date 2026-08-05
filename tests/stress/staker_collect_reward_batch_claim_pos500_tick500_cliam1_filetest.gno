@@ -43,8 +43,8 @@ var (
 	stakerAddr, _ = access.GetAddress(prabc.ROLE_STAKER.String())
 	routerAddr, _ = access.GetAddress(prabc.ROLE_ROUTER.String())
 
-	barPath  = "gno.land/r/onbloc/bar"
-	fooPath  = "gno.land/r/onbloc/foo"
+	barPath  = "gno.land/r/onbloc/bar.BAR"
+	fooPath  = "gno.land/r/onbloc/foo.FOO"
 	poolPath = barPath + ":" + fooPath + ":3000"
 
 	maxInt64 int64 = 9223372036854775807

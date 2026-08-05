@@ -61,7 +61,7 @@ func createLaunchpadProject(cur realm) string {
 	projectId := launchpad.CreateProject(
 		cross(cur),
 		"OBL Launchpad Project",
-		"gno.land/r/onbloc/obl",
+		"gno.land/r/onbloc/obl.OBL",
 		projectAddr,
 		int64(1_000_000_000),
 		"",
