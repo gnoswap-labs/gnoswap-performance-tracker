@@ -35,7 +35,7 @@ help:
 	@echo "  make clean-worktrees               # Remove cached benchmark worktrees"
 
 init:
-	git submodule update --init --recursive
+	git submodule update --init --recursive --remote
 	cd gno && make install
 
 # --- Simplified Commands ---
