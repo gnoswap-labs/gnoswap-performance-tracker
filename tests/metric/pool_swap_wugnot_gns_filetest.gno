@@ -6,10 +6,13 @@ package main
 
 import (
 	"chain"
-	"gno.land/p/gnoswap/gnsmath"
 	"testing"
 
+	"gno.land/p/gnoswap/gnsmath"
+
 	prabc "gno.land/p/gnoswap/rbac"
+	"gno.land/r/gnoswap/pool"
+	"gno.land/r/gnoswap/position"
 	_ "gno.land/r/gnoswap/rbac"
 
 	_ "gno.land/r/gnoswap/pool/v1"
@@ -20,8 +23,6 @@ import (
 	"gno.land/r/gnoswap/access"
 	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/gns"
-	"gno.land/r/gnoswap/pool"
-	"gno.land/r/gnoswap/position"
 
 	"gno.land/r/gnoland/wugnot"
 
@@ -117,7 +118,6 @@ func swapGnsToWugnotMetric(cur realm) {
 				false,
 				"60283363",
 				"1461446703485210103287273052203988822378723970341",
-				adminAddr,
 				func(cur realm, amount0Delta, amount1Delta int64, callbackMarker *pool.CallbackMarker) error {
 					testing.SetRealm(adminRealm)
 					common.SafeGRC20Transfer(cross(cur), gnsPath, poolAddr, amount1Delta)
