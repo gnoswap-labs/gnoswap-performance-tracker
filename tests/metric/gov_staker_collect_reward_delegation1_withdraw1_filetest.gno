@@ -74,7 +74,7 @@ func setupProtocolFee(cur realm) {
 	testing.SetRealm(stakerRealm)
 	gns.Approve(cross(cur), protocolFeeAddr, 1000000)
 	gns.Approve(cross(cur), protocolFeeV1Addr, 1000000)
-	protocol_fee.AddToProtocolFee(cross(cur), "gno.land/r/gnoswap/gns", 1000000)
+	protocol_fee.AddToProtocolFee(cross(cur), "gno.land/r/gnoswap/gns.GNS", 1000000)
 
 	testing.SetRealm(govStakerRealm)
 	protocol_fee.DistributeProtocolFee(cross(cur))

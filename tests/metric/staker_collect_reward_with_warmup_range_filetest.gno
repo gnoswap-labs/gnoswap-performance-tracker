@@ -5,16 +5,20 @@
 package main
 
 import (
-	"gno.land/p/gnoswap/gnsmath"
 	"strconv"
 	"testing"
 	"time"
+
+	"gno.land/p/gnoswap/gnsmath"
 
 	"gno.land/p/demo/tokens/grc721"
 	prabc "gno.land/p/gnoswap/rbac"
 	"gno.land/p/nt/testutils/v0"
 	"gno.land/r/gnoswap/emission"
+	"gno.land/r/gnoswap/pool"
+	"gno.land/r/gnoswap/position"
 	_ "gno.land/r/gnoswap/rbac"
+	"gno.land/r/gnoswap/staker"
 
 	_ "gno.land/r/gnoswap/pool/v1"
 	_ "gno.land/r/gnoswap/position/v1"
@@ -23,14 +27,9 @@ import (
 
 	"gno.land/r/gnoswap/access"
 	"gno.land/r/gnoswap/gnft"
-	"gno.land/r/gnoswap/pool"
-	"gno.land/r/gnoswap/position"
-	"gno.land/r/gnoswap/staker"
 
 	"gno.land/r/onbloc/bar"
 	"gno.land/r/onbloc/foo"
-
-	"gno.land/r/gnoswap/gns"
 
 	"gno.land/r/gnoswap/scenario/metric"
 )
@@ -45,25 +44,20 @@ var (
 	aliceAddr  = testutils.TestAddress("alice")
 	aliceRealm = testing.NewUserRealm(aliceAddr)
 
-	barPath  = "gno.land/r/onbloc/bar.BAR"
-	fooPath  = "gno.land/r/onbloc/foo.FOO"
-	poolPath = barPath + ":" + fooPath + ":3000"
+	barPath = "gno.land/r/onbloc/bar.BAR"
+	fooPath = "gno.land/r/onbloc/foo.FOO"
 
-	maxInt64       int64 = 9223372036854775807
-	incentiveCount int64 = 1
-
-	TIMESTAMP_90DAYS int64 = 90 * 24 * 60 * 60
+	maxInt64 int64 = 9223372036854775807
 )
 
 var t *testing.T
 
 func main(cur realm) {
 	initializeSetup(cur)
-	createPoolSetup(cur)
-	mintPositionSetup(cur)
+	createPoolMetric(cur)
+	mintPositionMetric(cur)
 	setPoolTierSetup(cur)
 	stakeTokenSetup(cur)
-	createExternalIncentivesSetup(cur)
 
 	testing.SkipHeights(1)
 	collectRewardMetric(cur)
@@ -76,48 +70,72 @@ func initializeSetup(cur realm) {
 	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
 	testing.SkipHeights(1)
 
-	bar.Transfer(cross(cur), aliceAddr, 10_000_000_000)
-	foo.Transfer(cross(cur), aliceAddr, 10_000_000_000)
-	gns.Transfer(cross(cur), aliceAddr, 10_000_000_000)
+	bar.Transfer(cross(cur), aliceAddr, 100000000)
+	foo.Transfer(cross(cur), aliceAddr, 100000000)
 
 	bar.Approve(cross(cur), poolAddr, maxInt64)
 	foo.Approve(cross(cur), poolAddr, maxInt64)
 	bar.Approve(cross(cur), stakerAddr, maxInt64)
 	foo.Approve(cross(cur), stakerAddr, maxInt64)
-	gns.Approve(cross(cur), stakerAddr, maxInt64)
-
-	testing.SetRealm(aliceRealm)
-	gns.Approve(cross(cur), stakerAddr, maxInt64)
-}
-func createExternalIncentivesSetup(cur realm) {
-	testing.SetRealm(aliceRealm)
-	bar.Approve(cross(cur), stakerAddr, maxInt64)
-
-	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
-	incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
-
-	for i := 0; i < int(incentiveCount); i++ {
-		staker.CreateExternalIncentive(
-			cross(cur),
-			poolPath,
-			barPath,
-			1_000_000_000,
-			incentiveStartTime,
-			incentiveEndTime,
-		)
-	}
-	testing.SkipHeights((incentiveStartTime-time.Now().Unix())/5 + 1)
 }
 
-func createPoolSetup(cur realm) {
+func createPoolMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 	pool.CreatePool(cross(cur), barPath, fooPath, 3000, gnsmath.TickMathGetSqrtRatioAtTick(0).ToString())
 }
 
-func mintPositionSetup(cur realm) {
+func mintPositionMetric(cur realm) {
 	testing.SetRealm(aliceRealm)
 	bar.Approve(cross(cur), poolAddr, maxInt64)
 	foo.Approve(cross(cur), poolAddr, maxInt64)
+
+	position.Mint(
+		cross(cur),
+		barPath,
+		fooPath,
+		3000,
+		-60,
+		60,
+		"5000000",
+		"5000000",
+		"1",
+		"1",
+		time.Now().Unix()+3600,
+		aliceAddr,
+		"",
+	)
+
+	position.Mint(
+		cross(cur),
+		barPath,
+		fooPath,
+		3000,
+		-60,
+		60,
+		"5000000",
+		"5000000",
+		"1",
+		"1",
+		time.Now().Unix()+3600,
+		aliceAddr,
+		"",
+	)
+
+	position.Mint(
+		cross(cur),
+		barPath,
+		fooPath,
+		3000,
+		-60,
+		60,
+		"5000000",
+		"5000000",
+		"1",
+		"1",
+		time.Now().Unix()+3600,
+		aliceAddr,
+		"",
+	)
 
 	position.Mint(
 		cross(cur),
@@ -146,20 +164,57 @@ func setPoolTierSetup(cur realm) {
 func stakeTokenSetup(cur realm) {
 	testing.SetRealm(aliceRealm)
 	gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.Itoa(1)))
+	gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.Itoa(2)))
+	gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.Itoa(3)))
+	gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.Itoa(4)))
 
 	staker.StakeToken(cross(cur), uint64(1), "")
+	staker.StakeToken(cross(cur), uint64(2), "")
+	staker.StakeToken(cross(cur), uint64(3), "")
+	staker.StakeToken(cross(cur), uint64(4), "")
 }
 
 func collectRewardMetric(cur realm) {
 	testing.SetRealm(aliceRealm)
 
-	metric.PrintMetricsBy("CollectReward With External Rewards (1 incentives)", func() {
+	secondsInDay := int64(86400)
+	blockTime := int64(5)
+
+	testing.SkipHeights(1)
+
+	metric.PrintMetricsBy("CollectReward with Warmup Range (30% ~ 30%)", func() {
+		staker.CollectReward(cross(cur), uint64(1))
+	})
+
+	testing.SkipHeights(5 * secondsInDay / blockTime) // 5 days
+
+	metric.PrintMetricsBy("CollectReward with Warmup Range (30% ~ 50%)", func() {
+		staker.CollectReward(cross(cur), uint64(2))
+	})
+
+	testing.SkipHeights(10 * secondsInDay / blockTime) // total 15 days (10 days + 5 days)
+
+	metric.PrintMetricsBy("CollectReward with Warmup Range (30% ~ 70%)", func() {
+		staker.CollectReward(cross(cur), uint64(3))
+	})
+
+	testing.SkipHeights(30 * secondsInDay / blockTime) // total 45 days (30 days + 5 days)
+
+	metric.PrintMetricsBy("CollectReward with Warmup Range (30% ~ 100%)", func() {
+		staker.CollectReward(cross(cur), uint64(4))
+	})
+
+	testing.SkipHeights(secondsInDay / blockTime) // total 46 days
+	staker.CollectReward(cross(cur), uint64(1))
+	testing.SkipHeights(secondsInDay / blockTime) // total 47 days
+
+	metric.PrintMetricsBy("CollectReward with Warmup Range (100% ~)", func() {
 		staker.CollectReward(cross(cur), uint64(1))
 	})
 
 	testing.SkipHeights(1)
 
-	metric.PrintMetricsBy("CollectReward With External Rewards 2nd (1 incentives)", func() {
+	metric.PrintMetricsBy("CollectReward with Warmup Range 2nd (100% ~)", func() {
 		staker.CollectReward(cross(cur), uint64(1))
 	})
 }

@@ -45,8 +45,8 @@ var (
 	aliceAddr  = testutils.TestAddress("alice")
 	aliceRealm = testing.NewUserRealm(aliceAddr)
 
-	barPath  = "gno.land/r/onbloc/bar"
-	fooPath  = "gno.land/r/onbloc/foo"
+	barPath  = "gno.land/r/onbloc/bar.BAR"
+	fooPath  = "gno.land/r/onbloc/foo.FOO"
 	poolPath = barPath + ":" + fooPath + ":3000"
 
 	maxInt64 int64 = 9223372036854775807

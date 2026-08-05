@@ -19,8 +19,8 @@ func main() {
 func BuildSingleHopRoutePath() {
 	metric.PrintMetricsBy("BuildSingleHopRoutePath", func() {
 		router.BuildSingleHopRoutePath(
-			"gno.land/r/demo/wugnot",
-			"gno.land/r/demo/usdc",
+			"gno.land/r/demo/wugnot.wugnot",
+			"gno.land/r/demo/usdc.USDC",
 			500,
 		)
 	})

@@ -47,10 +47,10 @@ func createLaunchpadProjectMetric(cur realm) {
 		launchpad.CreateProject(
 			cross(cur),
 			"Bar Launchpad Project",
-			"gno.land/r/onbloc/bar",
+			"gno.land/r/onbloc/bar.BAR",
 			adminAddr,
 			int64(1000000000),
-			"gno.land/r/onbloc/bar",
+			"gno.land/r/onbloc/bar.BAR",
 			"1000000",
 			int64(10),
 			int64(20),

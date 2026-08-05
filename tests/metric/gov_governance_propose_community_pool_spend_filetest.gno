@@ -52,6 +52,6 @@ func proposeCommunityPoolSpendMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
 	metric.PrintMetricsBy("Propose Community Pool Spend", func() {
-		governance.ProposeCommunityPoolSpend(cross(cur), "Test Proposal", "This is a test proposal", adminAddr, "gno.land/r/gnoswap/gns", int64(100))
+		governance.ProposeCommunityPoolSpend(cross(cur), "Test Proposal", "This is a test proposal", adminAddr, "gno.land/r/gnoswap/gns.GNS", int64(100))
 	})
 }

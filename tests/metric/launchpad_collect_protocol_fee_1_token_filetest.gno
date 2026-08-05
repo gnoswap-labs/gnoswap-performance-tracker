@@ -67,7 +67,7 @@ func createLaunchpadProject(cur realm) string {
 	projectId := launchpad.CreateProject(
 		cross(cur),
 		"OBL Launchpad Project",
-		"gno.land/r/onbloc/obl",
+		"gno.land/r/onbloc/obl.OBL",
 		projectAddr,
 		int64(1_000_000_000),
 		"",
@@ -104,7 +104,7 @@ func setupProtocolFee(cur realm) {
 	protocolFeeV1Addr := testing.NewCodeRealm("gno.land/r/gnoswap/protocol_fee/v1").Address()
 	bar.Approve(cross(cur), protocolFeeAddr, 1000)
 	bar.Approve(cross(cur), protocolFeeV1Addr, 1000)
-	protocol_fee.AddToProtocolFee(cross(cur), "gno.land/r/onbloc/bar", 1000)
+	protocol_fee.AddToProtocolFee(cross(cur), "gno.land/r/onbloc/bar.BAR", 1000)
 
 	testing.SetRealm(govStakerRealm)
 	protocol_fee.DistributeProtocolFee(cross(cur))

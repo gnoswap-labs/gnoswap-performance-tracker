@@ -62,9 +62,9 @@ func main(cur realm) {
 
 	// setup protocol fee for each token
 	for index := 0; index < tokenCount; index++ {
-		tokenPath := ufmt.Sprintf("gno.land/r/onbloc/token%d", index)
 		name := ufmt.Sprintf("Token%d", index)
 		symbol := ufmt.Sprintf("TKN%d", index)
+		tokenPath := ufmt.Sprintf("gno.land/r/onbloc/token%d.%s", index, symbol)
 		mintAmount := int64(1000)
 		addToProtocolFee(cur, tokenPath, name, symbol, mintAmount)
 	}
@@ -87,7 +87,7 @@ func createLaunchpadProject(cur realm) string {
 	projectId := launchpad.CreateProject(
 		cross(cur),
 		"OBL Launchpad Project",
-		"gno.land/r/onbloc/obl",
+		"gno.land/r/onbloc/obl.OBL",
 		projectAddr,
 		int64(1_000_000_000),
 		"",

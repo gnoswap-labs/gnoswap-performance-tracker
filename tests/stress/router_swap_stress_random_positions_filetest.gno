@@ -37,8 +37,8 @@ var (
 	poolAddr, _   = access.GetAddress(prabc.ROLE_POOL.String())
 	routerAddr, _ = access.GetAddress(prabc.ROLE_ROUTER.String())
 
-	wugnotPath = "gno.land/r/gnoland/wugnot"
-	gnsPath    = "gno.land/r/gnoswap/gns"
+	wugnotPath = "gno.land/r/gnoland/wugnot.wugnot"
+	gnsPath    = "gno.land/r/gnoswap/gns.GNS"
 
 	maxInt64 int64 = 9223372036854775807
 )
@@ -228,7 +228,7 @@ func exactInSwapMetric(cur realm) {
 			gnsPath,
 			wugnotPath,
 			"100000000",
-			"gno.land/r/gnoswap/gns:gno.land/r/gnoland/wugnot:3000",
+			"gno.land/r/gnoswap/gns.GNS:gno.land/r/gnoland/wugnot.wugnot:3000",
 			"100",
 			"0",
 			9999999999,
@@ -242,7 +242,7 @@ func exactInSwapMetric(cur realm) {
 			wugnotPath,
 			gnsPath,
 			"100000000",
-			"gno.land/r/gnoland/wugnot:gno.land/r/gnoswap/gns:3000",
+			"gno.land/r/gnoland/wugnot.wugnot:gno.land/r/gnoswap/gns.GNS:3000",
 			"100",
 			"0",
 			9999999999,
@@ -261,7 +261,7 @@ func exactOutSwapMetric(cur realm) {
 			gnsPath,
 			wugnotPath,
 			"10000000",
-			"gno.land/r/gnoswap/gns:gno.land/r/gnoland/wugnot:3000",
+			"gno.land/r/gnoswap/gns.GNS:gno.land/r/gnoland/wugnot.wugnot:3000",
 			"100",
 			"100000000",
 			9999999999,
@@ -275,7 +275,7 @@ func exactOutSwapMetric(cur realm) {
 			wugnotPath,
 			gnsPath,
 			"10000000",
-			"gno.land/r/gnoland/wugnot:gno.land/r/gnoswap/gns:3000",
+			"gno.land/r/gnoland/wugnot.wugnot:gno.land/r/gnoswap/gns.GNS:3000",
 			"100",
 			"100000000",
 			9999999999,
