@@ -1,4 +1,4 @@
-// PKGPATH: gno.land/r/gnoswap/scenario/stress/main
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
 
 // Gas and performance metrics for EndExternalIncentive with many accumulated unclaimable periods.
 //
@@ -69,7 +69,7 @@ var (
 
 // unclaimablePeriodCount is the number of disjoint unclaimable gaps accumulated
 // in the pool before the refund. Each stake/unstake cycle produces exactly one.
-const unclaimablePeriodCount = 100
+const unclaimablePeriodCount = 10
 
 func main(cur realm) {
 	initializeSetup(cur)
@@ -183,7 +183,7 @@ func accumulateUnclaimablePeriods(cur realm) {
 func endExternalIncentiveMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 
-	metric.PrintMetricsBy(ufmt.Sprintf("stress EndExternalIncentive (unclaimablePeriods=%d)", unclaimablePeriodCount), func() {
+	metric.PrintMetricsBy(ufmt.Sprintf("EndExternalIncentive (unclaimablePeriods=%d)", unclaimablePeriodCount), func() {
 		staker.EndExternalIncentive(cross(cur), poolPath, incentiveID, adminAddr)
 	})
 }
