@@ -157,7 +157,7 @@ research-compare:
 gas-report: gno-build
 	@set -eu; \
 	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
-	eval "$$(GNO_REF="$(GNO_REF)" ./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
+	eval "$$(./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
 	cleanup() { \
 		git -C "$(CURDIR)/gno" worktree remove --force "$$GNO_WORKTREE" >/dev/null 2>&1 || true; \
 		git -C "$(CURDIR)/gno" worktree prune >/dev/null 2>&1 || true; \
@@ -183,7 +183,7 @@ gas-report: gno-build
 stress-report: gno-build
 	@set -eu; \
 	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
-	eval "$$(GNO_REF="$(GNO_REF)" ./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
+	eval "$$(./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
 	cleanup() { \
 		git -C "$(CURDIR)/gno" worktree remove --force "$$GNO_WORKTREE" >/dev/null 2>&1 || true; \
 		git -C "$(CURDIR)/gno" worktree prune >/dev/null 2>&1 || true; \

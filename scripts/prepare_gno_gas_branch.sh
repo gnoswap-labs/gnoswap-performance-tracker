@@ -24,6 +24,11 @@ if ! git -C "$GNO_REPO" rev-parse --git-dir >/dev/null 2>&1; then
     exit 1
 fi
 
+if ! git -C "$GNO_REPO" diff --quiet || ! git -C "$GNO_REPO" diff --cached --quiet; then
+    echo "Error: gno submodule has local changes; commit or stash them before preparing a gas branch." >&2
+    exit 1
+fi
+
 SOURCE_REF=$1
 git -C "$GNO_REPO" fetch origin --prune >/dev/null
 
@@ -83,9 +88,24 @@ else
     fi
 fi
 
-git -C "$TRACKER_ROOT" config --local gnoswap-performance.gnoRef "$GNO_GAS_COMMIT"
+CURRENT_GNO_COMMIT=$(git -C "$GNO_REPO" rev-parse HEAD)
+if [ "$CURRENT_GNO_COMMIT" != "$GNO_GAS_COMMIT" ] \
+    && ! git -C "$GNO_REPO" for-each-ref --contains "$CURRENT_GNO_COMMIT" --format='%(refname)' refs/heads refs/remotes | grep -q .; then
+    BACKUP_BRANCH="backup-before-gas-$(git -C "$GNO_REPO" rev-parse --short=8 "$CURRENT_GNO_COMMIT")"
+    if git -C "$GNO_REPO" show-ref --verify --quiet "refs/heads/$BACKUP_BRANCH"; then
+        if [ "$(git -C "$GNO_REPO" rev-parse "$BACKUP_BRANCH")" != "$CURRENT_GNO_COMMIT" ]; then
+            echo "Error: local backup branch $BACKUP_BRANCH points to a different commit." >&2
+            exit 1
+        fi
+    else
+        git -C "$GNO_REPO" branch "$BACKUP_BRANCH" "$CURRENT_GNO_COMMIT"
+    fi
+fi
+git -C "$GNO_REPO" checkout --detach "$GNO_GAS_COMMIT" >/dev/null
+git -C "$TRACKER_ROOT" config -f .gitmodules submodule.gno.branch "$BRANCH"
+git -C "$TRACKER_ROOT" submodule sync -- gno >/dev/null
 
 printf 'GNO_SOURCE_COMMIT=%s\n' "$SOURCE_COMMIT"
 printf 'GNO_GAS_BRANCH=%s\n' "$BRANCH"
 printf 'GNO_GAS_COMMIT=%s\n' "$GNO_GAS_COMMIT"
-printf 'GNO_REF is now the default for benchmark commands.\n'
+printf 'Updated gno checkout and .gitmodules; commit the resulting gitlink when pinning this revision.\n'

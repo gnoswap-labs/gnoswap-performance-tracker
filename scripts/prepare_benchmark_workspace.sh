@@ -11,11 +11,6 @@ GNOSWAP_WORKTREE_ROOT="$WORKTREE_ROOT/gnoswap"
 RUN_ROOT_PARENT="$WORKTREE_ROOT/runs"
 
 REF="${1:-main}"
-GNO_REF="${GNO_REF:-}"
-
-if [ -z "$GNO_REF" ]; then
-    GNO_REF=$(git -C "$TRACKER_ROOT" config --local --get gnoswap-performance.gnoRef 2>/dev/null || true)
-fi
 
 require_repo() {
     local repo_path="$1"
@@ -81,19 +76,7 @@ GNOSWAP_WORKTREE="$GNOSWAP_WORKTREE_ROOT/$FULL_COMMIT"
 ensure_worktree_at_commit "$GNOSWAP_REPO" "$GNOSWAP_WORKTREE" "$FULL_COMMIT"
 
 RUN_ROOT=$(mktemp -d "$RUN_ROOT_PARENT/${SHORT_COMMIT}.XXXXXX")
-if [ -n "$GNO_REF" ]; then
-    git -C "$GNO_REPO" fetch origin >/dev/null 2>&1
-    if git -C "$GNO_REPO" rev-parse -q --verify "${GNO_REF}^{commit}" >/dev/null 2>&1; then
-        GNO_COMMIT=$(git -C "$GNO_REPO" rev-parse "${GNO_REF}^{commit}")
-    elif git -C "$GNO_REPO" rev-parse -q --verify "origin/${GNO_REF}^{commit}" >/dev/null 2>&1; then
-        GNO_COMMIT=$(git -C "$GNO_REPO" rev-parse "origin/${GNO_REF}^{commit}")
-    else
-        echo "Error: could not resolve GNO_REF '$GNO_REF'" >&2
-        exit 1
-    fi
-else
-    GNO_COMMIT=$(git -C "$GNO_REPO" rev-parse HEAD)
-fi
+GNO_COMMIT=$(git -C "$GNO_REPO" rev-parse HEAD)
 GNO_WORKTREE="$RUN_ROOT/gno"
 
 git -C "$GNO_REPO" worktree add --detach "$GNO_WORKTREE" "$GNO_COMMIT" >/dev/null

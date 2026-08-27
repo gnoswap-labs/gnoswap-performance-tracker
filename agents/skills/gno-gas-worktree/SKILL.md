@@ -13,14 +13,14 @@ checkout, cherry-pick, or build against the shared `gno/` submodule.
 1. Run `make prepare-gno-gas <upstream-ref>`.
 2. Record the printed `GNO_SOURCE_COMMIT`, `GNO_GAS_BRANCH`, and
    `GNO_GAS_COMMIT` in the work summary.
-3. Run the requested benchmark. It automatically uses the prepared Gno commit:
+3. Commit the changed `gno` submodule pointer and `.gitmodules` branch when the
+   prepared revision should become the tracker default.
+4. Run the requested benchmark:
 
    ```bash
    make metric <gnoswap-ref>
    make stress <gnoswap-ref>
    ```
-
-Use `GNO_REF=<ref-or-commit>` only for a one-off benchmark override.
 
 The preparation command makes `gnoswap-labs/gno:gas-<8-char-upstream-sha>`
 from the exact upstream commit and cherry-picks these patches in order:

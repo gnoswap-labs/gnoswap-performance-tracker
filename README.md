@@ -63,10 +63,10 @@ make stress <gnoswap-commit>
 ```
 
 The command prints the exact upstream source, gas branch, and resulting Gno
-commit, then saves that final Gno commit in this checkout's local Git config.
-Existing gas branches are verified and reused; they are never force-pushed. Use
-`GNO_REF=<ref-or-commit>` only to override the prepared Gno revision for one
-benchmark command.
+commit, checks out that Gno revision, and updates `.gitmodules` to follow its
+`gas-*` branch. Commit both the resulting `gno` submodule pointer and
+`.gitmodules` change to pin the tracker. Existing gas branches are verified and
+reused; they are never force-pushed.
 
 #### Single Commit Report
 Generate a report for a specific commit without comparison.
