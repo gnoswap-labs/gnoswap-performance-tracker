@@ -49,25 +49,6 @@ The report layer is shared, but the runtime layer is intentionally separated.
 
 ### 2. Examples
 
-#### Benchmark an Upstream Gno Revision
-
-Prepare a metric-enabled branch from a `gnolang/gno` revision, then select it
-for a GnoSwap benchmark. The preparation command creates or reuses a
-`gnoswap-labs/gno` branch named `gas-<8-char-upstream-sha>` and applies the two
-required metric patches in an isolated worktree.
-
-```bash
-make prepare-gno-gas <gnolang-gno-commit>
-make metric <gnoswap-commit>
-make stress <gnoswap-commit>
-```
-
-The command prints the exact upstream source, gas branch, and resulting Gno
-commit, checks out that Gno revision, and updates `.gitmodules` to follow its
-`gas-*` branch. Commit both the resulting `gno` submodule pointer and
-`.gitmodules` change to pin the tracker. Existing gas branches are verified and
-reused; they are never force-pushed.
-
 #### Single Commit Report
 Generate a report for a specific commit without comparison.
 
@@ -239,10 +220,3 @@ Convert live-chain research TSV rows into a markdown table compatible with the c
 ```bash
 ./scripts/parse_research.sh < research/artifacts/latest-report.tsv
 ```
-
-## Submodules
-
-| Submodule | Branch     | Description                           |
-| --------- | ---------- | ------------------------------------- |
-| gno       | new-metric-gas | gno metric branch used by the tracker |
-| gnoswap   | main       | GnoSwap smart contracts               |
