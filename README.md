@@ -49,6 +49,23 @@ The report layer is shared, but the runtime layer is intentionally separated.
 
 ### 2. Examples
 
+#### Benchmark an Upstream Gno Revision
+
+Prepare a metric-enabled branch from a `gnolang/gno` revision, then select it
+for a GnoSwap benchmark. The preparation command creates or reuses a
+`gnoswap-labs/gno` branch named `gas-<8-char-upstream-sha>` and applies the two
+required metric patches in an isolated worktree.
+
+```bash
+make prepare-gno-gas <gnolang-gno-commit>
+GNO_REF=gas-<8-char-upstream-sha> make metric <gnoswap-commit>
+GNO_REF=gas-<8-char-upstream-sha> make stress <gnoswap-commit>
+```
+
+The command prints the exact upstream source, gas branch, and resulting Gno
+commit. Existing gas branches are verified and reused; they are never
+force-pushed.
+
 #### Single Commit Report
 Generate a report for a specific commit without comparison.
 

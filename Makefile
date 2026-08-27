@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: help init gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force clean-worktrees research-up research-down research-test research-report compare-research research-compare
+.PHONY: help init prepare-gno-gas gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force clean-worktrees research-up research-down research-test research-report compare-research research-compare
 
 # Default target
 help:
@@ -32,11 +32,15 @@ help:
 	@echo ""
 	@echo "Usage (Setup):"
 	@echo "  make init                          # Initialize project"
+	@echo "  make prepare-gno-gas <gno-ref>     # Create/reuse metric-enabled gas-<sha> branch"
 	@echo "  make clean-worktrees               # Remove cached benchmark worktrees"
 
 init:
 	git submodule update --init --recursive --remote
 	cd gno && make install
+
+prepare-gno-gas:
+	@./scripts/prepare_gno_gas_branch.sh "$(word 2,$(MAKECMDGOALS))"
 
 # --- Simplified Commands ---
 
@@ -150,7 +154,7 @@ research-compare:
 gas-report:
 	@set -eu; \
 	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
-	eval "$$(./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
+	eval "$$(GNO_REF="$(GNO_REF)" ./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
 	cleanup() { \
 		git -C "$(CURDIR)/gno" worktree remove --force "$$GNO_WORKTREE" >/dev/null 2>&1 || true; \
 		git -C "$(CURDIR)/gno" worktree prune >/dev/null 2>&1 || true; \
@@ -163,7 +167,8 @@ gas-report:
 	mkdir -p "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests"; \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) -exec mv {} "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests/" \;; \
 	mkdir -p reports/metric/commits; \
-	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && GNOROOT="$$GNO_WORKTREE" gno test . -v -run . -update-golden-tests); \
+	$(MAKE) --no-print-directory -C "$$GNO_WORKTREE/gnovm" build; \
+	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && GNOROOT="$$GNO_WORKTREE" "$$GNO_WORKTREE/gnovm/build/gno" test . -v -run . -update-golden-tests); \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) | sort | xargs cat | ./scripts/parse_metrics.sh > "reports/metric/commits/$$SHORT_COMMIT.md"; \
 	if [ "$$(tail -n +3 "reports/metric/commits/$$SHORT_COMMIT.md" | wc -l | tr -d ' ')" -eq 0 ]; then \
 		echo "Metric report contained no metric rows" >&2; \
@@ -175,7 +180,7 @@ gas-report:
 stress-report:
 	@set -eu; \
 	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
-	eval "$$(./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
+	eval "$$(GNO_REF="$(GNO_REF)" ./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
 	cleanup() { \
 		git -C "$(CURDIR)/gno" worktree remove --force "$$GNO_WORKTREE" >/dev/null 2>&1 || true; \
 		git -C "$(CURDIR)/gno" worktree prune >/dev/null 2>&1 || true; \
@@ -190,7 +195,8 @@ stress-report:
 	mkdir -p "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests"; \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) -exec mv {} "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests/" \;; \
 	mkdir -p reports/stress/commits; \
-	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && GNOROOT="$$GNO_WORKTREE" gno test . -v -run . -update-golden-tests); \
+	$(MAKE) --no-print-directory -C "$$GNO_WORKTREE/gnovm" build; \
+	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && GNOROOT="$$GNO_WORKTREE" "$$GNO_WORKTREE/gnovm/build/gno" test . -v -run . -update-golden-tests); \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) | sort | xargs cat | ./scripts/parse_metrics.sh > "reports/stress/commits/$$SHORT_COMMIT.md"; \
 	if [ "$$(tail -n +3 "reports/stress/commits/$$SHORT_COMMIT.md" | wc -l | tr -d ' ')" -eq 0 ]; then \
 		echo "Stress report contained no metric rows" >&2; \
