@@ -22,6 +22,21 @@ Never run benchmarks by checking out or modifying the shared `gnoswap/` or
 `gno/` submodule worktrees. Do not commit submodule pointer changes unless the
 task explicitly asks to upgrade a seed revision.
 
+### Metric-enabled Gno revisions
+
+When a benchmark needs a specific upstream `gnolang/gno` revision, first run
+`make prepare-gno-gas <gno-ref>`. It creates or reuses
+`gnoswap-labs/gno:gas-<8-char-upstream-sha>` from that upstream commit and
+applies, in order, the required metric patches:
+
+1. `eb20d3a1074f10dc0c4a4a5815216d18d58aa42b` — testing methods.
+2. `9d65db8e09777064d1b69638f9a8e971bd3817c3` — metric gas registration.
+
+The branch creator uses a temporary worktree, never force-pushes, and verifies
+an existing branch has precisely that base plus those two patch contents. Pass
+the resulting branch (or printed final commit) to a benchmark with
+`GNO_REF=gas-<sha> make metric <gnoswap-ref>` or `make stress <gnoswap-ref>`.
+
 ## Repository Layout
 
 | Path | Purpose |

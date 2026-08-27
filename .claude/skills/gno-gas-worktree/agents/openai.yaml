@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prepare Gno Gas Worktree"
+  short_description: "Create and use metric-enabled Gno branches."
+  default_prompt: "Prepare a metric-enabled gas branch from this gnolang/gno commit, then run the requested tracker benchmark."
