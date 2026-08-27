@@ -84,6 +84,7 @@ func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
 	pool.SetPoolCreationFee(cross(cur), 0)
 	staker.SetUnStakingFee(cross(cur), 0)
+	pool.CreatePool(cross(cur), "gno.land/r/gnoland/wugnot.wugnot", "gno.land/r/gnoswap/gns.GNS", 3000, gnsmath.TickMathGetSqrtRatioAtTick(0).ToString())
 
 	bar.Transfer(cross(cur), aliceAddr, 10000000000000)
 	foo.Transfer(cross(cur), aliceAddr, 10000000000000)
@@ -187,3 +188,5 @@ func endExternalIncentiveMetric(cur realm) {
 		staker.EndExternalIncentive(cross(cur), poolPath, incentiveID, adminAddr)
 	})
 }
+
+// Output:
