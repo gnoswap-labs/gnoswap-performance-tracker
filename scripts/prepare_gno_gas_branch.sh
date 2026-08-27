@@ -83,6 +83,9 @@ else
     fi
 fi
 
+git -C "$TRACKER_ROOT" config --local gnoswap-performance.gnoRef "$GNO_GAS_COMMIT"
+
 printf 'GNO_SOURCE_COMMIT=%s\n' "$SOURCE_COMMIT"
 printf 'GNO_GAS_BRANCH=%s\n' "$BRANCH"
 printf 'GNO_GAS_COMMIT=%s\n' "$GNO_GAS_COMMIT"
+printf 'GNO_REF is now the default for benchmark commands.\n'

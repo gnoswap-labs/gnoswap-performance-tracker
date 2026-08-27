@@ -58,13 +58,15 @@ required metric patches in an isolated worktree.
 
 ```bash
 make prepare-gno-gas <gnolang-gno-commit>
-GNO_REF=gas-<8-char-upstream-sha> make metric <gnoswap-commit>
-GNO_REF=gas-<8-char-upstream-sha> make stress <gnoswap-commit>
+make metric <gnoswap-commit>
+make stress <gnoswap-commit>
 ```
 
 The command prints the exact upstream source, gas branch, and resulting Gno
-commit. Existing gas branches are verified and reused; they are never
-force-pushed.
+commit, then saves that final Gno commit in this checkout's local Git config.
+Existing gas branches are verified and reused; they are never force-pushed. Use
+`GNO_REF=<ref-or-commit>` only to override the prepared Gno revision for one
+benchmark command.
 
 #### Single Commit Report
 Generate a report for a specific commit without comparison.

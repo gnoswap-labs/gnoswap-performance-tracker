@@ -13,6 +13,10 @@ RUN_ROOT_PARENT="$WORKTREE_ROOT/runs"
 REF="${1:-main}"
 GNO_REF="${GNO_REF:-}"
 
+if [ -z "$GNO_REF" ]; then
+    GNO_REF=$(git -C "$TRACKER_ROOT" config --local --get gnoswap-performance.gnoRef 2>/dev/null || true)
+fi
+
 require_repo() {
     local repo_path="$1"
     local name="$2"

@@ -33,9 +33,10 @@ applies, in order, the required metric patches:
 2. `9d65db8e09777064d1b69638f9a8e971bd3817c3` — metric gas registration.
 
 The branch creator uses a temporary worktree, never force-pushes, and verifies
-an existing branch has precisely that base plus those two patch contents. Pass
-the resulting branch (or printed final commit) to a benchmark with
-`GNO_REF=gas-<sha> make metric <gnoswap-ref>` or `make stress <gnoswap-ref>`.
+an existing branch has precisely that base plus those two patch contents. It
+persists the resulting final Gno commit in this checkout's local Git config, so
+subsequent `make metric <gnoswap-ref>` and `make stress <gnoswap-ref>` commands
+use it automatically. Set `GNO_REF=<ref-or-commit>` only for a one-off override.
 
 ## Repository Layout
 
