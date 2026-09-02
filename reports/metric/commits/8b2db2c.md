@@ -13,12 +13,12 @@
 | GetAmount0Delta | 3,631,434 | 0 | 3,328,476 |
 | GetAmount1Delta | 2,329,750 | 0 | 2,298,269 |
 | SwapMathComputeSwapStep | 4,237,966 | 0 | 4,162,089 |
-| Propose Community Pool Spend | 2,436,117 | 20,560 | 1,968,413 |
-| Propose Parameter Change | 2,992,330 | 19,532 | 2,550,061 |
-| Vote | 1,020,752 | 4,488 | 860,873 |
-| Execute | 2,496,782 | 76 | 1,353,678 |
-| Propose Text | 1,931,909 | 18,333 | 1,581,409 |
-| Propose Text with Inactive: 100 | 2,347,937 | 8,501 | 2,078,803 |
+| Propose Community Pool Spend | 2,841,466 | 23,967 | 2,248,740 |
+| Propose Parameter Change | 3,396,269 | 22,939 | 2,830,388 |
+| Vote | 1,023,785 | 4,486 | 860,873 |
+| Execute | 2,855,330 | -3,317 | 1,674,343 |
+| Propose Text | 2,337,258 | 21,740 | 1,861,736 |
+| Propose Text with Inactive: 100 | 2,698,939 | 11,910 | 2,378,857 |
 | CollectUndelegatedGns (100 delegations, 1 withdraws) | 25,137,430 | 0 | 22,353,363 |
 | CollectUndelegatedGns (10 delegations, 10 withdraws) | 4,375,902 | 0 | 3,847,077 |
 | CollectUndelegatedGns (10 delegations, 1 withdraws) | 2,337,312 | 0 | 1,950,057 |
@@ -49,7 +49,7 @@
 | Undelegate (early exit, 3 of 10 delegations) | 6,656,603 | 2,088 | 4,833,951 |
 | Redelegate | 4,363,297 | 1,423 | 3,049,928 |
 | Redelegate (50 of 100 delegations, optimized) | 123,363,959 | -118,826 | 90,714,642 |
-| Clean delegation snapshots (1000 stale proposals) | 185,821,039 | 0 | 176,220,383 |
+| Clean delegation snapshots (1000 stale proposals) | 456,195,760 | -648,227 | 379,155,441 |
 | Undelegate (50 delegatees, large AVL traversal) | 2,459,132 | 708 | 1,789,243 |
 | CollectDepositGns (deposit 1/5, remaining 4) | 7,454,961 | 1,850 | 6,397,847 |
 | CollectDepositGns (deposit 2/5, remaining 3) | 7,070,841 | -2,257 | 6,124,356 |
@@ -112,11 +112,5 @@
 | MultiHop ExactOut (3 hops) | 112,987,139 | 0 | 109,784,338 |
 | MultiRoute ExactIn (50:50 split) | 72,383,193 | 6 | 69,927,547 |
 | MultiRoute ExactOut (50:50 split) | 98,450,990 | 4 | 95,478,363 |
-| Swap (halving, 10 staked tick-crosses) | 104,959,877 | 91,278 | 100,013,245 |
-| Swap (halving, 1 staked tick-cross) | 29,423,370 | 11,189 | 27,824,842 |
-| Swap (halving, 50 staked tick-crosses) | 448,915,465 | 447,711 | 431,215,553 |
-| Swap (no halving, 10 staked tick-crosses) | 95,144,697 | 80,866 | 90,517,682 |
-| Swap (no halving, 1 staked tick-cross) | 25,587,403 | 1,119 | 24,188,207 |
-| Swap (no halving, 50 staked tick-crosses) | 412,525,969 | 435,772 | 395,680,310 |
 | RegisterInitializer (v1) | 71,548 | 0 | 49,682 |
 | RegisterInitializer (v2) | 55,268 | 0 | 52,396 |
