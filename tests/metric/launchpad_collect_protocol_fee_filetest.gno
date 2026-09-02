@@ -118,8 +118,8 @@ func recordProtocolFees(cur realm, tokenPath string, amount int64) {
 	protocolFeeV1Addr := testing.NewCodeRealm("gno.land/r/gnoswap/protocol_fee/v1").Address()
 
 	testing.SetRealm(stakerRealm)
-	common.SafeGRC20Approve(0, cross(cur), tokenPath, protocolFeeAddr, amount)
-	common.SafeGRC20Approve(0, cross(cur), tokenPath, protocolFeeV1Addr, amount)
+	common.SafeGRC20Approve(0, cur, tokenPath, protocolFeeAddr, amount)
+	common.SafeGRC20Approve(0, cur, tokenPath, protocolFeeV1Addr, amount)
 	pf.AddToProtocolFee(cross(cur), tokenPath, amount)
 }
 
