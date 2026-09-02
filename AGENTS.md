@@ -18,9 +18,27 @@ seed repositories only. For a requested GnoSwap ref, the tracker:
 4. links/copies the target contract and benchmark scenarios into that runtime;
 5. runs `gno test`, parses its output, and writes normalized Markdown reports.
 
-Never run benchmarks by checking out or modifying the shared `gnoswap/` or
-`gno/` submodule worktrees. Do not commit submodule pointer changes unless the
-task explicitly asks to upgrade a seed revision.
+Never modify the shared `gnoswap/` worktree. The shared `gno/` checkout is only
+changed by `make prepare-gno-gas`, which deliberately pins the tracker to a
+metric-enabled Gno revision. Do not otherwise checkout or modify either
+submodule.
+
+### Metric-enabled Gno revisions
+
+When a benchmark needs a specific upstream `gnolang/gno` revision, first run
+`make prepare-gno-gas <gno-ref>`. It creates or reuses
+`gnoswap-labs/gno:gas-<8-char-upstream-sha>` from that upstream commit and
+applies, in order, the required metric patches:
+
+1. `eb20d3a1074f10dc0c4a4a5815216d18d58aa42b` — testing methods.
+2. `9d65db8e09777064d1b69638f9a8e971bd3817c3` — metric gas registration.
+
+The branch creator uses a temporary worktree, never force-pushes, and verifies
+an existing branch has precisely that base plus those two patch contents. On
+success it checks out the final commit in `gno/` and updates `.gitmodules` to
+track its `gas-*` branch. Commit the resulting submodule gitlink and
+`.gitmodules` change to pin the tracker; subsequent metric and stress commands
+then use that prepared Gno revision automatically.
 
 ## Repository Layout
 

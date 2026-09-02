@@ -1,8 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: help init gno-build gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force clean-worktrees research-up research-down research-test research-report compare-research research-compare
-
-GNO_BIN := $(CURDIR)/gno/gnovm/build/gno
+.PHONY: help init prepare-gno-gas gas-report stress-report metric metric-force stress stress-force compare-metric compare-metric-force compare-stress compare-stress-force summary summary-force clean-worktrees research-up research-down research-test research-report compare-research research-compare
 
 # Default target
 help:
@@ -34,6 +32,7 @@ help:
 	@echo ""
 	@echo "Usage (Setup):"
 	@echo "  make init                          # Initialize project"
+	@echo "  make prepare-gno-gas <gno-ref>     # Create/reuse metric-enabled gas-<sha> branch"
 	@echo "  make clean-worktrees               # Remove cached benchmark worktrees"
 
 init:
@@ -42,6 +41,9 @@ init:
 
 gno-build:
 	@$(MAKE) --no-print-directory -C gno/gnovm build
+
+prepare-gno-gas:
+	@./scripts/prepare_gno_gas_branch.sh "$(word 2,$(MAKECMDGOALS))"
 
 # --- Simplified Commands ---
 
@@ -168,7 +170,8 @@ gas-report: gno-build
 	mkdir -p "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests"; \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) -exec mv {} "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests/" \;; \
 	mkdir -p reports/metric/commits; \
-	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && GNOROOT="$$GNO_WORKTREE" "$(GNO_BIN)" test . -v -run . -update-golden-tests); \
+	$(MAKE) --no-print-directory -C "$$GNO_WORKTREE/gnovm" build; \
+	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && GNOROOT="$$GNO_WORKTREE" "$$GNO_WORKTREE/gnovm/build/gno" test . -v -run . -update-golden-tests); \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) | sort | xargs cat | ./scripts/parse_metrics.sh > "reports/metric/commits/$$SHORT_COMMIT.md"; \
 	if [ "$$(tail -n +3 "reports/metric/commits/$$SHORT_COMMIT.md" | wc -l | tr -d ' ')" -eq 0 ]; then \
 		echo "Metric report contained no metric rows" >&2; \
@@ -195,7 +198,8 @@ stress-report: gno-build
 	mkdir -p "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests"; \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) -exec mv {} "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests/" \;; \
 	mkdir -p reports/stress/commits; \
-	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && GNOROOT="$$GNO_WORKTREE" "$(GNO_BIN)" test . -v -run . -update-golden-tests); \
+	$(MAKE) --no-print-directory -C "$$GNO_WORKTREE/gnovm" build; \
+	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && GNOROOT="$$GNO_WORKTREE" "$$GNO_WORKTREE/gnovm/build/gno" test . -v -run . -update-golden-tests); \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) | sort | xargs cat | ./scripts/parse_metrics.sh > "reports/stress/commits/$$SHORT_COMMIT.md"; \
 	if [ "$$(tail -n +3 "reports/stress/commits/$$SHORT_COMMIT.md" | wc -l | tr -d ' ')" -eq 0 ]; then \
 		echo "Stress report contained no metric rows" >&2; \

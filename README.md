@@ -220,10 +220,3 @@ Convert live-chain research TSV rows into a markdown table compatible with the c
 ```bash
 ./scripts/parse_research.sh < research/artifacts/latest-report.tsv
 ```
-
-## Submodules
-
-| Submodule | Branch     | Description                           |
-| --------- | ---------- | ------------------------------------- |
-| gno       | new-metric-gas | gno metric branch used by the tracker |
-| gnoswap   | main       | GnoSwap smart contracts               |
