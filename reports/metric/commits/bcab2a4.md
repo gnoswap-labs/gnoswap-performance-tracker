@@ -111,11 +111,11 @@
 | MultiHop ExactOut (3 hops) | 112,987,139 | 0 | 109,784,338 |
 | MultiRoute ExactIn (50:50 split) | 72,383,193 | 6 | 69,927,547 |
 | MultiRoute ExactOut (50:50 split) | 98,450,990 | 4 | 95,478,363 |
-| Swap (halving, 10 staked tick-crosses) | 104,959,877 | 91,278 | 100,013,245 |
-| Swap (halving, 1 staked tick-cross) | 29,423,370 | 11,189 | 27,824,842 |
-| Swap (halving, 50 staked tick-crosses) | 448,915,465 | 447,711 | 431,215,553 |
-| Swap (no halving, 10 staked tick-crosses) | 95,144,697 | 80,866 | 90,517,682 |
-| Swap (no halving, 1 staked tick-cross) | 25,587,403 | 1,119 | 24,188,207 |
-| Swap (no halving, 50 staked tick-crosses) | 412,525,969 | 435,772 | 395,680,310 |
+| Swap (halving, 10 staked tick-crosses) | 107,623,323 | 91,669 | 102,549,834 |
+| Swap (halving, 1 staked tick-cross) | 32,087,079 | 11,580 | 30,361,431 |
+| Swap (halving, 50 staked tick-crosses) | 451,578,917 | 448,104 | 433,752,142 |
+| Swap (no halving, 10 staked tick-crosses) | 95,430,027 | 80,866 | 90,786,568 |
+| Swap (no halving, 1 staked tick-cross) | 25,872,733 | 1,119 | 24,457,093 |
+| Swap (no halving, 50 staked tick-crosses) | 412,811,299 | 435,772 | 395,949,196 |
 | RegisterInitializer (v1) | 71,548 | 0 | 49,682 |
 | RegisterInitializer (v2) | 55,268 | 0 | 52,396 |
