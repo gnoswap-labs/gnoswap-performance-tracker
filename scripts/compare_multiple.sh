@@ -59,10 +59,29 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-# Truncate all commit hashes to 7 characters
+# Resolve every revision before shortening it. Shortening a branch name before
+# resolution turns `fix/example` into the invalid ref `fix/exa`.
+resolve_commit() {
+    local ref=$1 full_commit
+
+    if full_commit=$(git -C gnoswap rev-parse -q --verify "${ref}^{commit}"); then
+        :
+    elif full_commit=$(git -C gnoswap rev-parse -q --verify "origin/${ref}^{commit}"); then
+        :
+    else
+        echo "Error: could not resolve commit or ref '${ref}'" >&2
+        exit 1
+    fi
+
+    git -C gnoswap rev-parse --short=7 "$full_commit"
+}
+
+git -C gnoswap fetch origin >/dev/null 2>&1
+
+# Resolve commit or branch arguments to 7-character commit hashes.
 COMMITS=()
 for arg in "$@"; do
-    COMMITS+=("${arg:0:7}")
+    COMMITS+=("$(resolve_commit "$arg")")
 done
 COMMIT_COUNT=${#COMMITS[@]}
 

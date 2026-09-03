@@ -16,6 +16,11 @@ make
 Benchmarks now run in isolated git worktrees under `.worktrees/`.
 The shared `gnoswap/` and `gno/` submodules are used as seed repositories and are no longer checked out in place during report generation.
 
+Metric and stress runs build and execute `gno` only from their temporary
+`GNO_WORKTREE`. The binary, its native registry, and `GNOROOT` therefore always
+come from the same pinned Gno revision. Do not manually checkout `gno/` before
+running a benchmark.
+
 ## Usage
 
 The tool provides simplified commands for generating and comparing reports.
@@ -71,11 +76,16 @@ Generate reports (if needed) and compare two commits.
 make compare-metric abc1234 def5678
 
 # Force regenerate all metric comparisons
+
 make compare-metric-force abc1234 def5678
 
 # Compare stress reports
 make compare-stress abc1234 def5678
 ```
+
+Each `<ref>` may be a commit hash, local ref, or `origin/<branch>` ref. The
+tracker resolves it to a commit before deriving report filenames, so branch
+names such as `fix/launchpad-refund-liability` are valid inputs.
 
 #### Compare Multiple Commits
 Generate reports and compare multiple commits in sequence.
@@ -154,6 +164,22 @@ Raw research artifacts stay under `research/artifacts/` and `research/.runlogs/`
 ```bash
 make clean-worktrees
 ```
+
+### 7. Metric-enabled Gno Runtime
+
+The committed `gno` gitlink is the metric runtime pin. To benchmark a different
+upstream `gnolang/gno` revision, prepare a dedicated `gas-<sha>` branch rather
+than checking out the shared seed repository:
+
+```bash
+make prepare-gno-gas <upstream-gno-ref>
+git add .gitmodules gno
+git commit -m "chore: pin metric-enabled gno runtime"
+```
+
+`prepare-gno-gas` applies the tracker metric patches, verifies the resulting
+branch, and updates the pin. Normal `make metric`, `make stress`, and comparison
+commands then build and run the isolated pinned runtime automatically.
 
 #### Report Example
 
