@@ -23,6 +23,10 @@ changed by `make prepare-gno-gas`, which deliberately pins the tracker to a
 metric-enabled Gno revision. Do not otherwise checkout or modify either
 submodule.
 
+Metric and stress commands build and execute `gno` only inside the temporary
+`GNO_WORKTREE`; its binary, native resolver, and `GNOROOT` MUST refer to that
+same worktree. Never build a shared `gno/gnovm/build/gno` binary for a benchmark.
+
 ### Metric-enabled Gno revisions
 
 When a benchmark needs a specific upstream `gnolang/gno` revision, first run
@@ -58,7 +62,7 @@ then use that prepared Gno revision automatically.
 ## Commands
 
 ```bash
-# First-time setup: initialize seed repos and build the Gno binary
+# First-time setup: initialize seed repositories
 make init
 
 # Generate reports for one or more GnoSwap refs
@@ -81,8 +85,13 @@ GNO_RPC_PORT=46657 GNO_REST_PORT=48888 make research-report <ref>
 make compare-research <ref> <ref> [<ref> ...]
 
 # Remove generated benchmark worktrees only when requested
+
 make clean-worktrees
 ```
+
+Metric and stress ref arguments may be commit hashes or resolvable local or
+remote branch refs. The tracker resolves them before creating report filenames;
+do not truncate branch names manually.
 
 `make metric`/`stress` reuse existing reports; use the `-force` variants only
 when regenerating them is intentional. `make research-report` requires both
