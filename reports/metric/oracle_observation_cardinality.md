@@ -29,6 +29,31 @@ is not a small-cardinality read optimization. Its purpose is to keep the
 oracle buffer out of ordinary `Pool` state; the write path is comparable and
 is slightly cheaper at cardinality 1,024 in this fixture.
 
+## Initialized tick-cross swap
+
+This fixture measures the swap path that matters for oracle tick crossing,
+rather than an isolated getter or position update. It compares main after
+PR #1408 (`268fe17f6a2d3766a41b85818c2c2a0ecdb1a13a`) with PR #1427
+(`4f2d650c2f184d16a09624efcd55acbba8687833`) using tracker Gno
+`bac78a97`.
+
+Each case creates a fee-tier `500` pool at tick `0`, adds full-range liquidity
+and an initialized `[-100, 100]` position, then performs the same exact-input
+swap of `100,000,000`. The fixture asserts that the resulting tick is above
+`100`, so `tickCross` and its oracle read execute. Capacity reservation,
+pool creation, and minting are outside the metric block. Cardinality `1` and
+`1,024` use separate token pairs with otherwise identical parameters.
+
+| Operation | Map-backed oracle | ObservationTree | Change |
+| --- | ---: | ---: | ---: |
+| Swap crossing initialized tick, cardinality 1 | 54,517,302 gas | 54,732,539 gas | +0.39% |
+| Swap crossing initialized tick, cardinality 1,024 | 53,720,735 gas | 53,281,812 gas | -0.82% |
+
+The tree refactor therefore leaves the direct tick-cross swap path effectively
+flat: a small-cardinality overhead is offset by a small improvement once the
+larger observation capacity is active. This is a full swap result, not a
+claim about `IncreaseObservationCardinalityNext` reservation cost.
+
 ## Maximum-cardinality check
 
 The `65,535` fixture is retained as a functional scale check, not as the
