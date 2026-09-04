@@ -347,6 +347,9 @@
 | **Swap (halving, 50 staked tick-crosses)** | Gas Used | 445,578,696 | 451,851,592 | -6,272,896 | ⚡️ -1.39% |
 | | Storage Diff | 7,260 | 448,135 | -440,875 | ⚡️ -98.38% |
 | | CPU Cycles | 429,755,197 | 433,972,847 | -4,217,650 | ⚡️ -0.97% |
+| **Swap (no halving, 10 staked tick-crosses after accumulation)** | Gas Used | 110,244,480 | 110,202,470 | +42,010 | ⚠️ 0.04% |
+| | Storage Diff | 91,109 | 91,109 | 0 |  0.00% |
+| | CPU Cycles | 105,203,608 | 105,163,558 | +40,050 | ⚠️ 0.04% |
 | **Swap (no halving, 1 staked tick-cross)** | Gas Used | 25,980,657 | 26,120,507 | -139,850 | ⚡️ -0.54% |
 | | Storage Diff | -7,684 | 1,113 | -8,797 | ⚡️ -790.39% |
 | | CPU Cycles | 24,565,792 | 24,650,145 | -84,353 | ⚡️ -0.34% |
