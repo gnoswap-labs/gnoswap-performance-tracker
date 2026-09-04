@@ -52,7 +52,12 @@ func main(cur realm) {
 	stakeBoundary(cur)
 
 	previousHistoryCrosses := int32(0)
-	for _, historyCrosses := range []int32{4, 8, 16, 32, 64} {
+	for historyCrosses := int32(0); historyCrosses <= 20; historyCrosses++ {
+		buildHistory(cur, previousHistoryCrosses, historyCrosses)
+		measureNextCross(cur, historyCrosses)
+		previousHistoryCrosses = historyCrosses + 1
+	}
+	for _, historyCrosses := range []int32{32, 64} {
 		buildHistory(cur, previousHistoryCrosses, historyCrosses)
 		measureNextCross(cur, historyCrosses)
 		previousHistoryCrosses = historyCrosses + 1
