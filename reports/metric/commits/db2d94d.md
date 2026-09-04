@@ -65,6 +65,7 @@
 | Launchpad TransferLeftFromProjectByAdmin | 1,260,660 | 41 | 1,071,291 |
 | CreatePool | 6,701,805 | 25,361 | 5,859,879 |
 | Mint (fee:3000, wide range) | 31,521,738 | 22,702 | 29,270,728 |
+| Swap dust zero-output (gns -> wugnot, fee:500) | 9,824,715 | 0 | 7,742,586 |
 | Swap (gns -> wugnot, fee:500) | 47,027,189 | 0 | 44,129,286 |
 | DecreaseLiquidity | 25,614,822 | 18 | 24,155,654 |
 | IncreaseLiquidity | 23,100,544 | -2,084 | 22,194,191 |
