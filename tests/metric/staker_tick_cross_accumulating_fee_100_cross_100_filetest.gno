@@ -104,7 +104,7 @@ func runSwap(cur realm) {
         })
     })
     tick, _ := pl.GetSlot0Tick(poolPath)
-    if tick < crossCount*tickSpacing || tick >= (crossCount+1)*tickSpacing {
+    if tick < crossCount*tickSpacing || tick > targetTick {
         panic("swap did not cross the requested initialized ticks")
     }
 }
