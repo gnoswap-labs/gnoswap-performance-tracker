@@ -5,10 +5,11 @@
 package main
 
 import (
-	"gno.land/p/gnoswap/gnsmath"
 	"strconv"
 	"testing"
 	"time"
+
+	"gno.land/p/gnoswap/gnsmath"
 
 	"gno.land/p/demo/tokens/grc721"
 	prabc "gno.land/p/gnoswap/rbac"
@@ -33,6 +34,7 @@ import (
 	"gno.land/r/gnoswap/gns"
 
 	"gno.land/r/gnoswap/scenario/metric"
+	"gno.land/r/gnoswap/scenarioutils"
 )
 
 var (
@@ -73,7 +75,10 @@ func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
 	pool.SetPoolCreationFee(cross(cur), 0)
 
-	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
+	{
+		scenarioutils.EnsureCanonicalDefaultPool(cross(cur))
+		emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
+	}
 	testing.SkipHeights(1)
 
 	bar.Transfer(cross(cur), aliceAddr, 10_000_000_000)
@@ -89,6 +94,7 @@ func initializeSetup(cur realm) {
 	testing.SetRealm(aliceRealm)
 	gns.Approve(cross(cur), stakerAddr, maxInt64)
 }
+
 func createExternalIncentivesSetup(cur realm) {
 	testing.SetRealm(aliceRealm)
 	bar.Approve(cross(cur), stakerAddr, maxInt64)

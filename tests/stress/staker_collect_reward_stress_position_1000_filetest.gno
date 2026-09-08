@@ -5,10 +5,11 @@
 package main
 
 import (
-	"gno.land/p/gnoswap/gnsmath"
 	"strconv"
 	"testing"
 	"time"
+
+	"gno.land/p/gnoswap/gnsmath"
 
 	"gno.land/p/demo/tokens/grc721"
 	prabc "gno.land/p/gnoswap/rbac"
@@ -31,6 +32,7 @@ import (
 	"gno.land/r/onbloc/foo"
 
 	"gno.land/r/gnoswap/scenario/metric"
+	"gno.land/r/gnoswap/scenarioutils"
 )
 
 var (
@@ -74,7 +76,10 @@ func initializeSetup(cur realm) {
 	foo.Approve(cross(cur), stakerAddr, maxInt64)
 
 	testing.SetRealm(adminRealm)
-	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
+	{
+		scenarioutils.EnsureCanonicalDefaultPool(cross(cur))
+		emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
+	}
 	testing.SkipHeights(1)
 }
 

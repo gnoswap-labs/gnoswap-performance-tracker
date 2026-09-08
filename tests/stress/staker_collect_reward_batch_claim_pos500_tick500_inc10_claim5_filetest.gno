@@ -5,10 +5,11 @@
 package main
 
 import (
-	"gno.land/p/gnoswap/gnsmath"
 	"strconv"
 	"testing"
 	"time"
+
+	"gno.land/p/gnoswap/gnsmath"
 
 	"gno.land/p/demo/tokens/grc721"
 	prabc "gno.land/p/gnoswap/rbac"
@@ -33,6 +34,7 @@ import (
 	"gno.land/r/onbloc/foo"
 
 	"gno.land/r/gnoswap/scenario/metric"
+	"gno.land/r/gnoswap/scenarioutils"
 )
 
 var (
@@ -110,7 +112,10 @@ func initializeSetup(cur realm) {
 	foo.Approve(cross(cur), routerAddr, maxInt64)
 	gns.Approve(cross(cur), stakerAddr, maxInt64)
 
-	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
+	{
+		scenarioutils.EnsureCanonicalDefaultPool(cross(cur))
+		emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
+	}
 	testing.SkipHeights(1)
 }
 
@@ -150,7 +155,6 @@ func mintAndStakePosition(cur realm, index int) uint64 {
 }
 
 func mintLiquidityPosition(cur realm) {
-
 	testing.SetRealm(adminRealm)
 
 	// Full-range position for liquidity
@@ -194,50 +198,28 @@ func swapWithTickCross(cur realm) {
 	testing.SetRealm(testing.NewCodeRealm("gno.land/r/gnoswap/router"))
 
 	// Swap to cross ticks in one direction
-	pool.Swap(
-		cross(cur),
-		barPath,
-		fooPath,
-		3000,
-		adminAddr,
-		true,
-		"1000000",
-		gnsmath.TickMathGetSqrtRatioAtTick(-887220).ToString(),
-		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
-			testing.SetRealm(adminRealm)
-			if amount0Delta > 0 {
-				common.SafeGRC20Transfer(cross(cur), barPath, poolAddr, amount0Delta)
-			}
-			if amount1Delta > 0 {
-				common.SafeGRC20Transfer(cross(cur), fooPath, poolAddr, amount1Delta)
-			}
-			return nil
-		},
-	)
+	pool.Swap(cross(cur), barPath, fooPath, 3000, adminAddr, true, "1000000", gnsmath.TickMathGetSqrtRatioAtTick(-887220).ToString(), func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
+		testing.SetRealm(adminRealm)
+		if amount0Delta > 0 {
+			common.SafeGRC20Transfer(0, cur, barPath, poolAddr, amount0Delta)
+		}
+		if amount1Delta > 0 {
+			common.SafeGRC20Transfer(0, cur, fooPath, poolAddr, amount1Delta)
+		}
+		return nil
+	})
 
 	// Swap back to cross ticks in other direction
-	pool.Swap(
-		cross(cur),
-		barPath,
-		fooPath,
-		3000,
-		adminAddr,
-		false,
-		"1000000",
-		gnsmath.TickMathGetSqrtRatioAtTick(887220).ToString(),
-		adminAddr,
-		func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
-			testing.SetRealm(adminRealm)
-			if amount0Delta > 0 {
-				common.SafeGRC20Transfer(cross(cur), barPath, poolAddr, amount0Delta)
-			}
-			if amount1Delta > 0 {
-				common.SafeGRC20Transfer(cross(cur), fooPath, poolAddr, amount1Delta)
-			}
-			return nil
-		},
-	)
+	pool.Swap(cross(cur), barPath, fooPath, 3000, adminAddr, false, "1000000", gnsmath.TickMathGetSqrtRatioAtTick(887220).ToString(), func(cur realm, amount0Delta, amount1Delta int64, _ *pool.CallbackMarker) error {
+		testing.SetRealm(adminRealm)
+		if amount0Delta > 0 {
+			common.SafeGRC20Transfer(0, cur, barPath, poolAddr, amount0Delta)
+		}
+		if amount1Delta > 0 {
+			common.SafeGRC20Transfer(0, cur, fooPath, poolAddr, amount1Delta)
+		}
+		return nil
+	})
 }
 
 func testMultiCollectReward(cur realm, claimBatchCount int) {
