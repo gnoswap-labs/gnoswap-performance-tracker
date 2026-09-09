@@ -1,0 +1,526 @@
+{
+  "observed_at_utc": "2026-09-09T06:44:42.317122+00:00",
+  "rpc": "https://rpc.pearl.testnets.gno.land",
+  "status": {
+    "jsonrpc": "2.0",
+    "id": "",
+    "result": {
+      "node_info": {
+        "version_set": [
+          {
+            "Name": "abci",
+            "Version": "v1.0.0-rc.0",
+            "Optional": false
+          },
+          {
+            "Name": "app",
+            "Version": "",
+            "Optional": false
+          },
+          {
+            "Name": "bft",
+            "Version": "v1.0.0-rc.0",
+            "Optional": false
+          },
+          {
+            "Name": "blockchain",
+            "Version": "v1.0.0-rc.0",
+            "Optional": false
+          },
+          {
+            "Name": "p2p",
+            "Version": "v1.0.0-rc.0",
+            "Optional": false
+          }
+        ],
+        "net_address": "g1450mqmlh6z37sym54u8ag65hh9fg56ll4w94mf@0.0.0.0:26656",
+        "network": "pearl-1",
+        "software": "",
+        "version": "v1.0.0-rc.0",
+        "channels": "QCAhIiMwUA==",
+        "moniker": "gno-core-rpc-public-i-0560944c3d4297c16",
+        "other": {
+          "tx_index": "off",
+          "rpc_address": "tcp://0.0.0.0:26657"
+        }
+      },
+      "sync_info": {
+        "latest_block_hash": "BDUMJlA/IKfQh9d6VJ3lFa21vwkFHkXxXAPidVUY/6o=",
+        "latest_app_hash": "71KD2gmkuVoknYiJVXoxYYTI0NhTeDl3mwo461k1Q44=",
+        "latest_block_height": "308212",
+        "latest_block_time": "2026-09-09T06:44:38.758357579Z",
+        "catching_up": false
+      },
+      "validator_info": {
+        "address": "g16zx0azzj5jlgjyqtunc2u2637enl8dluh5zdyd",
+        "pub_key": {
+          "@type": "/tm.PubKeyEd25519",
+          "value": "HiiesC5Aj1qks8Dmm8i9kFVmAOzjkAKvlps0pkOyVC4="
+        },
+        "voting_power": "0"
+      },
+      "build_version": "heads/chain/pearl.3320+c4c72fdd2"
+    }
+  },
+  "queries": {
+    "auth/gasprice": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22auth%2Fgasprice%22",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "ewogICJnYXMiOiAiMTAwMCIsCiAgInByaWNlIjogIjF1Z25vdCIKfQ==",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "{\n  \"gas\": \"1000\",\n  \"price\": \"1ugnot\"\n}"
+    },
+    "params/vm:p:storage_price": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22params%2Fvm%3Ap%3Astorage_price%22",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "IjEwMHVnbm90Ig==",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "\"100ugnot\""
+    },
+    "params/bank:p:restricted_denoms": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22params%2Fbank%3Ap%3Arestricted_denoms%22",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "W10=",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "[]"
+    }
+  },
+  "realms": {
+    "gno.land/r/gnoswap/staker": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f676e6f737761702f7374616b6572",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "c3RvcmFnZTogMjY3ODA2NTUwLCBkZXBvc2l0OiAyNjc4MDY1NTAwMA==",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "storage: 267806550, deposit: 26780655000"
+    },
+    "gno.land/r/gnoswap/gnft": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f676e6f737761702f676e6674",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "c3RvcmFnZTogNTQ4NjE0LCBkZXBvc2l0OiA1NDg2MTQwMA==",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "storage: 548614, deposit: 54861400"
+    },
+    "gno.land/r/gnoswap/gns": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f676e6f737761702f676e73",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "c3RvcmFnZTogMTYzNjY2LCBkZXBvc2l0OiAxNjM2NjYwMA==",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "storage: 163666, deposit: 16366600"
+    },
+    "gno.land/r/gnoswap/gov/staker": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f676e6f737761702f676f762f7374616b6572",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "c3RvcmFnZTogMTYzODA3LCBkZXBvc2l0OiAxNjM4MDcwMA==",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "storage: 163807, deposit: 16380700"
+    },
+    "gno.land/r/gnoswap/gov/xgns": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f676e6f737761702f676f762f78676e73",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "c3RvcmFnZTogMTY5NDQsIGRlcG9zaXQ6IDE2OTQ0MDA=",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "storage: 16944, deposit: 1694400"
+    },
+    "gno.land/r/gnoswap/launchpad": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f676e6f737761702f6c61756e6368706164",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "c3RvcmFnZTogMTM4ODA1LCBkZXBvc2l0OiAxMzg4MDUwMA==",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "storage: 138805, deposit: 13880500"
+    },
+    "gno.land/r/gnoswap/pool/v1": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f676e6f737761702f706f6f6c2f7631",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "c3RvcmFnZTogMTU1MjkyLCBkZXBvc2l0OiAxNTUyOTIwMA==",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "storage: 155292, deposit: 15529200"
+    },
+    "gno.land/r/gnoswap/position": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f676e6f737761702f706f736974696f6e",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "c3RvcmFnZTogMjY2MDA5LCBkZXBvc2l0OiAyNjYwMDkwMA==",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "storage: 266009, deposit: 26600900"
+    },
+    "gno.land/r/gnoswap/protocol_fee": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f676e6f737761702f70726f746f636f6c5f666565",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "c3RvcmFnZTogNTc1MzQsIGRlcG9zaXQ6IDU3NTM0MDA=",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "storage: 57534, deposit: 5753400"
+    },
+    "gno.land/r/gnoswap/staker/v1": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f676e6f737761702f7374616b65722f7631",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "c3RvcmFnZTogMjgwNTkyLCBkZXBvc2l0OiAyODA1OTIwMA==",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "storage: 280592, deposit: 28059200"
+    }
+  },
+  "model": {
+    "gas_fee": "Execution segment repricing at observed unit price; GasWanted assumed to track segment gas with zero margin (plus a separate 5% sensitivity). Not actual submitted GasFee or wallet delta; ante/signature/payment overhead and per-tx integer rounding omitted. Same valid fixed GasFee means zero gas cash difference.",
+    "storage": "Fresh-state experiment valued at current tariff; per-realm uniform charge/refund ratio checked against live qstorage where refunds occur. These are representative ratios, not measurements of the experimental realm ledger on chain.",
+    "perspective": "Combined callers for each explicitly grouped workflow, not all unrelated metrics. Refund belongs to releasing caller.",
+    "exclusions": [
+      "deployment and migration fees",
+      "capital time value",
+      "future price changes",
+      "cold-load costs"
+    ],
+    "formula_sources": [
+      "https://github.com/gnoswap-labs/gno/blob/bac78a97b20e12ba471bdd73a41af31bd94bdc12/gno.land/pkg/sdk/vm/keeper.go#L2266-L2349",
+      "https://github.com/gnoswap-labs/gno/blob/bac78a97b20e12ba471bdd73a41af31bd94bdc12/tm2/pkg/sdk/auth/ante.go#L198-L207"
+    ]
+  },
+  "assumed_refund_ratios": {
+    "gno.land/r/onbloc/bar": {
+      "ugnot_per_byte": 100,
+      "reason": "Benchmark-only onbloc demo token realm not deployed on pearl-1. Explicit fresh-state uniform-deposit assumption, not a live qstorage observation.",
+      "query_evidence": {
+        "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f6f6e626c6f632f626172",
+        "raw": {
+          "jsonrpc": "2.0",
+          "id": "",
+          "result": {
+            "response": {
+              "ResponseBase": {
+                "Error": {
+                  "@type": "/vm.InvalidPkgPathError"
+                },
+                "Data": null,
+                "Events": null,
+                "Log": "--= Error =--\nData: vm.InvalidPkgPathError{abciError:vm.abciError{}}\nMsg Traces:\n    0  /gnoroot/gno.land/pkg/sdk/vm/errors.go:88 - realm not found: gno.land/r/onbloc/bar\nStack Trace:\n    0  /gnoroot/tm2/pkg/errors/errors.go:93\n    1  /gnoroot/gno.land/pkg/sdk/vm/errors.go:88\n    2  /gnoroot/gno.land/pkg/sdk/vm/keeper.go:1848\n    3  /gnoroot/gno.land/pkg/sdk/vm/handler.go:348\n    4  /gnoroot/gno.land/pkg/sdk/vm/handler.go:154\n    5  /gnoroot/tm2/pkg/sdk/baseapp.go:568\n    6  /gnoroot/tm2/pkg/sdk/baseapp.go:449\n    7  /gnoroot/tm2/pkg/bft/abci/client/local_client.go:180\n    8  /gnoroot/tm2/pkg/bft/appconn/app_conn.go:144\n    9  /gnoroot/tm2/pkg/bft/rpc/core/abci.go:14\n   10  /usr/local/go/src/reflect/value.go:581\n... 14 more lines elided",
+                "Info": ""
+              },
+              "Key": null,
+              "Value": null,
+              "Proof": null,
+              "Height": "0"
+            }
+          }
+        }
+      }
+    },
+    "gno.land/r/onbloc/baz": {
+      "ugnot_per_byte": 100,
+      "reason": "Benchmark-only onbloc demo token realm not deployed on pearl-1. Explicit fresh-state uniform-deposit assumption, not a live qstorage observation.",
+      "query_evidence": {
+        "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f6f6e626c6f632f62617a",
+        "raw": {
+          "jsonrpc": "2.0",
+          "id": "",
+          "result": {
+            "response": {
+              "ResponseBase": {
+                "Error": {
+                  "@type": "/vm.InvalidPkgPathError"
+                },
+                "Data": null,
+                "Events": null,
+                "Log": "--= Error =--\nData: vm.InvalidPkgPathError{abciError:vm.abciError{}}\nMsg Traces:\n    0  /gnoroot/gno.land/pkg/sdk/vm/errors.go:88 - realm not found: gno.land/r/onbloc/baz\nStack Trace:\n    0  /gnoroot/tm2/pkg/errors/errors.go:93\n    1  /gnoroot/gno.land/pkg/sdk/vm/errors.go:88\n    2  /gnoroot/gno.land/pkg/sdk/vm/keeper.go:1848\n    3  /gnoroot/gno.land/pkg/sdk/vm/handler.go:348\n    4  /gnoroot/gno.land/pkg/sdk/vm/handler.go:154\n    5  /gnoroot/tm2/pkg/sdk/baseapp.go:568\n    6  /gnoroot/tm2/pkg/sdk/baseapp.go:449\n    7  /gnoroot/tm2/pkg/bft/abci/client/local_client.go:180\n    8  /gnoroot/tm2/pkg/bft/appconn/app_conn.go:144\n    9  /gnoroot/tm2/pkg/bft/rpc/core/abci.go:14\n   10  /usr/local/go/src/reflect/value.go:581\n... 14 more lines elided",
+                "Info": ""
+              },
+              "Key": null,
+              "Value": null,
+              "Proof": null,
+              "Height": "0"
+            }
+          }
+        }
+      }
+    },
+    "gno.land/r/onbloc/foo": {
+      "ugnot_per_byte": 100,
+      "reason": "Benchmark-only onbloc demo token realm not deployed on pearl-1. Explicit fresh-state uniform-deposit assumption, not a live qstorage observation.",
+      "query_evidence": {
+        "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f6f6e626c6f632f666f6f",
+        "raw": {
+          "jsonrpc": "2.0",
+          "id": "",
+          "result": {
+            "response": {
+              "ResponseBase": {
+                "Error": {
+                  "@type": "/vm.InvalidPkgPathError"
+                },
+                "Data": null,
+                "Events": null,
+                "Log": "--= Error =--\nData: vm.InvalidPkgPathError{abciError:vm.abciError{}}\nMsg Traces:\n    0  /gnoroot/gno.land/pkg/sdk/vm/errors.go:88 - realm not found: gno.land/r/onbloc/foo\nStack Trace:\n    0  /gnoroot/tm2/pkg/errors/errors.go:93\n    1  /gnoroot/gno.land/pkg/sdk/vm/errors.go:88\n    2  /gnoroot/gno.land/pkg/sdk/vm/keeper.go:1848\n    3  /gnoroot/gno.land/pkg/sdk/vm/handler.go:348\n    4  /gnoroot/gno.land/pkg/sdk/vm/handler.go:154\n    5  /gnoroot/tm2/pkg/sdk/baseapp.go:568\n    6  /gnoroot/tm2/pkg/sdk/baseapp.go:449\n    7  /gnoroot/tm2/pkg/bft/abci/client/local_client.go:180\n    8  /gnoroot/tm2/pkg/bft/appconn/app_conn.go:144\n    9  /gnoroot/tm2/pkg/bft/rpc/core/abci.go:14\n   10  /usr/local/go/src/reflect/value.go:581\n... 14 more lines elided",
+                "Info": ""
+              },
+              "Key": null,
+              "Value": null,
+              "Proof": null,
+              "Height": "0"
+            }
+          }
+        }
+      }
+    },
+    "gno.land/r/onbloc/obl": {
+      "ugnot_per_byte": 100,
+      "reason": "Benchmark-only onbloc demo token realm not deployed on pearl-1. Explicit fresh-state uniform-deposit assumption, not a live qstorage observation.",
+      "query_evidence": {
+        "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f6f6e626c6f632f6f626c",
+        "raw": {
+          "jsonrpc": "2.0",
+          "id": "",
+          "result": {
+            "response": {
+              "ResponseBase": {
+                "Error": {
+                  "@type": "/vm.InvalidPkgPathError"
+                },
+                "Data": null,
+                "Events": null,
+                "Log": "--= Error =--\nData: vm.InvalidPkgPathError{abciError:vm.abciError{}}\nMsg Traces:\n    0  /gnoroot/gno.land/pkg/sdk/vm/errors.go:88 - realm not found: gno.land/r/onbloc/obl\nStack Trace:\n    0  /gnoroot/tm2/pkg/errors/errors.go:93\n    1  /gnoroot/gno.land/pkg/sdk/vm/errors.go:88\n    2  /gnoroot/gno.land/pkg/sdk/vm/keeper.go:1848\n    3  /gnoroot/gno.land/pkg/sdk/vm/handler.go:348\n    4  /gnoroot/gno.land/pkg/sdk/vm/handler.go:154\n    5  /gnoroot/tm2/pkg/sdk/baseapp.go:568\n    6  /gnoroot/tm2/pkg/sdk/baseapp.go:449\n    7  /gnoroot/tm2/pkg/bft/abci/client/local_client.go:180\n    8  /gnoroot/tm2/pkg/bft/appconn/app_conn.go:144\n    9  /gnoroot/tm2/pkg/bft/rpc/core/abci.go:14\n   10  /usr/local/go/src/reflect/value.go:581\n... 14 more lines elided",
+                "Info": ""
+              },
+              "Key": null,
+              "Value": null,
+              "Proof": null,
+              "Height": "0"
+            }
+          }
+        }
+      }
+    },
+    "gno.land/r/onbloc/qux": {
+      "ugnot_per_byte": 100,
+      "reason": "Benchmark-only onbloc demo token realm not deployed on pearl-1. Explicit fresh-state uniform-deposit assumption, not a live qstorage observation.",
+      "query_evidence": {
+        "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22vm%2Fqstorage%22&data=0x676e6f2e6c616e642f722f6f6e626c6f632f717578",
+        "raw": {
+          "jsonrpc": "2.0",
+          "id": "",
+          "result": {
+            "response": {
+              "ResponseBase": {
+                "Error": {
+                  "@type": "/vm.InvalidPkgPathError"
+                },
+                "Data": null,
+                "Events": null,
+                "Log": "--= Error =--\nData: vm.InvalidPkgPathError{abciError:vm.abciError{}}\nMsg Traces:\n    0  /gnoroot/gno.land/pkg/sdk/vm/errors.go:88 - realm not found: gno.land/r/onbloc/qux\nStack Trace:\n    0  /gnoroot/tm2/pkg/errors/errors.go:93\n    1  /gnoroot/gno.land/pkg/sdk/vm/errors.go:88\n    2  /gnoroot/gno.land/pkg/sdk/vm/keeper.go:1848\n    3  /gnoroot/gno.land/pkg/sdk/vm/handler.go:348\n    4  /gnoroot/gno.land/pkg/sdk/vm/handler.go:154\n    5  /gnoroot/tm2/pkg/sdk/baseapp.go:568\n    6  /gnoroot/tm2/pkg/sdk/baseapp.go:449\n    7  /gnoroot/tm2/pkg/bft/abci/client/local_client.go:180\n    8  /gnoroot/tm2/pkg/bft/appconn/app_conn.go:144\n    9  /gnoroot/tm2/pkg/bft/rpc/core/abci.go:14\n   10  /usr/local/go/src/reflect/value.go:581\n... 14 more lines elided",
+                "Info": ""
+              },
+              "Key": null,
+              "Value": null,
+              "Proof": null,
+              "Height": "0"
+            }
+          }
+        }
+      }
+    }
+  },
+  "observation_finished_at_utc": "2026-09-09T07:05:49.717397+00:00"
+}

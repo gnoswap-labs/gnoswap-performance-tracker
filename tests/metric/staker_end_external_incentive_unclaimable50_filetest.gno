@@ -13,10 +13,11 @@
 package main
 
 import (
-	"gno.land/p/gnoswap/gnsmath"
 	"strconv"
 	"testing"
 	"time"
+
+	"gno.land/p/gnoswap/gnsmath"
 
 	"gno.land/p/demo/tokens/grc721"
 	prabc "gno.land/p/gnoswap/rbac"
@@ -111,7 +112,7 @@ func createPoolAndSetTier(cur realm) {
 func createExternalIncentive(cur realm) {
 	testing.SetRealm(adminRealm)
 
-	incentiveStartTime = time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
+	incentiveStartTime = time.Now().AddDate(0, 0, 2).Truncate(24 * time.Hour).Unix()
 	incentiveEndTime = incentiveStartTime + TIMESTAMP_90DAYS
 
 	// incentiveID is creator:createTimestamp:counter; capture it at creation time.
