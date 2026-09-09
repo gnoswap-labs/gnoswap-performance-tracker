@@ -34,7 +34,7 @@ var (
 // scale. The payload itself is part of the real proposal transaction, while
 // funding, approvals, and configuration are deliberately outside measurements.
 func pmdDescription(repetitions int) string {
-	chunk := "GnoSwap governance proposal metadata benchmark payload. "
+	chunk := "GnoSwap governance proposal metadata benchmark payload."
 	description := ""
 	for i := 0; i < repetitions; i++ {
 		description += chunk
