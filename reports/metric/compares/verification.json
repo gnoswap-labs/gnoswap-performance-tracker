@@ -1,0 +1,31 @@
+{
+  "proofs": [
+    {
+      "id": "launch-tier-rate",
+      "checked_cells": 1509,
+      "zero_baseline_changes": []
+    },
+    {
+      "id": "launch-manager-rate",
+      "checked_cells": 1509,
+      "zero_baseline_changes": []
+    },
+    {
+      "id": "launch-manager-accumulator",
+      "checked_cells": 1509,
+      "zero_baseline_changes": []
+    },
+    {
+      "id": "launch-active-debt",
+      "checked_cells": 1509,
+      "zero_baseline_changes": []
+    }
+  ],
+  "checks": [
+    "raw/normalized values and unique sets",
+    "public state parity",
+    "every comparison delta",
+    "nonzero-baseline percentage",
+    "per-realm cashflow identities"
+  ]
+}

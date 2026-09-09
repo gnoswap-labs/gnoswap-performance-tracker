@@ -1,0 +1,302 @@
+{
+  "group": "launch",
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "tracker_base": "cd348c2a78ed766c3adb69d7e5c4030fdec9b89b",
+  "gno": "bac78a97b20e12ba471bdd73a41af31bd94bdc12",
+  "fixture_files": [
+    "tests/metric/launchpad_remaining_public_1_filetest.gno",
+    "tests/metric/launchpad_remaining_public_10_filetest.gno",
+    "tests/metric/launchpad_remaining_public_100_filetest.gno"
+  ],
+  "variants": [
+    {
+      "id": "launch-tier-rate",
+      "field": "ProjectTier.distributeAmountPerSecondX128",
+      "branch": "perf/launch-tier-rate-binary",
+      "sha": "e6ab5730e45b93956d8dfe50f408631989100eed",
+      "test_packages": [
+        "gno.land/r/gnoswap/launchpad",
+        "gno.land/r/gnoswap/launchpad/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/project_tier.gno",
+        "contract/r/gnoswap/launchpad/binary_encoding_test.gno"
+      ]
+    },
+    {
+      "id": "launch-manager-rate",
+      "field": "RewardManager.distributeAmountPerSecondX128",
+      "branch": "perf/launch-manager-rate-binary",
+      "sha": "31763a0d9fc2ff2d929f1907f8f665f367773a58",
+      "test_packages": [
+        "gno.land/r/gnoswap/launchpad",
+        "gno.land/r/gnoswap/launchpad/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/reward_manager.gno",
+        "contract/r/gnoswap/launchpad/binary_encoding_test.gno"
+      ]
+    },
+    {
+      "id": "launch-manager-accumulator",
+      "field": "RewardManager.accumulatedRewardPerDepositX128",
+      "branch": "perf/launch-manager-accumulator-binary",
+      "sha": "a083223c203b692f823e78a6e2ccb357c3f87b6c",
+      "test_packages": [
+        "gno.land/r/gnoswap/launchpad",
+        "gno.land/r/gnoswap/launchpad/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/reward_manager.gno",
+        "contract/r/gnoswap/launchpad/binary_encoding_test.gno"
+      ]
+    },
+    {
+      "id": "launch-active-debt",
+      "field": "RewardManager.activePriceDebtX128",
+      "branch": "perf/launch-active-debt-binary",
+      "sha": "b74b9fcefc73c81d0d2ee2fbd483dbec4b056bd7",
+      "test_packages": [
+        "gno.land/r/gnoswap/launchpad",
+        "gno.land/r/gnoswap/launchpad/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/reward_manager.gno",
+        "contract/r/gnoswap/launchpad/binary_encoding_test.gno"
+      ]
+    }
+  ],
+  "scopes": [
+    {
+      "name": "launch-allocation-1",
+      "fixture": "launchpad_remaining_public_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch allocation n=1"
+      ],
+      "kind": "allocation",
+      "payer": "admin",
+      "description": "Real public CreateProject allocation of all three tier records; funding/approvals are outside measurement; seed deposit is measured separately."
+    },
+    {
+      "name": "launch-query-1",
+      "fixture": "launchpad_remaining_public_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch query getters n=1"
+      ],
+      "kind": "query",
+      "payer": "user",
+      "description": "Read-only public tier and reward-manager getters after a real seed plus measured deposit; numeric lookup is not priced as a paid transaction."
+    },
+    {
+      "name": "launch-repeat-1",
+      "fixture": "launchpad_remaining_public_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch claim repeated-accrued n=1",
+        "Remaining launch claim repeated-zero-time n=1"
+      ],
+      "kind": "repeat",
+      "payer": "user",
+      "description": "Repeated public reward claims after an accrued interval and at zero elapsed time, with balance parity assertions outside measurement."
+    },
+    {
+      "name": "launch-exit-1",
+      "fixture": "launchpad_remaining_public_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch withdraw index=",
+        "Remaining launch withdraw seed n=1"
+      ],
+      "kind": "exit",
+      "payer": "user",
+      "description": "Public principal withdrawal and reward settlement, including final seed cleanup and reward-state removal."
+    },
+    {
+      "name": "launch-lifecycle-1",
+      "fixture": "launchpad_remaining_public_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch refund before-withdraw n=1",
+        "Remaining launch refund after-withdraw n=1"
+      ],
+      "kind": "lifecycle",
+      "payer": "admin",
+      "description": "Admin refund before and after a partial withdrawal while the seed reservation remains active, proving reserve-safe lifecycle ordering."
+    },
+    {
+      "name": "launch-allocation-10",
+      "fixture": "launchpad_remaining_public_10_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch allocation n=10"
+      ],
+      "kind": "allocation",
+      "payer": "admin",
+      "description": "Real public CreateProject allocation of all three tier records; funding/approvals are outside measurement; seed deposit is measured separately."
+    },
+    {
+      "name": "launch-query-10",
+      "fixture": "launchpad_remaining_public_10_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch query getters n=10"
+      ],
+      "kind": "query",
+      "payer": "user",
+      "description": "Read-only public tier and reward-manager getters after a real seed plus measured deposits; numeric lookup is not priced as a paid transaction."
+    },
+    {
+      "name": "launch-repeat-10",
+      "fixture": "launchpad_remaining_public_10_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch claim repeated-accrued n=10",
+        "Remaining launch claim repeated-zero-time n=10"
+      ],
+      "kind": "repeat",
+      "payer": "user",
+      "description": "Repeated public reward claims after an accrued interval and at zero elapsed time, with balance parity assertions outside measurement."
+    },
+    {
+      "name": "launch-exit-10",
+      "fixture": "launchpad_remaining_public_10_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch withdraw index=",
+        "Remaining launch withdraw seed n=10"
+      ],
+      "kind": "exit",
+      "payer": "user",
+      "description": "Public principal withdrawal and reward settlement, including final seed cleanup and reward-state removal."
+    },
+    {
+      "name": "launch-lifecycle-10",
+      "fixture": "launchpad_remaining_public_10_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch refund before-withdraw n=10",
+        "Remaining launch refund after-withdraw n=10"
+      ],
+      "kind": "lifecycle",
+      "payer": "admin",
+      "description": "Admin refund before and after a partial withdrawal while the seed reservation remains active, proving reserve-safe lifecycle ordering."
+    },
+    {
+      "name": "launch-allocation-100",
+      "fixture": "launchpad_remaining_public_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch allocation n=100"
+      ],
+      "kind": "allocation",
+      "payer": "admin",
+      "description": "Real public CreateProject allocation of all three tier records; funding/approvals are outside measurement; seed deposit is measured separately."
+    },
+    {
+      "name": "launch-query-100",
+      "fixture": "launchpad_remaining_public_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch query getters n=100"
+      ],
+      "kind": "query",
+      "payer": "user",
+      "description": "Read-only public tier and reward-manager getters after a real seed plus measured deposits; numeric lookup is not priced as a paid transaction."
+    },
+    {
+      "name": "launch-repeat-100",
+      "fixture": "launchpad_remaining_public_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch claim repeated-accrued n=100",
+        "Remaining launch claim repeated-zero-time n=100"
+      ],
+      "kind": "repeat",
+      "payer": "user",
+      "description": "Repeated public reward claims after an accrued interval and at zero elapsed time, with balance parity assertions outside measurement."
+    },
+    {
+      "name": "launch-exit-100",
+      "fixture": "launchpad_remaining_public_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch withdraw index=",
+        "Remaining launch withdraw seed n=100"
+      ],
+      "kind": "exit",
+      "payer": "user",
+      "description": "Public principal withdrawal and reward settlement, including final seed cleanup and reward-state removal."
+    },
+    {
+      "name": "launch-lifecycle-100",
+      "fixture": "launchpad_remaining_public_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch refund before-withdraw n=100",
+        "Remaining launch refund after-withdraw n=100"
+      ],
+      "kind": "lifecycle",
+      "payer": "admin",
+      "description": "Admin refund before and after a partial withdrawal while the seed reservation remains active, proving reserve-safe lifecycle ordering."
+    },
+    {
+      "name": "launch-deposits-1",
+      "fixture": "launchpad_remaining_public_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch deposit "
+      ],
+      "kind": "allocation",
+      "payer": "user",
+      "description": "1 heterogeneous deposits plus measured seed deposit; 2 active deposits total."
+    },
+    {
+      "name": "launch-complete-measured-lifecycle-1",
+      "fixture": "launchpad_remaining_public_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch allocation ",
+        "Remaining launch deposit ",
+        "Remaining launch claim ",
+        "Remaining launch refund ",
+        "Remaining launch withdraw "
+      ],
+      "kind": "lifecycle",
+      "payer": "user and project administrator, combined",
+      "description": "Project allocation, seed plus 1 deposits, accrued/no-op claims, reserve-safe refunds and every withdrawal. Funding/approvals and free query-only getter measurements excluded."
+    },
+    {
+      "name": "launch-deposits-10",
+      "fixture": "launchpad_remaining_public_10_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch deposit "
+      ],
+      "kind": "allocation",
+      "payer": "user",
+      "description": "10 heterogeneous deposits plus measured seed deposit; 11 active deposits total."
+    },
+    {
+      "name": "launch-complete-measured-lifecycle-10",
+      "fixture": "launchpad_remaining_public_10_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch allocation ",
+        "Remaining launch deposit ",
+        "Remaining launch claim ",
+        "Remaining launch refund ",
+        "Remaining launch withdraw "
+      ],
+      "kind": "lifecycle",
+      "payer": "user and project administrator, combined",
+      "description": "Project allocation, seed plus 10 deposits, accrued/no-op claims, reserve-safe refunds and every withdrawal. Funding/approvals and free query-only getter measurements excluded."
+    },
+    {
+      "name": "launch-deposits-100",
+      "fixture": "launchpad_remaining_public_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch deposit "
+      ],
+      "kind": "allocation",
+      "payer": "user",
+      "description": "100 heterogeneous deposits plus measured seed deposit; 101 active deposits total."
+    },
+    {
+      "name": "launch-complete-measured-lifecycle-100",
+      "fixture": "launchpad_remaining_public_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch allocation ",
+        "Remaining launch deposit ",
+        "Remaining launch claim ",
+        "Remaining launch refund ",
+        "Remaining launch withdraw "
+      ],
+      "kind": "lifecycle",
+      "payer": "user and project administrator, combined",
+      "description": "Project allocation, seed plus 100 deposits, accrued/no-op claims, reserve-safe refunds and every withdrawal. Funding/approvals and free query-only getter measurements excluded."
+    }
+  ]
+}
