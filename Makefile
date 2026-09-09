@@ -171,6 +171,7 @@ gas-report:
 	test -x "$$GNO_BIN"; \
 	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && GNOROOT="$$GNO_WORKTREE" "$$GNO_BIN" test . -v -run . -update-golden-tests); \
 	python3 -c 'from pathlib import Path; import sys; errors = [str(p) + "\n" + p.read_text().split("// Error:", 1)[1] for p in Path(sys.argv[1]).glob("*_filetest.gno*") if "// Error:" in p.read_text()]; sys.exit("Metric fixtures failed before reporting:\n" + "\n".join(errors) if errors else 0)' "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests"; \
+	python3 -c 'from pathlib import Path; import json, sys; root = Path(sys.argv[1]); outputs = {p.name: p.read_text().split("// Output:", 1)[1] for p in sorted(root.glob("*_filetest.gno*")) if "// Output:" in p.read_text()}; Path(sys.argv[2]).write_text(json.dumps(outputs, indent=2) + "\n")' "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests" "reports/metric/commits/$$SHORT_COMMIT-output.json"; \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) | sort | xargs cat | ./scripts/parse_metrics.sh > "reports/metric/commits/$$SHORT_COMMIT.md"; \
 	if [ "$$(tail -n +3 "reports/metric/commits/$$SHORT_COMMIT.md" | wc -l | tr -d ' ')" -eq 0 ]; then \
 		echo "Metric report contained no metric rows" >&2; \

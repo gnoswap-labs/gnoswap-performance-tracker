@@ -1,0 +1,81 @@
+{
+  "group": "pool",
+  "stage": "complete",
+  "exit_code": 0,
+  "variants": [
+    {
+      "id": "pool-binary-naive",
+      "field": "feeGrowthGlobal0X128+feeGrowthGlobal1X128+liquidity+sqrtPriceX96",
+      "branch": "perf/secondpass-pool-binary-naive",
+      "test_packages": [
+        "gno.land/r/gnoswap/pool",
+        "gno.land/r/gnoswap/pool/v1",
+        "gno.land/p/gnoswap/utils"
+      ],
+      "changed_files": [
+        "contract/p/gnoswap/utils/codec.gno",
+        "contract/p/gnoswap/utils/codec_test.gno",
+        "contract/r/gnoswap/pool/pool.gno",
+        "contract/r/gnoswap/pool/pool_test.gno"
+      ],
+      "mechanism": "Literal combined4 control: the two global fee accumulators, active liquidity, and Slot0 sqrtPriceX96 use fixed-width 32-byte big-endian strings through the shared codec; calculation reuse, ownership, and AMM algorithms otherwise remain unchanged. Original #49 codec retained; v1 algorithms restored exactly to baseline.",
+      "tracker_branch": "metrics/secondpass-pool",
+      "sha": "517f7e4ad82c1b25692b32c1a58ec182b75ac883"
+    },
+    {
+      "id": "pool-binary-reuse",
+      "field": "feeGrowthGlobal0X128+feeGrowthGlobal1X128+liquidity+sqrtPriceX96",
+      "branch": "perf/secondpass-pool-binary-reuse",
+      "test_packages": [
+        "gno.land/r/gnoswap/pool",
+        "gno.land/r/gnoswap/pool/v1",
+        "gno.land/p/gnoswap/utils"
+      ],
+      "changed_files": [
+        "contract/p/gnoswap/utils/codec.gno",
+        "contract/p/gnoswap/utils/codec_test.gno",
+        "contract/r/gnoswap/pool/pool.gno",
+        "contract/r/gnoswap/pool/pool_test.gno",
+        "contract/r/gnoswap/pool/v1/position.gno",
+        "contract/r/gnoswap/pool/v1/swap.gno",
+        "contract/r/gnoswap/pool/v1/type.gno",
+        "contract/r/gnoswap/pool/v1/swap_test.gno",
+        "contract/r/gnoswap/pool/v1/oracle_seed_test.gno"
+      ],
+      "mechanism": "Combined4 fixed32 storage plus calculation-local reuse: swap-start fee snapshots and active liquidity are reused through the current calculation, unchanged fee sides are not decoded/re-encoded, mint/burn reuses the pre-update liquidity, and codec conversion avoids intermediate byte slices. SwapCache constructor requires fee snapshots for every caller; no test-only fallback reads.",
+      "tracker_branch": "metrics/secondpass-pool",
+      "sha": "d0db4a0b1cfdd621b58b7336b6a89e6ed0d58233"
+    },
+    {
+      "id": "pool-pointer-reuse",
+      "field": "feeGrowthGlobal0X128+feeGrowthGlobal1X128+liquidity+sqrtPriceX96",
+      "branch": "perf/secondpass-pool-pointer-reuse",
+      "test_packages": [
+        "gno.land/r/gnoswap/pool",
+        "gno.land/r/gnoswap/pool/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/pool/pool.gno",
+        "contract/r/gnoswap/pool/pool_test.gno",
+        "contract/r/gnoswap/pool/v1/position.gno",
+        "contract/r/gnoswap/pool/v1/swap.gno",
+        "contract/r/gnoswap/pool/v1/type.gno",
+        "contract/r/gnoswap/pool/v1/swap_test.gno",
+        "contract/r/gnoswap/pool/v1/oracle_seed_test.gno"
+      ],
+      "mechanism": "Pointer-reuse control: pointer storage is retained while the same swap-start snapshots, pre-update liquidity reuse, clone elimination, and unchanged fee-side application separate representation effects from algorithm effects; public uint getters remain detached. SwapCache constructor requires fee snapshots for every caller; no test-only fallback reads.",
+      "tracker_branch": "metrics/secondpass-pool",
+      "sha": "ccc1a553ccc48003a7f3f1eae46148709818c701"
+    },
+    {
+      "id": "pool-value",
+      "field": "feeGrowthGlobal0X128+feeGrowthGlobal1X128+liquidity+sqrtPriceX96",
+      "sha": "a44ab2d4a27f8dca868d0fecf533b205a1b39673",
+      "branch": "poc/values-20260909-pool-numerics",
+      "test_packages": [],
+      "changed_files": [],
+      "mechanism": "External combined Uint-value storage with detached pointer adapters and caller clone cleanup; no local edits or repeated owner-reported package tests.",
+      "external_unit_proof": "User/owner reports full pool and pool/v1 tests passed on bac78a9; not rerun here."
+    }
+  ]
+}

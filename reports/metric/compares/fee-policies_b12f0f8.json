@@ -1,0 +1,1092 @@
+{
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "variants": [
+    {
+      "id": "pool-binary-naive",
+      "sha": "517f7e4ad82c1b25692b32c1a58ec182b75ac883",
+      "scopes": [
+        {
+          "name": "pool-allocation-create",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.326000",
+          "fixed_identical_fee_net_delta_gnot": "-0.326000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 86,
+              "gas_fee_delta_gnot": "+0.000086",
+              "net_delta_gnot": "-0.325914"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 93,
+              "gas_fee_delta_gnot": "+0.000093",
+              "net_delta_gnot": "-0.325907"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 13408,
+              "gas_fee_delta_gnot": "+0.013408",
+              "net_delta_gnot": "-0.312592"
+            }
+          }
+        },
+        {
+          "name": "pool-allocation-mint",
+          "measurement_windows": 2,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000600",
+          "fixed_identical_fee_net_delta_gnot": "-0.000600",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1225,
+              "gas_fee_delta_gnot": "+0.001225",
+              "net_delta_gnot": "+0.000625"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 1348,
+              "gas_fee_delta_gnot": "+0.001348",
+              "net_delta_gnot": "+0.000748"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 192725,
+              "gas_fee_delta_gnot": "+0.192725",
+              "net_delta_gnot": "+0.192125"
+            }
+          }
+        },
+        {
+          "name": "pool-repeat-no-cross",
+          "measurement_windows": 8,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.004700",
+          "fixed_identical_fee_net_delta_gnot": "-0.004700",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 2011159,
+              "gas_fee_delta_gnot": "+2.011159",
+              "net_delta_gnot": "+2.006459"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 2212274,
+              "gas_fee_delta_gnot": "+2.212274",
+              "net_delta_gnot": "+2.207574"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 316355214,
+              "gas_fee_delta_gnot": "+316.355214",
+              "net_delta_gnot": "+316.350514"
+            }
+          }
+        },
+        {
+          "name": "pool-repeat-exact-out",
+          "measurement_windows": 2,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1810,
+              "gas_fee_delta_gnot": "+0.001810",
+              "net_delta_gnot": "+0.001810"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 1992,
+              "gas_fee_delta_gnot": "+0.001992",
+              "net_delta_gnot": "+0.001992"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 284852,
+              "gas_fee_delta_gnot": "+0.284852",
+              "net_delta_gnot": "+0.284852"
+            }
+          }
+        },
+        {
+          "name": "pool-repeat-crossing",
+          "measurement_windows": 2,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000800",
+          "fixed_identical_fee_net_delta_gnot": "-0.000800",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1954,
+              "gas_fee_delta_gnot": "+0.001954",
+              "net_delta_gnot": "+0.001154"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 2150,
+              "gas_fee_delta_gnot": "+0.002150",
+              "net_delta_gnot": "+0.001350"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 307494,
+              "gas_fee_delta_gnot": "+0.307494",
+              "net_delta_gnot": "+0.306694"
+            }
+          }
+        },
+        {
+          "name": "pool-lifecycle-fees-and-removal",
+          "measurement_windows": 3,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.001400",
+          "fixed_identical_fee_net_delta_gnot": "-0.001400",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1499,
+              "gas_fee_delta_gnot": "+0.001499",
+              "net_delta_gnot": "+0.000099"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 1648,
+              "gas_fee_delta_gnot": "+0.001648",
+              "net_delta_gnot": "+0.000248"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 235674,
+              "gas_fee_delta_gnot": "+0.235674",
+              "net_delta_gnot": "+0.234274"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-1",
+          "measurement_windows": 2,
+          "operation_count": 2,
+          "storage_delta_gnot": "+0.000600",
+          "fixed_identical_fee_net_delta_gnot": "+0.000600",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1812,
+              "gas_fee_delta_gnot": "+0.001812",
+              "net_delta_gnot": "+0.002412"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 1993,
+              "gas_fee_delta_gnot": "+0.001993",
+              "net_delta_gnot": "+0.002593"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 284996,
+              "gas_fee_delta_gnot": "+0.284996",
+              "net_delta_gnot": "+0.285596"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-10",
+          "measurement_windows": 2,
+          "operation_count": 20,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 18104,
+              "gas_fee_delta_gnot": "+0.018104",
+              "net_delta_gnot": "+0.018104"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 19915,
+              "gas_fee_delta_gnot": "+0.019915",
+              "net_delta_gnot": "+0.019915"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 2847791,
+              "gas_fee_delta_gnot": "+2.847791",
+              "net_delta_gnot": "+2.847791"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-100",
+          "measurement_windows": 2,
+          "operation_count": 200,
+          "storage_delta_gnot": "-0.002000",
+          "fixed_identical_fee_net_delta_gnot": "-0.002000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 181044,
+              "gas_fee_delta_gnot": "+0.181044",
+              "net_delta_gnot": "+0.179044"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 199147,
+              "gas_fee_delta_gnot": "+0.199147",
+              "net_delta_gnot": "+0.197147"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 28478127,
+              "gas_fee_delta_gnot": "+28.478127",
+              "net_delta_gnot": "+28.476127"
+            }
+          }
+        },
+        {
+          "name": "pool-complete-measured-lifecycle",
+          "measurement_windows": 18,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.333500",
+          "fixed_identical_fee_net_delta_gnot": "-0.333500",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 2017733,
+              "gas_fee_delta_gnot": "+2.017733",
+              "net_delta_gnot": "+1.684233"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 2219505,
+              "gas_fee_delta_gnot": "+2.219505",
+              "net_delta_gnot": "+1.886005"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 317389367,
+              "gas_fee_delta_gnot": "+317.389367",
+              "net_delta_gnot": "+317.055867"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-1000",
+          "measurement_windows": 2,
+          "operation_count": 2000,
+          "storage_delta_gnot": "-0.003300",
+          "fixed_identical_fee_net_delta_gnot": "-0.003300",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1810199,
+              "gas_fee_delta_gnot": "+1.810199",
+              "net_delta_gnot": "+1.806899"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 1991219,
+              "gas_fee_delta_gnot": "+1.991219",
+              "net_delta_gnot": "+1.987919"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 284744300,
+              "gas_fee_delta_gnot": "+284.744300",
+              "net_delta_gnot": "+284.741000"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "pool-binary-reuse",
+      "sha": "d0db4a0b1cfdd621b58b7336b6a89e6ed0d58233",
+      "scopes": [
+        {
+          "name": "pool-allocation-create",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.326000",
+          "fixed_identical_fee_net_delta_gnot": "-0.326000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 93,
+              "gas_fee_delta_gnot": "+0.000093",
+              "net_delta_gnot": "-0.325907"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 101,
+              "gas_fee_delta_gnot": "+0.000101",
+              "net_delta_gnot": "-0.325899"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 14515,
+              "gas_fee_delta_gnot": "+0.014515",
+              "net_delta_gnot": "-0.311485"
+            }
+          }
+        },
+        {
+          "name": "pool-allocation-mint",
+          "measurement_windows": 2,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000600",
+          "fixed_identical_fee_net_delta_gnot": "-0.000600",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 817,
+              "gas_fee_delta_gnot": "+0.000817",
+              "net_delta_gnot": "+0.000217"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 898,
+              "gas_fee_delta_gnot": "+0.000898",
+              "net_delta_gnot": "+0.000298"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 128412,
+              "gas_fee_delta_gnot": "+0.128412",
+              "net_delta_gnot": "+0.127812"
+            }
+          }
+        },
+        {
+          "name": "pool-repeat-no-cross",
+          "measurement_windows": 8,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.004700",
+          "fixed_identical_fee_net_delta_gnot": "-0.004700",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 708110,
+              "gas_fee_delta_gnot": "+0.708110",
+              "net_delta_gnot": "+0.703410"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 778919,
+              "gas_fee_delta_gnot": "+0.778919",
+              "net_delta_gnot": "+0.774219"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 111385476,
+              "gas_fee_delta_gnot": "+111.385476",
+              "net_delta_gnot": "+111.380776"
+            }
+          }
+        },
+        {
+          "name": "pool-repeat-exact-out",
+          "measurement_windows": 2,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 638,
+              "gas_fee_delta_gnot": "+0.000638",
+              "net_delta_gnot": "+0.000638"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 702,
+              "gas_fee_delta_gnot": "+0.000702",
+              "net_delta_gnot": "+0.000702"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 100362,
+              "gas_fee_delta_gnot": "+0.100362",
+              "net_delta_gnot": "+0.100362"
+            }
+          }
+        },
+        {
+          "name": "pool-repeat-crossing",
+          "measurement_windows": 2,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000800",
+          "fixed_identical_fee_net_delta_gnot": "-0.000800",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 578,
+              "gas_fee_delta_gnot": "+0.000578",
+              "net_delta_gnot": "-0.000222"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 636,
+              "gas_fee_delta_gnot": "+0.000636",
+              "net_delta_gnot": "-0.000164"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 90986,
+              "gas_fee_delta_gnot": "+0.090986",
+              "net_delta_gnot": "+0.090186"
+            }
+          }
+        },
+        {
+          "name": "pool-lifecycle-fees-and-removal",
+          "measurement_windows": 3,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.001400",
+          "fixed_identical_fee_net_delta_gnot": "-0.001400",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 965,
+              "gas_fee_delta_gnot": "+0.000965",
+              "net_delta_gnot": "-0.000435"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 1061,
+              "gas_fee_delta_gnot": "+0.001061",
+              "net_delta_gnot": "-0.000339"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 151836,
+              "gas_fee_delta_gnot": "+0.151836",
+              "net_delta_gnot": "+0.150436"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-1",
+          "measurement_windows": 2,
+          "operation_count": 2,
+          "storage_delta_gnot": "+0.000600",
+          "fixed_identical_fee_net_delta_gnot": "+0.000600",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 638,
+              "gas_fee_delta_gnot": "+0.000638",
+              "net_delta_gnot": "+0.001238"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 702,
+              "gas_fee_delta_gnot": "+0.000702",
+              "net_delta_gnot": "+0.001302"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 100327,
+              "gas_fee_delta_gnot": "+0.100327",
+              "net_delta_gnot": "+0.100927"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-10",
+          "measurement_windows": 2,
+          "operation_count": 20,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 6376,
+              "gas_fee_delta_gnot": "+0.006376",
+              "net_delta_gnot": "+0.006376"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 7013,
+              "gas_fee_delta_gnot": "+0.007013",
+              "net_delta_gnot": "+0.007013"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 1002906,
+              "gas_fee_delta_gnot": "+1.002906",
+              "net_delta_gnot": "+1.002906"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-100",
+          "measurement_windows": 2,
+          "operation_count": 200,
+          "storage_delta_gnot": "-0.002000",
+          "fixed_identical_fee_net_delta_gnot": "-0.002000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 63759,
+              "gas_fee_delta_gnot": "+0.063759",
+              "net_delta_gnot": "+0.061759"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 70134,
+              "gas_fee_delta_gnot": "+0.070134",
+              "net_delta_gnot": "+0.068134"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 10029275,
+              "gas_fee_delta_gnot": "+10.029275",
+              "net_delta_gnot": "+10.027275"
+            }
+          }
+        },
+        {
+          "name": "pool-complete-measured-lifecycle",
+          "measurement_windows": 18,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.333500",
+          "fixed_identical_fee_net_delta_gnot": "-0.333500",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 711201,
+              "gas_fee_delta_gnot": "+0.711201",
+              "net_delta_gnot": "+0.377701"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 782317,
+              "gas_fee_delta_gnot": "+0.782317",
+              "net_delta_gnot": "+0.448817"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 111871587,
+              "gas_fee_delta_gnot": "+111.871587",
+              "net_delta_gnot": "+111.538087"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-1000",
+          "measurement_windows": 2,
+          "operation_count": 2000,
+          "storage_delta_gnot": "-0.003300",
+          "fixed_identical_fee_net_delta_gnot": "-0.003300",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 637337,
+              "gas_fee_delta_gnot": "+0.637337",
+              "net_delta_gnot": "+0.634037"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 701070,
+              "gas_fee_delta_gnot": "+0.701070",
+              "net_delta_gnot": "+0.697770"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 100252968,
+              "gas_fee_delta_gnot": "+100.252968",
+              "net_delta_gnot": "+100.249668"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "pool-pointer-reuse",
+      "sha": "ccc1a553ccc48003a7f3f1eae46148709818c701",
+      "scopes": [
+        {
+          "name": "pool-allocation-create",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "0.000000"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "0.000000"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "0.000000"
+            }
+          }
+        },
+        {
+          "name": "pool-allocation-mint",
+          "measurement_windows": 2,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 51,
+              "gas_fee_delta_gnot": "+0.000051",
+              "net_delta_gnot": "+0.000051"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 56,
+              "gas_fee_delta_gnot": "+0.000056",
+              "net_delta_gnot": "+0.000056"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 7980,
+              "gas_fee_delta_gnot": "+0.007980",
+              "net_delta_gnot": "+0.007980"
+            }
+          }
+        },
+        {
+          "name": "pool-repeat-no-cross",
+          "measurement_windows": 8,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.001700",
+          "fixed_identical_fee_net_delta_gnot": "-0.001700",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -162968,
+              "gas_fee_delta_gnot": "-0.162968",
+              "net_delta_gnot": "-0.164668"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -179265,
+              "gas_fee_delta_gnot": "-0.179265",
+              "net_delta_gnot": "-0.180965"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -25635101,
+              "gas_fee_delta_gnot": "-25.635101",
+              "net_delta_gnot": "-25.636801"
+            }
+          }
+        },
+        {
+          "name": "pool-repeat-exact-out",
+          "measurement_windows": 2,
+          "operation_count": null,
+          "storage_delta_gnot": "+0.000500",
+          "fixed_identical_fee_net_delta_gnot": "+0.000500",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -148,
+              "gas_fee_delta_gnot": "-0.000148",
+              "net_delta_gnot": "+0.000352"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -162,
+              "gas_fee_delta_gnot": "-0.000162",
+              "net_delta_gnot": "+0.000338"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -23141,
+              "gas_fee_delta_gnot": "-0.023141",
+              "net_delta_gnot": "-0.022641"
+            }
+          }
+        },
+        {
+          "name": "pool-repeat-crossing",
+          "measurement_windows": 2,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000600",
+          "fixed_identical_fee_net_delta_gnot": "-0.000600",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -199,
+              "gas_fee_delta_gnot": "-0.000199",
+              "net_delta_gnot": "-0.000799"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -219,
+              "gas_fee_delta_gnot": "-0.000219",
+              "net_delta_gnot": "-0.000819"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -31291,
+              "gas_fee_delta_gnot": "-0.031291",
+              "net_delta_gnot": "-0.031891"
+            }
+          }
+        },
+        {
+          "name": "pool-lifecycle-fees-and-removal",
+          "measurement_windows": 3,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000600",
+          "fixed_identical_fee_net_delta_gnot": "-0.000600",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 15,
+              "gas_fee_delta_gnot": "+0.000015",
+              "net_delta_gnot": "-0.000585"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 16,
+              "gas_fee_delta_gnot": "+0.000016",
+              "net_delta_gnot": "-0.000584"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 2209,
+              "gas_fee_delta_gnot": "+0.002209",
+              "net_delta_gnot": "+0.001609"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-1",
+          "measurement_windows": 2,
+          "operation_count": 2,
+          "storage_delta_gnot": "+0.000500",
+          "fixed_identical_fee_net_delta_gnot": "+0.000500",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -147,
+              "gas_fee_delta_gnot": "-0.000147",
+              "net_delta_gnot": "+0.000353"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -162,
+              "gas_fee_delta_gnot": "-0.000162",
+              "net_delta_gnot": "+0.000338"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -23239,
+              "gas_fee_delta_gnot": "-0.023239",
+              "net_delta_gnot": "-0.022739"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-10",
+          "measurement_windows": 2,
+          "operation_count": 20,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -1466,
+              "gas_fee_delta_gnot": "-0.001466",
+              "net_delta_gnot": "-0.001466"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -1612,
+              "gas_fee_delta_gnot": "-0.001612",
+              "net_delta_gnot": "-0.001612"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -230576,
+              "gas_fee_delta_gnot": "-0.230576",
+              "net_delta_gnot": "-0.230576"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-100",
+          "measurement_windows": 2,
+          "operation_count": 200,
+          "storage_delta_gnot": "-0.000800",
+          "fixed_identical_fee_net_delta_gnot": "-0.000800",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -14662,
+              "gas_fee_delta_gnot": "-0.014662",
+              "net_delta_gnot": "-0.015462"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -16128,
+              "gas_fee_delta_gnot": "-0.016128",
+              "net_delta_gnot": "-0.016928"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -2306404,
+              "gas_fee_delta_gnot": "-2.306404",
+              "net_delta_gnot": "-2.307204"
+            }
+          }
+        },
+        {
+          "name": "pool-complete-measured-lifecycle",
+          "measurement_windows": 18,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.002400",
+          "fixed_identical_fee_net_delta_gnot": "-0.002400",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -163249,
+              "gas_fee_delta_gnot": "-0.163249",
+              "net_delta_gnot": "-0.165649"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -179574,
+              "gas_fee_delta_gnot": "-0.179574",
+              "net_delta_gnot": "-0.181974"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -25679344,
+              "gas_fee_delta_gnot": "-25.679344",
+              "net_delta_gnot": "-25.681744"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-1000",
+          "measurement_windows": 2,
+          "operation_count": 2000,
+          "storage_delta_gnot": "-0.001400",
+          "fixed_identical_fee_net_delta_gnot": "-0.001400",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -146693,
+              "gas_fee_delta_gnot": "-0.146693",
+              "net_delta_gnot": "-0.148093"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -161363,
+              "gas_fee_delta_gnot": "-0.161363",
+              "net_delta_gnot": "-0.162763"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -23074882,
+              "gas_fee_delta_gnot": "-23.074882",
+              "net_delta_gnot": "-23.076282"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "pool-value",
+      "sha": "a44ab2d4a27f8dca868d0fecf533b205a1b39673",
+      "scopes": [
+        {
+          "name": "pool-allocation-create",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.159600",
+          "fixed_identical_fee_net_delta_gnot": "-0.159600",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -15,
+              "gas_fee_delta_gnot": "-0.000015",
+              "net_delta_gnot": "-0.159615"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -17,
+              "gas_fee_delta_gnot": "-0.000017",
+              "net_delta_gnot": "-0.159617"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -2442,
+              "gas_fee_delta_gnot": "-0.002442",
+              "net_delta_gnot": "-0.162042"
+            }
+          }
+        },
+        {
+          "name": "pool-allocation-mint",
+          "measurement_windows": 2,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000600",
+          "fixed_identical_fee_net_delta_gnot": "-0.000600",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 16,
+              "gas_fee_delta_gnot": "+0.000016",
+              "net_delta_gnot": "-0.000584"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 18,
+              "gas_fee_delta_gnot": "+0.000018",
+              "net_delta_gnot": "-0.000582"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 2514,
+              "gas_fee_delta_gnot": "+0.002514",
+              "net_delta_gnot": "+0.001914"
+            }
+          }
+        },
+        {
+          "name": "pool-repeat-no-cross",
+          "measurement_windows": 8,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.001300",
+          "fixed_identical_fee_net_delta_gnot": "-0.001300",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 26328,
+              "gas_fee_delta_gnot": "+0.026328",
+              "net_delta_gnot": "+0.025028"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 28961,
+              "gas_fee_delta_gnot": "+0.028961",
+              "net_delta_gnot": "+0.027661"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 4141304,
+              "gas_fee_delta_gnot": "+4.141304",
+              "net_delta_gnot": "+4.140004"
+            }
+          }
+        },
+        {
+          "name": "pool-repeat-exact-out",
+          "measurement_windows": 2,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 24,
+              "gas_fee_delta_gnot": "+0.000024",
+              "net_delta_gnot": "+0.000024"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 26,
+              "gas_fee_delta_gnot": "+0.000026",
+              "net_delta_gnot": "+0.000026"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 3776,
+              "gas_fee_delta_gnot": "+0.003776",
+              "net_delta_gnot": "+0.003776"
+            }
+          }
+        },
+        {
+          "name": "pool-repeat-crossing",
+          "measurement_windows": 2,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 36,
+              "gas_fee_delta_gnot": "+0.000036",
+              "net_delta_gnot": "+0.000036"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 40,
+              "gas_fee_delta_gnot": "+0.000040",
+              "net_delta_gnot": "+0.000040"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 5714,
+              "gas_fee_delta_gnot": "+0.005714",
+              "net_delta_gnot": "+0.005714"
+            }
+          }
+        },
+        {
+          "name": "pool-lifecycle-fees-and-removal",
+          "measurement_windows": 3,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000700",
+          "fixed_identical_fee_net_delta_gnot": "-0.000700",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -9,
+              "gas_fee_delta_gnot": "-0.000009",
+              "net_delta_gnot": "-0.000709"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -10,
+              "gas_fee_delta_gnot": "-0.000010",
+              "net_delta_gnot": "-0.000710"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -1391,
+              "gas_fee_delta_gnot": "-0.001391",
+              "net_delta_gnot": "-0.002091"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-1",
+          "measurement_windows": 2,
+          "operation_count": 2,
+          "storage_delta_gnot": "+0.000600",
+          "fixed_identical_fee_net_delta_gnot": "+0.000600",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 24,
+              "gas_fee_delta_gnot": "+0.000024",
+              "net_delta_gnot": "+0.000624"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 27,
+              "gas_fee_delta_gnot": "+0.000027",
+              "net_delta_gnot": "+0.000627"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 3761,
+              "gas_fee_delta_gnot": "+0.003761",
+              "net_delta_gnot": "+0.004361"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-10",
+          "measurement_windows": 2,
+          "operation_count": 20,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 237,
+              "gas_fee_delta_gnot": "+0.000237",
+              "net_delta_gnot": "+0.000237"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 261,
+              "gas_fee_delta_gnot": "+0.000261",
+              "net_delta_gnot": "+0.000261"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 37308,
+              "gas_fee_delta_gnot": "+0.037308",
+              "net_delta_gnot": "+0.037308"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-100",
+          "measurement_windows": 2,
+          "operation_count": 200,
+          "storage_delta_gnot": "-0.000700",
+          "fixed_identical_fee_net_delta_gnot": "-0.000700",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 2369,
+              "gas_fee_delta_gnot": "+0.002369",
+              "net_delta_gnot": "+0.001669"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 2606,
+              "gas_fee_delta_gnot": "+0.002606",
+              "net_delta_gnot": "+0.001906"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 372639,
+              "gas_fee_delta_gnot": "+0.372639",
+              "net_delta_gnot": "+0.371939"
+            }
+          }
+        },
+        {
+          "name": "pool-complete-measured-lifecycle",
+          "measurement_windows": 18,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.162200",
+          "fixed_identical_fee_net_delta_gnot": "-0.162200",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 26380,
+              "gas_fee_delta_gnot": "+0.026380",
+              "net_delta_gnot": "-0.135820"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 29018,
+              "gas_fee_delta_gnot": "+0.029018",
+              "net_delta_gnot": "-0.133182"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 4149475,
+              "gas_fee_delta_gnot": "+4.149475",
+              "net_delta_gnot": "+3.987275"
+            }
+          }
+        },
+        {
+          "name": "pool-both-directions-1000",
+          "measurement_windows": 2,
+          "operation_count": 2000,
+          "storage_delta_gnot": "-0.001200",
+          "fixed_identical_fee_net_delta_gnot": "-0.001200",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 23698,
+              "gas_fee_delta_gnot": "+0.023698",
+              "net_delta_gnot": "+0.022498"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 26067,
+              "gas_fee_delta_gnot": "+0.026067",
+              "net_delta_gnot": "+0.024867"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 3727596,
+              "gas_fee_delta_gnot": "+3.727596",
+              "net_delta_gnot": "+3.726396"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Whole transaction and SDK overhead are omitted; these are execution-segment fee-policy estimates, not wallet debits.",
+    "The 10% floor/ceil policy comes from frontend source and live bundle evidence. It must not be assumed for every wallet or bot.",
+    "The 143ugnot/1000gas policy is a historical snapshot sensitivity, not a current tariff or price of every sampled transaction.",
+    "A measurement window may contain a batch of calls; its rounded fee is an equivalent aggregate quote, not a claim that the batch is one transaction.",
+    "Fixed identical valid submitted fees have zero gas cash difference; storage is separately priced."
+  ]
+}
