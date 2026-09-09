@@ -40,10 +40,10 @@ var (
 
 	launchpadNumericsLaunchpadAddr, _ = access.GetAddress(prabc.ROLE_LAUNCHPAD.String())
 
-	launchpadNumericsAliceAddr  = testutils.TestAddress("launchpad-numerics-alice")
+	launchpadNumericsAliceAddr  = testutils.TestAddress("lp-num-alice")
 	launchpadNumericsAliceRealm = testing.NewUserRealm(launchpadNumericsAliceAddr)
 
-	launchpadNumericsProjectAddr = testutils.TestAddress("launchpad-numerics-project")
+	launchpadNumericsProjectAddr = testutils.TestAddress("lp-num-project")
 
 	launchpadNumericsMaxInt64 int64 = 9223372036854775807
 )
