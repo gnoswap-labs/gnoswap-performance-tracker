@@ -1,0 +1,76 @@
+{
+  "group": "gov",
+  "stage": "complete",
+  "exit_code": 0,
+  "variants": [
+    {
+      "id": "gov-binary-naive",
+      "field": "accumulatedRewardX128PerStake+accumulatedProtocolFeeX128PerStake",
+      "branch": "perf/secondpass-gov-binary-naive",
+      "test_packages": [
+        "gno.land/r/gnoswap/gov/staker",
+        "gno.land/r/gnoswap/gov/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/gov/staker/emission_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/protocol_fee_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/v1/protocol_fee_reward_accumulation_test.gno",
+        "contract/p/gnoswap/utils/codec.gno",
+        "contract/p/gnoswap/utils/codec_test.gno"
+      ],
+      "mechanism": "Literal combined2 control: only the emission and protocol-fee manager accumulators use fixed-width 32-byte big-endian strings through utils.EncodeUint256/DecodeUint256; rewardDebt remains pointer-backed and resolver algorithms are unchanged.",
+      "tracker_branch": "metrics/secondpass-gov",
+      "sha": "52e61ef61308ca1683d3d70c07f1f7053658cc72"
+    },
+    {
+      "id": "gov-binary-reuse",
+      "field": "accumulatedRewardX128PerStake+accumulatedProtocolFeeX128PerStake",
+      "branch": "perf/secondpass-gov-binary-reuse",
+      "test_packages": [
+        "gno.land/r/gnoswap/gov/staker",
+        "gno.land/r/gnoswap/gov/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/gov/staker/emission_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/protocol_fee_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/v1/emission_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/v1/protocol_fee_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/v1/state.gno",
+        "contract/r/gnoswap/gov/staker/v1/protocol_fee_reward_accumulation_test.gno",
+        "contract/p/gnoswap/utils/codec.gno",
+        "contract/p/gnoswap/utils/codec_test.gno"
+      ],
+      "mechanism": "Combined2 fixed32 storage plus calculation-local reuse: emission and protocol-fee accumulator values are encoded as fixed-width 32-byte big-endian strings, while prepared accumulator values and fee base maps are reused only within the current calculation/transaction; no persistent cache or rewardDebt representation change. Uses shared direct-limb fixed32 codec; no string-to-byte-slice decode or four temporary encoded-limb strings. Gov prepared full maps are decoded once, merged numerically and persisted without re-decoding.",
+      "tracker_branch": "metrics/secondpass-gov",
+      "sha": "737ea1be775a4b195b4d919de713d1d25b43ae54"
+    },
+    {
+      "id": "gov-pointer-reuse",
+      "field": "accumulatedRewardX128PerStake+accumulatedProtocolFeeX128PerStake",
+      "branch": "perf/secondpass-gov-pointer-reuse",
+      "test_packages": [
+        "gno.land/r/gnoswap/gov/staker",
+        "gno.land/r/gnoswap/gov/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/gov/staker/protocol_fee_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/v1/emission_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/v1/protocol_fee_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/v1/state.gno"
+      ],
+      "mechanism": "Pointer-reuse control: accumulator pointer storage is retained, but the same calculation-local prepared-value/base-map reuse as the optimized binary variant separates representation and algorithm effects; GetAll returns an isolated map while values remain pointers, and rewardDebt remains unchanged.",
+      "tracker_branch": "metrics/secondpass-gov",
+      "sha": "6467446dfe83553139e3c83d96c90707df38271b"
+    },
+    {
+      "id": "gov-value",
+      "field": "accumulatedRewardX128PerStake+accumulatedProtocolFeeX128PerStake",
+      "sha": "b83fa4ae564efc697f9e0034da5c85b11257d06d",
+      "branch": "poc/values-20260909-gov-manager-numerics",
+      "test_packages": [],
+      "changed_files": [],
+      "mechanism": "External combined Uint-value storage with detached pointer adapters and caller clone cleanup; no local edits or repeated owner-reported package tests.",
+      "external_unit_proof": "User/owner reports full gov/staker and gov/staker/v1 tests passed on bac78a9; not rerun here."
+    }
+  ]
+}

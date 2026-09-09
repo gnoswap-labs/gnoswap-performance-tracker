@@ -62,7 +62,7 @@ func initializeSetup(cur realm) {
 
 	bar.Transfer(cross(cur), aliceAddr, 2000000000)
 	foo.Transfer(cross(cur), aliceAddr, 2000000000)
-	gns.Transfer(cross(cur), aliceAddr, 2000000000)
+	gns.Transfer(cross(cur), aliceAddr, staker.GetDepositGnsAmount())
 
 	bar.Approve(cross(cur), poolAddr, maxInt64)
 	foo.Approve(cross(cur), poolAddr, maxInt64)
@@ -108,9 +108,8 @@ func createExternalIncentiveMetric(cur realm) {
 
 	poolPath := barPath + ":" + fooPath + ":100"
 
-	// Use timestamp at midnight (86400 * 100000 = 8640000000)
-	// Duration must be 90, 180, or 365 days
-	startTime := int64(8640000000)
+	// Start at midnight within the current incentive scheduling window.
+	startTime := time.Now().AddDate(0, 0, 2).Truncate(24 * time.Hour).Unix()
 	endTime := startTime + (86400 * 90) // 90 days
 
 	metric.PrintMetricsBy("CreateExternalIncentive", func() {

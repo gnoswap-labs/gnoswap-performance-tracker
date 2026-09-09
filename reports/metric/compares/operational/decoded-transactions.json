@@ -1,0 +1,340 @@
+{
+  "https://rpc.pearl.testnets.gno.land/tx?hash=0x312cb946c8c9569eac126e2717a4900a0fa9def1f912591c23aad30c4faa8fb2": {
+    "msg": [
+      {
+        "@type": "/vm.m_call",
+        "caller": "g1aqap33f9tjv8sxscv884er5ctgqvt2pew0x9at",
+        "send": "",
+        "max_deposit": "",
+        "pkg_path": "gno.land/r/gnoswap/router",
+        "func": "ExactInSingleSwapRoute",
+        "args": [
+          "gno.land/r/gnoswap/test_token/test_trx.TRX",
+          "gno.land/r/gnoswap/test_token/test_usdc.USDC",
+          "10391052078",
+          "gno.land/r/gnoswap/test_token/test_trx.TRX:gno.land/r/gnoswap/test_token/test_usdc.USDC:3000",
+          "0",
+          "82465483217361139268465983488",
+          "1788960685",
+          ""
+        ]
+      },
+      {
+        "@type": "/vm.m_call",
+        "caller": "g1aqap33f9tjv8sxscv884er5ctgqvt2pew0x9at",
+        "send": "",
+        "max_deposit": "",
+        "pkg_path": "gno.land/r/gnoswap/router",
+        "func": "ExactInSingleSwapRoute",
+        "args": [
+          "gno.land/r/gnoswap/test_token/test_usdc.USDC",
+          "gno.land/r/gnoswap/test_token/test_trx.TRX",
+          "11860126970",
+          "gno.land/r/gnoswap/test_token/test_usdc.USDC:gno.land/r/gnoswap/test_token/test_trx.TRX:3000",
+          "0",
+          "87180182548491421195958222848",
+          "1788960685",
+          ""
+        ]
+      }
+    ],
+    "fee": {
+      "gas_wanted": "600000000",
+      "gas_fee": "257400001ugnot"
+    },
+    "signatures": [
+      {
+        "pub_key": {
+          "@type": "/tm.PubKeySecp256k1",
+          "value": "Al0nLl5gQAoEXbuXvyunEksV5dcoK2KMRlt6bgUcToJ9"
+        },
+        "signature": "6yafkHZOAbituX8iZw2SSquYhsfyjXgOCHevN4ufCjEE6l/E+R9Vly7O73LM9ZZh9f4RsMPEihdgf97ZeourkQ=="
+      }
+    ],
+    "memo": ""
+  },
+  "https://rpc.pearl.testnets.gno.land/tx?hash=0x3c584c6eea523dc6a54b8592a894754ce5b7ee79483c89c9a473a6cb0ce2feae": {
+    "msg": [
+      {
+        "@type": "/vm.m_call",
+        "caller": "g1gw3zv7exwdh7txlgwm3wnn3xwaj2z9ehr9876m",
+        "send": "",
+        "max_deposit": "",
+        "pkg_path": "gno.land/r/gnoswap/gnft",
+        "func": "Approve",
+        "args": [
+          "g1q6d4ns7zkr492rgl0pcgf5ajaf2dlz0nnptky3",
+          "124"
+        ]
+      },
+      {
+        "@type": "/vm.m_call",
+        "caller": "g1gw3zv7exwdh7txlgwm3wnn3xwaj2z9ehr9876m",
+        "send": "",
+        "max_deposit": "",
+        "pkg_path": "gno.land/r/gnoswap/staker",
+        "func": "StakeToken",
+        "args": [
+          "124",
+          ""
+        ]
+      }
+    ],
+    "fee": {
+      "gas_wanted": "119922041",
+      "gas_fee": "119923ugnot"
+    },
+    "signatures": [
+      {
+        "pub_key": {
+          "@type": "/tm.PubKeySecp256k1",
+          "value": "A3g/KbBoeL2rrlrvcDLk//0YnEe8sZLlKx8zQeApMqIa"
+        },
+        "signature": "QNW7AN6d6lWGEfW+P2SIedU2mDWVpqPlR4XfUzCRzcFBavuEUMPDNvnNE+UN2kaaetC/+Cl2+AKpauLqaoC6mA=="
+      }
+    ],
+    "memo": "Executed through gnoswap.io"
+  },
+  "https://rpc.pearl.testnets.gno.land/tx?hash=0x983ceb1fd43506d1d311aca4e0d5d4c4b4b42d34fd5b8a30aff99c62a030c529": {
+    "msg": [
+      {
+        "@type": "/vm.m_call",
+        "caller": "g1zdlyg67h5u50watamwkv4flg26705r53f69j72",
+        "send": "",
+        "max_deposit": "",
+        "pkg_path": "gno.land/r/gnoswap/router",
+        "func": "ExactInSingleSwapRoute",
+        "args": [
+          "gno.land/r/gnoswap/test_token/test_usdc.USDC",
+          "gno.land/r/gnoswap/test_token/test_trx.TRX",
+          "12139809854",
+          "gno.land/r/gnoswap/test_token/test_usdc.USDC:gno.land/r/gnoswap/test_token/test_trx.TRX:3000",
+          "0",
+          "89830588217122054170679967744",
+          "1788960683",
+          ""
+        ]
+      },
+      {
+        "@type": "/vm.m_call",
+        "caller": "g1zdlyg67h5u50watamwkv4flg26705r53f69j72",
+        "send": "",
+        "max_deposit": "",
+        "pkg_path": "gno.land/r/gnoswap/router",
+        "func": "ExactInSingleSwapRoute",
+        "args": [
+          "gno.land/r/gnoswap/test_token/test_trx.TRX",
+          "gno.land/r/gnoswap/test_token/test_usdc.USDC",
+          "9980914950",
+          "gno.land/r/gnoswap/test_token/test_trx.TRX:gno.land/r/gnoswap/test_token/test_usdc.USDC:3000",
+          "0",
+          "84730740156127940226324627456",
+          "1788960683",
+          ""
+        ]
+      }
+    ],
+    "fee": {
+      "gas_wanted": "600000000",
+      "gas_fee": "284856001ugnot"
+    },
+    "signatures": [
+      {
+        "pub_key": {
+          "@type": "/tm.PubKeySecp256k1",
+          "value": "AqkvYR4ifBzEAMQaewXGhoq+cnXKOcyueooC2mbqr5n7"
+        },
+        "signature": "aiCRToDW7Exidq1TNDrt2bNYgWlfHrZByEBOwJftI71pBHyI8vLTnTlJcITV2ppc0fN2wSO3oXU+4MmvXeMTvw=="
+      }
+    ],
+    "memo": ""
+  },
+  "https://rpc.pearl.testnets.gno.land/tx?hash=0xaeb3e8e1d47a3ed13fbc5ff6cc7da65308beaf6bc518f36ce6f8c82f2d28b734": {
+    "msg": [
+      {
+        "@type": "/vm.m_call",
+        "caller": "g1fwp9fe5xa570k93w8wjc8edtd3ums7hrzfqrz9",
+        "send": "",
+        "max_deposit": "",
+        "pkg_path": "gno.land/r/gnoswap/router",
+        "func": "ExactInSingleSwapRoute",
+        "args": [
+          "gno.land/r/gnoswap/test_token/test_trx.TRX",
+          "gno.land/r/gnoswap/test_token/test_usdc.USDC",
+          "10421443122",
+          "gno.land/r/gnoswap/test_token/test_trx.TRX:gno.land/r/gnoswap/test_token/test_usdc.USDC:3000",
+          "0",
+          "82461360252420063439181840384",
+          "1788960674",
+          ""
+        ]
+      },
+      {
+        "@type": "/vm.m_call",
+        "caller": "g1fwp9fe5xa570k93w8wjc8edtd3ums7hrzfqrz9",
+        "send": "",
+        "max_deposit": "",
+        "pkg_path": "gno.land/r/gnoswap/router",
+        "func": "ExactInSingleSwapRoute",
+        "args": [
+          "gno.land/r/gnoswap/test_token/test_usdc.USDC",
+          "gno.land/r/gnoswap/test_token/test_trx.TRX",
+          "11895814430",
+          "gno.land/r/gnoswap/test_token/test_usdc.USDC:gno.land/r/gnoswap/test_token/test_trx.TRX:3000",
+          "0",
+          "87193259902793935316469153792",
+          "1788960674",
+          ""
+        ]
+      }
+    ],
+    "fee": {
+      "gas_wanted": "600000000",
+      "gas_fee": "375804001ugnot"
+    },
+    "signatures": [
+      {
+        "pub_key": {
+          "@type": "/tm.PubKeySecp256k1",
+          "value": "AncBlBQYNqMxJS5g93y/5hJuShGSD7gla3NLq2MwKziY"
+        },
+        "signature": "W2Zy/OztCmypFcjACCkXIuHnEoejgJROMK6CCGXZJN0P6GmxxEOdSWBDd0kQNzty4ChprvTsjSf3gJMINpYyyw=="
+      }
+    ],
+    "memo": ""
+  },
+  "https://rpc.pearl.testnets.gno.land/tx?hash=0xb9c920bb169bc463ad27dd35928ee73035886d1721bbfe308d1f845adbc5f52e": {
+    "msg": [
+      {
+        "@type": "/vm.m_call",
+        "caller": "g1zdlyg67h5u50watamwkv4flg26705r53f69j72",
+        "send": "",
+        "max_deposit": "",
+        "pkg_path": "gno.land/r/gnoswap/router",
+        "func": "ExactInSingleSwapRoute",
+        "args": [
+          "gno.land/r/gnoswap/test_token/test_trx.TRX",
+          "gno.land/r/gnoswap/test_token/test_usdc.USDC",
+          "10591803096",
+          "gno.land/r/gnoswap/test_token/test_trx.TRX:gno.land/r/gnoswap/test_token/test_usdc.USDC:3000",
+          "0",
+          "82440748519500409397575680000",
+          "1788960611",
+          ""
+        ]
+      },
+      {
+        "@type": "/vm.m_call",
+        "caller": "g1zdlyg67h5u50watamwkv4flg26705r53f69j72",
+        "send": "",
+        "max_deposit": "",
+        "pkg_path": "gno.land/r/gnoswap/router",
+        "func": "ExactInSingleSwapRoute",
+        "args": [
+          "gno.land/r/gnoswap/test_token/test_usdc.USDC",
+          "gno.land/r/gnoswap/test_token/test_trx.TRX",
+          "12095981272",
+          "gno.land/r/gnoswap/test_token/test_usdc.USDC:gno.land/r/gnoswap/test_token/test_trx.TRX:3000",
+          "0",
+          "87258676104975007694280720384",
+          "1788960611",
+          ""
+        ]
+      }
+    ],
+    "fee": {
+      "gas_wanted": "600000000",
+      "gas_fee": "993564001ugnot"
+    },
+    "signatures": [
+      {
+        "pub_key": {
+          "@type": "/tm.PubKeySecp256k1",
+          "value": "AqkvYR4ifBzEAMQaewXGhoq+cnXKOcyueooC2mbqr5n7"
+        },
+        "signature": "AUC07q3BAoEDLZ0zTOGAwyjNRBhu0Unj+0HFiQ6LYrYG55CZHgg64jVrhQGPQfhcfRm044wBpKd6a8QAcvIYrg=="
+      }
+    ],
+    "memo": ""
+  },
+  "https://rpc.pearl.testnets.gno.land/tx?hash=0xfbb6e43e4cbfd73d4793efeaa96a5bacec0b6e2ad90a96fc7a6882e1d8961498": {
+    "msg": [
+      {
+        "@type": "/vm.m_run",
+        "caller": "g1gw3zv7exwdh7txlgwm3wnn3xwaj2z9ehr9876m",
+        "send": "",
+        "max_deposit": "",
+        "package": {
+          "name": "main",
+          "path": "",
+          "files": [
+            {
+              "name": "main.gno",
+              "body": "package main\n\nimport (\n\tgrc20reg \"gno.land/r/demo/defi/grc20reg\"\n)\n\nfunc main(cur realm) {\n\tgrc20reg.Approve(0, cur, \"gno.land/r/gnoland/wugnot.wugnot\", address(\"g1dexaf6aqkkyr9yfy9d5up69lsn7ra80af34g5v\"), 54000000)\n}\n"
+            }
+          ]
+        }
+      },
+      {
+        "@type": "/vm.m_call",
+        "caller": "g1gw3zv7exwdh7txlgwm3wnn3xwaj2z9ehr9876m",
+        "send": "54000000ugnot",
+        "max_deposit": "",
+        "pkg_path": "gno.land/r/gnoland/wugnot",
+        "func": "Deposit"
+      },
+      {
+        "@type": "/vm.m_call",
+        "caller": "g1gw3zv7exwdh7txlgwm3wnn3xwaj2z9ehr9876m",
+        "send": "",
+        "max_deposit": "",
+        "pkg_path": "gno.land/r/gnoswap/position",
+        "func": "Mint",
+        "args": [
+          "gno.land/r/gnoland/wugnot.wugnot",
+          "gno.land/r/gnoswap/gns.GNS",
+          "3000",
+          "-6900",
+          "887220",
+          "54000000",
+          "0",
+          "53730000",
+          "0",
+          "7282571140",
+          "g1gw3zv7exwdh7txlgwm3wnn3xwaj2z9ehr9876m",
+          ""
+        ]
+      },
+      {
+        "@type": "/vm.m_run",
+        "caller": "g1gw3zv7exwdh7txlgwm3wnn3xwaj2z9ehr9876m",
+        "send": "",
+        "max_deposit": "",
+        "package": {
+          "name": "main",
+          "path": "",
+          "files": [
+            {
+              "name": "main.gno",
+              "body": "package main\n\nimport (\n\tgrc20reg \"gno.land/r/demo/defi/grc20reg\"\n)\n\nfunc main(cur realm) {\n\tgrc20reg.Approve(0, cur, \"gno.land/r/gnoland/wugnot.wugnot\", address(\"g1dexaf6aqkkyr9yfy9d5up69lsn7ra80af34g5v\"), 0)\n}\n"
+            }
+          ]
+        }
+      }
+    ],
+    "fee": {
+      "gas_wanted": "158941337",
+      "gas_fee": "158942ugnot"
+    },
+    "signatures": [
+      {
+        "pub_key": {
+          "@type": "/tm.PubKeySecp256k1",
+          "value": "A3g/KbBoeL2rrlrvcDLk//0YnEe8sZLlKx8zQeApMqIa"
+        },
+        "signature": "XU4JW6Gd/gKkcLOR6F+X8CvZc9O5OU+3WW5kifNfPwJyYqdhQIOo9IQCuc3CDH2Ui4L5cdI//IC9uZUnzBVzTA=="
+      }
+    ],
+    "memo": "Executed through gnoswap.io"
+  }
+}

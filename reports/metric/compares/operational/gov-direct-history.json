@@ -1,0 +1,230 @@
+{
+  "query": "{getTransactions(where:{messages:{value:{MsgCall:{pkg_path:{eq:\"gno.land/r/gnoswap/gov/staker\"}}}}},order:{heightAndIndex:ASC}){hash block_height index success gas_wanted gas_used gas_fee{amount denom} messages{typeUrl value{... on MsgCall{caller pkg_path func args max_deposit}}}}}",
+  "response": {
+    "data": {
+      "getTransactions": [
+        {
+          "hash": "JGmZggier/soKUiLIE6xS4TbajpDiIIN6fo8neLUIbo=",
+          "block_height": 3986,
+          "index": 0,
+          "success": true,
+          "gas_wanted": 10000000,
+          "gas_used": 1357510,
+          "gas_fee": {
+            "amount": 20000,
+            "denom": "ugnot"
+          },
+          "messages": [
+            {
+              "typeUrl": "create_session",
+              "value": {}
+            }
+          ]
+        },
+        {
+          "hash": "pvoJcIruCKSBO1KOXL3wGQD0BjZpA5zCy0eZFI0e75A=",
+          "block_height": 98413,
+          "index": 0,
+          "success": true,
+          "gas_wanted": 1629060,
+          "gas_used": 1358200,
+          "gas_fee": {
+            "amount": 1630,
+            "denom": "ugnot"
+          },
+          "messages": [
+            {
+              "typeUrl": "create_session",
+              "value": {}
+            }
+          ]
+        },
+        {
+          "hash": "eBkcE/nwr1HAz2B55edBuZ1OrIcaHoWuJoLn5PlkMgw=",
+          "block_height": 98427,
+          "index": 0,
+          "success": true,
+          "gas_wanted": 1634483,
+          "gas_used": 1362719,
+          "gas_fee": {
+            "amount": 1635,
+            "denom": "ugnot"
+          },
+          "messages": [
+            {
+              "typeUrl": "create_session",
+              "value": {}
+            }
+          ]
+        },
+        {
+          "hash": "O5TXX6McAeDtlTGN4MI4Z7W5449qTESH1/cKo1TpvH4=",
+          "block_height": 98736,
+          "index": 0,
+          "success": true,
+          "gas_wanted": 1629098,
+          "gas_used": 1358231,
+          "gas_fee": {
+            "amount": 1630,
+            "denom": "ugnot"
+          },
+          "messages": [
+            {
+              "typeUrl": "create_session",
+              "value": {}
+            }
+          ]
+        },
+        {
+          "hash": "h6/JH/foaNCkDsfUjn4mj9k4goM4mci7sLU8SHxl+WQ=",
+          "block_height": 98797,
+          "index": 1,
+          "success": true,
+          "gas_wanted": 1635282,
+          "gas_used": 1363385,
+          "gas_fee": {
+            "amount": 1636,
+            "denom": "ugnot"
+          },
+          "messages": [
+            {
+              "typeUrl": "create_session",
+              "value": {}
+            }
+          ]
+        },
+        {
+          "hash": "E2thrJ7xM3hbm42osMEc/kQ7DlQLFlZuFT68Of3xGmc=",
+          "block_height": 194994,
+          "index": 0,
+          "success": true,
+          "gas_wanted": 64621832,
+          "gas_used": 58747150,
+          "gas_fee": {
+            "amount": 64622,
+            "denom": "ugnot"
+          },
+          "messages": [
+            {
+              "typeUrl": "run",
+              "value": {}
+            },
+            {
+              "typeUrl": "exec",
+              "value": {
+                "caller": "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+                "pkg_path": "gno.land/r/gnoswap/gov/staker",
+                "func": "Delegate",
+                "args": [
+                  "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+                  "1000000000",
+                  ""
+                ],
+                "max_deposit": ""
+              }
+            },
+            {
+              "typeUrl": "run",
+              "value": {}
+            }
+          ]
+        },
+        {
+          "hash": "Lz2FL/LO11LEGUx4ESf2kKLWAkrEJeL0kenByaIjQy0=",
+          "block_height": 268381,
+          "index": 0,
+          "success": true,
+          "gas_wanted": 1000000000,
+          "gas_used": 82615004,
+          "gas_fee": {
+            "amount": 1000000,
+            "denom": "ugnot"
+          },
+          "messages": [
+            {
+              "typeUrl": "exec",
+              "value": {
+                "caller": "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+                "pkg_path": "gno.land/r/gnoswap/gns",
+                "func": "Approve",
+                "args": [
+                  "g1em9s40nfrwd2aqn9ypjv7d9x9z9c8uk5uxrza9",
+                  "1000000"
+                ],
+                "max_deposit": ""
+              }
+            },
+            {
+              "typeUrl": "exec",
+              "value": {
+                "caller": "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+                "pkg_path": "gno.land/r/gnoswap/gov/staker",
+                "func": "Delegate",
+                "args": [
+                  "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+                  "1000000",
+                  ""
+                ],
+                "max_deposit": ""
+              }
+            }
+          ]
+        },
+        {
+          "hash": "xTXECjk1h3fl3+Gc8KBZ/l5t+VSVABL6Xlm8a7z0JKo=",
+          "block_height": 273333,
+          "index": 0,
+          "success": true,
+          "gas_wanted": 10000000,
+          "gas_used": 1360190,
+          "gas_fee": {
+            "amount": 20000,
+            "denom": "ugnot"
+          },
+          "messages": [
+            {
+              "typeUrl": "create_session",
+              "value": {}
+            }
+          ]
+        },
+        {
+          "hash": "qyomUGYcJO+yzDtBnq0WLKg8W2lOhRa1X6+/xo468NQ=",
+          "block_height": 279852,
+          "index": 0,
+          "success": true,
+          "gas_wanted": 95976280,
+          "gas_used": 87251194,
+          "gas_fee": {
+            "amount": 95977,
+            "denom": "ugnot"
+          },
+          "messages": [
+            {
+              "typeUrl": "run",
+              "value": {}
+            },
+            {
+              "typeUrl": "exec",
+              "value": {
+                "caller": "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+                "pkg_path": "gno.land/r/gnoswap/gov/staker",
+                "func": "Delegate",
+                "args": [
+                  "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+                  "1000000",
+                  ""
+                ],
+                "max_deposit": ""
+              }
+            },
+            {
+              "typeUrl": "run",
+              "value": {}
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

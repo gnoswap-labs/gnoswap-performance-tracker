@@ -1,0 +1,77 @@
+[
+  {
+    "height_requested": 0,
+    "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22auth%2Fgasprice%22&data=%22%22&height=0&prove=false",
+    "raw": {
+      "jsonrpc": "2.0",
+      "id": "",
+      "result": {
+        "response": {
+          "ResponseBase": {
+            "Error": null,
+            "Data": "ewogICJnYXMiOiAiMTAwMCIsCiAgInByaWNlIjogIjF1Z25vdCIKfQ==",
+            "Events": null,
+            "Log": "",
+            "Info": ""
+          },
+          "Key": null,
+          "Value": null,
+          "Proof": null,
+          "Height": "0"
+        }
+      }
+    },
+    "decoded": "{\n  \"gas\": \"1000\",\n  \"price\": \"1ugnot\"\n}",
+    "observed_at_utc": "2026-09-09T12:54:28.298798+00:00"
+  },
+  {
+    "height_requested": 312783,
+    "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22auth%2Fgasprice%22&data=%22%22&height=312783&prove=false",
+    "raw": {
+      "jsonrpc": "2.0",
+      "id": "",
+      "result": {
+        "response": {
+          "ResponseBase": {
+            "Error": null,
+            "Data": "ewogICJnYXMiOiAiMTAwMCIsCiAgInByaWNlIjogIjE0M3Vnbm90Igp9",
+            "Events": null,
+            "Log": "",
+            "Info": ""
+          },
+          "Key": null,
+          "Value": null,
+          "Proof": null,
+          "Height": "0"
+        }
+      }
+    },
+    "decoded": "{\n  \"gas\": \"1000\",\n  \"price\": \"143ugnot\"\n}",
+    "observed_at_utc": "2026-09-09T12:54:29.062247+00:00"
+  },
+  {
+    "height_requested": 314158,
+    "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22auth%2Fgasprice%22&data=%22%22&height=314158&prove=false",
+    "raw": {
+      "jsonrpc": "2.0",
+      "id": "",
+      "result": {
+        "response": {
+          "ResponseBase": {
+            "Error": null,
+            "Data": "ewogICJnYXMiOiAiMTAwMCIsCiAgInByaWNlIjogIjF1Z25vdCIKfQ==",
+            "Events": null,
+            "Log": "",
+            "Info": ""
+          },
+          "Key": null,
+          "Value": null,
+          "Proof": null,
+          "Height": "0"
+        }
+      }
+    },
+    "decoded": "{\n  \"gas\": \"1000\",\n  \"price\": \"1ugnot\"\n}",
+    "observed_at_utc": "2026-09-09T12:54:29.834376+00:00"
+  }
+]

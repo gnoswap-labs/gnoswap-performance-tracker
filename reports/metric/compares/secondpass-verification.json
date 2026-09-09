@@ -1,0 +1,8 @@
+{
+  "runner_exit_code": 0,
+  "paired_labels_per_candidate": 2428,
+  "state_parity": "passed",
+  "local_candidate_package_tests": "passed",
+  "external_value_candidate_unit_tests": "owner-supplied pass; not rerun",
+  "standard_command": "make compare-metric-force 52e61ef61308ca1683d3d70c07f1f7053658cc72 737ea1be775a4b195b4d919de713d1d25b43ae54 6467446dfe83553139e3c83d96c90707df38271b b83fa4ae564efc697f9e0034da5c85b11257d06d b12f0f8760a3e88e9539b0c8cfd32b38a5297c68"
+}

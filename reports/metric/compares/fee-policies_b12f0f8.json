@@ -1,0 +1,1860 @@
+{
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "variants": [
+    {
+      "id": "gov-binary-naive",
+      "sha": "52e61ef61308ca1683d3d70c07f1f7053658cc72",
+      "scopes": [
+        {
+          "name": "gov-fee-allocation-delegate",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "+0.000100",
+          "fixed_identical_fee_net_delta_gnot": "+0.000100",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 357,
+              "gas_fee_delta_gnot": "+0.000357",
+              "net_delta_gnot": "+0.000457"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 393,
+              "gas_fee_delta_gnot": "+0.000393",
+              "net_delta_gnot": "+0.000493"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 56196,
+              "gas_fee_delta_gnot": "+0.056196",
+              "net_delta_gnot": "+0.056296"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-token-cardinality",
+          "measurement_windows": 4,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.326000",
+          "fixed_identical_fee_net_delta_gnot": "-0.326000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 4017,
+              "gas_fee_delta_gnot": "+0.004017",
+              "net_delta_gnot": "-0.321983"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 4419,
+              "gas_fee_delta_gnot": "+0.004419",
+              "net_delta_gnot": "-0.321581"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 632006,
+              "gas_fee_delta_gnot": "+0.632006",
+              "net_delta_gnot": "+0.306006"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-1",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1683,
+              "gas_fee_delta_gnot": "+0.001683",
+              "net_delta_gnot": "+0.001683"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 1850,
+              "gas_fee_delta_gnot": "+0.001850",
+              "net_delta_gnot": "+0.001850"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 264669,
+              "gas_fee_delta_gnot": "+0.264669",
+              "net_delta_gnot": "+0.264669"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-10",
+          "measurement_windows": 10,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 16826,
+              "gas_fee_delta_gnot": "+0.016826",
+              "net_delta_gnot": "+0.016826"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 18507,
+              "gas_fee_delta_gnot": "+0.018507",
+              "net_delta_gnot": "+0.018507"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 2646693,
+              "gas_fee_delta_gnot": "+2.646693",
+              "net_delta_gnot": "+2.646693"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-100",
+          "measurement_windows": 100,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.002500",
+          "fixed_identical_fee_net_delta_gnot": "-0.002500",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 168252,
+              "gas_fee_delta_gnot": "+0.168252",
+              "net_delta_gnot": "+0.165752"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 185069,
+              "gas_fee_delta_gnot": "+0.185069",
+              "net_delta_gnot": "+0.182569"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 26464624,
+              "gas_fee_delta_gnot": "+26.464624",
+              "net_delta_gnot": "+26.462124"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-no-new-reward-exit",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 583,
+              "gas_fee_delta_gnot": "+0.000583",
+              "net_delta_gnot": "+0.000583"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 641,
+              "gas_fee_delta_gnot": "+0.000641",
+              "net_delta_gnot": "+0.000641"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 91673,
+              "gas_fee_delta_gnot": "+0.091673",
+              "net_delta_gnot": "+0.091673"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-undelegate-withdraw-restake",
+          "measurement_windows": 3,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.003300",
+          "fixed_identical_fee_net_delta_gnot": "-0.003300",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1163,
+              "gas_fee_delta_gnot": "+0.001163",
+              "net_delta_gnot": "-0.002137"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 1279,
+              "gas_fee_delta_gnot": "+0.001279",
+              "net_delta_gnot": "-0.002021"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 182880,
+              "gas_fee_delta_gnot": "+0.182880",
+              "net_delta_gnot": "+0.179580"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-allocation-delegate",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "+0.000100",
+          "fixed_identical_fee_net_delta_gnot": "+0.000100",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 286,
+              "gas_fee_delta_gnot": "+0.000286",
+              "net_delta_gnot": "+0.000386"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 315,
+              "gas_fee_delta_gnot": "+0.000315",
+              "net_delta_gnot": "+0.000415"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 44969,
+              "gas_fee_delta_gnot": "+0.044969",
+              "net_delta_gnot": "+0.045069"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-1",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 269,
+              "gas_fee_delta_gnot": "+0.000269",
+              "net_delta_gnot": "+0.000269"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 296,
+              "gas_fee_delta_gnot": "+0.000296",
+              "net_delta_gnot": "+0.000296"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 42215,
+              "gas_fee_delta_gnot": "+0.042215",
+              "net_delta_gnot": "+0.042215"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-10",
+          "measurement_windows": 10,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 2687,
+              "gas_fee_delta_gnot": "+0.002687",
+              "net_delta_gnot": "+0.002687"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 2950,
+              "gas_fee_delta_gnot": "+0.002950",
+              "net_delta_gnot": "+0.002950"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 422146,
+              "gas_fee_delta_gnot": "+0.422146",
+              "net_delta_gnot": "+0.422146"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-100",
+          "measurement_windows": 100,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 26831,
+              "gas_fee_delta_gnot": "+0.026831",
+              "net_delta_gnot": "+0.026831"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 29531,
+              "gas_fee_delta_gnot": "+0.029531",
+              "net_delta_gnot": "+0.029531"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 4221481,
+              "gas_fee_delta_gnot": "+4.221481",
+              "net_delta_gnot": "+4.221481"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-no-new-reward-exit",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 270,
+              "gas_fee_delta_gnot": "+0.000270",
+              "net_delta_gnot": "+0.000270"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 296,
+              "gas_fee_delta_gnot": "+0.000296",
+              "net_delta_gnot": "+0.000296"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 42384,
+              "gas_fee_delta_gnot": "+0.042384",
+              "net_delta_gnot": "+0.042384"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-undelegate-withdraw-restake",
+          "measurement_windows": 3,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 550,
+              "gas_fee_delta_gnot": "+0.000550",
+              "net_delta_gnot": "+0.000550"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 606,
+              "gas_fee_delta_gnot": "+0.000606",
+              "net_delta_gnot": "+0.000606"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 86656,
+              "gas_fee_delta_gnot": "+0.086656",
+              "net_delta_gnot": "+0.086656"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-factory-allocation-microbenchmark",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.004700",
+          "fixed_identical_fee_net_delta_gnot": "-0.004700",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "-0.004700"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "-0.004700"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -17,
+              "gas_fee_delta_gnot": "-0.000017",
+              "net_delta_gnot": "-0.004717"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-factory-allocation-microbenchmark",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.081500",
+          "fixed_identical_fee_net_delta_gnot": "-0.081500",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 64,
+              "gas_fee_delta_gnot": "+0.000064",
+              "net_delta_gnot": "-0.081436"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 71,
+              "gas_fee_delta_gnot": "+0.000071",
+              "net_delta_gnot": "-0.081429"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 10044,
+              "gas_fee_delta_gnot": "+0.010044",
+              "net_delta_gnot": "-0.071456"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-1000",
+          "measurement_windows": 1000,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.005300",
+          "fixed_identical_fee_net_delta_gnot": "-0.005300",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1682003,
+              "gas_fee_delta_gnot": "+1.682003",
+              "net_delta_gnot": "+1.676703"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 1850162,
+              "gas_fee_delta_gnot": "+1.850162",
+              "net_delta_gnot": "+1.844862"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 264575204,
+              "gas_fee_delta_gnot": "+264.575204",
+              "net_delta_gnot": "+264.569904"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-complete-measured-user-lifecycle",
+          "measurement_windows": 1120,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.337000",
+          "fixed_identical_fee_net_delta_gnot": "-0.337000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1874884,
+              "gas_fee_delta_gnot": "+1.874884",
+              "net_delta_gnot": "+1.537884"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 2062320,
+              "gas_fee_delta_gnot": "+2.062320",
+              "net_delta_gnot": "+1.725320"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 294913945,
+              "gas_fee_delta_gnot": "+294.913945",
+              "net_delta_gnot": "+294.576945"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-1000",
+          "measurement_windows": 1000,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000500",
+          "fixed_identical_fee_net_delta_gnot": "-0.000500",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 268345,
+              "gas_fee_delta_gnot": "+0.268345",
+              "net_delta_gnot": "+0.267845"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 295312,
+              "gas_fee_delta_gnot": "+0.295312",
+              "net_delta_gnot": "+0.294812"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 42208308,
+              "gas_fee_delta_gnot": "+42.208308",
+              "net_delta_gnot": "+42.207808"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-complete-measured-user-lifecycle",
+          "measurement_windows": 1116,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000400",
+          "fixed_identical_fee_net_delta_gnot": "-0.000400",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 299238,
+              "gas_fee_delta_gnot": "+0.299238",
+              "net_delta_gnot": "+0.298838"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 329306,
+              "gas_fee_delta_gnot": "+0.329306",
+              "net_delta_gnot": "+0.328906"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 47068159,
+              "gas_fee_delta_gnot": "+47.068159",
+              "net_delta_gnot": "+47.067759"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "gov-binary-reuse",
+      "sha": "737ea1be775a4b195b4d919de713d1d25b43ae54",
+      "scopes": [
+        {
+          "name": "gov-fee-allocation-delegate",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "+0.000100",
+          "fixed_identical_fee_net_delta_gnot": "+0.000100",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 184,
+              "gas_fee_delta_gnot": "+0.000184",
+              "net_delta_gnot": "+0.000284"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 202,
+              "gas_fee_delta_gnot": "+0.000202",
+              "net_delta_gnot": "+0.000302"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 28941,
+              "gas_fee_delta_gnot": "+0.028941",
+              "net_delta_gnot": "+0.029041"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-token-cardinality",
+          "measurement_windows": 4,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.326000",
+          "fixed_identical_fee_net_delta_gnot": "-0.326000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 2075,
+              "gas_fee_delta_gnot": "+0.002075",
+              "net_delta_gnot": "-0.323925"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 2283,
+              "gas_fee_delta_gnot": "+0.002283",
+              "net_delta_gnot": "-0.323717"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 326596,
+              "gas_fee_delta_gnot": "+0.326596",
+              "net_delta_gnot": "+0.000596"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-1",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 815,
+              "gas_fee_delta_gnot": "+0.000815",
+              "net_delta_gnot": "+0.000815"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 896,
+              "gas_fee_delta_gnot": "+0.000896",
+              "net_delta_gnot": "+0.000896"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 128149,
+              "gas_fee_delta_gnot": "+0.128149",
+              "net_delta_gnot": "+0.128149"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-10",
+          "measurement_windows": 10,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 8148,
+              "gas_fee_delta_gnot": "+0.008148",
+              "net_delta_gnot": "+0.008148"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 8960,
+              "gas_fee_delta_gnot": "+0.008960",
+              "net_delta_gnot": "+0.008960"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 1281492,
+              "gas_fee_delta_gnot": "+1.281492",
+              "net_delta_gnot": "+1.281492"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-100",
+          "measurement_windows": 100,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.002500",
+          "fixed_identical_fee_net_delta_gnot": "-0.002500",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 81458,
+              "gas_fee_delta_gnot": "+0.081458",
+              "net_delta_gnot": "+0.078958"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 89588,
+              "gas_fee_delta_gnot": "+0.089588",
+              "net_delta_gnot": "+0.087088"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 12812624,
+              "gas_fee_delta_gnot": "+12.812624",
+              "net_delta_gnot": "+12.810124"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-no-new-reward-exit",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 424,
+              "gas_fee_delta_gnot": "+0.000424",
+              "net_delta_gnot": "+0.000424"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 467,
+              "gas_fee_delta_gnot": "+0.000467",
+              "net_delta_gnot": "+0.000467"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 66785,
+              "gas_fee_delta_gnot": "+0.066785",
+              "net_delta_gnot": "+0.066785"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-undelegate-withdraw-restake",
+          "measurement_windows": 3,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.003300",
+          "fixed_identical_fee_net_delta_gnot": "-0.003300",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 844,
+              "gas_fee_delta_gnot": "+0.000844",
+              "net_delta_gnot": "-0.002456"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 929,
+              "gas_fee_delta_gnot": "+0.000929",
+              "net_delta_gnot": "-0.002371"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 132821,
+              "gas_fee_delta_gnot": "+0.132821",
+              "net_delta_gnot": "+0.129521"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-allocation-delegate",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "+0.000100",
+          "fixed_identical_fee_net_delta_gnot": "+0.000100",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 180,
+              "gas_fee_delta_gnot": "+0.000180",
+              "net_delta_gnot": "+0.000280"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 198,
+              "gas_fee_delta_gnot": "+0.000198",
+              "net_delta_gnot": "+0.000298"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 28329,
+              "gas_fee_delta_gnot": "+0.028329",
+              "net_delta_gnot": "+0.028429"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-1",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 156,
+              "gas_fee_delta_gnot": "+0.000156",
+              "net_delta_gnot": "+0.000156"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 172,
+              "gas_fee_delta_gnot": "+0.000172",
+              "net_delta_gnot": "+0.000172"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 24499,
+              "gas_fee_delta_gnot": "+0.024499",
+              "net_delta_gnot": "+0.024499"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-10",
+          "measurement_windows": 10,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1558,
+              "gas_fee_delta_gnot": "+0.001558",
+              "net_delta_gnot": "+0.001558"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 1710,
+              "gas_fee_delta_gnot": "+0.001710",
+              "net_delta_gnot": "+0.001710"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 244983,
+              "gas_fee_delta_gnot": "+0.244983",
+              "net_delta_gnot": "+0.244983"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-100",
+          "measurement_windows": 100,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 15568,
+              "gas_fee_delta_gnot": "+0.015568",
+              "net_delta_gnot": "+0.015568"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 17136,
+              "gas_fee_delta_gnot": "+0.017136",
+              "net_delta_gnot": "+0.017136"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 2449855,
+              "gas_fee_delta_gnot": "+2.449855",
+              "net_delta_gnot": "+2.449855"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-no-new-reward-exit",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 158,
+              "gas_fee_delta_gnot": "+0.000158",
+              "net_delta_gnot": "+0.000158"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 173,
+              "gas_fee_delta_gnot": "+0.000173",
+              "net_delta_gnot": "+0.000173"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 24724,
+              "gas_fee_delta_gnot": "+0.024724",
+              "net_delta_gnot": "+0.024724"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-undelegate-withdraw-restake",
+          "measurement_windows": 3,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 353,
+              "gas_fee_delta_gnot": "+0.000353",
+              "net_delta_gnot": "+0.000353"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 389,
+              "gas_fee_delta_gnot": "+0.000389",
+              "net_delta_gnot": "+0.000389"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 55619,
+              "gas_fee_delta_gnot": "+0.055619",
+              "net_delta_gnot": "+0.055619"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-factory-allocation-microbenchmark",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.004700",
+          "fixed_identical_fee_net_delta_gnot": "-0.004700",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "-0.004700"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "-0.004700"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -17,
+              "gas_fee_delta_gnot": "-0.000017",
+              "net_delta_gnot": "-0.004717"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-factory-allocation-microbenchmark",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.081500",
+          "fixed_identical_fee_net_delta_gnot": "-0.081500",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 68,
+              "gas_fee_delta_gnot": "+0.000068",
+              "net_delta_gnot": "-0.081432"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 75,
+              "gas_fee_delta_gnot": "+0.000075",
+              "net_delta_gnot": "-0.081425"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 10737,
+              "gas_fee_delta_gnot": "+0.010737",
+              "net_delta_gnot": "-0.070763"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-1000",
+          "measurement_windows": 1000,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.005300",
+          "fixed_identical_fee_net_delta_gnot": "-0.005300",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 814051,
+              "gas_fee_delta_gnot": "+0.814051",
+              "net_delta_gnot": "+0.808751"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 895471,
+              "gas_fee_delta_gnot": "+0.895471",
+              "net_delta_gnot": "+0.890171"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 128055168,
+              "gas_fee_delta_gnot": "+128.055168",
+              "net_delta_gnot": "+128.049868"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-complete-measured-user-lifecycle",
+          "measurement_windows": 1120,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.337000",
+          "fixed_identical_fee_net_delta_gnot": "-0.337000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 907999,
+              "gas_fee_delta_gnot": "+0.907999",
+              "net_delta_gnot": "+0.570999"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 998796,
+              "gas_fee_delta_gnot": "+0.998796",
+              "net_delta_gnot": "+0.661796"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 142832576,
+              "gas_fee_delta_gnot": "+142.832576",
+              "net_delta_gnot": "+142.495576"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-1000",
+          "measurement_windows": 1000,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000500",
+          "fixed_identical_fee_net_delta_gnot": "-0.000500",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 155564,
+              "gas_fee_delta_gnot": "+0.155564",
+              "net_delta_gnot": "+0.155064"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 171341,
+              "gas_fee_delta_gnot": "+0.171341",
+              "net_delta_gnot": "+0.170841"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 24492133,
+              "gas_fee_delta_gnot": "+24.492133",
+              "net_delta_gnot": "+24.491633"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-complete-measured-user-lifecycle",
+          "measurement_windows": 1116,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000400",
+          "fixed_identical_fee_net_delta_gnot": "-0.000400",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 173537,
+              "gas_fee_delta_gnot": "+0.173537",
+              "net_delta_gnot": "+0.173137"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 191119,
+              "gas_fee_delta_gnot": "+0.191119",
+              "net_delta_gnot": "+0.190719"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 27320142,
+              "gas_fee_delta_gnot": "+27.320142",
+              "net_delta_gnot": "+27.319742"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "gov-pointer-reuse",
+      "sha": "6467446dfe83553139e3c83d96c90707df38271b",
+      "scopes": [
+        {
+          "name": "gov-fee-allocation-delegate",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 4,
+              "gas_fee_delta_gnot": "+0.000004",
+              "net_delta_gnot": "+0.000004"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 4,
+              "gas_fee_delta_gnot": "+0.000004",
+              "net_delta_gnot": "+0.000004"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 663,
+              "gas_fee_delta_gnot": "+0.000663",
+              "net_delta_gnot": "+0.000663"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-token-cardinality",
+          "measurement_windows": 4,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -52,
+              "gas_fee_delta_gnot": "-0.000052",
+              "net_delta_gnot": "-0.000052"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -58,
+              "gas_fee_delta_gnot": "-0.000058",
+              "net_delta_gnot": "-0.000058"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -8051,
+              "gas_fee_delta_gnot": "-0.008051",
+              "net_delta_gnot": "-0.008051"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-1",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -28,
+              "gas_fee_delta_gnot": "-0.000028",
+              "net_delta_gnot": "-0.000028"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -32,
+              "gas_fee_delta_gnot": "-0.000032",
+              "net_delta_gnot": "-0.000032"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -4475,
+              "gas_fee_delta_gnot": "-0.004475",
+              "net_delta_gnot": "-0.004475"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-10",
+          "measurement_windows": 10,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -284,
+              "gas_fee_delta_gnot": "-0.000284",
+              "net_delta_gnot": "-0.000284"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -314,
+              "gas_fee_delta_gnot": "-0.000314",
+              "net_delta_gnot": "-0.000314"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -44743,
+              "gas_fee_delta_gnot": "-0.044743",
+              "net_delta_gnot": "-0.044743"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-100",
+          "measurement_windows": 100,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -2841,
+              "gas_fee_delta_gnot": "-0.002841",
+              "net_delta_gnot": "-0.002841"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -3130,
+              "gas_fee_delta_gnot": "-0.003130",
+              "net_delta_gnot": "-0.003130"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -447430,
+              "gas_fee_delta_gnot": "-0.447430",
+              "net_delta_gnot": "-0.447430"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-no-new-reward-exit",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 9,
+              "gas_fee_delta_gnot": "+0.000009",
+              "net_delta_gnot": "+0.000009"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 10,
+              "gas_fee_delta_gnot": "+0.000010",
+              "net_delta_gnot": "+0.000010"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 1445,
+              "gas_fee_delta_gnot": "+0.001445",
+              "net_delta_gnot": "+0.001445"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-undelegate-withdraw-restake",
+          "measurement_windows": 3,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 18,
+              "gas_fee_delta_gnot": "+0.000018",
+              "net_delta_gnot": "+0.000018"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 19,
+              "gas_fee_delta_gnot": "+0.000019",
+              "net_delta_gnot": "+0.000019"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 2827,
+              "gas_fee_delta_gnot": "+0.002827",
+              "net_delta_gnot": "+0.002827"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-allocation-delegate",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 4,
+              "gas_fee_delta_gnot": "+0.000004",
+              "net_delta_gnot": "+0.000004"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 5,
+              "gas_fee_delta_gnot": "+0.000005",
+              "net_delta_gnot": "+0.000005"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 663,
+              "gas_fee_delta_gnot": "+0.000663",
+              "net_delta_gnot": "+0.000663"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-1",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -8,
+              "gas_fee_delta_gnot": "-0.000008",
+              "net_delta_gnot": "-0.000008"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -9,
+              "gas_fee_delta_gnot": "-0.000009",
+              "net_delta_gnot": "-0.000009"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -1333,
+              "gas_fee_delta_gnot": "-0.001333",
+              "net_delta_gnot": "-0.001333"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-10",
+          "measurement_windows": 10,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -83,
+              "gas_fee_delta_gnot": "-0.000083",
+              "net_delta_gnot": "-0.000083"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -98,
+              "gas_fee_delta_gnot": "-0.000098",
+              "net_delta_gnot": "-0.000098"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -13334,
+              "gas_fee_delta_gnot": "-0.013334",
+              "net_delta_gnot": "-0.013334"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-100",
+          "measurement_windows": 100,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -842,
+              "gas_fee_delta_gnot": "-0.000842",
+              "net_delta_gnot": "-0.000842"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -923,
+              "gas_fee_delta_gnot": "-0.000923",
+              "net_delta_gnot": "-0.000923"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -133303,
+              "gas_fee_delta_gnot": "-0.133303",
+              "net_delta_gnot": "-0.133303"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-no-new-reward-exit",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -8,
+              "gas_fee_delta_gnot": "-0.000008",
+              "net_delta_gnot": "-0.000008"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -9,
+              "gas_fee_delta_gnot": "-0.000009",
+              "net_delta_gnot": "-0.000009"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -1278,
+              "gas_fee_delta_gnot": "-0.001278",
+              "net_delta_gnot": "-0.001278"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-undelegate-withdraw-restake",
+          "measurement_windows": 3,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 12,
+              "gas_fee_delta_gnot": "+0.000012",
+              "net_delta_gnot": "+0.000012"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 13,
+              "gas_fee_delta_gnot": "+0.000013",
+              "net_delta_gnot": "+0.000013"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 1951,
+              "gas_fee_delta_gnot": "+0.001951",
+              "net_delta_gnot": "+0.001951"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-factory-allocation-microbenchmark",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "0.000000"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "0.000000"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "0.000000"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-factory-allocation-microbenchmark",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "0.000000"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "0.000000"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "0.000000"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-1000",
+          "measurement_windows": 1000,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -28423,
+              "gas_fee_delta_gnot": "-0.028423",
+              "net_delta_gnot": "-0.028423"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -31304,
+              "gas_fee_delta_gnot": "-0.031304",
+              "net_delta_gnot": "-0.031304"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -4474257,
+              "gas_fee_delta_gnot": "-4.474257",
+              "net_delta_gnot": "-4.474257"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-complete-measured-user-lifecycle",
+          "measurement_windows": 1120,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -31597,
+              "gas_fee_delta_gnot": "-0.031597",
+              "net_delta_gnot": "-0.031597"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -34805,
+              "gas_fee_delta_gnot": "-0.034805",
+              "net_delta_gnot": "-0.034805"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -4974021,
+              "gas_fee_delta_gnot": "-4.974021",
+              "net_delta_gnot": "-4.974021"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-1000",
+          "measurement_windows": 1000,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -8515,
+              "gas_fee_delta_gnot": "-0.008515",
+              "net_delta_gnot": "-0.008515"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -9139,
+              "gas_fee_delta_gnot": "-0.009139",
+              "net_delta_gnot": "-0.009139"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -1333037,
+              "gas_fee_delta_gnot": "-1.333037",
+              "net_delta_gnot": "-1.333037"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-complete-measured-user-lifecycle",
+          "measurement_windows": 1116,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -9440,
+              "gas_fee_delta_gnot": "-0.009440",
+              "net_delta_gnot": "-0.009440"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -10160,
+              "gas_fee_delta_gnot": "-0.010160",
+              "net_delta_gnot": "-0.010160"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -1479671,
+              "gas_fee_delta_gnot": "-1.479671",
+              "net_delta_gnot": "-1.479671"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "gov-value",
+      "sha": "b83fa4ae564efc697f9e0034da5c85b11257d06d",
+      "scopes": [
+        {
+          "name": "gov-fee-allocation-delegate",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 30,
+              "gas_fee_delta_gnot": "+0.000030",
+              "net_delta_gnot": "+0.000030"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 33,
+              "gas_fee_delta_gnot": "+0.000033",
+              "net_delta_gnot": "+0.000033"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 4805,
+              "gas_fee_delta_gnot": "+0.004805",
+              "net_delta_gnot": "+0.004805"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-token-cardinality",
+          "measurement_windows": 4,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.159600",
+          "fixed_identical_fee_net_delta_gnot": "-0.159600",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 326,
+              "gas_fee_delta_gnot": "+0.000326",
+              "net_delta_gnot": "-0.159274"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 359,
+              "gas_fee_delta_gnot": "+0.000359",
+              "net_delta_gnot": "-0.159241"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 51497,
+              "gas_fee_delta_gnot": "+0.051497",
+              "net_delta_gnot": "-0.108103"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-1",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 139,
+              "gas_fee_delta_gnot": "+0.000139",
+              "net_delta_gnot": "+0.000139"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 152,
+              "gas_fee_delta_gnot": "+0.000152",
+              "net_delta_gnot": "+0.000152"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 21753,
+              "gas_fee_delta_gnot": "+0.021753",
+              "net_delta_gnot": "+0.021753"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-10",
+          "measurement_windows": 10,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1385,
+              "gas_fee_delta_gnot": "+0.001385",
+              "net_delta_gnot": "+0.001385"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 1520,
+              "gas_fee_delta_gnot": "+0.001520",
+              "net_delta_gnot": "+0.001520"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 217532,
+              "gas_fee_delta_gnot": "+0.217532",
+              "net_delta_gnot": "+0.217532"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-100",
+          "measurement_windows": 100,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.001500",
+          "fixed_identical_fee_net_delta_gnot": "-0.001500",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 13830,
+              "gas_fee_delta_gnot": "+0.013830",
+              "net_delta_gnot": "+0.012330"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 15199,
+              "gas_fee_delta_gnot": "+0.015199",
+              "net_delta_gnot": "+0.013699"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 2174354,
+              "gas_fee_delta_gnot": "+2.174354",
+              "net_delta_gnot": "+2.172854"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-no-new-reward-exit",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 54,
+              "gas_fee_delta_gnot": "+0.000054",
+              "net_delta_gnot": "+0.000054"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 60,
+              "gas_fee_delta_gnot": "+0.000060",
+              "net_delta_gnot": "+0.000060"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 8526,
+              "gas_fee_delta_gnot": "+0.008526",
+              "net_delta_gnot": "+0.008526"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-undelegate-withdraw-restake",
+          "measurement_windows": 3,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 108,
+              "gas_fee_delta_gnot": "+0.000108",
+              "net_delta_gnot": "+0.000108"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 118,
+              "gas_fee_delta_gnot": "+0.000118",
+              "net_delta_gnot": "+0.000118"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 16923,
+              "gas_fee_delta_gnot": "+0.016923",
+              "net_delta_gnot": "+0.016923"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-allocation-delegate",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 31,
+              "gas_fee_delta_gnot": "+0.000031",
+              "net_delta_gnot": "+0.000031"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 35,
+              "gas_fee_delta_gnot": "+0.000035",
+              "net_delta_gnot": "+0.000035"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 4962,
+              "gas_fee_delta_gnot": "+0.004962",
+              "net_delta_gnot": "+0.004962"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-1",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 15,
+              "gas_fee_delta_gnot": "+0.000015",
+              "net_delta_gnot": "+0.000015"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 16,
+              "gas_fee_delta_gnot": "+0.000016",
+              "net_delta_gnot": "+0.000016"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 2287,
+              "gas_fee_delta_gnot": "+0.002287",
+              "net_delta_gnot": "+0.002287"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-10",
+          "measurement_windows": 10,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 147,
+              "gas_fee_delta_gnot": "+0.000147",
+              "net_delta_gnot": "+0.000147"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 160,
+              "gas_fee_delta_gnot": "+0.000160",
+              "net_delta_gnot": "+0.000160"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 22866,
+              "gas_fee_delta_gnot": "+0.022866",
+              "net_delta_gnot": "+0.022866"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-100",
+          "measurement_windows": 100,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 1458,
+              "gas_fee_delta_gnot": "+0.001458",
+              "net_delta_gnot": "+0.001458"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 1597,
+              "gas_fee_delta_gnot": "+0.001597",
+              "net_delta_gnot": "+0.001597"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 228677,
+              "gas_fee_delta_gnot": "+0.228677",
+              "net_delta_gnot": "+0.228677"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-no-new-reward-exit",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 15,
+              "gas_fee_delta_gnot": "+0.000015",
+              "net_delta_gnot": "+0.000015"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 16,
+              "gas_fee_delta_gnot": "+0.000016",
+              "net_delta_gnot": "+0.000016"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 2351,
+              "gas_fee_delta_gnot": "+0.002351",
+              "net_delta_gnot": "+0.002351"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-undelegate-withdraw-restake",
+          "measurement_windows": 3,
+          "operation_count": null,
+          "storage_delta_gnot": "0.000000",
+          "fixed_identical_fee_net_delta_gnot": "0.000000",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 45,
+              "gas_fee_delta_gnot": "+0.000045",
+              "net_delta_gnot": "+0.000045"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 50,
+              "gas_fee_delta_gnot": "+0.000050",
+              "net_delta_gnot": "+0.000050"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 7130,
+              "gas_fee_delta_gnot": "+0.007130",
+              "net_delta_gnot": "+0.007130"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-factory-allocation-microbenchmark",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.002200",
+          "fixed_identical_fee_net_delta_gnot": "-0.002200",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 0,
+              "gas_fee_delta_gnot": "0.000000",
+              "net_delta_gnot": "-0.002200"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -1,
+              "gas_fee_delta_gnot": "-0.000001",
+              "net_delta_gnot": "-0.002201"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -60,
+              "gas_fee_delta_gnot": "-0.000060",
+              "net_delta_gnot": "-0.002260"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-factory-allocation-microbenchmark",
+          "measurement_windows": 1,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.039900",
+          "fixed_identical_fee_net_delta_gnot": "-0.039900",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": -7,
+              "gas_fee_delta_gnot": "-0.000007",
+              "net_delta_gnot": "-0.039907"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": -7,
+              "gas_fee_delta_gnot": "-0.000007",
+              "net_delta_gnot": "-0.039907"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": -1080,
+              "gas_fee_delta_gnot": "-0.001080",
+              "net_delta_gnot": "-0.040980"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-repeated-distribution-claims-1000",
+          "measurement_windows": 1000,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.001500",
+          "fixed_identical_fee_net_delta_gnot": "-0.001500",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 137922,
+              "gas_fee_delta_gnot": "+0.137922",
+              "net_delta_gnot": "+0.136422"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 151715,
+              "gas_fee_delta_gnot": "+0.151715",
+              "net_delta_gnot": "+0.150215"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 21690997,
+              "gas_fee_delta_gnot": "+21.690997",
+              "net_delta_gnot": "+21.689497"
+            }
+          }
+        },
+        {
+          "name": "gov-fee-complete-measured-user-lifecycle",
+          "measurement_windows": 1120,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.162600",
+          "fixed_identical_fee_net_delta_gnot": "-0.162600",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 153794,
+              "gas_fee_delta_gnot": "+0.153794",
+              "net_delta_gnot": "-0.008806"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 169156,
+              "gas_fee_delta_gnot": "+0.169156",
+              "net_delta_gnot": "+0.006556"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 24186387,
+              "gas_fee_delta_gnot": "+24.186387",
+              "net_delta_gnot": "+24.023787"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-repeated-distribution-claims-1000",
+          "measurement_windows": 1000,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000300",
+          "fixed_identical_fee_net_delta_gnot": "-0.000300",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 14543,
+              "gas_fee_delta_gnot": "+0.014543",
+              "net_delta_gnot": "+0.014243"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 15988,
+              "gas_fee_delta_gnot": "+0.015988",
+              "net_delta_gnot": "+0.015688"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 2284884,
+              "gas_fee_delta_gnot": "+2.284884",
+              "net_delta_gnot": "+2.284584"
+            }
+          }
+        },
+        {
+          "name": "gov-emission-complete-measured-user-lifecycle",
+          "measurement_windows": 1116,
+          "operation_count": null,
+          "storage_delta_gnot": "-0.000300",
+          "fixed_identical_fee_net_delta_gnot": "-0.000300",
+          "policies": {
+            "reference-execution-repricing": {
+              "gas_fee_delta_ugnot": 16254,
+              "gas_fee_delta_gnot": "+0.016254",
+              "net_delta_gnot": "+0.015954"
+            },
+            "client-10pct-floor-ceil-estimate": {
+              "gas_fee_delta_ugnot": 17862,
+              "gas_fee_delta_gnot": "+0.017862",
+              "net_delta_gnot": "+0.017562"
+            },
+            "historical-143-sensitivity": {
+              "gas_fee_delta_ugnot": 2553157,
+              "gas_fee_delta_gnot": "+2.553157",
+              "net_delta_gnot": "+2.552857"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Whole transaction and SDK overhead are omitted; these are execution-segment fee-policy estimates, not wallet debits.",
+    "The 10% floor/ceil policy comes from frontend source and live bundle evidence. It must not be assumed for every wallet or bot.",
+    "The 143ugnot/1000gas policy is a historical snapshot sensitivity, not a current tariff or price of every sampled transaction.",
+    "A measurement window may contain a batch of calls; its rounded fee is an equivalent aggregate quote, not a claim that the batch is one transaction.",
+    "Fixed identical valid submitted fees have zero gas cash difference; storage is separately priced."
+  ]
+}
