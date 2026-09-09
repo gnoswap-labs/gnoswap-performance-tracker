@@ -1,0 +1,34 @@
+{
+  "variants": [
+    {
+      "id": "gov-fee-accumulator",
+      "field": "accumulatedProtocolFeeX128PerStake",
+      "branch": "perf/gov-fee-accumulator-binary",
+      "sha": "b5947a75e3f71d7cae041f395219372f83cf0984",
+      "test_packages": [
+        "gno.land/r/gnoswap/gov/staker",
+        "gno.land/r/gnoswap/gov/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/gov/staker/protocol_fee_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/protocol_fee_reward_manager_test.gno",
+        "contract/r/gnoswap/gov/staker/v1/protocol_fee_reward_accumulation_test.gno"
+      ]
+    },
+    {
+      "id": "gov-emission-accumulator",
+      "field": "accumulatedRewardX128PerStake",
+      "branch": "perf/gov-emission-accumulator-binary",
+      "sha": "d8023d7a6e8dd301de27d556edfe3b743c02d866",
+      "test_packages": [
+        "gno.land/r/gnoswap/gov/staker",
+        "gno.land/r/gnoswap/gov/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/gov/staker/emission_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/emission_reward_manager_test.gno",
+        "contract/r/gnoswap/gov/staker/v1/emission_reward_manager_test.gno"
+      ]
+    }
+  ]
+}

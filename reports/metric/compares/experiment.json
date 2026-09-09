@@ -1,0 +1,243 @@
+{
+  "group": "gov",
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "tracker_base": "cd348c2a78ed766c3adb69d7e5c4030fdec9b89b",
+  "gno": "bac78a97b20e12ba471bdd73a41af31bd94bdc12",
+  "fixture_files": [
+    "tests/metric/gov_staker_remaining_emission_accumulator_filetest.gno",
+    "tests/metric/gov_staker_remaining_fee_accumulator_filetest.gno",
+    "tests/metric/remaining_gov_manager_allocation.gno",
+    "tests/metric/remaining_gov_manager_allocation_filetest.gno"
+  ],
+  "variants": [
+    {
+      "id": "gov-fee-accumulator",
+      "field": "accumulatedProtocolFeeX128PerStake",
+      "branch": "perf/gov-fee-accumulator-binary",
+      "sha": "b5947a75e3f71d7cae041f395219372f83cf0984",
+      "test_packages": [
+        "gno.land/r/gnoswap/gov/staker",
+        "gno.land/r/gnoswap/gov/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/gov/staker/protocol_fee_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/protocol_fee_reward_manager_test.gno",
+        "contract/r/gnoswap/gov/staker/v1/protocol_fee_reward_accumulation_test.gno"
+      ]
+    },
+    {
+      "id": "gov-emission-accumulator",
+      "field": "accumulatedRewardX128PerStake",
+      "branch": "perf/gov-emission-accumulator-binary",
+      "sha": "d8023d7a6e8dd301de27d556edfe3b743c02d866",
+      "test_packages": [
+        "gno.land/r/gnoswap/gov/staker",
+        "gno.land/r/gnoswap/gov/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/gov/staker/emission_reward_manager.gno",
+        "contract/r/gnoswap/gov/staker/emission_reward_manager_test.gno",
+        "contract/r/gnoswap/gov/staker/v1/emission_reward_manager_test.gno"
+      ]
+    }
+  ],
+  "scopes": [
+    {
+      "name": "gov-fee-allocation-delegate",
+      "fixture": "gov_staker_remaining_fee_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov fee accumulator delegate allocation"
+      ],
+      "kind": "allocation",
+      "payer": "admin",
+      "description": "Real public delegation initializes or persists the protocol-fee manager; startup storage evidence is emitted separately when module initialization already allocated it."
+    },
+    {
+      "name": "gov-fee-token-cardinality",
+      "fixture": "gov_staker_remaining_fee_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov fee accumulator tokens-1",
+        "Remaining gov fee accumulator tokens-2",
+        "Remaining gov fee accumulator tokens-3",
+        "Remaining gov fee accumulator tokens-4"
+      ],
+      "kind": "repeat",
+      "payer": "admin",
+      "description": "Public protocol-fee funding and distribution cases register one through four fee tokens; omitted tokens remain retained and snapshots report accumulator, payout, and claimable values."
+    },
+    {
+      "name": "gov-fee-repeated-distribution-claims-1",
+      "fixture": "gov_staker_remaining_fee_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov fee accumulator repeat-1 claim-"
+      ],
+      "kind": "repeat",
+      "payer": "admin",
+      "description": "1 public user claims; fee/emission funding, distribution, and test clock setup are outside the measured calls."
+    },
+    {
+      "name": "gov-fee-repeated-distribution-claims-10",
+      "fixture": "gov_staker_remaining_fee_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov fee accumulator repeat-10 claim-"
+      ],
+      "kind": "repeat",
+      "payer": "admin",
+      "description": "10 public user claims; fee/emission funding, distribution, and test clock setup are outside the measured calls."
+    },
+    {
+      "name": "gov-fee-repeated-distribution-claims-100",
+      "fixture": "gov_staker_remaining_fee_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov fee accumulator repeat-100 claim-"
+      ],
+      "kind": "repeat",
+      "payer": "admin",
+      "description": "100 public user claims; fee/emission funding, distribution, and test clock setup are outside the measured calls."
+    },
+    {
+      "name": "gov-fee-no-new-reward-exit",
+      "fixture": "gov_staker_remaining_fee_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov fee accumulator no-new-reward claim"
+      ],
+      "kind": "exit",
+      "payer": "admin",
+      "description": "Public CollectReward control with no new distribution verifies sparse/no-op claim behavior."
+    },
+    {
+      "name": "gov-fee-undelegate-withdraw-restake",
+      "fixture": "gov_staker_remaining_fee_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov fee accumulator lifecycle undelegate",
+        "Remaining gov fee accumulator lifecycle withdraw",
+        "Remaining gov fee accumulator lifecycle restake"
+      ],
+      "kind": "lifecycle",
+      "payer": "admin",
+      "description": "Public undelegation, withdrawal after the configured lockup, and restaking preserve reward membership and retained fee-token state."
+    },
+    {
+      "name": "gov-emission-allocation-delegate",
+      "fixture": "gov_staker_remaining_emission_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov emission accumulator delegate allocation"
+      ],
+      "kind": "allocation",
+      "payer": "admin",
+      "description": "Real public delegation initializes or persists the emission manager; startup storage evidence is emitted separately when module initialization already allocated it."
+    },
+    {
+      "name": "gov-emission-repeated-distribution-claims-1",
+      "fixture": "gov_staker_remaining_emission_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov emission accumulator repeat-1 claim-"
+      ],
+      "kind": "repeat",
+      "payer": "admin",
+      "description": "1 public user claims; fee/emission funding, distribution, and test clock setup are outside the measured calls."
+    },
+    {
+      "name": "gov-emission-repeated-distribution-claims-10",
+      "fixture": "gov_staker_remaining_emission_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov emission accumulator repeat-10 claim-"
+      ],
+      "kind": "repeat",
+      "payer": "admin",
+      "description": "10 public user claims; fee/emission funding, distribution, and test clock setup are outside the measured calls."
+    },
+    {
+      "name": "gov-emission-repeated-distribution-claims-100",
+      "fixture": "gov_staker_remaining_emission_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov emission accumulator repeat-100 claim-"
+      ],
+      "kind": "repeat",
+      "payer": "admin",
+      "description": "100 public user claims; fee/emission funding, distribution, and test clock setup are outside the measured calls."
+    },
+    {
+      "name": "gov-emission-no-new-reward-exit",
+      "fixture": "gov_staker_remaining_emission_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov emission accumulator no-new-reward claim"
+      ],
+      "kind": "exit",
+      "payer": "admin",
+      "description": "Public CollectEmissionReward control with no new mint/distribution verifies sparse/no-op claim behavior."
+    },
+    {
+      "name": "gov-emission-undelegate-withdraw-restake",
+      "fixture": "gov_staker_remaining_emission_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov emission accumulator lifecycle undelegate",
+        "Remaining gov emission accumulator lifecycle withdraw",
+        "Remaining gov emission accumulator lifecycle restake"
+      ],
+      "kind": "lifecycle",
+      "payer": "admin",
+      "description": "Public undelegation, withdrawal after the configured lockup, and restaking preserve emission reward membership and pointer-backed debt state."
+    },
+    {
+      "name": "gov-fee-factory-allocation-microbenchmark",
+      "fixture": "remaining_gov_manager_allocation_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov allocation factory fee manager"
+      ],
+      "kind": "allocation",
+      "payer": "benchmark harness, not a production transaction",
+      "description": "Supplemental persisted instance from the actual domain factory. Separately measures storage-allocation effect omitted by pre-main initialized singletons; not a complete deployment cost and not included in user lifecycle totals."
+    },
+    {
+      "name": "gov-emission-factory-allocation-microbenchmark",
+      "fixture": "remaining_gov_manager_allocation_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov allocation factory emission manager"
+      ],
+      "kind": "allocation",
+      "payer": "benchmark harness, not a production transaction",
+      "description": "Supplemental persisted instance from the actual domain factory. Separately measures storage-allocation effect omitted by pre-main initialized singletons; not a complete deployment cost and not included in user lifecycle totals."
+    },
+    {
+      "name": "gov-fee-repeated-distribution-claims-1000",
+      "fixture": "gov_staker_remaining_fee_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov fee accumulator repeat-1000 claim-"
+      ],
+      "kind": "repeat",
+      "payer": "admin",
+      "description": "1000 real user claims with funding/distribution and clock setup outside each measured window; tests high-frequency cost reversal directly."
+    },
+    {
+      "name": "gov-fee-complete-measured-user-lifecycle",
+      "fixture": "gov_staker_remaining_fee_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov fee accumulator "
+      ],
+      "kind": "lifecycle",
+      "payer": "admin",
+      "description": "All measured allocation/token-cardinality/1111 repeated user claims/no-op/undelegate/withdraw/restake calls. Isolated factory allocation microbenchmark is not added to this real workflow."
+    },
+    {
+      "name": "gov-emission-repeated-distribution-claims-1000",
+      "fixture": "gov_staker_remaining_emission_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov emission accumulator repeat-1000 claim-"
+      ],
+      "kind": "repeat",
+      "payer": "admin",
+      "description": "1000 real user claims with funding/distribution and clock setup outside each measured window; tests high-frequency cost reversal directly."
+    },
+    {
+      "name": "gov-emission-complete-measured-user-lifecycle",
+      "fixture": "gov_staker_remaining_emission_accumulator_filetest.gno",
+      "label_prefixes": [
+        "Remaining gov emission accumulator "
+      ],
+      "kind": "lifecycle",
+      "payer": "admin",
+      "description": "All measured allocation/token-cardinality/1111 repeated user claims/no-op/undelegate/withdraw/restake calls. Isolated factory allocation microbenchmark is not added to this real workflow."
+    }
+  ]
+}

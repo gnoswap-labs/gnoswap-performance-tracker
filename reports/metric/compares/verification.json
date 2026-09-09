@@ -1,0 +1,27 @@
+{
+  "proofs": [
+    {
+      "id": "gov-fee-accumulator",
+      "checked_cells": 7152,
+      "zero_baseline_changes": []
+    },
+    {
+      "id": "gov-emission-accumulator",
+      "checked_cells": 7152,
+      "zero_baseline_changes": [
+        [
+          "Remaining gov emission accumulator repeat-1000 claim-300",
+          "storage",
+          5
+        ]
+      ]
+    }
+  ],
+  "checks": [
+    "raw/normalized values and unique sets",
+    "public state parity",
+    "every comparison delta",
+    "nonzero-baseline percentage",
+    "per-realm cashflow identities"
+  ]
+}

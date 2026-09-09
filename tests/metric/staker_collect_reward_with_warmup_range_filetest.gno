@@ -32,6 +32,7 @@ import (
 	"gno.land/r/onbloc/foo"
 
 	"gno.land/r/gnoswap/scenario/metric"
+	"gno.land/r/gnoswap/scenarioutils"
 )
 
 var (
@@ -66,6 +67,7 @@ func main(cur realm) {
 func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
 	pool.SetPoolCreationFee(cross(cur), 0)
+	scenarioutils.EnsureCanonicalDefaultPool(cross(cur))
 
 	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
 	testing.SkipHeights(1)
