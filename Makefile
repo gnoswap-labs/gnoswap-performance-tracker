@@ -170,6 +170,7 @@ gas-report:
 	GNO_BIN="$$GNO_WORKTREE/gnovm/build/gno"; \
 	test -x "$$GNO_BIN"; \
 	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && GNOROOT="$$GNO_WORKTREE" "$$GNO_BIN" test . -v -run . -update-golden-tests); \
+	python3 -c 'from pathlib import Path; import sys; errors = [str(p) + "\n" + p.read_text().split("// Error:", 1)[1] for p in Path(sys.argv[1]).glob("*_filetest.gno*") if "// Error:" in p.read_text()]; sys.exit("Metric fixtures failed before reporting:\n" + "\n".join(errors) if errors else 0)' "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests"; \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) | sort | xargs cat | ./scripts/parse_metrics.sh > "reports/metric/commits/$$SHORT_COMMIT.md"; \
 	if [ "$$(tail -n +3 "reports/metric/commits/$$SHORT_COMMIT.md" | wc -l | tr -d ' ')" -eq 0 ]; then \
 		echo "Metric report contained no metric rows" >&2; \
