@@ -1,0 +1,30 @@
+{
+  "observed_at_utc": "2026-09-09T13:40:00.764910+00:00",
+  "assets": [
+    {
+      "url": "https://beta.gnoswap.io/_next/static/chunks/pages/_app-1ed7e5f6f8f94342.js",
+      "snippets": [
+        "eturn ta().wrap(function(e){for(;;)switch(e.prev=e.next){case 0:return r=(0,tA.newRequest)(tA.ABCIEndpoint.ABCI_QUERY,[\"auth/gasprice\",\"\",\"\".concat(null!=a?a:0),!1]),e.next=3,ty(this.baseURL,r).catch(function(){return null});case 3:if(n=null==(i=e.sent)||null==(t=i.result)?void 0:t.response.ResponseBase.Data){e.",
+        "date(t.toString(\"utf-8\")).digest();return r.I.encode(e,r.I.toWords(i.slice(0,20)))}function l(e){return s(\"g\",e)}var u=\"pearl-1\".split(\",\")||[],c=\"GNO.LAND\",d=\"pearl-1\",h=\"https://pearl.rpc.onbloc.xyz\",m=\"wss://beta.rpc.gnoswap.io/websocket\",p=\"/api/v1\",g=\"/api\",f=\"https://gnoscan.io\",b=\"gno.land/r/gnoland",
+        "n r.I.encode(e,r.I.toWords(i.slice(0,20)))}function l(e){return s(\"g\",e)}var u=\"pearl-1\".split(\",\")||[],c=\"GNO.LAND\",d=\"pearl-1\",h=\"https://pearl.rpc.onbloc.xyz\",m=\"wss://beta.rpc.gnoswap.io/websocket\",p=\"/api/v1\",g=\"/api\",f=\"https://gnoscan.io\",b=\"gno.land/r/gnoland/wugnot.wugnot\",k=\"gno.land/r/gnoland/wu",
+        "oWords(i.slice(0,20)))}function l(e){return s(\"g\",e)}var u=\"pearl-1\".split(\",\")||[],c=\"GNO.LAND\",d=\"pearl-1\",h=\"https://pearl.rpc.onbloc.xyz\",m=\"wss://beta.rpc.gnoswap.io/websocket\",p=\"/api/v1\",g=\"/api\",f=\"https://gnoscan.io\",b=\"gno.land/r/gnoland/wugnot.wugnot\",k=\"gno.land/r/gnoland/wugnot\",v=\"gno.land/r/gnoswap/gns.G",
+        "gov/governance\",P=\"gno.land/r/gnoswap/gov/staker\",N=l(P),D=\"gno.land/r/gnoswap/launchpad\",T=l(D),R=\"\".split(\",\")||[],L=\"pearl-1,staging\".split(\",\")||[],_=\"gnoswap.io,beta.gnoswap.io,dev.gnoswap.io,stg.gnoswap.io,localhost\".split(\",\")||[],K=\"BKEMdiei3awFosbU-NjE7vTd6HRLVrp0_UaQJ2PZDJBIKtRNSAd-lKxiOOrE6DTOjRvE6zKSfc",
+        "\"patog\\xe9n\",\"patriarch\\xe1lis\",\"pattan\\xe1sos\",\"pattogatott\",\"patyolatfeh\\xe9r\",\"patyolattiszta\",\"pazar\",\"pazarl\\xf3\",\"pearl grey\",\"peches\",\"pecs\\xe9tes\",\"pedag\\xf3giai\",\"ped\\xe1ns\",\"pedofil\",\"pehelyk\\xf6nny\u0171\",\"pej\",\"pejorat\\xedv\",\"pekingi\",\"p\\xe9ldamutat\\xf3\",\"p\\xe9ldaszer\u0171\",\"p\\xe9ld\\xe1tlan\",\"pelyhes\"",
+        "on\",\"paw\",\"pawnshop\",\"pay\",\"payee\",\"payment\",\"payoff\",\"pea\",\"peace\",\"peach\",\"peacoat\",\"peacock\",\"peak\",\"peanut\",\"pear\",\"pearl\",\"peasant\",\"pecan\",\"pecker\",\"pedal\",\"peek\",\"peen\",\"peer\",\"peer-to-peer\",\"pegboard\",\"pelican\",\"pelt\",\"pen\",\"penalty\",\"pence\",\"pencil\",\"pendant\",\"pendulum\",\"penguin\",\"penicillin\",\"p",
+        "rivKey),a});let eE={MAINNET:\"mainnet\",TESTNET:\"testnet\",CYAN:\"cyan\",AQUA:\"aqua\",CELESTE:\"celeste\"},eM={SAPPHIRE_DEVNET:\"sapphire_devnet\",SAPPHIRE_MAINNET:\"sapphire_mainnet\"};eE.MAINNET,eE.TESTNET,eE.CYAN,eE.AQUA,eE.CELESTE,eE.AQUA,eM.SAPPHIRE_MAINNET,eE.CELESTE,eM.SAPPHIRE_MAINNET,eE.CYAN,eM.SAPPHIRE_MAINNET,eE.MA",
+        "t\",TESTNET:\"testnet\",CYAN:\"cyan\",AQUA:\"aqua\",CELESTE:\"celeste\"},eM={SAPPHIRE_DEVNET:\"sapphire_devnet\",SAPPHIRE_MAINNET:\"sapphire_mainnet\"};eE.MAINNET,eE.TESTNET,eE.CYAN,eE.AQUA,eE.CELESTE,eE.AQUA,eM.SAPPHIRE_MAINNET,eE.CELESTE,eM.SAPPHIRE_MAINNET,eE.CYAN,eM.SAPPHIRE_MAINNET,eE.MAINNET,eM.SAPPHIRE_MAINNET,eE.TESTNET",
+        "l){if(Object.values(eN).includes(e.network))throw rg.invalidParams(\"MPC is not supported on legacy networks, please use sapphire_devnet or sapphire_mainnet.\");e.buildEnv===eK.DEVELOPMENT?e.sdkUrl=\"http://localhost:3000\":e.buildEnv===eK.STAGING?e.sdkUrl=\"https://staging-mpc-auth.web3auth.io\":e.buildEnv===eK.TESTING",
+        "(eN).includes(e.network))throw rg.invalidParams(\"MPC is not supported on legacy networks, please use sapphire_devnet or sapphire_mainnet.\");e.buildEnv===eK.DEVELOPMENT?e.sdkUrl=\"http://localhost:3000\":e.buildEnv===eK.STAGING?e.sdkUrl=\"https://staging-mpc-auth.web3auth.io\":e.buildEnv===eK.TESTING?e.sdkUrl=\"https://de",
+        "k===eT.SAPPHIRE_DEVNET)&&console.log(`%c WARNING! You are on ${this.options.network}. Please set network: 'mainnet' or 'sapphire_mainnet' in production`,\"color: #FF0000\"),this.options.buildEnv!==eK.PRODUCTION&&console.log(`%c WARNING! You are using build env ${this.options.buildEnv}. Please set buildEnv: 'production",
+        ":sQ,mergeConfig:sH}=a2;var sG=t(5564);let sV=JSON.parse('{\"staging\":{\"grc20\":\"https://faucet.adena.app\",\"native\":null},\"sapphire-1\":{\"grc20\":\"https://beta.faucet.adena.app\",\"native\":null}}');function sJ(e,a){var t=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);a&&(r=r.fi"
+      ]
+    },
+    {
+      "url": "https://beta.gnoswap.io/_next/static/chunks/2305-6a4353713a0e787d.js",
+      "snippets": [
+        "=G?G:Array(tz).fill(\"\").map(function(t,e){var n=x?M.dividedBy(2):M.multipliedBy(.05),r=x?M:p.isLessThanOrEqualTo(0)?g:M.multipliedBy(1.1),o=p.minus(n),i=(o.isLessThanOrEqualTo(0)?(0,d.A)(0):o).plus(r.multipliedBy(e/(tz-1)));if(i.isLessThan(-1))return\"-\"+(0,f.L9)(i.absoluteValue().toFixed(),{maximumFractionDigits:2,m"
+      ]
+    }
+  ],
+  "omitted": "Unrelated third-party analytics script not fetched."
+}

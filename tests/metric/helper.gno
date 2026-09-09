@@ -1,6 +1,7 @@
 package metric
 
 import (
+	"sort"
 	"testing"
 
 	"gno.land/p/nt/ufmt/v0"
@@ -55,4 +56,22 @@ func PrintMetricsBy(name string, fn func()) {
 	ufmt.Printf("- Gas Used: %d\n", afterGas-beforeGas)
 	ufmt.Printf("- Storage Diff: %d\n", totalRealmStorageDiff)
 	ufmt.Printf("- CPU Cycles: %d\n", afterCycles-beforeCycles)
+	// Keep per-realm deltas for deposit/refund accounting outside the measured window.
+	diffs := make(map[string]int64)
+	for path, diff := range afterRealmStorageDiff {
+		diffs[path] += diff
+	}
+	for path, diff := range beforeRealmStorageDiff {
+		diffs[path] -= diff
+	}
+	paths := make([]string, 0, len(diffs))
+	for path, diff := range diffs {
+		if diff != 0 {
+			paths = append(paths, path)
+		}
+	}
+	sort.Strings(paths)
+	for _, path := range paths {
+		ufmt.Printf("- Realm Storage: %s %d\n", path, diffs[path])
+	}
 }

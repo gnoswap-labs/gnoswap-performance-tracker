@@ -5,9 +5,10 @@
 package main
 
 import (
-	"gno.land/p/gnoswap/gnsmath"
 	"testing"
 	"time"
+
+	"gno.land/p/gnoswap/gnsmath"
 
 	prabc "gno.land/p/gnoswap/rbac"
 	"gno.land/p/nt/testutils/v0"
@@ -44,7 +45,9 @@ var (
 	barPath = "gno.land/r/onbloc/bar.BAR"
 	fooPath = "gno.land/r/onbloc/foo.FOO"
 
-	maxInt64 int64 = 9223372036854775807
+	maxInt64           int64 = 9223372036854775807
+	incentiveStartTime int64
+	incentiveEndTime   int64
 )
 
 var t *testing.T
@@ -100,9 +103,11 @@ func mintPositionMetric(cur realm) {
 func createExternalIncentiveMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 	bar.Transfer(cross(cur), aliceAddr, 1000000000)
-	gns.Transfer(cross(cur), aliceAddr, 1000000000)
+	gns.Transfer(cross(cur), aliceAddr, staker.GetDepositGnsAmount())
 
 	testing.SetRealm(aliceRealm)
+	incentiveStartTime = (time.Now().Unix()/86400 + 2) * 86400
+	incentiveEndTime = incentiveStartTime + 60*60*24*90
 
 	poolPath := barPath + ":" + fooPath + ":100"
 
@@ -114,8 +119,8 @@ func createExternalIncentiveMetric(cur realm) {
 		poolPath,
 		barPath,
 		int64(1000000000),
-		1234569600,
-		1234569600+60*60*24*90,
+		incentiveStartTime,
+		incentiveEndTime,
 	)
 }
 
@@ -126,7 +131,7 @@ func endExternalIncentiveMetric(cur realm) {
 
 	incentiveID := ufmt.Sprintf("%s:%d:%d", aliceAddr, time.Now().Unix(), 1)
 
-	testing.SkipHeights(1234569600 + 60*60*24*90/5)
+	testing.SkipHeights((incentiveEndTime-time.Now().Unix())/5 + 2)
 
 	metric.PrintMetricsBy("EndExternalIncentive", func() {
 		staker.EndExternalIncentive(cross(cur), poolPath, incentiveID, aliceAddr)
