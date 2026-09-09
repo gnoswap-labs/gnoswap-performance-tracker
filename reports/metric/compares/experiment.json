@@ -1,0 +1,189 @@
+{
+  "group": "launch-deposit",
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "tracker_base": "cd348c2a78ed766c3adb69d7e5c4030fdec9b89b",
+  "gno": "bac78a97b20e12ba471bdd73a41af31bd94bdc12",
+  "fixture_files": [
+    "tests/metric/launchpad_reward_state_debt_1_filetest.gno",
+    "tests/metric/launchpad_reward_state_debt_100_filetest.gno"
+  ],
+  "variants": [
+    {
+      "id": "launch-deposit-debt",
+      "field": "RewardState.priceDebtX128",
+      "branch": "perf/launch-deposit-debt-binary",
+      "sha": "28040b521cbecfc40013e5bc5e1199587ef598b0",
+      "test_packages": [
+        "gno.land/r/gnoswap/launchpad/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/reward_state.gno"
+      ]
+    }
+  ],
+  "scopes": [
+    {
+      "name": "allocation-create-1",
+      "fixture": "launchpad_reward_state_debt_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit allocation 1 CreateProject"
+      ],
+      "kind": "allocation",
+      "payer": "admin",
+      "description": "Measured real CreateProject allocation setup for one deposit; the prior public fixture used the same count but used a non-standard PUBLIC label and no clock/state contract."
+    },
+    {
+      "name": "allocation-deposit-1",
+      "fixture": "launchpad_reward_state_debt_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit allocation 1 DepositGns index="
+      ],
+      "kind": "allocation",
+      "payer": "user",
+      "description": "One real GNS DepositGns call with principal transfer and getter clone-isolation assertion outside the measured window."
+    },
+    {
+      "name": "reward-1",
+      "fixture": "launchpad_reward_state_debt_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit reward 1 CollectReward index="
+      ],
+      "kind": "lifecycle",
+      "payer": "user",
+      "description": "One real reward collection after the claimable boundary, asserting returned reward equals the OBL balance increase."
+    },
+    {
+      "name": "repeat-1",
+      "fixture": "launchpad_reward_state_debt_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit repeat 1 CollectReward same-time"
+      ],
+      "kind": "repeat",
+      "payer": "user",
+      "description": "Immediate repeated public reward collection with zero reward and unchanged balance."
+    },
+    {
+      "name": "refund-before-withdraw-1",
+      "fixture": "launchpad_reward_state_debt_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit refund 1 before-withdraw"
+      ],
+      "kind": "lifecycle",
+      "payer": "admin",
+      "description": "Real project refund at the 180-day project end before any deposit withdrawal, asserting recipient balance delta."
+    },
+    {
+      "name": "withdraw-1",
+      "fixture": "launchpad_reward_state_debt_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit withdraw 1 CollectDepositGns index="
+      ],
+      "kind": "exit",
+      "payer": "user",
+      "description": "Every real CollectDepositGns call for the one-deposit lifecycle, asserting return signature, GNS principal, and reward balance monotonicity."
+    },
+    {
+      "name": "refund-final-1",
+      "fixture": "launchpad_reward_state_debt_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit refund 1 final"
+      ],
+      "kind": "lifecycle",
+      "payer": "admin",
+      "description": "Conditional final public refund call when post-withdrawal rounding dust remains; zero-dust runs record a deterministic State line rather than a synthetic no-op.",
+      "optional": true
+    },
+    {
+      "name": "allocation-create-100",
+      "fixture": "launchpad_reward_state_debt_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit allocation 100 CreateProject"
+      ],
+      "kind": "allocation",
+      "payer": "admin",
+      "description": "Measured real CreateProject allocation setup for the 100-deposit workload."
+    },
+    {
+      "name": "allocation-deposit-100",
+      "fixture": "launchpad_reward_state_debt_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit allocation 100 DepositGns index="
+      ],
+      "kind": "allocation",
+      "payer": "user",
+      "description": "100 real staggered heterogeneous GNS deposits (1m/2m/3m repeating), replacing the prior non-standard PUBLIC fixture while retaining its count and per-call measurement."
+    },
+    {
+      "name": "reward-100",
+      "fixture": "launchpad_reward_state_debt_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit reward 100 CollectReward index="
+      ],
+      "kind": "lifecycle",
+      "payer": "user",
+      "description": "Every real reward collection for 100 deposits after the claimable boundary, asserting returned rewards and OBL transfers."
+    },
+    {
+      "name": "repeat-100",
+      "fixture": "launchpad_reward_state_debt_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit repeat 100 CollectReward same-time"
+      ],
+      "kind": "repeat",
+      "payer": "user",
+      "description": "Immediate same-time repeat against the first of 100 deposits; expected zero reward and no balance change."
+    },
+    {
+      "name": "refund-before-withdraw-100",
+      "fixture": "launchpad_reward_state_debt_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit refund 100 before-withdraw"
+      ],
+      "kind": "lifecycle",
+      "payer": "admin",
+      "description": "Real project refund at the 180-day project end before withdrawals, asserting the recipient's actual OBL delta."
+    },
+    {
+      "name": "withdraw-100",
+      "fixture": "launchpad_reward_state_debt_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit withdraw 100 CollectDepositGns index="
+      ],
+      "kind": "exit",
+      "payer": "user",
+      "description": "Every one of the 100 real CollectDepositGns calls, asserting each returned principal, GNS balance delta, and reward balance monotonicity."
+    },
+    {
+      "name": "refund-final-100",
+      "fixture": "launchpad_reward_state_debt_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit refund 100 final"
+      ],
+      "kind": "lifecycle",
+      "payer": "admin",
+      "description": "Conditional final public refund transfer for post-withdrawal rounding dust; the prior 100-deposit run observed this path, while zero-dust runs remain explicit in State output.",
+      "optional": true
+    },
+    {
+      "name": "complete-lifecycle-1",
+      "fixture": "launchpad_reward_state_debt_1_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit "
+      ],
+      "kind": "lifecycle",
+      "payer": "user and project administrator, combined",
+      "description": "All measured lifecycle calls for this deposit count; setup funding/approvals excluded, individual actor effects retained in phase scopes."
+    },
+    {
+      "name": "complete-lifecycle-100",
+      "fixture": "launchpad_reward_state_debt_100_filetest.gno",
+      "label_prefixes": [
+        "Remaining launch-deposit "
+      ],
+      "kind": "lifecycle",
+      "payer": "user and project administrator, combined",
+      "description": "All measured lifecycle calls for this deposit count; setup funding/approvals excluded, individual actor effects retained in phase scopes."
+    }
+  ],
+  "workload_difference": "The old launch/public-fixtures workload was run by a bespoke launch/run.py with PUBLIC labels and counts 1/10/100 plus a separate rate fixture. These standard tracker fixtures intentionally retain only counts 1 and 100, retain staggered 1m/2m/3m deposits and real lifecycle calls, measure every deposit/reward/withdraw call, add same-time repeat and clock/state assertions outside metric windows, and omit the old synthetic rate probe."
+}

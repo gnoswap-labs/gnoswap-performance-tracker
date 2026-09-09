@@ -1,0 +1,16 @@
+{
+  "proofs": [
+    {
+      "id": "launch-deposit-debt",
+      "checked_cells": 1368,
+      "zero_baseline_changes": []
+    }
+  ],
+  "checks": [
+    "raw/normalized values and unique sets",
+    "public state parity",
+    "every comparison delta",
+    "nonzero-baseline percentage",
+    "per-realm cashflow identities"
+  ]
+}

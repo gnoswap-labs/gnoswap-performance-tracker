@@ -1,0 +1,34 @@
+{
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "candidate": "28040b521cbecfc40013e5bc5e1199587ef598b0",
+  "records": [
+    {
+      "fixture": "launchpad_reward_state_debt_100_filetest.gno",
+      "measured_calls": 304,
+      "first_deposit_timestamp": 1235172790,
+      "last_deposit_stage_timestamp": 1235173290,
+      "withdrawals_complete_timestamp": 1250724700,
+      "retention_days_first_deposit": "179.9989583333333333333333333",
+      "peak_avoided_capital_gnot": "8.1946",
+      "avoided_capital_gnot_days": "1474.995947129629629629629630",
+      "full_lifecycle_net_delta_gnot": "0.043938296",
+      "simple_annual_break_even_rate": "0.01087289634334876614682002589",
+      "simple_annual_break_even_percent": "1.087289634334876614682002589"
+    },
+    {
+      "fixture": "launchpad_reward_state_debt_1_filetest.gno",
+      "measured_calls": 6,
+      "first_deposit_timestamp": 1235172790,
+      "last_deposit_stage_timestamp": 1235172795,
+      "withdrawals_complete_timestamp": 1250724700,
+      "retention_days_first_deposit": "179.9989583333333333333333333",
+      "peak_avoided_capital_gnot": "0.0815",
+      "avoided_capital_gnot_days": "14.66991510416666666666666667",
+      "full_lifecycle_net_delta_gnot": "0.000779766",
+      "simple_annual_break_even_rate": "0.01940124315505830615569981890",
+      "simple_annual_break_even_percent": "1.940124315505830615569981890"
+    }
+  ],
+  "method": "Integrate negative cumulative per-call storage cashflow delta over identical baseline/candidate fixture clocks. Test time changes are outside metric windows. Event-time step model; do not extrapolate beyond measured end.",
+  "interpretation": "Positive lifecycle cost premium may be offset by capital availability. Break-even is a hypothetical constant simple annual opportunity-cost rate, not an observed yield or investment recommendation. No compounding, deployment cost, price changes, or post-exit residual time value."
+}
