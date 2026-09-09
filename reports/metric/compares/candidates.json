@@ -1,0 +1,46 @@
+{
+  "variants": [
+    {
+      "id": "staker-deposit-liquidity",
+      "field": "Deposit.liquidity",
+      "branch": "perf/staker-deposit-liquidity-binary",
+      "sha": "a74f26e661e3cd18a9bc00f8654b6aa9849d16eb",
+      "test_packages": [
+        "gno.land/r/gnoswap/staker",
+        "gno.land/r/gnoswap/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/staker/deposit.gno",
+        "contract/r/gnoswap/staker/getter_test.gno"
+      ]
+    },
+    {
+      "id": "staker-tick-gross",
+      "field": "Tick.stakedLiquidityGross",
+      "branch": "perf/staker-tick-gross-binary",
+      "sha": "55f5b7ea4478ec1f4988b868a2a9199255b5e45b",
+      "test_packages": [
+        "gno.land/r/gnoswap/staker",
+        "gno.land/r/gnoswap/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/staker/pool.gno",
+        "contract/r/gnoswap/staker/getter_test.gno"
+      ]
+    },
+    {
+      "id": "staker-incentive-rate",
+      "field": "ExternalIncentive.rewardPerSecondX128",
+      "branch": "perf/staker-incentive-rate-binary",
+      "sha": "1bebc09bb356292f4b2c718f0d0e11cbfcbee876",
+      "test_packages": [
+        "gno.land/r/gnoswap/staker",
+        "gno.land/r/gnoswap/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/staker/pool.gno",
+        "contract/r/gnoswap/staker/getter_test.gno"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "group": "staker",
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "tracker_base": "cd348c2a78ed766c3adb69d7e5c4030fdec9b89b",
+  "gno": "bac78a97b20e12ba471bdd73a41af31bd94bdc12",
+  "fixture_files": [
+    "tests/metric/remaining_staker_deposit_liquidity_filetest.gno",
+    "tests/metric/remaining_staker_tick_gross_filetest.gno",
+    "tests/metric/remaining_staker_incentive_rate_filetest.gno"
+  ],
+  "variants": [
+    {
+      "id": "staker-deposit-liquidity",
+      "field": "Deposit.liquidity",
+      "branch": "perf/staker-deposit-liquidity-binary",
+      "sha": "a74f26e661e3cd18a9bc00f8654b6aa9849d16eb",
+      "test_packages": [
+        "gno.land/r/gnoswap/staker",
+        "gno.land/r/gnoswap/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/staker/deposit.gno",
+        "contract/r/gnoswap/staker/getter_test.gno"
+      ]
+    },
+    {
+      "id": "staker-tick-gross",
+      "field": "Tick.stakedLiquidityGross",
+      "branch": "perf/staker-tick-gross-binary",
+      "sha": "55f5b7ea4478ec1f4988b868a2a9199255b5e45b",
+      "test_packages": [
+        "gno.land/r/gnoswap/staker",
+        "gno.land/r/gnoswap/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/staker/pool.gno",
+        "contract/r/gnoswap/staker/getter_test.gno"
+      ]
+    },
+    {
+      "id": "staker-incentive-rate",
+      "field": "ExternalIncentive.rewardPerSecondX128",
+      "branch": "perf/staker-incentive-rate-binary",
+      "sha": "1bebc09bb356292f4b2c718f0d0e11cbfcbee876",
+      "test_packages": [
+        "gno.land/r/gnoswap/staker",
+        "gno.land/r/gnoswap/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/staker/pool.gno",
+        "contract/r/gnoswap/staker/getter_test.gno"
+      ]
+    }
+  ],
+  "scopes": [
+    {
+      "name": "staker-deposit-liquidity-allocation",
+      "fixture": "remaining_staker_deposit_liquidity_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker deposit liquidity allocation"
+      ],
+      "kind": "allocation",
+      "payer": "alice",
+      "description": "Public pool, position mint, tier setup, and StakeToken allocation that initializes a persisted Deposit liquidity value."
+    },
+    {
+      "name": "staker-deposit-liquidity-repeat",
+      "fixture": "remaining_staker_deposit_liquidity_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker deposit liquidity repeat"
+      ],
+      "kind": "repeat",
+      "payer": "alice",
+      "description": "Immediate zero-reward control followed by accrued CollectReward batches of 1, 10, and 100 calls, exercising repeated Deposit liquidity reads and writes."
+    },
+    {
+      "name": "staker-deposit-liquidity-query",
+      "fixture": "remaining_staker_deposit_liquidity_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker deposit liquidity query"
+      ],
+      "kind": "query",
+      "payer": "alice",
+      "description": "Pure GetDepositLiquidityAsString reads repeated 1, 10, and 100 times; query-only output is not a paid transaction price."
+    },
+    {
+      "name": "staker-deposit-liquidity-lifecycle",
+      "fixture": "remaining_staker_deposit_liquidity_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker deposit liquidity lifecycle"
+      ],
+      "kind": "lifecycle",
+      "payer": "alice",
+      "description": "Public UnStakeToken removes the Deposit and reports final staked-liquidity state."
+    },
+    {
+      "name": "staker-tick-gross-allocation",
+      "fixture": "remaining_staker_tick_gross_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker tick gross allocation"
+      ],
+      "kind": "allocation",
+      "payer": "admin",
+      "description": "Two public staked positions share tick boundaries; the measured second StakeToken updates persisted staked tick gross."
+    },
+    {
+      "name": "staker-tick-gross-crossing",
+      "fixture": "remaining_staker_tick_gross_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker tick gross repeat crossing"
+      ],
+      "kind": "repeat",
+      "payer": "admin",
+      "description": "A real exact-in pool swap crosses the shared initialized staked boundary and reads staked tick gross during tick-cross accounting."
+    },
+    {
+      "name": "staker-tick-gross-lifecycle",
+      "fixture": "remaining_staker_tick_gross_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker tick gross lifecycle"
+      ],
+      "kind": "lifecycle",
+      "payer": "admin",
+      "description": "Public UnStakeToken calls remove both shared-boundary deposits and report final staker liquidity."
+    },
+    {
+      "name": "staker-incentive-rate-allocation",
+      "fixture": "remaining_staker_incentive_rate_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker incentive rate allocation"
+      ],
+      "kind": "allocation",
+      "payer": "alice",
+      "description": "Public CreateExternalIncentive initializes a Q128-scaled rate whose value exceeds 128 bits while preserving the 90-day schedule."
+    },
+    {
+      "name": "staker-incentive-rate-query",
+      "fixture": "remaining_staker_incentive_rate_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker incentive rate query"
+      ],
+      "kind": "query",
+      "payer": "alice",
+      "description": "Pure GetIncentiveRewardPerSecondX128 reads repeated 1, 10, and 100 times; query-only output is not a paid transaction price."
+    },
+    {
+      "name": "staker-incentive-rate-cancel",
+      "fixture": "remaining_staker_incentive_rate_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker incentive rate lifecycle CancelExternalIncentive"
+      ],
+      "kind": "lifecycle",
+      "payer": "alice",
+      "description": "A sibling reward-token incentive is cancelled before start through the public API; reward and GNS refund state is printed outside the metric window."
+    },
+    {
+      "name": "staker-incentive-rate-repeat",
+      "fixture": "remaining_staker_incentive_rate_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker incentive rate repeat"
+      ],
+      "kind": "repeat",
+      "payer": "alice",
+      "description": "Pre-start zero control followed by accrued CollectExternalIncentiveReward batches of 1, 10, and 100 calls."
+    },
+    {
+      "name": "staker-incentive-rate-end",
+      "fixture": "remaining_staker_incentive_rate_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker incentive rate lifecycle EndExternalIncentive"
+      ],
+      "kind": "exit",
+      "payer": "alice",
+      "description": "After the public 90-day schedule, EndExternalIncentive finalizes the rate record and refunds remaining reward/GNS amounts."
+    },
+    {
+      "name": "staker-deposit-liquidity-repeat-1",
+      "fixture": "remaining_staker_deposit_liquidity_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker deposit liquidity repeat accrued 1 call "
+      ],
+      "kind": "repeat",
+      "payer": "owner",
+      "description": "1 real repeated calls; accrued-reward intervals advance time outside each measurement, crossing calls use the real router."
+    },
+    {
+      "name": "staker-deposit-liquidity-repeat-10",
+      "fixture": "remaining_staker_deposit_liquidity_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker deposit liquidity repeat accrued 10 call "
+      ],
+      "kind": "repeat",
+      "payer": "owner",
+      "description": "10 real repeated calls; accrued-reward intervals advance time outside each measurement, crossing calls use the real router."
+    },
+    {
+      "name": "staker-deposit-liquidity-repeat-100",
+      "fixture": "remaining_staker_deposit_liquidity_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker deposit liquidity repeat accrued 100 call "
+      ],
+      "kind": "repeat",
+      "payer": "owner",
+      "description": "100 real repeated calls; accrued-reward intervals advance time outside each measurement, crossing calls use the real router."
+    },
+    {
+      "name": "staker-deposit-liquidity-complete-measured-lifecycle",
+      "fixture": "remaining_staker_deposit_liquidity_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker deposit liquidity allocation",
+        "Remaining staker deposit liquidity repeat",
+        "Remaining staker deposit liquidity lifecycle"
+      ],
+      "kind": "lifecycle",
+      "payer": "owner",
+      "description": "All measured target allocations, repeated transactions, cancellation/end/removal where applicable. Free getter queries and unrelated setup excluded."
+    },
+    {
+      "name": "staker-incentive-rate-repeat-1",
+      "fixture": "remaining_staker_incentive_rate_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker incentive rate repeat accrued 1 call "
+      ],
+      "kind": "repeat",
+      "payer": "owner",
+      "description": "1 real repeated calls; accrued-reward intervals advance time outside each measurement, crossing calls use the real router."
+    },
+    {
+      "name": "staker-incentive-rate-repeat-10",
+      "fixture": "remaining_staker_incentive_rate_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker incentive rate repeat accrued 10 call "
+      ],
+      "kind": "repeat",
+      "payer": "owner",
+      "description": "10 real repeated calls; accrued-reward intervals advance time outside each measurement, crossing calls use the real router."
+    },
+    {
+      "name": "staker-incentive-rate-repeat-100",
+      "fixture": "remaining_staker_incentive_rate_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker incentive rate repeat accrued 100 call "
+      ],
+      "kind": "repeat",
+      "payer": "owner",
+      "description": "100 real repeated calls; accrued-reward intervals advance time outside each measurement, crossing calls use the real router."
+    },
+    {
+      "name": "staker-incentive-rate-complete-measured-lifecycle",
+      "fixture": "remaining_staker_incentive_rate_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker incentive rate allocation",
+        "Remaining staker incentive rate repeat",
+        "Remaining staker incentive rate lifecycle"
+      ],
+      "kind": "lifecycle",
+      "payer": "owner",
+      "description": "All measured target allocations, repeated transactions, cancellation/end/removal where applicable. Free getter queries and unrelated setup excluded."
+    },
+    {
+      "name": "staker-tick-gross-repeat-1",
+      "fixture": "remaining_staker_tick_gross_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker tick gross repeat crossing 1 call "
+      ],
+      "kind": "repeat",
+      "payer": "owner",
+      "description": "1 real repeated calls; accrued-reward intervals advance time outside each measurement, crossing calls use the real router."
+    },
+    {
+      "name": "staker-tick-gross-repeat-10",
+      "fixture": "remaining_staker_tick_gross_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker tick gross repeat crossing 10 call "
+      ],
+      "kind": "repeat",
+      "payer": "owner",
+      "description": "10 real repeated calls; accrued-reward intervals advance time outside each measurement, crossing calls use the real router."
+    },
+    {
+      "name": "staker-tick-gross-repeat-100",
+      "fixture": "remaining_staker_tick_gross_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker tick gross repeat crossing 100 call "
+      ],
+      "kind": "repeat",
+      "payer": "owner",
+      "description": "100 real repeated calls; accrued-reward intervals advance time outside each measurement, crossing calls use the real router."
+    },
+    {
+      "name": "staker-tick-gross-complete-measured-lifecycle",
+      "fixture": "remaining_staker_tick_gross_filetest.gno",
+      "label_prefixes": [
+        "Remaining staker tick gross allocation",
+        "Remaining staker tick gross repeat",
+        "Remaining staker tick gross lifecycle"
+      ],
+      "kind": "lifecycle",
+      "payer": "owner",
+      "description": "All measured target allocations, repeated transactions, cancellation/end/removal where applicable. Free getter queries and unrelated setup excluded."
+    }
+  ]
+}
