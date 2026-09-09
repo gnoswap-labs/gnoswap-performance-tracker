@@ -1,0 +1,60 @@
+{
+  "variants": [
+    {
+      "id": "pool-fee0",
+      "field": "feeGrowthGlobal0X128",
+      "branch": "perf/pool-fee0-binary",
+      "sha": "36a7d5bfbc91af9932a3991e91e1e3465646b463",
+      "test_packages": [
+        "gno.land/r/gnoswap/pool",
+        "gno.land/r/gnoswap/pool/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/pool/pool.gno",
+        "contract/r/gnoswap/pool/pool_test.gno"
+      ]
+    },
+    {
+      "id": "pool-fee1",
+      "field": "feeGrowthGlobal1X128",
+      "branch": "perf/pool-fee1-binary",
+      "sha": "d941006731aa5387159b351f584a5ecb37192b83",
+      "test_packages": [
+        "gno.land/r/gnoswap/pool",
+        "gno.land/r/gnoswap/pool/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/pool/pool.gno",
+        "contract/r/gnoswap/pool/pool_test.gno"
+      ]
+    },
+    {
+      "id": "pool-liquidity",
+      "field": "liquidity",
+      "branch": "perf/pool-liquidity-binary",
+      "sha": "bf8f935de9901b6f82adbfb3afd9b17f3dbd7fab",
+      "test_packages": [
+        "gno.land/r/gnoswap/pool",
+        "gno.land/r/gnoswap/pool/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/pool/pool.gno",
+        "contract/r/gnoswap/pool/pool_test.gno"
+      ]
+    },
+    {
+      "id": "pool-price",
+      "field": "sqrtPriceX96",
+      "branch": "perf/pool-price-binary",
+      "sha": "1b3a12bc6a476932dbc3b16837f45f4927fb27c9",
+      "test_packages": [
+        "gno.land/r/gnoswap/pool",
+        "gno.land/r/gnoswap/pool/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/pool/pool.gno",
+        "contract/r/gnoswap/pool/pool_test.gno"
+      ]
+    }
+  ]
+}

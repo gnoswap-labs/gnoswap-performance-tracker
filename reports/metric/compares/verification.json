@@ -1,0 +1,42 @@
+{
+  "proofs": [
+    {
+      "id": "pool-fee0",
+      "checked_cells": 492,
+      "zero_baseline_changes": []
+    },
+    {
+      "id": "pool-fee1",
+      "checked_cells": 492,
+      "zero_baseline_changes": []
+    },
+    {
+      "id": "pool-liquidity",
+      "checked_cells": 492,
+      "zero_baseline_changes": []
+    },
+    {
+      "id": "pool-price",
+      "checked_cells": 492,
+      "zero_baseline_changes": [
+        [
+          "Swap (gns -> wugnot, fee:500)",
+          "storage",
+          6
+        ],
+        [
+          "MultiRoute ExactIn (50:50 split)",
+          "storage",
+          6
+        ]
+      ]
+    }
+  ],
+  "checks": [
+    "raw/normalized values and unique sets",
+    "public state parity",
+    "every comparison delta",
+    "nonzero-baseline percentage",
+    "per-realm cashflow identities"
+  ]
+}
