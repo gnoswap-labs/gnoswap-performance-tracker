@@ -1,0 +1,267 @@
+{
+  "observed_window": {
+    "height_start": 313707,
+    "height_end": 314706,
+    "time_start": "2026-09-09T12:26:42.410247253Z",
+    "time_end": "2026-09-09T13:29:33.717517966Z",
+    "block_count": 1000,
+    "tx_count": 1169,
+    "header_tx_count": 1169,
+    "successful_tx_count": 1169,
+    "successful_explicit_message_count": 2202,
+    "successful_router_calls": 2128,
+    "router_callers": 10,
+    "function_counts": [
+      {
+        "pkg_path": "gno.land/r/gnoswap/router",
+        "function": "ExactInSingleSwapRoute",
+        "count": 2128
+      },
+      {
+        "pkg_path": "gno.land/r/gnoland/wugnot",
+        "function": "Deposit",
+        "count": 41
+      },
+      {
+        "pkg_path": "gno.land/r/gnoland/wugnot",
+        "function": "Withdraw",
+        "count": 26
+      },
+      {
+        "pkg_path": "gno.land/r/gnoswap/staker",
+        "function": "SetPoolTier",
+        "count": 2
+      },
+      {
+        "pkg_path": "gno.land/r/g1hx4z2kwrnzd9up3g0gd4hspc6v78e4r90jkke3/nftoffers3",
+        "function": "MakeOffer",
+        "count": 2
+      },
+      {
+        "pkg_path": "gno.land/r/g1hx4z2kwrnzd9up3g0gd4hspc6v78e4r90jkke3/nft2",
+        "function": "SetApprovalForAll",
+        "count": 1
+      },
+      {
+        "pkg_path": "gno.land/r/g1hx4z2kwrnzd9up3g0gd4hspc6v78e4r90jkke3/nftoffers3",
+        "function": "AcceptOffer",
+        "count": 1
+      },
+      {
+        "pkg_path": "gno.land/r/g1hx4z2kwrnzd9up3g0gd4hspc6v78e4r90jkke3/nftoffers3",
+        "function": "CancelOffer",
+        "count": 1
+      }
+    ],
+    "route_counts": {
+      "gno.land/r/gnoswap/test_token/test_trx.TRX:gno.land/r/gnoswap/test_token/test_usdc.USDC:3000": 1064,
+      "gno.land/r/gnoswap/test_token/test_usdc.USDC:gno.land/r/gnoswap/test_token/test_trx.TRX:3000": 1064
+    },
+    "limits": [
+      "Complete indexed transaction set for fixed 1000-block interval verified against each block num_txs, not complete lifetime/24h traffic.",
+      "Counts are explicitly represented messages; arbitrary MsgRun internals and contract-to-contract calls are not automatically counted.",
+      "Testnet/live-beta traffic is observed, not assumed representative of future mainnet or ordinary users."
+    ],
+    "gov_history_exact_matches": [
+      {
+        "hash": "E2thrJ7xM3hbm42osMEc/kQ7DlQLFlZuFT68Of3xGmc=",
+        "height": 194994,
+        "success": true,
+        "messages": [
+          {
+            "caller": "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+            "pkg_path": "gno.land/r/gnoswap/gov/staker",
+            "func": "Delegate",
+            "args": [
+              "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+              "1000000000",
+              ""
+            ],
+            "max_deposit": ""
+          }
+        ]
+      },
+      {
+        "hash": "Lz2FL/LO11LEGUx4ESf2kKLWAkrEJeL0kenByaIjQy0=",
+        "height": 268381,
+        "success": true,
+        "messages": [
+          {
+            "caller": "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+            "pkg_path": "gno.land/r/gnoswap/gov/staker",
+            "func": "Delegate",
+            "args": [
+              "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+              "1000000",
+              ""
+            ],
+            "max_deposit": ""
+          }
+        ]
+      },
+      {
+        "hash": "qyomUGYcJO+yzDtBnq0WLKg8W2lOhRa1X6+/xo468NQ=",
+        "height": 279852,
+        "success": true,
+        "messages": [
+          {
+            "caller": "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+            "pkg_path": "gno.land/r/gnoswap/gov/staker",
+            "func": "Delegate",
+            "args": [
+              "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+              "1000000",
+              ""
+            ],
+            "max_deposit": ""
+          }
+        ]
+      }
+    ],
+    "gov_history_query_false_positive_records": 6
+  },
+  "canonical_fee_samples": [
+    {
+      "url": "https://rpc.pearl.testnets.gno.land/tx?hash=0x312cb946c8c9569eac126e2717a4900a0fa9def1f912591c23aad30c4faa8fb2",
+      "height": 312783,
+      "gas_wanted": 600000000,
+      "gas_used": 497104306,
+      "gas_fee_ugnot": 257400001,
+      "gas_fee_gnot": "257.400001",
+      "wanted_over_used": "1.206990148260755560624735365",
+      "effective_fee_ugnot_per_wanted_gas": "0.4290000016666666666666666667",
+      "message_functions": [
+        "ExactInSingleSwapRoute",
+        "ExactInSingleSwapRoute"
+      ]
+    },
+    {
+      "url": "https://rpc.pearl.testnets.gno.land/tx?hash=0x3c584c6eea523dc6a54b8592a894754ce5b7ee79483c89c9a473a6cb0ce2feae",
+      "height": 313282,
+      "gas_wanted": 119922041,
+      "gas_used": 109033746,
+      "gas_fee_ugnot": 119923,
+      "gas_fee_gnot": "0.119923",
+      "wanted_over_used": "1.099861697863705425657850919",
+      "effective_fee_ugnot_per_wanted_gas": "0.001000007996861894637033404060",
+      "message_functions": [
+        "Approve",
+        "StakeToken"
+      ]
+    },
+    {
+      "url": "https://rpc.pearl.testnets.gno.land/tx?hash=0x983ceb1fd43506d1d311aca4e0d5d4c4b4b42d34fd5b8a30aff99c62a030c529",
+      "height": 312783,
+      "gas_wanted": 600000000,
+      "gas_used": 541200458,
+      "gas_fee_ugnot": 284856001,
+      "gas_fee_gnot": "284.856001",
+      "wanted_over_used": "1.108646511899293329866324688",
+      "effective_fee_ugnot_per_wanted_gas": "0.4747600016666666666666666667",
+      "message_functions": [
+        "ExactInSingleSwapRoute",
+        "ExactInSingleSwapRoute"
+      ]
+    },
+    {
+      "url": "https://rpc.pearl.testnets.gno.land/tx?hash=0xaeb3e8e1d47a3ed13fbc5ff6cc7da65308beaf6bc518f36ce6f8c82f2d28b734",
+      "height": 312780,
+      "gas_wanted": 600000000,
+      "gas_used": 554057280,
+      "gas_fee_ugnot": 375804001,
+      "gas_fee_gnot": "375.804001",
+      "wanted_over_used": "1.082920524029573260006618810",
+      "effective_fee_ugnot_per_wanted_gas": "0.6263400016666666666666666667",
+      "message_functions": [
+        "ExactInSingleSwapRoute",
+        "ExactInSingleSwapRoute"
+      ]
+    },
+    {
+      "url": "https://rpc.pearl.testnets.gno.land/tx?hash=0xb9c920bb169bc463ad27dd35928ee73035886d1721bbfe308d1f845adbc5f52e",
+      "height": 312766,
+      "gas_wanted": 600000000,
+      "gas_used": 547522993,
+      "gas_fee_ugnot": 993564001,
+      "gas_fee_gnot": "993.564001",
+      "wanted_over_used": "1.095844389497629736985310496",
+      "effective_fee_ugnot_per_wanted_gas": "1.655940001666666666666666667",
+      "message_functions": [
+        "ExactInSingleSwapRoute",
+        "ExactInSingleSwapRoute"
+      ]
+    },
+    {
+      "url": "https://rpc.pearl.testnets.gno.land/tx?hash=0xfbb6e43e4cbfd73d4793efeaa96a5bacec0b6e2ad90a96fc7a6882e1d8961498",
+      "height": 313277,
+      "gas_wanted": 158941337,
+      "gas_used": 144501170,
+      "gas_fee_ugnot": 158942,
+      "gas_fee_gnot": "0.158942",
+      "wanted_over_used": "1.099931142426044024418625815",
+      "effective_fee_ugnot_per_wanted_gas": "0.001000004171350339150601205777",
+      "message_functions": [
+        "Deposit",
+        "Mint"
+      ]
+    }
+  ],
+  "canonical_decoder": "Pinned Gno amino.Unmarshal(bytes, &std.Tx) and amino.MarshalJSON; not string-search decoding.",
+  "indexer_fee_crosscheck": {
+    "data": {
+      "getTransactions": [
+        {
+          "hash": "mDzrH9Q1BtHTEayk4NXUxLS0LTT9W4owr/mcYqAwxSk=",
+          "index": 0,
+          "gas_wanted": 600000000,
+          "gas_used": 541200458,
+          "gas_fee": {
+            "amount": 284856001,
+            "denom": "ugnot"
+          }
+        },
+        {
+          "hash": "MSy5RsjJVp6sEm4nF6SQCg+p3vH5ElkcI6rTDE+qj7I=",
+          "index": 1,
+          "gas_wanted": 600000000,
+          "gas_used": 497104306,
+          "gas_fee": {
+            "amount": 257400001,
+            "denom": "ugnot"
+          }
+        },
+        {
+          "hash": "PKAN6jveiOB9jGErHgd8EFqFSPK6uX4tRDvX+wIhDCU=",
+          "index": 2,
+          "gas_wanted": 45000000,
+          "gas_used": 27896940,
+          "gas_fee": {
+            "amount": 25000000,
+            "denom": "ugnot"
+          }
+        }
+      ]
+    }
+  },
+  "network": {
+    "live_bundle_url": "https://beta.gnoswap.io/_next/static/chunks/pages/_app-1ed7e5f6f8f94342.js",
+    "chain_id": "pearl-1",
+    "frontend_rpc": "https://pearl.rpc.onbloc.xyz",
+    "public_reference_rpc": "https://rpc.pearl.testnets.gno.land",
+    "build_id": "0Hji3Od4ElmQ3XTSpJcAy"
+  },
+  "fee_policy": {
+    "source_revision": "17459c0d4f414c5b1920fb48ce3c6089febf8027",
+    "source_formula": "gasWanted=floor(simulatedGas*1.1); gasFee=ceil(gasWanted*gasPrice); source-confirmed, live bundle exposes 1.1 constant and forwards supplied gasFee/gasWanted. Full runtime call-path identity is not independently proven.",
+    "actual_samples": "Swap samples use fixed gasWanted600000000 with two swaps per transaction and varying explicitly paid fees; add/stake samples use separately estimated limits and exact quoted fees. Do not assume a fixed policy for every wallet/client.",
+    "historical_tariff_note": "auth/gasprice is versioned by requested height. Latest observed snapshots return1ugnot/1000gas; state at height312783 returns143ugnot/1000gas. Query response Height=0 does not erase requested version.",
+    "fixed_fee_note": "Optimization cannot reduce already-fixed valid submitted fees automatically; actual future client repricing must be specified."
+  },
+  "limits": [
+    "Do not equate USD dashboard volume with number of calls.",
+    "The 1000-block window is complete for indexed top-level/represented messages, not nested runtime call traces or lifetime traffic.",
+    "Gov filter returned6 create_session false positives; only3 exact represented Delegate messages matched historically. No direct claim sample was observed; MsgRun and internal calls may be missing.",
+    "Live traffic is pearl testnet, concentrated in one TRX/USDC pool and10 callers, not a forecast of future mainnet usage.",
+    "API duplicate transaction hashes are not necessarily duplicate token legs: canonical sampled transactions actually contain two separate swap calls."
+  ]
+}

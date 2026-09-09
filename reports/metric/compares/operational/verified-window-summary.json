@@ -1,0 +1,121 @@
+{
+  "height_start": 313707,
+  "height_end": 314706,
+  "time_start": "2026-09-09T12:26:42.410247253Z",
+  "time_end": "2026-09-09T13:29:33.717517966Z",
+  "block_count": 1000,
+  "tx_count": 1169,
+  "header_tx_count": 1169,
+  "successful_tx_count": 1169,
+  "successful_explicit_message_count": 2202,
+  "successful_router_calls": 2128,
+  "router_callers": 10,
+  "function_counts": [
+    {
+      "pkg_path": "gno.land/r/gnoswap/router",
+      "function": "ExactInSingleSwapRoute",
+      "count": 2128
+    },
+    {
+      "pkg_path": "gno.land/r/gnoland/wugnot",
+      "function": "Deposit",
+      "count": 41
+    },
+    {
+      "pkg_path": "gno.land/r/gnoland/wugnot",
+      "function": "Withdraw",
+      "count": 26
+    },
+    {
+      "pkg_path": "gno.land/r/gnoswap/staker",
+      "function": "SetPoolTier",
+      "count": 2
+    },
+    {
+      "pkg_path": "gno.land/r/g1hx4z2kwrnzd9up3g0gd4hspc6v78e4r90jkke3/nftoffers3",
+      "function": "MakeOffer",
+      "count": 2
+    },
+    {
+      "pkg_path": "gno.land/r/g1hx4z2kwrnzd9up3g0gd4hspc6v78e4r90jkke3/nft2",
+      "function": "SetApprovalForAll",
+      "count": 1
+    },
+    {
+      "pkg_path": "gno.land/r/g1hx4z2kwrnzd9up3g0gd4hspc6v78e4r90jkke3/nftoffers3",
+      "function": "AcceptOffer",
+      "count": 1
+    },
+    {
+      "pkg_path": "gno.land/r/g1hx4z2kwrnzd9up3g0gd4hspc6v78e4r90jkke3/nftoffers3",
+      "function": "CancelOffer",
+      "count": 1
+    }
+  ],
+  "route_counts": {
+    "gno.land/r/gnoswap/test_token/test_trx.TRX:gno.land/r/gnoswap/test_token/test_usdc.USDC:3000": 1064,
+    "gno.land/r/gnoswap/test_token/test_usdc.USDC:gno.land/r/gnoswap/test_token/test_trx.TRX:3000": 1064
+  },
+  "limits": [
+    "Complete indexed transaction set for fixed 1000-block interval verified against each block num_txs, not complete lifetime/24h traffic.",
+    "Counts are explicitly represented messages; arbitrary MsgRun internals and contract-to-contract calls are not automatically counted.",
+    "Testnet/live-beta traffic is observed, not assumed representative of future mainnet or ordinary users."
+  ],
+  "gov_history_exact_matches": [
+    {
+      "hash": "E2thrJ7xM3hbm42osMEc/kQ7DlQLFlZuFT68Of3xGmc=",
+      "height": 194994,
+      "success": true,
+      "messages": [
+        {
+          "caller": "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+          "pkg_path": "gno.land/r/gnoswap/gov/staker",
+          "func": "Delegate",
+          "args": [
+            "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+            "1000000000",
+            ""
+          ],
+          "max_deposit": ""
+        }
+      ]
+    },
+    {
+      "hash": "Lz2FL/LO11LEGUx4ESf2kKLWAkrEJeL0kenByaIjQy0=",
+      "height": 268381,
+      "success": true,
+      "messages": [
+        {
+          "caller": "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+          "pkg_path": "gno.land/r/gnoswap/gov/staker",
+          "func": "Delegate",
+          "args": [
+            "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+            "1000000",
+            ""
+          ],
+          "max_deposit": ""
+        }
+      ]
+    },
+    {
+      "hash": "qyomUGYcJO+yzDtBnq0WLKg8W2lOhRa1X6+/xo468NQ=",
+      "height": 279852,
+      "success": true,
+      "messages": [
+        {
+          "caller": "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+          "pkg_path": "gno.land/r/gnoswap/gov/staker",
+          "func": "Delegate",
+          "args": [
+            "g169d3un6y4sqxxmzwt7le3l5pawlfrhg5aa3xvp",
+            "1000000",
+            ""
+          ],
+          "max_deposit": ""
+        }
+      ]
+    }
+  ],
+  "gov_history_query_false_positive_records": 6
+}
