@@ -1,0 +1,2938 @@
+{
+  "baseline_sha": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "candidate_sha": "5fd537591d69568f1be4bf99a22f5e03d0539327",
+  "tracker_base_sha": "cd348c2a78ed766c3adb69d7e5c4030fdec9b89b",
+  "gno_sha": "bac78a97b20e12ba471bdd73a41af31bd94bdc12",
+  "command": "make compare-metric-force 5fd537591d69568f1be4bf99a22f5e03d0539327 b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "pricing": {
+    "chain_id": "pearl-1",
+    "rpc": "https://rpc.pearl.testnets.gno.land",
+    "status_observation": {
+      "latest_block_height": "308371",
+      "latest_block_time": "2026-09-09T06:54:02.792062020Z",
+      "build_version": "heads/chain/pearl.3320+c4c72fdd2",
+      "catching_up": false
+    },
+    "atomic_snapshot": false,
+    "queries": {
+      "auth/gasprice": {
+        "raw_response": {
+          "jsonrpc": "2.0",
+          "id": "",
+          "result": {
+            "response": {
+              "ResponseBase": {
+                "Error": null,
+                "Data": "ewogICJnYXMiOiAiMTAwMCIsCiAgInByaWNlIjogIjF1Z25vdCIKfQ==",
+                "Events": null,
+                "Log": "",
+                "Info": ""
+              },
+              "Key": null,
+              "Value": null,
+              "Proof": null,
+              "Height": "0"
+            }
+          }
+        },
+        "decoded": {
+          "gas": "1000",
+          "price": "1ugnot"
+        }
+      },
+      "params/vm:p:storage_price": {
+        "raw_response": {
+          "jsonrpc": "2.0",
+          "id": "",
+          "result": {
+            "response": {
+              "ResponseBase": {
+                "Error": null,
+                "Data": "IjEwMHVnbm90Ig==",
+                "Events": null,
+                "Log": "",
+                "Info": ""
+              },
+              "Key": null,
+              "Value": null,
+              "Proof": null,
+              "Height": "0"
+            }
+          }
+        },
+        "decoded": "100ugnot"
+      },
+      "params/bank:p:restricted_denoms": {
+        "raw_response": {
+          "jsonrpc": "2.0",
+          "id": "",
+          "result": {
+            "response": {
+              "ResponseBase": {
+                "Error": null,
+                "Data": "W10=",
+                "Events": null,
+                "Log": "",
+                "Info": ""
+              },
+              "Key": null,
+              "Value": null,
+              "Proof": null,
+              "Height": "0"
+            }
+          }
+        },
+        "decoded": []
+      }
+    }
+  },
+  "row_count": 122,
+  "resource_counts": {
+    "Gas Used": {
+      "improved": 3,
+      "unchanged": 98,
+      "regressed": 21
+    },
+    "Storage Diff": {
+      "improved": 0,
+      "unchanged": 122,
+      "regressed": 0
+    },
+    "CPU Cycles": {
+      "improved": 3,
+      "unchanged": 119,
+      "regressed": 0
+    }
+  },
+  "fee_model": {
+    "classification": "same-price repricing estimate, not observed payments",
+    "gas_wanted_policy": "GasWanted = measured operation GasUsed, zero client margin; transaction/SDK overhead excluded; not a recommended submission limit",
+    "quoted_fee_ugnot": "ceil(GasUsed / 1000)",
+    "unrounded_equivalent_ugnot": "GasUsed / 1000",
+    "actual_fixed_fee_gain_ugnot": 0,
+    "payer_perspective": "collector; only measured collection windows",
+    "storage_cashflow_gain_ugnot": 0,
+    "storage_reason": "Identical per-realm signed byte changes in both revisions; no migration or storage-schema change. Existing deposit/refund cash flows cancel in the comparison. No historical deposit ratio or qstorage query needed to claim zero difference. Absolute current-price deposits are not claimed.",
+    "excluded": [
+      "setup",
+      "deployment/package metadata storage and gas",
+      "migration (not required)",
+      "end incentive/unstake/withdraw outside measured window",
+      "capital time value",
+      "submitted transaction and SDK overhead"
+    ]
+  },
+  "workloads": [
+    {
+      "name": "TickMathGetSqrtRatioAtTick (minTick)",
+      "baseline": {
+        "gas": 1689865,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 1565901
+      },
+      "candidate": {
+        "gas": 1689865,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 1565901
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "TickMathGetSqrtRatioAtTick (maxTick)",
+      "baseline": {
+        "gas": 2058854,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 2010200
+      },
+      "candidate": {
+        "gas": 2058854,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 2010200
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "TickMathGetSqrtRatioAtTick (zero)",
+      "baseline": {
+        "gas": 334802,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 322554
+      },
+      "candidate": {
+        "gas": 334802,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 322554
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "TickMathGetSqrtRatioAtTick",
+      "baseline": {
+        "gas": 1527883,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 1501949
+      },
+      "candidate": {
+        "gas": 1527883,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 1501949
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "TickMathGetTickAtSqrtRatio",
+      "baseline": {
+        "gas": 3863554,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 3733669
+      },
+      "candidate": {
+        "gas": 3863554,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 3733669
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "GetLiquidityForAmounts",
+      "baseline": {
+        "gas": 3211535,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 3153602
+      },
+      "candidate": {
+        "gas": 3211535,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 3153602
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "GetAmountsForLiquidity",
+      "baseline": {
+        "gas": 2981525,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 2937658
+      },
+      "candidate": {
+        "gas": 2981525,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 2937658
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "LiquidityMathAddDelta (positive)",
+      "baseline": {
+        "gas": 449547,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 431320
+      },
+      "candidate": {
+        "gas": 449547,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 431320
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "LiquidityMathAddDelta (negative)",
+      "baseline": {
+        "gas": 471588,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 463867
+      },
+      "candidate": {
+        "gas": 471588,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 463867
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "LiquidityMathAddDelta",
+      "baseline": {
+        "gas": 437865,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 431320
+      },
+      "candidate": {
+        "gas": 437865,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 431320
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "GetAmount0Delta",
+      "baseline": {
+        "gas": 3631434,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 3328476
+      },
+      "candidate": {
+        "gas": 3631434,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 3328476
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "GetAmount1Delta",
+      "baseline": {
+        "gas": 2329750,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 2298269
+      },
+      "candidate": {
+        "gas": 2329750,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 2298269
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "SwapMathComputeSwapStep",
+      "baseline": {
+        "gas": 4232740,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 4157059
+      },
+      "candidate": {
+        "gas": 4232740,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 4157059
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Propose Community Pool Spend",
+      "baseline": {
+        "gas": 2436117,
+        "net_storage_bytes": 20560,
+        "cpu_cycles": 1968413
+      },
+      "candidate": {
+        "gas": 2436117,
+        "net_storage_bytes": 20560,
+        "cpu_cycles": 1968413
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Propose Parameter Change",
+      "baseline": {
+        "gas": 2992330,
+        "net_storage_bytes": 19532,
+        "cpu_cycles": 2550061
+      },
+      "candidate": {
+        "gas": 2992330,
+        "net_storage_bytes": 19532,
+        "cpu_cycles": 2550061
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Vote",
+      "baseline": {
+        "gas": 1020769,
+        "net_storage_bytes": 4488,
+        "cpu_cycles": 860873
+      },
+      "candidate": {
+        "gas": 1020769,
+        "net_storage_bytes": 4488,
+        "cpu_cycles": 860873
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Execute",
+      "baseline": {
+        "gas": 2528088,
+        "net_storage_bytes": 76,
+        "cpu_cycles": 1353678
+      },
+      "candidate": {
+        "gas": 2528088,
+        "net_storage_bytes": 76,
+        "cpu_cycles": 1353678
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Propose Text",
+      "baseline": {
+        "gas": 1931909,
+        "net_storage_bytes": 18333,
+        "cpu_cycles": 1581409
+      },
+      "candidate": {
+        "gas": 1931909,
+        "net_storage_bytes": 18333,
+        "cpu_cycles": 1581409
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Propose Text with Inactive: 100",
+      "baseline": {
+        "gas": 2347937,
+        "net_storage_bytes": 8501,
+        "cpu_cycles": 2078803
+      },
+      "candidate": {
+        "gas": 2347937,
+        "net_storage_bytes": 8501,
+        "cpu_cycles": 2078803
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectUndelegatedGns (100 delegations, 1 withdraws)",
+      "baseline": {
+        "gas": 25137447,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 22353363
+      },
+      "candidate": {
+        "gas": 25137447,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 22353363
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectUndelegatedGns (10 delegations, 10 withdraws)",
+      "baseline": {
+        "gas": 4375919,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 3847077
+      },
+      "candidate": {
+        "gas": 4375919,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 3847077
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectUndelegatedGns (10 delegations, 1 withdraws)",
+      "baseline": {
+        "gas": 2337329,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 1950057
+      },
+      "candidate": {
+        "gas": 2337329,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 1950057
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectUndelegatedGns (10 delegations, 50 withdraws)",
+      "baseline": {
+        "gas": 13436619,
+        "net_storage_bytes": 18,
+        "cpu_cycles": 12278277
+      },
+      "candidate": {
+        "gas": 13436619,
+        "net_storage_bytes": 18,
+        "cpu_cycles": 12278277
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectUndelegatedGns (10 delegations, 5 withdraws)",
+      "baseline": {
+        "gas": 3243369,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 2793177
+      },
+      "candidate": {
+        "gas": 3243369,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 2793177
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectUndelegatedGns (1 delegation, 10 withdraws)",
+      "baseline": {
+        "gas": 611432,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 541799
+      },
+      "candidate": {
+        "gas": 611432,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 541799
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectUndelegatedGns (1 delegation, 1 withdraws)",
+      "baseline": {
+        "gas": 407573,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 352097
+      },
+      "candidate": {
+        "gas": 407573,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 352097
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectUndelegatedGns (1 delegation, 50 withdraws)",
+      "baseline": {
+        "gas": 1517472,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 1384919
+      },
+      "candidate": {
+        "gas": 1517472,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 1384919
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectUndelegatedGns (1 delegation, 5 withdraws)",
+      "baseline": {
+        "gas": 498177,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 436409
+      },
+      "candidate": {
+        "gas": 498177,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 436409
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectReward (100 delegations, 1 withdraws)",
+      "baseline": {
+        "gas": 3439469,
+        "net_storage_bytes": 2333,
+        "cpu_cycles": 2787123
+      },
+      "candidate": {
+        "gas": 3439469,
+        "net_storage_bytes": 2333,
+        "cpu_cycles": 2787123
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectReward (10 delegations, 10 withdraws)",
+      "baseline": {
+        "gas": 3439379,
+        "net_storage_bytes": 2323,
+        "cpu_cycles": 2787123
+      },
+      "candidate": {
+        "gas": 3439379,
+        "net_storage_bytes": 2323,
+        "cpu_cycles": 2787123
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectReward (10 delegations, 1 withdraws)",
+      "baseline": {
+        "gas": 3435591,
+        "net_storage_bytes": 2323,
+        "cpu_cycles": 2783337
+      },
+      "candidate": {
+        "gas": 3435591,
+        "net_storage_bytes": 2323,
+        "cpu_cycles": 2783337
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectReward (10 delegations, 50 withdraws)",
+      "baseline": {
+        "gas": 3438312,
+        "net_storage_bytes": 2323,
+        "cpu_cycles": 2786056
+      },
+      "candidate": {
+        "gas": 3438312,
+        "net_storage_bytes": 2323,
+        "cpu_cycles": 2786056
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectReward (10 delegations, 5 withdraws)",
+      "baseline": {
+        "gas": 3432388,
+        "net_storage_bytes": 2323,
+        "cpu_cycles": 2780134
+      },
+      "candidate": {
+        "gas": 3432388,
+        "net_storage_bytes": 2323,
+        "cpu_cycles": 2780134
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectReward (1 delegation, 10 withdraws)",
+      "baseline": {
+        "gas": 3509511,
+        "net_storage_bytes": 2395,
+        "cpu_cycles": 2783337
+      },
+      "candidate": {
+        "gas": 3509511,
+        "net_storage_bytes": 2395,
+        "cpu_cycles": 2783337
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectReward (1 delegation, 1 withdraws)",
+      "baseline": {
+        "gas": 3685097,
+        "net_storage_bytes": 2395,
+        "cpu_cycles": 2955457
+      },
+      "candidate": {
+        "gas": 3685097,
+        "net_storage_bytes": 2395,
+        "cpu_cycles": 2955457
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectReward (1 delegation, 50 withdraws)",
+      "baseline": {
+        "gas": 3506308,
+        "net_storage_bytes": 2395,
+        "cpu_cycles": 2780134
+      },
+      "candidate": {
+        "gas": 3506308,
+        "net_storage_bytes": 2395,
+        "cpu_cycles": 2780134
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectReward (1 delegation, 5 withdraws)",
+      "baseline": {
+        "gas": 3507465,
+        "net_storage_bytes": 2395,
+        "cpu_cycles": 2781291
+      },
+      "candidate": {
+        "gas": 3507465,
+        "net_storage_bytes": 2395,
+        "cpu_cycles": 2781291
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "gov/staker CollectReward (1 protocol-fee tokens)",
+      "baseline": {
+        "gas": 3686283,
+        "net_storage_bytes": 368,
+        "cpu_cycles": 2962390
+      },
+      "candidate": {
+        "gas": 3686283,
+        "net_storage_bytes": 368,
+        "cpu_cycles": 2962390
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "gov/staker CollectReward (2 protocol-fee tokens)",
+      "baseline": {
+        "gas": 5840745,
+        "net_storage_bytes": -1860,
+        "cpu_cycles": 5015062
+      },
+      "candidate": {
+        "gas": 5840745,
+        "net_storage_bytes": -1860,
+        "cpu_cycles": 5015062
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "gov/staker CollectReward (3 protocol-fee tokens)",
+      "baseline": {
+        "gas": 8115227,
+        "net_storage_bytes": -3992,
+        "cpu_cycles": 7069573
+      },
+      "candidate": {
+        "gas": 8115227,
+        "net_storage_bytes": -3992,
+        "cpu_cycles": 7069573
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "gov/staker CollectReward (4 protocol-fee tokens)",
+      "baseline": {
+        "gas": 10400912,
+        "net_storage_bytes": -6122,
+        "cpu_cycles": 9128591
+      },
+      "candidate": {
+        "gas": 10400912,
+        "net_storage_bytes": -6122,
+        "cpu_cycles": 9128591
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "gov/staker CollectReward (4 protocol-fee tokens but zero amount)",
+      "baseline": {
+        "gas": 1701190,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 1173935
+      },
+      "candidate": {
+        "gas": 1701190,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 1173935
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Delegate",
+      "baseline": {
+        "gas": 4989756,
+        "net_storage_bytes": 38285,
+        "cpu_cycles": 1942824
+      },
+      "candidate": {
+        "gas": 4989756,
+        "net_storage_bytes": 38285,
+        "cpu_cycles": 1942824
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Undelegate",
+      "baseline": {
+        "gas": 2279200,
+        "net_storage_bytes": 840,
+        "cpu_cycles": 1586279
+      },
+      "candidate": {
+        "gas": 2279200,
+        "net_storage_bytes": 840,
+        "cpu_cycles": 1586279
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Undelegate (5 delegations, cached external calls)",
+      "baseline": {
+        "gas": 9705646,
+        "net_storage_bytes": 3510,
+        "cpu_cycles": 6778953
+      },
+      "candidate": {
+        "gas": 9705646,
+        "net_storage_bytes": 3510,
+        "cpu_cycles": 6778953
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Delegate (cached external calls)",
+      "baseline": {
+        "gas": 3046853,
+        "net_storage_bytes": 3210,
+        "cpu_cycles": 2323417
+      },
+      "candidate": {
+        "gas": 3046853,
+        "net_storage_bytes": 3210,
+        "cpu_cycles": 2323417
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Undelegate (early exit, 3 of 10 delegations)",
+      "baseline": {
+        "gas": 6656620,
+        "net_storage_bytes": 2088,
+        "cpu_cycles": 4833951
+      },
+      "candidate": {
+        "gas": 6656620,
+        "net_storage_bytes": 2088,
+        "cpu_cycles": 4833951
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Redelegate",
+      "baseline": {
+        "gas": 4363314,
+        "net_storage_bytes": 1423,
+        "cpu_cycles": 3049928
+      },
+      "candidate": {
+        "gas": 4363314,
+        "net_storage_bytes": 1423,
+        "cpu_cycles": 3049928
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Redelegate (50 of 100 delegations, optimized)",
+      "baseline": {
+        "gas": 123363976,
+        "net_storage_bytes": -118826,
+        "cpu_cycles": 90714642
+      },
+      "candidate": {
+        "gas": 123363976,
+        "net_storage_bytes": -118826,
+        "cpu_cycles": 90714642
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Undelegate (50 delegatees, large AVL traversal)",
+      "baseline": {
+        "gas": 2459149,
+        "net_storage_bytes": 708,
+        "cpu_cycles": 1789243
+      },
+      "candidate": {
+        "gas": 2459149,
+        "net_storage_bytes": 708,
+        "cpu_cycles": 1789243
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectDepositGns (deposit 1/5, remaining 4)",
+      "baseline": {
+        "gas": 7704244,
+        "net_storage_bytes": 1850,
+        "cpu_cycles": 6534801
+      },
+      "candidate": {
+        "gas": 7704244,
+        "net_storage_bytes": 1850,
+        "cpu_cycles": 6534801
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectDepositGns (deposit 2/5, remaining 3)",
+      "baseline": {
+        "gas": 7366642,
+        "net_storage_bytes": -2257,
+        "cpu_cycles": 6311632
+      },
+      "candidate": {
+        "gas": 7366642,
+        "net_storage_bytes": -2257,
+        "cpu_cycles": 6311632
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectDepositGns (deposit 3/5, remaining 2)",
+      "baseline": {
+        "gas": 7340262,
+        "net_storage_bytes": -2257,
+        "cpu_cycles": 6287637
+      },
+      "candidate": {
+        "gas": 7340262,
+        "net_storage_bytes": -2257,
+        "cpu_cycles": 6287637
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectDepositGns (deposit 4/5, remaining 1)",
+      "baseline": {
+        "gas": 7345708,
+        "net_storage_bytes": -2257,
+        "cpu_cycles": 6295468
+      },
+      "candidate": {
+        "gas": 7345708,
+        "net_storage_bytes": -2257,
+        "cpu_cycles": 6295468
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectDepositGns (deposit 5/5, remaining 0)",
+      "baseline": {
+        "gas": 7218065,
+        "net_storage_bytes": -8456,
+        "cpu_cycles": 6190891
+      },
+      "candidate": {
+        "gas": 7218065,
+        "net_storage_bytes": -8456,
+        "cpu_cycles": 6190891
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Launchpad CollectDepositGns",
+      "baseline": {
+        "gas": 7571486,
+        "net_storage_bytes": -4155,
+        "cpu_cycles": 6431670
+      },
+      "candidate": {
+        "gas": 7571486,
+        "net_storage_bytes": -4155,
+        "cpu_cycles": 6431670
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectProtocolFee (1 token)",
+      "baseline": {
+        "gas": 3561082,
+        "net_storage_bytes": 4426,
+        "cpu_cycles": 2909586
+      },
+      "candidate": {
+        "gas": 3561082,
+        "net_storage_bytes": 4426,
+        "cpu_cycles": 2909586
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectProtocolFee (2 tokens)",
+      "baseline": {
+        "gas": 5622664,
+        "net_storage_bytes": 8750,
+        "cpu_cycles": 4749453
+      },
+      "candidate": {
+        "gas": 5622664,
+        "net_storage_bytes": 8750,
+        "cpu_cycles": 4749453
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectProtocolFee (5 tokens)",
+      "baseline": {
+        "gas": 11846105,
+        "net_storage_bytes": 21724,
+        "cpu_cycles": 10283758
+      },
+      "candidate": {
+        "gas": 11846105,
+        "net_storage_bytes": 21724,
+        "cpu_cycles": 10283758
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Launchpad CollectRewardByDepositId",
+      "baseline": {
+        "gas": 3300520,
+        "net_storage_bytes": 2070,
+        "cpu_cycles": 2926616
+      },
+      "candidate": {
+        "gas": 3300520,
+        "net_storage_bytes": 2070,
+        "cpu_cycles": 2926616
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Create Launchpad Project",
+      "baseline": {
+        "gas": 8514225,
+        "net_storage_bytes": 33729,
+        "cpu_cycles": 6117361
+      },
+      "candidate": {
+        "gas": 8514225,
+        "net_storage_bytes": 33729,
+        "cpu_cycles": 6117361
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Launchpad DepositGns",
+      "baseline": {
+        "gas": 6420331,
+        "net_storage_bytes": 24246,
+        "cpu_cycles": 4183559
+      },
+      "candidate": {
+        "gas": 6420331,
+        "net_storage_bytes": 24246,
+        "cpu_cycles": 4183559
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Launchpad TransferLeftFromProjectByAdmin",
+      "baseline": {
+        "gas": 1260660,
+        "net_storage_bytes": 41,
+        "cpu_cycles": 1071291
+      },
+      "candidate": {
+        "gas": 1260660,
+        "net_storage_bytes": 41,
+        "cpu_cycles": 1071291
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CreatePool",
+      "baseline": {
+        "gas": 6701805,
+        "net_storage_bytes": 25361,
+        "cpu_cycles": 5859879
+      },
+      "candidate": {
+        "gas": 6701805,
+        "net_storage_bytes": 25361,
+        "cpu_cycles": 5859879
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Mint (fee:3000, wide range)",
+      "baseline": {
+        "gas": 31521738,
+        "net_storage_bytes": 22702,
+        "cpu_cycles": 29270728
+      },
+      "candidate": {
+        "gas": 31521738,
+        "net_storage_bytes": 22702,
+        "cpu_cycles": 29270728
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Swap (gns -> wugnot, fee:500)",
+      "baseline": {
+        "gas": 47027189,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 44129286
+      },
+      "candidate": {
+        "gas": 47030252,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 44129286
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "DecreaseLiquidity",
+      "baseline": {
+        "gas": 25614822,
+        "net_storage_bytes": 18,
+        "cpu_cycles": 24155654
+      },
+      "candidate": {
+        "gas": 25614822,
+        "net_storage_bytes": 18,
+        "cpu_cycles": 24155654
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "IncreaseLiquidity",
+      "baseline": {
+        "gas": 23100544,
+        "net_storage_bytes": -2084,
+        "cpu_cycles": 22194191
+      },
+      "candidate": {
+        "gas": 23100544,
+        "net_storage_bytes": -2084,
+        "cpu_cycles": 22194191
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Mint (bar:foo:500)",
+      "baseline": {
+        "gas": 29702508,
+        "net_storage_bytes": 22689,
+        "cpu_cycles": 27357651
+      },
+      "candidate": {
+        "gas": 29702508,
+        "net_storage_bytes": 22689,
+        "cpu_cycles": 27357651
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectFee (with unwrap)",
+      "baseline": {
+        "gas": 7921566,
+        "net_storage_bytes": 44,
+        "cpu_cycles": 5945168
+      },
+      "candidate": {
+        "gas": 7924629,
+        "net_storage_bytes": 44,
+        "cpu_cycles": 5945168
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "DecreaseLiquidity (w. Remove)",
+      "baseline": {
+        "gas": 22322728,
+        "net_storage_bytes": 62,
+        "cpu_cycles": 19402448
+      },
+      "candidate": {
+        "gas": 22325791,
+        "net_storage_bytes": 62,
+        "cpu_cycles": 19402448
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Mint (reposition)",
+      "baseline": {
+        "gas": 30529035,
+        "net_storage_bytes": 8619,
+        "cpu_cycles": 29373460
+      },
+      "candidate": {
+        "gas": 30529035,
+        "net_storage_bytes": 8619,
+        "cpu_cycles": 29373460
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "SetPoolTier (tier 1)",
+      "baseline": {
+        "gas": 4031260,
+        "net_storage_bytes": 47025,
+        "cpu_cycles": 1842521
+      },
+      "candidate": {
+        "gas": 4034323,
+        "net_storage_bytes": 47025,
+        "cpu_cycles": 1842521
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "StakeToken",
+      "baseline": {
+        "gas": 10617929,
+        "net_storage_bytes": 23393,
+        "cpu_cycles": 9715027
+      },
+      "candidate": {
+        "gas": 10617929,
+        "net_storage_bytes": 23393,
+        "cpu_cycles": 9715027
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Set (0)",
+      "baseline": {
+        "gas": 73225,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 50305
+      },
+      "candidate": {
+        "gas": 73225,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 50305
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Get (0)",
+      "baseline": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "candidate": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Set (1)",
+      "baseline": {
+        "gas": 57310,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53249
+      },
+      "candidate": {
+        "gas": 57310,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53249
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Get (1)",
+      "baseline": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "candidate": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Set (255)",
+      "baseline": {
+        "gas": 57310,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53249
+      },
+      "candidate": {
+        "gas": 57310,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53249
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Get (255)",
+      "baseline": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "candidate": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Set (256)",
+      "baseline": {
+        "gas": 57310,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53249
+      },
+      "candidate": {
+        "gas": 57310,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53249
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Get (256)",
+      "baseline": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "candidate": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Set (65535)",
+      "baseline": {
+        "gas": 57310,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53249
+      },
+      "candidate": {
+        "gas": 57310,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53249
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Get (65535)",
+      "baseline": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "candidate": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Set (4294967295)",
+      "baseline": {
+        "gas": 57310,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53249
+      },
+      "candidate": {
+        "gas": 57310,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53249
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Get (4294967295)",
+      "baseline": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "candidate": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Set (9223372036854775807)",
+      "baseline": {
+        "gas": 57310,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53249
+      },
+      "candidate": {
+        "gas": 57310,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53249
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "UintTree Get (9223372036854775807)",
+      "baseline": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "candidate": {
+        "gas": 56128,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 53965
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactInSingleSwapRoute(grc20) - fee:10000",
+      "baseline": {
+        "gas": 26914113,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 23414359
+      },
+      "candidate": {
+        "gas": 26917176,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 23414359
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactInSingleSwapRoute(grc20) - fee:100",
+      "baseline": {
+        "gas": 31504833,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 27909735
+      },
+      "candidate": {
+        "gas": 31507896,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 27909735
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactInSingleSwapRoute(grc20) - fee:3000",
+      "baseline": {
+        "gas": 26978450,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 23459876
+      },
+      "candidate": {
+        "gas": 26981513,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 23459876
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactInSingleSwapRoute(grc20) - fee:500",
+      "baseline": {
+        "gas": 26840687,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 23341173
+      },
+      "candidate": {
+        "gas": 26843750,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 23341173
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactInSwapRoute(grc20) - fee:10000",
+      "baseline": {
+        "gas": 26152583,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 22660944
+      },
+      "candidate": {
+        "gas": 26155646,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 22660944
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactInSwapRoute(grc20) - fee:100",
+      "baseline": {
+        "gas": 30760607,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 27173624
+      },
+      "candidate": {
+        "gas": 30763670,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 27173624
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactInSwapRoute(grc20) - fee:3000",
+      "baseline": {
+        "gas": 26225572,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 22715113
+      },
+      "candidate": {
+        "gas": 26228635,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 22715113
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactInSwapRoute(grc20) - fee:500",
+      "baseline": {
+        "gas": 26096461,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 22605062
+      },
+      "candidate": {
+        "gas": 26099524,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 22605062
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactOutSingleSwapRoute(grc20) - fee:10000",
+      "baseline": {
+        "gas": 28747114,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 25221541
+      },
+      "candidate": {
+        "gas": 28750177,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 25221541
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactOutSingleSwapRoute(grc20) - fee:100",
+      "baseline": {
+        "gas": 33188610,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 29570306
+      },
+      "candidate": {
+        "gas": 33191673,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 29570306
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactOutSingleSwapRoute(grc20) - fee:3000",
+      "baseline": {
+        "gas": 28687467,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 25142842
+      },
+      "candidate": {
+        "gas": 28690530,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 25142842
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactOutSingleSwapRoute(grc20) - fee:500",
+      "baseline": {
+        "gas": 28583252,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 25057687
+      },
+      "candidate": {
+        "gas": 28586315,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 25057687
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactOutSwapRoute(grc20) - fee:10000",
+      "baseline": {
+        "gas": 28008619,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 24491166
+      },
+      "candidate": {
+        "gas": 28011682,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 24491166
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactOutSwapRoute(grc20) - fee:100",
+      "baseline": {
+        "gas": 32467419,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 28857235
+      },
+      "candidate": {
+        "gas": 32470482,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 28857235
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactOutSwapRoute(grc20) - fee:3000",
+      "baseline": {
+        "gas": 27957624,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 24421119
+      },
+      "candidate": {
+        "gas": 27960687,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 24421119
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "ExactOutSwapRoute(grc20) - fee:500",
+      "baseline": {
+        "gas": 27862061,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 24344616
+      },
+      "candidate": {
+        "gas": 27865124,
+        "net_storage_bytes": 9054,
+        "cpu_cycles": 24344616
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "BuildSingleHopRoutePath",
+      "baseline": {
+        "gas": 202459,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 47814
+      },
+      "candidate": {
+        "gas": 202459,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 47814
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "MultiHop ExactIn (2 hops)",
+      "baseline": {
+        "gas": 52553428,
+        "net_storage_bytes": 9061,
+        "cpu_cycles": 48206355
+      },
+      "candidate": {
+        "gas": 52556491,
+        "net_storage_bytes": 9061,
+        "cpu_cycles": 48206355
+      },
+      "delta": {
+        "gas": 3063,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": -3,
+      "net_gain_ugnot": -3,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "MultiHop ExactOut (2 hops)",
+      "baseline": {
+        "gas": 72989313,
+        "net_storage_bytes": 76,
+        "cpu_cycles": 70657048
+      },
+      "candidate": {
+        "gas": 72989313,
+        "net_storage_bytes": 76,
+        "cpu_cycles": 70657048
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "MultiHop ExactIn (3 hops)",
+      "baseline": {
+        "gas": 72136372,
+        "net_storage_bytes": 33,
+        "cpu_cycles": 69611792
+      },
+      "candidate": {
+        "gas": 72136372,
+        "net_storage_bytes": 33,
+        "cpu_cycles": 69611792
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "MultiHop ExactOut (3 hops)",
+      "baseline": {
+        "gas": 110644705,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 107323126
+      },
+      "candidate": {
+        "gas": 110644705,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 107323126
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "MultiRoute ExactIn (50:50 split)",
+      "baseline": {
+        "gas": 71455923,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 68870877
+      },
+      "candidate": {
+        "gas": 71455923,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 68870877
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "MultiRoute ExactOut (50:50 split)",
+      "baseline": {
+        "gas": 96813403,
+        "net_storage_bytes": 4,
+        "cpu_cycles": 93714190
+      },
+      "candidate": {
+        "gas": 96813403,
+        "net_storage_bytes": 4,
+        "cpu_cycles": 93714190
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "CollectReward reuse (2 active of 4; before 5-day warmup boundary)",
+      "baseline": {
+        "gas": 20895416,
+        "net_storage_bytes": 16023,
+        "cpu_cycles": 19155498
+      },
+      "candidate": {
+        "gas": 18227562,
+        "net_storage_bytes": 16023,
+        "cpu_cycles": 16578900
+      },
+      "delta": {
+        "gas": -2667854,
+        "net_storage_bytes": 0,
+        "cpu_cycles": -2576598
+      },
+      "gas_fee_gain_ugnot": 2668,
+      "net_gain_ugnot": 2668,
+      "storage_cashflow_gain_ugnot": 0,
+      "baseline_per_realm_net_storage_bytes": {
+        "gno.land/r/demo/defi/grc20reg": 0,
+        "gno.land/r/gnoswap/access": 0,
+        "gno.land/r/gnoswap/common": 0,
+        "gno.land/r/gnoswap/emission": 0,
+        "gno.land/r/gnoswap/gnft": 0,
+        "gno.land/r/gnoswap/gns": 0,
+        "gno.land/r/gnoswap/halt": 0,
+        "gno.land/r/gnoswap/pool": 0,
+        "gno.land/r/gnoswap/pool/v1": 0,
+        "gno.land/r/gnoswap/position": 0,
+        "gno.land/r/gnoswap/position/v1": 0,
+        "gno.land/r/gnoswap/protocol_fee": 8002,
+        "gno.land/r/gnoswap/protocol_fee/v1": 0,
+        "gno.land/r/gnoswap/referral": 0,
+        "gno.land/r/gnoswap/scenario/metric": 0,
+        "gno.land/r/gnoswap/scenario/metric/main": 2934,
+        "gno.land/r/gnoswap/staker": 1009,
+        "gno.land/r/gnoswap/staker/v1": 0,
+        "gno.land/r/onbloc/bar": 0,
+        "gno.land/r/onbloc/baz": 2039,
+        "gno.land/r/onbloc/foo": 0,
+        "gno.land/r/onbloc/obl": 0,
+        "gno.land/r/onbloc/qux": 2039
+      },
+      "candidate_per_realm_net_storage_bytes": {
+        "gno.land/r/demo/defi/grc20reg": 0,
+        "gno.land/r/gnoswap/access": 0,
+        "gno.land/r/gnoswap/common": 0,
+        "gno.land/r/gnoswap/emission": 0,
+        "gno.land/r/gnoswap/gnft": 0,
+        "gno.land/r/gnoswap/gns": 0,
+        "gno.land/r/gnoswap/halt": 0,
+        "gno.land/r/gnoswap/pool": 0,
+        "gno.land/r/gnoswap/pool/v1": 0,
+        "gno.land/r/gnoswap/position": 0,
+        "gno.land/r/gnoswap/position/v1": 0,
+        "gno.land/r/gnoswap/protocol_fee": 8002,
+        "gno.land/r/gnoswap/protocol_fee/v1": 0,
+        "gno.land/r/gnoswap/referral": 0,
+        "gno.land/r/gnoswap/scenario/metric": 0,
+        "gno.land/r/gnoswap/scenario/metric/main": 2934,
+        "gno.land/r/gnoswap/staker": 1009,
+        "gno.land/r/gnoswap/staker/v1": 0,
+        "gno.land/r/onbloc/bar": 0,
+        "gno.land/r/onbloc/baz": 2039,
+        "gno.land/r/onbloc/foo": 0,
+        "gno.land/r/onbloc/obl": 0,
+        "gno.land/r/onbloc/qux": 2039
+      }
+    },
+    {
+      "name": "CollectReward reuse (4 active; crosses 5-day warmup boundary)",
+      "baseline": {
+        "gas": 48234721,
+        "net_storage_bytes": 8534,
+        "cpu_cycles": 45673091
+      },
+      "candidate": {
+        "gas": 36430366,
+        "net_storage_bytes": 8534,
+        "cpu_cycles": 34254236
+      },
+      "delta": {
+        "gas": -11804355,
+        "net_storage_bytes": 0,
+        "cpu_cycles": -11418855
+      },
+      "gas_fee_gain_ugnot": 11804,
+      "net_gain_ugnot": 11804,
+      "storage_cashflow_gain_ugnot": 0,
+      "baseline_per_realm_net_storage_bytes": {
+        "gno.land/r/demo/defi/grc20reg": 0,
+        "gno.land/r/gnoswap/access": 0,
+        "gno.land/r/gnoswap/common": 0,
+        "gno.land/r/gnoswap/emission": 0,
+        "gno.land/r/gnoswap/gnft": 0,
+        "gno.land/r/gnoswap/gns": 0,
+        "gno.land/r/gnoswap/halt": 0,
+        "gno.land/r/gnoswap/pool": 0,
+        "gno.land/r/gnoswap/pool/v1": 0,
+        "gno.land/r/gnoswap/position": 0,
+        "gno.land/r/gnoswap/position/v1": 0,
+        "gno.land/r/gnoswap/protocol_fee": 1950,
+        "gno.land/r/gnoswap/protocol_fee/v1": 0,
+        "gno.land/r/gnoswap/referral": 0,
+        "gno.land/r/gnoswap/scenario/metric": 0,
+        "gno.land/r/gnoswap/scenario/metric/main": 1554,
+        "gno.land/r/gnoswap/staker": 952,
+        "gno.land/r/gnoswap/staker/v1": 0,
+        "gno.land/r/onbloc/bar": 2039,
+        "gno.land/r/onbloc/baz": 0,
+        "gno.land/r/onbloc/foo": 0,
+        "gno.land/r/onbloc/obl": 2039,
+        "gno.land/r/onbloc/qux": 0
+      },
+      "candidate_per_realm_net_storage_bytes": {
+        "gno.land/r/demo/defi/grc20reg": 0,
+        "gno.land/r/gnoswap/access": 0,
+        "gno.land/r/gnoswap/common": 0,
+        "gno.land/r/gnoswap/emission": 0,
+        "gno.land/r/gnoswap/gnft": 0,
+        "gno.land/r/gnoswap/gns": 0,
+        "gno.land/r/gnoswap/halt": 0,
+        "gno.land/r/gnoswap/pool": 0,
+        "gno.land/r/gnoswap/pool/v1": 0,
+        "gno.land/r/gnoswap/position": 0,
+        "gno.land/r/gnoswap/position/v1": 0,
+        "gno.land/r/gnoswap/protocol_fee": 1950,
+        "gno.land/r/gnoswap/protocol_fee/v1": 0,
+        "gno.land/r/gnoswap/referral": 0,
+        "gno.land/r/gnoswap/scenario/metric": 0,
+        "gno.land/r/gnoswap/scenario/metric/main": 1554,
+        "gno.land/r/gnoswap/staker": 952,
+        "gno.land/r/gnoswap/staker/v1": 0,
+        "gno.land/r/onbloc/bar": 2039,
+        "gno.land/r/onbloc/baz": 0,
+        "gno.land/r/onbloc/foo": 0,
+        "gno.land/r/onbloc/obl": 2039,
+        "gno.land/r/onbloc/qux": 0
+      }
+    },
+    {
+      "name": "CollectReward reuse repeated (4 active; post-boundary)",
+      "baseline": {
+        "gas": 36998678,
+        "net_storage_bytes": 72,
+        "cpu_cycles": 34822825
+      },
+      "candidate": {
+        "gas": 27781418,
+        "net_storage_bytes": 72,
+        "cpu_cycles": 25909217
+      },
+      "delta": {
+        "gas": -9217260,
+        "net_storage_bytes": 0,
+        "cpu_cycles": -8913608
+      },
+      "gas_fee_gain_ugnot": 9217,
+      "net_gain_ugnot": 9217,
+      "storage_cashflow_gain_ugnot": 0,
+      "baseline_per_realm_net_storage_bytes": {
+        "gno.land/r/demo/defi/grc20reg": 0,
+        "gno.land/r/gnoswap/access": 0,
+        "gno.land/r/gnoswap/common": 0,
+        "gno.land/r/gnoswap/emission": 0,
+        "gno.land/r/gnoswap/gnft": 0,
+        "gno.land/r/gnoswap/gns": 0,
+        "gno.land/r/gnoswap/halt": 0,
+        "gno.land/r/gnoswap/pool": 0,
+        "gno.land/r/gnoswap/pool/v1": 0,
+        "gno.land/r/gnoswap/position": 0,
+        "gno.land/r/gnoswap/position/v1": 0,
+        "gno.land/r/gnoswap/protocol_fee": 20,
+        "gno.land/r/gnoswap/protocol_fee/v1": 0,
+        "gno.land/r/gnoswap/referral": 0,
+        "gno.land/r/gnoswap/scenario/metric": 0,
+        "gno.land/r/gnoswap/scenario/metric/main": 0,
+        "gno.land/r/gnoswap/staker": 0,
+        "gno.land/r/gnoswap/staker/v1": 0,
+        "gno.land/r/onbloc/bar": 40,
+        "gno.land/r/onbloc/baz": 6,
+        "gno.land/r/onbloc/foo": 0,
+        "gno.land/r/onbloc/obl": 0,
+        "gno.land/r/onbloc/qux": 6
+      },
+      "candidate_per_realm_net_storage_bytes": {
+        "gno.land/r/demo/defi/grc20reg": 0,
+        "gno.land/r/gnoswap/access": 0,
+        "gno.land/r/gnoswap/common": 0,
+        "gno.land/r/gnoswap/emission": 0,
+        "gno.land/r/gnoswap/gnft": 0,
+        "gno.land/r/gnoswap/gns": 0,
+        "gno.land/r/gnoswap/halt": 0,
+        "gno.land/r/gnoswap/pool": 0,
+        "gno.land/r/gnoswap/pool/v1": 0,
+        "gno.land/r/gnoswap/position": 0,
+        "gno.land/r/gnoswap/position/v1": 0,
+        "gno.land/r/gnoswap/protocol_fee": 20,
+        "gno.land/r/gnoswap/protocol_fee/v1": 0,
+        "gno.land/r/gnoswap/referral": 0,
+        "gno.land/r/gnoswap/scenario/metric": 0,
+        "gno.land/r/gnoswap/scenario/metric/main": 0,
+        "gno.land/r/gnoswap/staker": 0,
+        "gno.land/r/gnoswap/staker/v1": 0,
+        "gno.land/r/onbloc/bar": 40,
+        "gno.land/r/onbloc/baz": 6,
+        "gno.land/r/onbloc/foo": 0,
+        "gno.land/r/onbloc/obl": 0,
+        "gno.land/r/onbloc/qux": 6
+      }
+    },
+    {
+      "name": "Swap (halving, 10 staked tick-crosses)",
+      "baseline": {
+        "gas": 106371747,
+        "net_storage_bytes": 3729,
+        "cpu_cycles": 101861239
+      },
+      "candidate": {
+        "gas": 106371747,
+        "net_storage_bytes": 3729,
+        "cpu_cycles": 101861239
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Swap (halving, 1 staked tick-cross)",
+      "baseline": {
+        "gas": 32166135,
+        "net_storage_bytes": 2813,
+        "cpu_cycles": 30474934
+      },
+      "candidate": {
+        "gas": 32166135,
+        "net_storage_bytes": 2813,
+        "cpu_cycles": 30474934
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Swap (halving, 50 staked tick-crosses)",
+      "baseline": {
+        "gas": 445312170,
+        "net_storage_bytes": 7260,
+        "cpu_cycles": 429498667
+      },
+      "candidate": {
+        "gas": 445312170,
+        "net_storage_bytes": 7260,
+        "cpu_cycles": 429498667
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Swap (no halving, 10 staked tick-crosses)",
+      "baseline": {
+        "gas": 94196867,
+        "net_storage_bytes": -7110,
+        "cpu_cycles": 90083109
+      },
+      "candidate": {
+        "gas": 94196867,
+        "net_storage_bytes": -7110,
+        "cpu_cycles": 90083109
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Swap (no halving, 1 staked tick-cross)",
+      "baseline": {
+        "gas": 25970205,
+        "net_storage_bytes": -7684,
+        "cpu_cycles": 24555732
+      },
+      "candidate": {
+        "gas": 25970205,
+        "net_storage_bytes": -7684,
+        "cpu_cycles": 24555732
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "Swap (no halving, 50 staked tick-crosses)",
+      "baseline": {
+        "gas": 406562968,
+        "net_storage_bytes": -5108,
+        "cpu_cycles": 391680857
+      },
+      "candidate": {
+        "gas": 406562968,
+        "net_storage_bytes": -5108,
+        "cpu_cycles": 391680857
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "RegisterInitializer (v1)",
+      "baseline": {
+        "gas": 71548,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 49682
+      },
+      "candidate": {
+        "gas": 71548,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 49682
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    },
+    {
+      "name": "RegisterInitializer (v2)",
+      "baseline": {
+        "gas": 55268,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 52396
+      },
+      "candidate": {
+        "gas": 55268,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 52396
+      },
+      "delta": {
+        "gas": 0,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 0
+      },
+      "gas_fee_gain_ugnot": 0,
+      "net_gain_ugnot": 0,
+      "storage_cashflow_gain_ugnot": 0
+    }
+  ],
+  "gas_regression_attribution": {
+    "representative_workload": "ExactInSingleSwapRoute(grc20) - fee:500",
+    "trace_build_command": "go build -tags gastrace -o build/gno-trace ./cmd/gno",
+    "trace_run_command": "GAS_TRACE=1 GNOROOT=<isolated-gno> <isolated-gno>/gnovm/build/gno-trace test . -v -run router_exact_in_single_swap_route_grc20_fee500 -update-golden-tests",
+    "baseline_changed_records": [
+      {
+        "count": 1,
+        "op": "ENCODE_TYPE",
+        "gas": 22782,
+        "bytes": 7594,
+        "key": "tid:gno.land/r/gnoswap/staker/v1.RewardState"
+      },
+      {
+        "count": 1,
+        "op": "ENCODE_MEMPKG",
+        "gas": 632238,
+        "bytes": 210746,
+        "key": "pkg:gno.land/r/gnoswap/staker/v1"
+      },
+      {
+        "count": 1,
+        "op": "IAVL_SET_MEMPKG",
+        "gas": 0,
+        "bytes": 210746,
+        "key": "pkg:gno.land/r/gnoswap/staker/v1"
+      },
+      {
+        "count": 1,
+        "op": "IAVL_GET_MEMPKG",
+        "gas": 0,
+        "bytes": 210746,
+        "key": "pkg:gno.land/r/gnoswap/staker/v1"
+      },
+      {
+        "count": 1,
+        "op": "DECODE_MEMPKG",
+        "gas": 632238,
+        "bytes": 210746,
+        "key": "pkg:gno.land/r/gnoswap/staker/v1"
+      }
+    ],
+    "candidate_changed_records": [
+      {
+        "count": 1,
+        "op": "ENCODE_TYPE",
+        "gas": 25845,
+        "bytes": 8615,
+        "key": "tid:gno.land/r/gnoswap/staker/v1.RewardState"
+      },
+      {
+        "count": 1,
+        "op": "ENCODE_MEMPKG",
+        "gas": 632331,
+        "bytes": 210777,
+        "key": "pkg:gno.land/r/gnoswap/staker/v1"
+      },
+      {
+        "count": 1,
+        "op": "IAVL_SET_MEMPKG",
+        "gas": 0,
+        "bytes": 210777,
+        "key": "pkg:gno.land/r/gnoswap/staker/v1"
+      },
+      {
+        "count": 1,
+        "op": "IAVL_GET_MEMPKG",
+        "gas": 0,
+        "bytes": 210777,
+        "key": "pkg:gno.land/r/gnoswap/staker/v1"
+      },
+      {
+        "count": 1,
+        "op": "DECODE_MEMPKG",
+        "gas": 632331,
+        "bytes": 210777,
+        "key": "pkg:gno.land/r/gnoswap/staker/v1"
+      }
+    ],
+    "conclusion": "Representative +3063 metered gas matches ENCODE_TYPE RewardState increase of 1021 bytes at 3 gas/byte. All 21 report regressions are +3063 gas with unchanged CPU and storage; attribution of the other 20 is inferred from the identical signature. No swap algorithm slowdown measured."
+  },
+  "supplemental_verification": {
+    "baseline_no_error_directive": true,
+    "candidate_no_error_directive": true,
+    "strict_replay_exit_codes": {
+      "baseline": 0,
+      "candidate": 0
+    },
+    "procedure": "Copy target fixture and metric helper into isolated pinned Gno after setup.py --exclude-tests. Supplement only the copied collectRewardMetric with before/after GetRealmStorageDiffs and sorted per-realm output. Generate golden, reject Error/TypeCheckError directives, then gno test . -v -run . WITHOUT -update-golden-tests. Repeat for both source revisions.",
+    "supplemental_gas_not_used": "Pre-window storage snapshot warms a read and lowers first-window gas by 3144 equally; all fee estimates use the unchanged full standard reports, not smoke gas.",
+    "per_realm_source": "Supplemental snapshots; sums checked against all three standard report storage rows."
+  },
+  "limitations": [
+    "Standard runner uses -update-golden-tests, which can accept runtime panics as golden output. Dedicated new fixture was independently checked without error directives and strictly replayed.",
+    "Existing legacy staker collection fixtures emitted no normalized collection rows; they are not counted as coverage of successful collections. New three-window fixture provides that coverage.",
+    "CPU cycles are not wall-clock latency.",
+    "Only the three sequential measured collections form a cumulative workload, not a complete unstake/withdraw lifecycle.",
+    "No merge, deployment, companion contract PR, or workspace submodule pin update."
+  ],
+  "sequential_three_collection_gain_ugnot": 23689
+}
