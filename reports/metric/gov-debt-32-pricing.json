@@ -1,0 +1,157 @@
+{
+  "observed_at": "2026-09-09T06:46:25.603333+00:00",
+  "rpc": "https://rpc.pearl.testnets.gno.land",
+  "status": {
+    "jsonrpc": "2.0",
+    "id": "",
+    "result": {
+      "node_info": {
+        "version_set": [
+          {
+            "Name": "abci",
+            "Version": "v1.0.0-rc.0",
+            "Optional": false
+          },
+          {
+            "Name": "app",
+            "Version": "",
+            "Optional": false
+          },
+          {
+            "Name": "bft",
+            "Version": "v1.0.0-rc.0",
+            "Optional": false
+          },
+          {
+            "Name": "blockchain",
+            "Version": "v1.0.0-rc.0",
+            "Optional": false
+          },
+          {
+            "Name": "p2p",
+            "Version": "v1.0.0-rc.0",
+            "Optional": false
+          }
+        ],
+        "net_address": "g1450mqmlh6z37sym54u8ag65hh9fg56ll4w94mf@0.0.0.0:26656",
+        "network": "pearl-1",
+        "software": "",
+        "version": "v1.0.0-rc.0",
+        "channels": "QCAhIiMwUA==",
+        "moniker": "gno-core-rpc-public-i-0560944c3d4297c16",
+        "other": {
+          "tx_index": "off",
+          "rpc_address": "tcp://0.0.0.0:26657"
+        }
+      },
+      "sync_info": {
+        "latest_block_hash": "nswX7aHb+xXjMxnVfWZZGdMmp9kh/nZIwuDetS/pZk8=",
+        "latest_app_hash": "QZALx6udS/cD95fQNojae3Zd1vpHpihgraBBBRuuJ9Y=",
+        "latest_block_height": "308242",
+        "latest_block_time": "2026-09-09T06:46:22.979493184Z",
+        "catching_up": false
+      },
+      "validator_info": {
+        "address": "g16zx0azzj5jlgjyqtunc2u2637enl8dluh5zdyd",
+        "pub_key": {
+          "@type": "/tm.PubKeyEd25519",
+          "value": "HiiesC5Aj1qks8Dmm8i9kFVmAOzjkAKvlps0pkOyVC4="
+        },
+        "voting_power": "0"
+      },
+      "build_version": "heads/chain/pearl.3320+c4c72fdd2"
+    }
+  },
+  "auth/gasprice": {
+    "jsonrpc": "2.0",
+    "id": "",
+    "result": {
+      "response": {
+        "ResponseBase": {
+          "Error": null,
+          "Data": "ewogICJnYXMiOiAiMTAwMCIsCiAgInByaWNlIjogIjF1Z25vdCIKfQ==",
+          "Events": null,
+          "Log": "",
+          "Info": ""
+        },
+        "Key": null,
+        "Value": null,
+        "Proof": null,
+        "Height": "0"
+      }
+    },
+    "decoded": "{\n  \"gas\": \"1000\",\n  \"price\": \"1ugnot\"\n}"
+  },
+  "params/vm:p:storage_price": {
+    "jsonrpc": "2.0",
+    "id": "",
+    "result": {
+      "response": {
+        "ResponseBase": {
+          "Error": null,
+          "Data": "IjEwMHVnbm90Ig==",
+          "Events": null,
+          "Log": "",
+          "Info": ""
+        },
+        "Key": null,
+        "Value": null,
+        "Proof": null,
+        "Height": "0"
+      }
+    },
+    "decoded": "\"100ugnot\""
+  },
+  "params/bank:p:restricted_denoms": {
+    "jsonrpc": "2.0",
+    "id": "",
+    "result": {
+      "response": {
+        "ResponseBase": {
+          "Error": null,
+          "Data": "W10=",
+          "Events": null,
+          "Log": "",
+          "Info": ""
+        },
+        "Key": null,
+        "Value": null,
+        "Proof": null,
+        "Height": "0"
+      }
+    },
+    "decoded": "[]"
+  },
+  "storage": {
+    "jsonrpc": "2.0",
+    "id": "",
+    "result": {
+      "response": {
+        "ResponseBase": {
+          "Error": null,
+          "Data": "c3RvcmFnZTogMTYzODA3LCBkZXBvc2l0OiAxNjM4MDcwMA==",
+          "Events": null,
+          "Log": "",
+          "Info": ""
+        },
+        "Key": null,
+        "Value": null,
+        "Proof": null,
+        "Height": "0"
+      }
+    },
+    "realm": "gno.land/r/gnoswap/gov/staker",
+    "decoded": "storage: 163807, deposit: 16380700"
+  },
+  "metric_runtime_sha": "bac78a97b20e12ba471bdd73a41af31bd94bdc12",
+  "baseline_sha": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "tracker_base_sha": "cd348c2a78ed766c3adb69d7e5c4030fdec9b89b",
+  "cost_model": {
+    "kind": "same-price repricing estimate, not observed wallet payments",
+    "gas_wanted_policy": "ceil(measured execution gas / 1000) ugnot per measured call, no client margin; transaction and SDK overhead omitted",
+    "storage_assumption": "uniform 100 ugnot/byte initial deposit and charge ratio for each fixture realm; maintain per-message ledger",
+    "fixed_fee_alternative": "gas monetary delta is zero if both calls retain the same valid fixed fee"
+  },
+  "candidate_sha": "b6f3940895552bcb8f5a07e6db0de108dd193078",
+  "scope": "fresh contract deployment; existing-data migration and implementation upgrades explicitly out of scope"
+}
