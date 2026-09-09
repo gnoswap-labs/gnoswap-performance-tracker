@@ -1,0 +1,26 @@
+{
+  "proofs": [
+    {
+      "id": "staker-deposit-liquidity",
+      "checked_cells": 1491,
+      "zero_baseline_changes": []
+    },
+    {
+      "id": "staker-tick-gross",
+      "checked_cells": 1491,
+      "zero_baseline_changes": []
+    },
+    {
+      "id": "staker-incentive-rate",
+      "checked_cells": 1491,
+      "zero_baseline_changes": []
+    }
+  ],
+  "checks": [
+    "raw/normalized values and unique sets",
+    "public state parity",
+    "every comparison delta",
+    "nonzero-baseline percentage",
+    "per-realm cashflow identities"
+  ]
+}
