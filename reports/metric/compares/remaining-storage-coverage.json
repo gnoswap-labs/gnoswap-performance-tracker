@@ -12,7 +12,7 @@
       "candidate": "36a7d5bfbc91af9932a3991e91e1e3465646b463",
       "contract_branch": "https://github.com/gnoswap-labs/gnoswap/tree/perf/pool-fee0-binary",
       "tracker_branch": "https://github.com/gnoswap-labs/gnoswap-performance-tracker/tree/metrics/remaining-pool",
-      "tracker_pr": null,
+      "tracker_pr": "https://github.com/gnoswap-labs/gnoswap-performance-tracker/pull/56",
       "dedicated_scope": "All measured pool creation, mints, 2222 no-cross swaps, two exact-out controls, two crossing swaps, fee collection and both position removals. GRC20 approvals/config setup excluded.",
       "scope_name": "pool-complete-measured-lifecycle",
       "storage_delta_gnot": "-0.084900",
@@ -20,7 +20,8 @@
       "net_delta_gnot": "+0.428912",
       "matched_metric_labels": 164,
       "state_parity": true,
-      "recommendation": "Do not apply indiscriminately to high-frequency state; measured high-frequency cost reversal"
+      "recommendation": "Do not apply indiscriminately to high-frequency state; measured high-frequency cost reversal",
+      "representative_cost_judgment": "regressed"
     },
     {
       "group": "pool",
@@ -28,7 +29,7 @@
       "candidate": "d941006731aa5387159b351f584a5ecb37192b83",
       "contract_branch": "https://github.com/gnoswap-labs/gnoswap/tree/perf/pool-fee1-binary",
       "tracker_branch": "https://github.com/gnoswap-labs/gnoswap-performance-tracker/tree/metrics/remaining-pool",
-      "tracker_pr": null,
+      "tracker_pr": "https://github.com/gnoswap-labs/gnoswap-performance-tracker/pull/56",
       "dedicated_scope": "All measured pool creation, mints, 2222 no-cross swaps, two exact-out controls, two crossing swaps, fee collection and both position removals. GRC20 approvals/config setup excluded.",
       "scope_name": "pool-complete-measured-lifecycle",
       "storage_delta_gnot": "-0.084900",
@@ -36,7 +37,8 @@
       "net_delta_gnot": "+0.428912",
       "matched_metric_labels": 164,
       "state_parity": true,
-      "recommendation": "Do not apply indiscriminately to high-frequency state; measured high-frequency cost reversal"
+      "recommendation": "Do not apply indiscriminately to high-frequency state; measured high-frequency cost reversal",
+      "representative_cost_judgment": "regressed"
     },
     {
       "group": "pool",
@@ -44,7 +46,7 @@
       "candidate": "bf8f935de9901b6f82adbfb3afd9b17f3dbd7fab",
       "contract_branch": "https://github.com/gnoswap-labs/gnoswap/tree/perf/pool-liquidity-binary",
       "tracker_branch": "https://github.com/gnoswap-labs/gnoswap-performance-tracker/tree/metrics/remaining-pool",
-      "tracker_pr": null,
+      "tracker_pr": "https://github.com/gnoswap-labs/gnoswap-performance-tracker/pull/56",
       "dedicated_scope": "All measured pool creation, mints, 2222 no-cross swaps, two exact-out controls, two crossing swaps, fee collection and both position removals. GRC20 approvals/config setup excluded.",
       "scope_name": "pool-complete-measured-lifecycle",
       "storage_delta_gnot": "-0.084900",
@@ -52,7 +54,8 @@
       "net_delta_gnot": "+0.344849",
       "matched_metric_labels": 164,
       "state_parity": true,
-      "recommendation": "Do not apply indiscriminately to high-frequency state; measured high-frequency cost reversal"
+      "recommendation": "Do not apply indiscriminately to high-frequency state; measured high-frequency cost reversal",
+      "representative_cost_judgment": "regressed"
     },
     {
       "group": "pool",
@@ -60,7 +63,7 @@
       "candidate": "1b3a12bc6a476932dbc3b16837f45f4927fb27c9",
       "contract_branch": "https://github.com/gnoswap-labs/gnoswap/tree/perf/pool-price-binary",
       "tracker_branch": "https://github.com/gnoswap-labs/gnoswap-performance-tracker/tree/metrics/remaining-pool",
-      "tracker_pr": null,
+      "tracker_pr": "https://github.com/gnoswap-labs/gnoswap-performance-tracker/pull/56",
       "dedicated_scope": "All measured pool creation, mints, 2222 no-cross swaps, two exact-out controls, two crossing swaps, fee collection and both position removals. GRC20 approvals/config setup excluded.",
       "scope_name": "pool-complete-measured-lifecycle",
       "storage_delta_gnot": "-0.082900",
@@ -68,7 +71,8 @@
       "net_delta_gnot": "+0.477222",
       "matched_metric_labels": 164,
       "state_parity": true,
-      "recommendation": "Do not apply indiscriminately to high-frequency state; measured high-frequency cost reversal"
+      "recommendation": "Do not apply indiscriminately to high-frequency state; measured high-frequency cost reversal",
+      "representative_cost_judgment": "regressed"
     },
     {
       "group": "staker",
@@ -84,7 +88,8 @@
       "net_delta_gnot": "+0.008466",
       "matched_metric_labels": 497,
       "state_parity": true,
-      "recommendation": "No full-lifecycle fee saving; lower locked capital may be valued separately"
+      "recommendation": "No full-lifecycle fee saving; lower locked capital may be valued separately",
+      "representative_cost_judgment": "regressed"
     },
     {
       "group": "staker",
@@ -100,7 +105,8 @@
       "net_delta_gnot": "+0.019220",
       "matched_metric_labels": 497,
       "state_parity": true,
-      "recommendation": "No full-lifecycle fee saving; lower locked capital may be valued separately"
+      "recommendation": "No full-lifecycle fee saving; lower locked capital may be valued separately",
+      "representative_cost_judgment": "regressed"
     },
     {
       "group": "staker",
@@ -116,7 +122,8 @@
       "net_delta_gnot": "-0.072867",
       "matched_metric_labels": 497,
       "state_parity": true,
-      "recommendation": "Beneficial in measured lifecycle; not an unlimited future-call guarantee"
+      "recommendation": "Beneficial in measured lifecycle; not an unlimited future-call guarantee",
+      "representative_cost_judgment": "improved"
     },
     {
       "group": "gov",
@@ -124,7 +131,7 @@
       "candidate": "b5947a75e3f71d7cae041f395219372f83cf0984",
       "contract_branch": "https://github.com/gnoswap-labs/gnoswap/tree/perf/gov-fee-accumulator-binary",
       "tracker_branch": "https://github.com/gnoswap-labs/gnoswap-performance-tracker/tree/metrics/remaining-gov",
-      "tracker_pr": null,
+      "tracker_pr": "https://github.com/gnoswap-labs/gnoswap-performance-tracker/pull/57",
       "dedicated_scope": "All measured allocation/token-cardinality/1111 repeated user claims/no-op/undelegate/withdraw/restake calls. Isolated factory allocation microbenchmark is not added to this real workflow.",
       "scope_name": "gov-fee-complete-measured-user-lifecycle",
       "storage_delta_gnot": "-0.336100",
@@ -132,7 +139,8 @@
       "net_delta_gnot": "+1.238100",
       "matched_metric_labels": 2384,
       "state_parity": true,
-      "recommendation": "Do not apply indiscriminately to high-frequency state; measured high-frequency cost reversal"
+      "recommendation": "Do not apply indiscriminately to high-frequency state; measured high-frequency cost reversal",
+      "representative_cost_judgment": "regressed"
     },
     {
       "group": "gov",
@@ -140,7 +148,7 @@
       "candidate": "d8023d7a6e8dd301de27d556edfe3b743c02d866",
       "contract_branch": "https://github.com/gnoswap-labs/gnoswap/tree/perf/gov-emission-accumulator-binary",
       "tracker_branch": "https://github.com/gnoswap-labs/gnoswap-performance-tracker/tree/metrics/remaining-gov",
-      "tracker_pr": null,
+      "tracker_pr": "https://github.com/gnoswap-labs/gnoswap-performance-tracker/pull/57",
       "dedicated_scope": "All measured allocation/token-cardinality/1111 repeated user claims/no-op/undelegate/withdraw/restake calls. Isolated factory allocation microbenchmark is not added to this real workflow.",
       "scope_name": "gov-emission-complete-measured-user-lifecycle",
       "storage_delta_gnot": "-0.000400",
@@ -148,7 +156,8 @@
       "net_delta_gnot": "+0.298798",
       "matched_metric_labels": 2384,
       "state_parity": true,
-      "recommendation": "Do not apply indiscriminately to high-frequency state; measured high-frequency cost reversal"
+      "recommendation": "Do not apply indiscriminately to high-frequency state; measured high-frequency cost reversal",
+      "representative_cost_judgment": "regressed"
     },
     {
       "group": "launch",
@@ -164,7 +173,8 @@
       "net_delta_gnot": "-0.256865",
       "matched_metric_labels": 503,
       "state_parity": true,
-      "recommendation": "Beneficial in measured lifecycle; not an unlimited future-call guarantee"
+      "recommendation": "Beneficial in measured lifecycle; not an unlimited future-call guarantee",
+      "representative_cost_judgment": "improved"
     },
     {
       "group": "launch",
@@ -180,7 +190,8 @@
       "net_delta_gnot": "-0.175403",
       "matched_metric_labels": 503,
       "state_parity": true,
-      "recommendation": "Beneficial in measured lifecycle; not an unlimited future-call guarantee"
+      "recommendation": "Beneficial in measured lifecycle; not an unlimited future-call guarantee",
+      "representative_cost_judgment": "improved"
     },
     {
       "group": "launch",
@@ -196,7 +207,8 @@
       "net_delta_gnot": "-0.185557",
       "matched_metric_labels": 503,
       "state_parity": true,
-      "recommendation": "Beneficial in measured lifecycle; not an unlimited future-call guarantee"
+      "recommendation": "Beneficial in measured lifecycle; not an unlimited future-call guarantee",
+      "representative_cost_judgment": "improved"
     },
     {
       "group": "launch",
@@ -212,7 +224,8 @@
       "net_delta_gnot": "-0.228007",
       "matched_metric_labels": 503,
       "state_parity": true,
-      "recommendation": "Beneficial in measured lifecycle; not an unlimited future-call guarantee"
+      "recommendation": "Beneficial in measured lifecycle; not an unlimited future-call guarantee",
+      "representative_cost_judgment": "improved"
     },
     {
       "group": "launch-deposit",
@@ -228,7 +241,8 @@
       "net_delta_gnot": "+0.043938",
       "matched_metric_labels": 456,
       "state_parity": true,
-      "recommendation": "Published explicit locked-capital versus lifecycle-fee tradeoff"
+      "recommendation": "Published explicit locked-capital versus lifecycle-fee tradeoff",
+      "representative_cost_judgment": "regressed"
     }
   ],
   "limits": [
@@ -237,5 +251,6 @@
     "Gov singleton factory allocation is a separate persisted-object microbenchmark, not a full deployment cost. It is not silently added to public user lifecycle totals.",
     "Launchpad manager counts include a seed deposit; deposit debt lifecycle uses exactly 1/100 deposits.",
     "No combined candidate/aggregate protocol saving, no migration or production deployment."
-  ]
+  ],
+  "publication_policy": "All measured fields, including Pool/Gov regressions, are now published in Draft tracker PRs at the user request. Publication is not a recommendation to deploy."
 }
