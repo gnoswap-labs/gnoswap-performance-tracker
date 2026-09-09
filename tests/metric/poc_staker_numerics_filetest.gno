@@ -20,6 +20,7 @@ import (
 	"gno.land/r/gnoswap/common"
 	"gno.land/r/gnoswap/emission"
 	"gno.land/r/gnoswap/gnft"
+	"gno.land/r/gnoswap/gns"
 	pl "gno.land/r/gnoswap/pool"
 	_ "gno.land/r/gnoswap/pool/v1"
 	"gno.land/r/gnoswap/position"
@@ -87,6 +88,7 @@ func initializeStakerNumericSetup(cur realm) {
 	foo.Approve(cross(cur), poolAddr, maxInt64)
 	bar.Approve(cross(cur), stakerAddr, maxInt64)
 	foo.Approve(cross(cur), stakerAddr, maxInt64)
+	gns.Approve(cross(cur), stakerAddr, maxInt64)
 }
 
 func createStakerNumericPool(cur realm) {
