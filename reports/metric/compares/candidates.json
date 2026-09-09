@@ -1,0 +1,16 @@
+{
+  "variants": [
+    {
+      "id": "launch-deposit-debt",
+      "field": "RewardState.priceDebtX128",
+      "branch": "perf/launch-deposit-debt-binary",
+      "sha": "28040b521cbecfc40013e5bc5e1199587ef598b0",
+      "test_packages": [
+        "gno.land/r/gnoswap/launchpad/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/reward_state.gno"
+      ]
+    }
+  ]
+}
