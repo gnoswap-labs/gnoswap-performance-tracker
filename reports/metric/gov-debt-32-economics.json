@@ -1,0 +1,503 @@
+{
+  "scope": "fresh contract deployment; existing-data migration and implementation upgrades explicitly out of scope",
+  "source_reports": {
+    "baseline": "commits/b12f0f8.md",
+    "candidate": "commits/b6f3940.md",
+    "baseline_realms": "commits/b12f0f8-gov-debt.gno",
+    "candidate_realms": "commits/b6f3940-gov-debt.gno"
+  },
+  "pricing": "gov-debt-32-pricing.json",
+  "assumptions": {
+    "kind": "same-price repricing estimate, not observed wallet payments",
+    "gas_wanted_policy": "ceil(measured execution gas / 1000) ugnot per measured call, no client margin; transaction and SDK overhead omitted",
+    "storage_assumption": "uniform 100 ugnot/byte initial deposit and charge ratio for each fixture realm; maintain per-message ledger",
+    "fixed_fee_alternative": "gas monetary delta is zero if both calls retain the same valid fixed fee"
+  },
+  "ledger_note": "Each per-realm ledger starts at a uniformly funded 100 ugnot/byte state. Absolute initial bytes cancel: after each message D=100*S remains true, so floor(D*released/S)=100*released. Cumulative bytes include only measured windows, excluding funding, approval, setup and read-only assertions. Ledger aggregates calls by the same delegator; no cross-realm netting before applying deposit/refund rules. Capital time value and package deployment cost excluded.",
+  "matching_rows": 154,
+  "resource_counts": {
+    "gas": {
+      "improved": 2,
+      "unchanged": 85,
+      "regressed": 67
+    },
+    "storage": {
+      "improved": 22,
+      "unchanged": 131,
+      "regressed": 1
+    },
+    "cycles": {
+      "improved": 0,
+      "unchanged": 114,
+      "regressed": 40
+    }
+  },
+  "lifecycle_windows": [
+    {
+      "workload": "STAKE users=1 tokens=4",
+      "baseline": {
+        "gas": 3209357,
+        "net_storage_bytes": 36363,
+        "cpu_cycles": 2393623,
+        "estimated_gas_fee_ugnot": 3210,
+        "per_realm": {
+          "gno.land/r/gnoswap/gns": {
+            "net_bytes": -2040,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 204000,
+            "cumulative_measured_net_bytes": -2040
+          },
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": 37452,
+            "deposit_paid_ugnot": 3745200,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 37452
+          },
+          "gno.land/r/gnoswap/gov/xgns": {
+            "net_bytes": 1043,
+            "deposit_paid_ugnot": 104300,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 1043
+          },
+          "gno.land/r/gnoswap/protocol_fee": {
+            "net_bytes": -92,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 9200,
+            "cumulative_measured_net_bytes": -92
+          }
+        },
+        "storage_cashflow_ugnot": 3636300
+      },
+      "candidate": {
+        "gas": 3563209,
+        "net_storage_bytes": 34686,
+        "cpu_cycles": 2672677,
+        "estimated_gas_fee_ugnot": 3564,
+        "per_realm": {
+          "gno.land/r/gnoswap/gns": {
+            "net_bytes": -2040,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 204000,
+            "cumulative_measured_net_bytes": -2040
+          },
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": 35775,
+            "deposit_paid_ugnot": 3577500,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 35775
+          },
+          "gno.land/r/gnoswap/gov/xgns": {
+            "net_bytes": 1043,
+            "deposit_paid_ugnot": 104300,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 1043
+          },
+          "gno.land/r/gnoswap/protocol_fee": {
+            "net_bytes": -92,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 9200,
+            "cumulative_measured_net_bytes": -92
+          }
+        },
+        "storage_cashflow_ugnot": 3468600
+      },
+      "net_gain_ugnot": 167346
+    },
+    {
+      "workload": "CLAIM_SINGLE_FEE users=1 tokens=4",
+      "baseline": {
+        "gas": 2632857,
+        "net_storage_bytes": 2197,
+        "cpu_cycles": 2316888,
+        "estimated_gas_fee_ugnot": 2633,
+        "per_realm": {
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": 183,
+            "deposit_paid_ugnot": 18300,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 37635
+          },
+          "gno.land/r/gnoswap/protocol_fee": {
+            "net_bytes": -49,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 4900,
+            "cumulative_measured_net_bytes": -141
+          },
+          "gno.land/r/onbloc/bar": {
+            "net_bytes": 2063,
+            "deposit_paid_ugnot": 206300,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 2063
+          }
+        },
+        "storage_cashflow_ugnot": 219700
+      },
+      "candidate": {
+        "gas": 2752890,
+        "net_storage_bytes": 2197,
+        "cpu_cycles": 2437067,
+        "estimated_gas_fee_ugnot": 2753,
+        "per_realm": {
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": 183,
+            "deposit_paid_ugnot": 18300,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 35958
+          },
+          "gno.land/r/gnoswap/protocol_fee": {
+            "net_bytes": -49,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 4900,
+            "cumulative_measured_net_bytes": -141
+          },
+          "gno.land/r/onbloc/bar": {
+            "net_bytes": 2063,
+            "deposit_paid_ugnot": 206300,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 2063
+          }
+        },
+        "storage_cashflow_ugnot": 219700
+      },
+      "net_gain_ugnot": -120
+    },
+    {
+      "workload": "CLAIM_EMISSION users=1 tokens=4",
+      "baseline": {
+        "gas": 2561251,
+        "net_storage_bytes": 2079,
+        "cpu_cycles": 2231353,
+        "estimated_gas_fee_ugnot": 2562,
+        "per_realm": {
+          "gno.land/r/gnoswap/gns": {
+            "net_bytes": 2043,
+            "deposit_paid_ugnot": 204300,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 3
+          },
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": 36,
+            "deposit_paid_ugnot": 3600,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 37671
+          }
+        },
+        "storage_cashflow_ugnot": 207900
+      },
+      "candidate": {
+        "gas": 2673332,
+        "net_storage_bytes": 2079,
+        "cpu_cycles": 2345245,
+        "estimated_gas_fee_ugnot": 2674,
+        "per_realm": {
+          "gno.land/r/gnoswap/gns": {
+            "net_bytes": 2043,
+            "deposit_paid_ugnot": 204300,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 3
+          },
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": 36,
+            "deposit_paid_ugnot": 3600,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 35994
+          }
+        },
+        "storage_cashflow_ugnot": 207900
+      },
+      "net_gain_ugnot": -112
+    },
+    {
+      "workload": "CLAIM_ALL_FEES users=1 tokens=4",
+      "baseline": {
+        "gas": 8344196,
+        "net_storage_bytes": 12929,
+        "cpu_cycles": 7279591,
+        "estimated_gas_fee_ugnot": 8345,
+        "per_realm": {
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": 7146,
+            "deposit_paid_ugnot": 714600,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 44817
+          },
+          "gno.land/r/gnoswap/protocol_fee": {
+            "net_bytes": -304,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 30400,
+            "cumulative_measured_net_bytes": -445
+          },
+          "gno.land/r/onbloc/baz": {
+            "net_bytes": 2029,
+            "deposit_paid_ugnot": 202900,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 2029
+          },
+          "gno.land/r/onbloc/foo": {
+            "net_bytes": 2029,
+            "deposit_paid_ugnot": 202900,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 2029
+          },
+          "gno.land/r/onbloc/qux": {
+            "net_bytes": 2029,
+            "deposit_paid_ugnot": 202900,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 2029
+          }
+        },
+        "storage_cashflow_ugnot": 1292900
+      },
+      "candidate": {
+        "gas": 8744022,
+        "net_storage_bytes": 10484,
+        "cpu_cycles": 7685312,
+        "estimated_gas_fee_ugnot": 8745,
+        "per_realm": {
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": 4701,
+            "deposit_paid_ugnot": 470100,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 40695
+          },
+          "gno.land/r/gnoswap/protocol_fee": {
+            "net_bytes": -304,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 30400,
+            "cumulative_measured_net_bytes": -445
+          },
+          "gno.land/r/onbloc/baz": {
+            "net_bytes": 2029,
+            "deposit_paid_ugnot": 202900,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 2029
+          },
+          "gno.land/r/onbloc/foo": {
+            "net_bytes": 2029,
+            "deposit_paid_ugnot": 202900,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 2029
+          },
+          "gno.land/r/onbloc/qux": {
+            "net_bytes": 2029,
+            "deposit_paid_ugnot": 202900,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 2029
+          }
+        },
+        "storage_cashflow_ugnot": 1048400
+      },
+      "net_gain_ugnot": 244100
+    },
+    {
+      "workload": "CLAIM_REPEAT_NOOP users=1 tokens=4",
+      "baseline": {
+        "gas": 2569697,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 2021216,
+        "estimated_gas_fee_ugnot": 2570,
+        "per_realm": {},
+        "storage_cashflow_ugnot": 0
+      },
+      "candidate": {
+        "gas": 3297381,
+        "net_storage_bytes": 0,
+        "cpu_cycles": 2734260,
+        "estimated_gas_fee_ugnot": 3298,
+        "per_realm": {},
+        "storage_cashflow_ugnot": 0
+      },
+      "net_gain_ugnot": -728
+    },
+    {
+      "workload": "UNSTAKE_FULL users=1 tokens=4",
+      "baseline": {
+        "gas": 5406582,
+        "net_storage_bytes": 1597,
+        "cpu_cycles": 4551667,
+        "estimated_gas_fee_ugnot": 5407,
+        "per_realm": {
+          "gno.land/r/gnoswap/gns": {
+            "net_bytes": 6,
+            "deposit_paid_ugnot": 600,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 9
+          },
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": 1591,
+            "deposit_paid_ugnot": 159100,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 46408
+          }
+        },
+        "storage_cashflow_ugnot": 159700
+      },
+      "candidate": {
+        "gas": 6134830,
+        "net_storage_bytes": 1597,
+        "cpu_cycles": 5264711,
+        "estimated_gas_fee_ugnot": 6135,
+        "per_realm": {
+          "gno.land/r/gnoswap/gns": {
+            "net_bytes": 6,
+            "deposit_paid_ugnot": 600,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 9
+          },
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": 1591,
+            "deposit_paid_ugnot": 159100,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 42286
+          }
+        },
+        "storage_cashflow_ugnot": 159700
+      },
+      "net_gain_ugnot": -728
+    },
+    {
+      "workload": "COLLECT_UNSTAKE users=1 tokens=4",
+      "baseline": {
+        "gas": 3132128,
+        "net_storage_bytes": -6665,
+        "cpu_cycles": 2658041,
+        "estimated_gas_fee_ugnot": 3133,
+        "per_realm": {
+          "gno.land/r/gnoswap/gns": {
+            "net_bytes": -6,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 600,
+            "cumulative_measured_net_bytes": 3
+          },
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": -5631,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 563100,
+            "cumulative_measured_net_bytes": 40777
+          },
+          "gno.land/r/gnoswap/gov/xgns": {
+            "net_bytes": -1028,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 102800,
+            "cumulative_measured_net_bytes": 15
+          }
+        },
+        "storage_cashflow_ugnot": -666500
+      },
+      "candidate": {
+        "gas": 3132128,
+        "net_storage_bytes": -6665,
+        "cpu_cycles": 2658041,
+        "estimated_gas_fee_ugnot": 3133,
+        "per_realm": {
+          "gno.land/r/gnoswap/gns": {
+            "net_bytes": -6,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 600,
+            "cumulative_measured_net_bytes": 3
+          },
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": -5631,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 563100,
+            "cumulative_measured_net_bytes": 36655
+          },
+          "gno.land/r/gnoswap/gov/xgns": {
+            "net_bytes": -1028,
+            "deposit_paid_ugnot": 0,
+            "refund_received_ugnot": 102800,
+            "cumulative_measured_net_bytes": 15
+          }
+        },
+        "storage_cashflow_ugnot": -666500
+      },
+      "net_gain_ugnot": 0
+    },
+    {
+      "workload": "RESTAKE users=1 tokens=4",
+      "baseline": {
+        "gas": 3901338,
+        "net_storage_bytes": 6828,
+        "cpu_cycles": 3177415,
+        "estimated_gas_fee_ugnot": 3902,
+        "per_realm": {
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": 5800,
+            "deposit_paid_ugnot": 580000,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 46577
+          },
+          "gno.land/r/gnoswap/gov/xgns": {
+            "net_bytes": 1028,
+            "deposit_paid_ugnot": 102800,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 1043
+          }
+        },
+        "storage_cashflow_ugnot": 682800
+      },
+      "candidate": {
+        "gas": 4553190,
+        "net_storage_bytes": 6828,
+        "cpu_cycles": 3815810,
+        "estimated_gas_fee_ugnot": 4554,
+        "per_realm": {
+          "gno.land/r/gnoswap/gov/staker": {
+            "net_bytes": 5800,
+            "deposit_paid_ugnot": 580000,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 42455
+          },
+          "gno.land/r/gnoswap/gov/xgns": {
+            "net_bytes": 1028,
+            "deposit_paid_ugnot": 102800,
+            "refund_received_ugnot": 0,
+            "cumulative_measured_net_bytes": 1043
+          }
+        },
+        "storage_cashflow_ugnot": 682800
+      },
+      "net_gain_ugnot": -652
+    }
+  ],
+  "through_withdrawal": {
+    "net_gain_ugnot": 409758,
+    "storage_cashflow_gain_ugnot": 412200,
+    "extra_gas_fee_ugnot": 2442
+  },
+  "including_restake": {
+    "net_gain_ugnot": 409106,
+    "storage_cashflow_gain_ugnot": 412200,
+    "extra_gas_fee_ugnot": 3094
+  },
+  "sensitivity": {
+    "fixed_identical_valid_fees_net_gain_ugnot": 412200,
+    "additional_noop_claim_cost_ugnot": 728,
+    "additional_noop_claims_to_exhaust_through_withdrawal_gain": 563,
+    "break_even_storage_price_ugnot_per_byte_through_withdrawal": 0.5924308588064047,
+    "caveat": "Additional claim sensitivity holds measured call shape and repricing fixed; real fee quotes, GasWanted margins, and workloads may differ."
+  },
+  "comparison_percentage_note": "Existing tracker uses delta / abs(baseline). For negative storage baselines use signed bytes; this is not the signed delta/baseline convention. Zero/zero rows print 0% as a display convention; mathematical relative change is undefined.",
+  "negative_storage_percentage_conventions": [
+    {
+      "name": "gov/staker CollectReward (2 protocol-fee tokens)",
+      "report_percent": -43.82,
+      "delta_over_signed_baseline_percent": 43.81720430107527
+    },
+    {
+      "name": "gov/staker CollectReward (3 protocol-fee tokens)",
+      "report_percent": -20.42,
+      "delta_over_signed_baseline_percent": 20.415831663326653
+    },
+    {
+      "name": "gov/staker CollectReward (4 protocol-fee tokens)",
+      "report_percent": -13.31,
+      "delta_over_signed_baseline_percent": 13.31264292714799
+    },
+    {
+      "name": "Redelegate (50 of 100 delegations, optimized)",
+      "report_percent": 0.0,
+      "delta_over_signed_baseline_percent": -0.004207833302475889
+    }
+  ]
+}
