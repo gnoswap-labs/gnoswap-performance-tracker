@@ -1,0 +1,60 @@
+{
+  "variants": [
+    {
+      "id": "launch-tier-rate",
+      "field": "ProjectTier.distributeAmountPerSecondX128",
+      "branch": "perf/launch-tier-rate-binary",
+      "sha": "e6ab5730e45b93956d8dfe50f408631989100eed",
+      "test_packages": [
+        "gno.land/r/gnoswap/launchpad",
+        "gno.land/r/gnoswap/launchpad/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/project_tier.gno",
+        "contract/r/gnoswap/launchpad/binary_encoding_test.gno"
+      ]
+    },
+    {
+      "id": "launch-manager-rate",
+      "field": "RewardManager.distributeAmountPerSecondX128",
+      "branch": "perf/launch-manager-rate-binary",
+      "sha": "31763a0d9fc2ff2d929f1907f8f665f367773a58",
+      "test_packages": [
+        "gno.land/r/gnoswap/launchpad",
+        "gno.land/r/gnoswap/launchpad/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/reward_manager.gno",
+        "contract/r/gnoswap/launchpad/binary_encoding_test.gno"
+      ]
+    },
+    {
+      "id": "launch-manager-accumulator",
+      "field": "RewardManager.accumulatedRewardPerDepositX128",
+      "branch": "perf/launch-manager-accumulator-binary",
+      "sha": "a083223c203b692f823e78a6e2ccb357c3f87b6c",
+      "test_packages": [
+        "gno.land/r/gnoswap/launchpad",
+        "gno.land/r/gnoswap/launchpad/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/reward_manager.gno",
+        "contract/r/gnoswap/launchpad/binary_encoding_test.gno"
+      ]
+    },
+    {
+      "id": "launch-active-debt",
+      "field": "RewardManager.activePriceDebtX128",
+      "branch": "perf/launch-active-debt-binary",
+      "sha": "b74b9fcefc73c81d0d2ee2fbd483dbec4b056bd7",
+      "test_packages": [
+        "gno.land/r/gnoswap/launchpad",
+        "gno.land/r/gnoswap/launchpad/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/reward_manager.gno",
+        "contract/r/gnoswap/launchpad/binary_encoding_test.gno"
+      ]
+    }
+  ]
+}
