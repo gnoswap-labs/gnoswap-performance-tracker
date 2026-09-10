@@ -126,7 +126,12 @@ func stakePositionMetric(cur realm) {
 // - Gas Used: 4030816
 // - Storage Diff: 47025
 // - CPU Cycles: 1842521
+// - Realm gno.land/r/gnoswap/staker: 47025
 // StakeToken
 // - Gas Used: 10632865
 // - Storage Diff: 21592
 // - CPU Cycles: 9731246
+// - Realm gno.land/r/gnoswap/gnft: -1061
+// - Realm gno.land/r/gnoswap/position: 64
+// - Realm gno.land/r/gnoswap/staker: 21722
+// - Realm gno.land/r/gnoswap/staker/v1: 867

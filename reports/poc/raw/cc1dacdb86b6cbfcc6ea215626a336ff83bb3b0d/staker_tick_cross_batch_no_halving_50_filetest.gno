@@ -110,3 +110,6 @@ func runTickCrossSwapMetric(cur realm) {
 // - Gas Used: 407749575
 // - Storage Diff: -6002
 // - CPU Cycles: 393042013
+// - Realm gno.land/r/gnoswap/pool: 1746
+// - Realm gno.land/r/gnoswap/pool/v1: -6
+// - Realm gno.land/r/gnoswap/staker: -7742

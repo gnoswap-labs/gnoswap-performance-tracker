@@ -1,0 +1,218 @@
+fixture	sample	label	kind	base_gas	candidate_gas	gas_delta	gas_pct	cycles_delta	base_storage_bytes	candidate_storage_bytes	storage_delta_bytes	storage_delta_ugnot	deposits_delta_ugnot	refunds_delta_ugnot	fee_ugnot	buffered_fee_ugnot	historical143_fee_ugnot	net_delta_ugnot	buffered_net_delta_ugnot	historical143_net_delta_ugnot
+poc_staker_numerics_filetest.gno	0	StakerNumbers deposit stake wide (first allocation)	paid	16439633	16454569	14936	0.09085360968824548	16219	35653	33852	-1801	-180100	-180100	0	15	17	2136	-180085	-180083	-177964
+poc_staker_numerics_filetest.gno	1	StakerNumbers deposit stake boundary (first allocation)	paid	14496906	14511842	14936	0.10302888078325127	16219	13044	11243	-1801	-180100	-180100	0	15	17	2136	-180085	-180083	-177964
+poc_staker_numerics_filetest.gno	2	StakerNumbers deposit stake boundary allocation 2/32	paid	14634171	14651556	17385	0.1187972998265498	18823	8465	7384	-1081	-108100	-108100	0	17	19	2486	-108083	-108081	-105614
+poc_staker_numerics_filetest.gno	3	StakerNumbers deposit stake boundary allocation 3/32	paid	14671434	14688819	17385	0.11849557446122853	18823	8470	7389	-1081	-108100	-108100	0	17	19	2486	-108083	-108081	-105614
+poc_staker_numerics_filetest.gno	4	StakerNumbers deposit stake boundary allocation 4/32	paid	14627846	14645231	17385	0.11884866712433259	18823	8452	7371	-1081	-108100	-108100	0	18	19	2487	-108082	-108081	-105613
+poc_staker_numerics_filetest.gno	5	StakerNumbers deposit stake boundary allocation 5/32	paid	14596325	14613707	17382	0.11908476962523101	18823	8440	7359	-1081	-108100	-108100	0	17	20	2486	-108083	-108080	-105614
+poc_staker_numerics_filetest.gno	6	StakerNumbers deposit stake boundary allocation 6/32	paid	14606724	14624106	17382	0.11899998931998715	18823	8446	7365	-1081	-108100	-108100	0	18	19	2486	-108082	-108081	-105614
+poc_staker_numerics_filetest.gno	7	StakerNumbers deposit stake boundary allocation 7/32	paid	14692852	14710234	17382	0.11830242351859258	18823	8434	7353	-1081	-108100	-108100	0	18	19	2486	-108082	-108081	-105614
+poc_staker_numerics_filetest.gno	8	StakerNumbers deposit stake boundary allocation 8/32	paid	14647823	14665205	17382	0.11866609802699009	18823	8434	7353	-1081	-108100	-108100	0	18	19	2486	-108082	-108081	-105614
+poc_staker_numerics_filetest.gno	9	StakerNumbers deposit stake boundary allocation 9/32	paid	14552479	14569861	17382	0.11944356696889925	18823	8433	7352	-1081	-108100	-108100	0	17	19	2486	-108083	-108081	-105614
+poc_staker_numerics_filetest.gno	10	StakerNumbers deposit stake boundary allocation 10/32	paid	14529879	14547261	17382	0.11962935135247857	18823	8427	7346	-1081	-108100	-108100	0	18	19	2486	-108082	-108081	-105614
+poc_staker_numerics_filetest.gno	11	StakerNumbers deposit stake boundary allocation 11/32	paid	14650216	14667598	17382	0.11864671483341951	18823	8433	7352	-1081	-108100	-108100	0	17	19	2486	-108083	-108081	-105614
+poc_staker_numerics_filetest.gno	12	StakerNumbers deposit stake boundary allocation 12/32	paid	14538589	14555971	17382	0.11955768197312683	18823	8433	7352	-1081	-108100	-108100	0	17	19	2485	-108083	-108081	-105615
+poc_staker_numerics_filetest.gno	13	StakerNumbers deposit stake boundary allocation 13/32	paid	14498777	14516159	17382	0.11988597383075827	18823	8433	7352	-1081	-108100	-108100	0	18	19	2485	-108082	-108081	-105615
+poc_staker_numerics_filetest.gno	14	StakerNumbers deposit stake boundary allocation 14/32	paid	14707189	14724571	17382	0.11818709883989388	18823	15064	13983	-1081	-108100	-108100	0	17	20	2485	-108083	-108080	-105615
+poc_staker_numerics_filetest.gno	15	StakerNumbers deposit stake boundary allocation 15/32	paid	14411344	14428726	17382	0.12061331684262065	18823	8479	7398	-1081	-108100	-108100	0	17	19	2485	-108083	-108081	-105615
+poc_staker_numerics_filetest.gno	16	StakerNumbers deposit stake boundary allocation 16/32	paid	14557710	14575095	17385	0.1194212551287256	18823	14937	13856	-1081	-108100	-108100	0	18	19	2486	-108082	-108081	-105614
+poc_staker_numerics_filetest.gno	17	StakerNumbers deposit stake boundary allocation 17/32	paid	15037046	15054431	17385	0.11561446310665006	18823	8484	7403	-1081	-108100	-108100	0	17	19	2486	-108083	-108081	-105614
+poc_staker_numerics_filetest.gno	18	StakerNumbers deposit stake boundary allocation 18/32	paid	14457344	14474729	17385	0.12025030323688778	18823	8430	7349	-1081	-108100	-108100	0	17	19	2486	-108083	-108081	-105614
+poc_staker_numerics_filetest.gno	19	StakerNumbers deposit stake boundary allocation 19/32	paid	14779957	14797342	17385	0.11762551135974211	18823	8406	7325	-1081	-108100	-108100	0	18	20	2486	-108082	-108080	-105614
+poc_staker_numerics_filetest.gno	20	StakerNumbers deposit stake boundary allocation 20/32	paid	14490092	14507477	17385	0.11997853429778085	18823	8479	7398	-1081	-108100	-108100	0	17	19	2486	-108083	-108081	-105614
+poc_staker_numerics_filetest.gno	21	StakerNumbers deposit stake boundary allocation 21/32	paid	14748812	14766197	17385	0.117873900623318	18823	8434	7353	-1081	-108100	-108100	0	18	19	2486	-108082	-108081	-105614
+poc_staker_numerics_filetest.gno	22	StakerNumbers deposit stake boundary allocation 22/32	paid	14765664	14783049	17385	0.11773937155823132	18823	11766	10685	-1081	-108100	-108100	0	18	19	2487	-108082	-108081	-105613
+poc_staker_numerics_filetest.gno	23	StakerNumbers deposit stake boundary allocation 23/32	paid	14599316	14616701	17385	0.11908092132535525	18823	8460	7379	-1081	-108100	-108100	0	17	19	2486	-108083	-108081	-105614
+poc_staker_numerics_filetest.gno	24	StakerNumbers deposit stake boundary allocation 24/32	paid	14468197	14485582	17385	0.12016010011475514	18823	8430	7349	-1081	-108100	-108100	0	17	19	2486	-108083	-108081	-105614
+poc_staker_numerics_filetest.gno	25	StakerNumbers deposit stake boundary allocation 25/32	paid	14957517	14974761	17244	0.11528651446627138	18823	8464	7337	-1127	-112700	-112700	0	17	19	2466	-112683	-112681	-110234
+poc_staker_numerics_filetest.gno	26	StakerNumbers deposit stake boundary allocation 26/32	paid	14428791	14445960	17169	0.11899125851916491	18823	8495	7355	-1140	-114000	-114000	0	17	19	2455	-113983	-113981	-111545
+poc_staker_numerics_filetest.gno	27	StakerNumbers deposit stake boundary allocation 27/32	paid	14576725	14593888	17163	0.11774249702865355	18823	8495	7355	-1140	-114000	-114000	0	17	19	2454	-113983	-113981	-111546
+poc_staker_numerics_filetest.gno	28	StakerNumbers deposit stake boundary allocation 28/32	paid	14562512	14579708	17196	0.11808402286638459	18823	8471	7344	-1127	-112700	-112700	0	17	19	2459	-112683	-112681	-110241
+poc_staker_numerics_filetest.gno	29	StakerNumbers deposit stake boundary allocation 29/32	paid	14724972	14742303	17331	0.1176980166753458	18823	8495	7414	-1081	-108100	-108100	0	18	19	2479	-108082	-108081	-105621
+poc_staker_numerics_filetest.gno	30	StakerNumbers deposit stake boundary allocation 30/32	paid	14600410	14617720	17310	0.11855831445829261	18823	11855	10770	-1085	-108500	-108500	0	17	19	2475	-108483	-108481	-106025
+poc_staker_numerics_filetest.gno	31	StakerNumbers deposit stake boundary allocation 31/32	paid	14702307	14719623	17316	0.11777743452099049	18823	11778	10693	-1085	-108500	-108500	0	17	19	2477	-108483	-108481	-106023
+poc_staker_numerics_filetest.gno	32	StakerNumbers deposit stake boundary allocation 32/32	paid	14367233	14384576	17343	0.12071217888649818	18823	7460	6375	-1085	-108500	-108500	0	17	20	2480	-108483	-108480	-106020
+poc_staker_numerics_filetest.gno	33	StakerNumbers deposit collect	paid	14597713	14603604	5891	0.040355636530187984	5189	11128	11128	0	0	0	0	6	6	843	6	6	843
+poc_staker_numerics_filetest.gno	34	StakerNumbers deposit collect repeat	paid	13915387	13921278	5891	0.042334431661871855	5189	40	40	0	0	0	0	6	7	842	6	7	842
+poc_staker_numerics_filetest.gno	35	StakerNumbers deposit collect boundary allocation 1/32	paid	9178870	9184833	5963	0.06496442372536053	5189	12	12	0	0	0	0	6	7	853	6	7	853
+poc_staker_numerics_filetest.gno	36	StakerNumbers deposit collect boundary allocation 2/32	paid	9229711	9235674	5963	0.06460657327190418	5189	12	12	0	0	0	0	6	7	853	6	7	853
+poc_staker_numerics_filetest.gno	37	StakerNumbers deposit collect boundary allocation 3/32	paid	9230449	9236412	5963	0.06460140779717216	5189	12	12	0	0	0	0	6	7	852	6	7	852
+poc_staker_numerics_filetest.gno	38	StakerNumbers deposit collect boundary allocation 4/32	paid	9230446	9236409	5963	0.06460142879336492	5189	12	12	0	0	0	0	6	7	853	6	7	853
+poc_staker_numerics_filetest.gno	39	StakerNumbers deposit collect boundary allocation 5/32	paid	9230936	9236899	5963	0.06459799959614063	5189	12	12	0	0	0	0	6	6	853	6	6	853
+poc_staker_numerics_filetest.gno	40	StakerNumbers deposit collect boundary allocation 6/32	paid	9230210	9236173	5963	0.06460308053662918	5189	12	12	0	0	0	0	6	6	852	6	6	852
+poc_staker_numerics_filetest.gno	41	StakerNumbers deposit collect boundary allocation 7/32	paid	9232896	9238859	5963	0.06458428644706926	5189	12	12	0	0	0	0	6	6	852	6	6	852
+poc_staker_numerics_filetest.gno	42	StakerNumbers deposit collect boundary allocation 8/32	paid	9238672	9244635	5963	0.06454390847515747	5189	12	12	0	0	0	0	6	7	852	6	7	852
+poc_staker_numerics_filetest.gno	43	StakerNumbers deposit collect boundary allocation 9/32	paid	9240145	9246108	5963	0.06453361933173127	5189	12	12	0	0	0	0	6	6	853	6	6	853
+poc_staker_numerics_filetest.gno	44	StakerNumbers deposit collect boundary allocation 10/32	paid	9230697	9236660	5963	0.06459967215910131	5189	12	12	0	0	0	0	6	7	853	6	7	853
+poc_staker_numerics_filetest.gno	45	StakerNumbers deposit collect boundary allocation 11/32	paid	9232896	9238859	5963	0.06458428644706926	5189	12	12	0	0	0	0	6	6	852	6	6	852
+poc_staker_numerics_filetest.gno	46	StakerNumbers deposit collect boundary allocation 12/32	paid	9232406	9238369	5963	0.06458771418847914	5189	12	12	0	0	0	0	6	7	852	6	7	852
+poc_staker_numerics_filetest.gno	47	StakerNumbers deposit collect boundary allocation 13/32	paid	9231922	9237885	5963	0.06459110031475569	5189	12	12	0	0	0	0	6	6	853	6	6	853
+poc_staker_numerics_filetest.gno	48	StakerNumbers deposit collect boundary allocation 14/32	paid	9233631	9239594	5963	0.06457914551707773	5189	12	12	0	0	0	0	6	7	852	6	7	852
+poc_staker_numerics_filetest.gno	49	StakerNumbers deposit collect boundary allocation 15/32	paid	9231181	9237144	5963	0.06459628513404732	5189	12	12	0	0	0	0	6	6	853	6	6	853
+poc_staker_numerics_filetest.gno	50	StakerNumbers deposit collect boundary allocation 16/32	paid	9238923	9244886	5963	0.06454215496762988	5189	12	12	0	0	0	0	6	7	853	6	7	853
+poc_staker_numerics_filetest.gno	51	StakerNumbers deposit collect boundary allocation 17/32	paid	9243683	9249646	5963	0.06450891922624348	5189	12	12	0	0	0	0	6	6	853	6	6	853
+poc_staker_numerics_filetest.gno	52	StakerNumbers deposit collect boundary allocation 18/32	paid	9235947	9241910	5963	0.06456295169298827	5189	12	12	0	0	0	0	6	7	853	6	7	853
+poc_staker_numerics_filetest.gno	53	StakerNumbers deposit collect boundary allocation 19/32	paid	9234722	9240685	5963	0.06457151606729472	5189	12	12	0	0	0	0	6	6	852	6	6	852
+poc_staker_numerics_filetest.gno	54	StakerNumbers deposit collect boundary allocation 20/32	paid	9236682	9242645	5963	0.06455781415880724	5189	12	12	0	0	0	0	6	6	853	6	6	853
+poc_staker_numerics_filetest.gno	55	StakerNumbers deposit collect boundary allocation 21/32	paid	9235947	9241910	5963	0.06456295169298827	5189	12	12	0	0	0	0	6	7	853	6	7	853
+poc_staker_numerics_filetest.gno	56	StakerNumbers deposit collect boundary allocation 22/32	paid	9237420	9243383	5963	0.0645526564776745	5189	12	12	0	0	0	0	6	6	852	6	6	852
+poc_staker_numerics_filetest.gno	57	StakerNumbers deposit collect boundary allocation 23/32	paid	9235457	9241420	5963	0.06456637717007399	5189	12	12	0	0	0	0	6	6	853	6	6	853
+poc_staker_numerics_filetest.gno	58	StakerNumbers deposit collect boundary allocation 24/32	paid	9244908	9250871	5963	0.0645003714477202	5189	12	12	0	0	0	0	6	6	853	6	6	853
+poc_staker_numerics_filetest.gno	59	StakerNumbers deposit collect boundary allocation 25/32	paid	9245162	9251119	5957	0.06443370056684783	5189	12	12	0	0	0	0	6	7	852	6	7	852
+poc_staker_numerics_filetest.gno	60	StakerNumbers deposit collect boundary allocation 26/32	paid	9237952	9243870	5918	0.06406181803066308	5189	12	12	0	0	0	0	6	7	846	6	7	846
+poc_staker_numerics_filetest.gno	61	StakerNumbers deposit collect boundary allocation 27/32	paid	9245688	9251606	5918	0.06400821658701873	5189	12	12	0	0	0	0	6	6	846	6	6	846
+poc_staker_numerics_filetest.gno	62	StakerNumbers deposit collect boundary allocation 28/32	paid	9246187	9252105	5918	0.06400476217926374	5189	12	12	0	0	0	0	6	7	847	6	7	847
+poc_staker_numerics_filetest.gno	63	StakerNumbers deposit collect boundary allocation 29/32	paid	9238687	9244653	5966	0.06457627582793962	5189	12	12	0	0	0	0	6	7	853	6	7	853
+poc_staker_numerics_filetest.gno	64	StakerNumbers deposit collect boundary allocation 30/32	paid	9198468	9204434	5966	0.06485862645823195	5189	12	12	0	0	0	0	6	6	854	6	6	854
+poc_staker_numerics_filetest.gno	65	StakerNumbers deposit collect boundary allocation 31/32	paid	9272331	9278297	5966	0.06434196535908823	5189	18	18	0	0	0	0	6	7	853	6	7	853
+poc_staker_numerics_filetest.gno	66	StakerNumbers deposit collect boundary allocation 32/32	paid	9262883	9268849	5966	0.06440759318670009	5189	18	18	0	0	0	0	6	6	853	6	6	853
+poc_staker_numerics_filetest.gno	67	StakerNumbers tick cross positive (32 lower ticks)	paid	305136337	305847709	711372	0.23313250955096837	851968	106532	106345	-187	-18700	-18700	0	711	783	101726	-17989	-17917	83026
+poc_staker_numerics_filetest.gno	68	StakerNumbers tick cross positive upper rewrite	paid	34536313	34561039	24726	0.07159420868116409	26624	5341	5335	-6	-600	-600	0	25	28	3536	-575	-572	2936
+poc_staker_numerics_filetest.gno	69	StakerNumbers tick cross negative (32 lower ticks)	paid	386118141	387092634	974493	0.2523820811620452	878592	44449	44449	0	0	0	0	974	1072	139352	974	1072	139352
+poc_staker_numerics_filetest.gno	70	StakerNumbers incentive create	paid	6036974	6039470	2496	0.04134521699116146	3095	20127	19763	-364	-36400	-36400	0	3	3	357	-36397	-36397	-36043
+poc_staker_numerics_filetest.gno	71	StakerNumbers incentive collect	paid	11782095	11793901	11806	0.1002028926095062	10378	3620	3620	0	0	0	0	11	13	1688	11	13	1688
+poc_staker_numerics_filetest.gno	72	StakerNumbers incentive paid claim 1/1	paid	11629904	11641734	11830	0.10172053010927691	10378	10	10	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	73	StakerNumbers incentive paid claim 1/10	paid	11566628	11578458	11830	0.1022769989663366	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	74	StakerNumbers incentive paid claim 2/10	paid	11565167	11576997	11830	0.1022899193760021	10378	0	0	0	0	0	0	11	13	1692	11	13	1692
+poc_staker_numerics_filetest.gno	75	StakerNumbers incentive paid claim 3/10	paid	11628628	11640458	11830	0.10173169182125355	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	76	StakerNumbers incentive paid claim 4/10	paid	11566141	11577971	11830	0.10228130540687685	10378	0	0	0	0	0	0	11	13	1691	11	13	1691
+poc_staker_numerics_filetest.gno	77	StakerNumbers incentive paid claim 5/10	paid	11566141	11577971	11830	0.10228130540687685	10378	0	0	0	0	0	0	11	13	1691	11	13	1691
+poc_staker_numerics_filetest.gno	78	StakerNumbers incentive paid claim 6/10	paid	11629115	11640945	11830	0.1017274315371376	10378	0	0	0	0	0	0	11	13	1692	11	13	1692
+poc_staker_numerics_filetest.gno	79	StakerNumbers incentive paid claim 7/10	paid	11563333	11575163	11830	0.10230614304716469	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	80	StakerNumbers incentive paid claim 8/10	paid	11562846	11574676	11830	0.10231045194236782	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	81	StakerNumbers incentive paid claim 9/10	paid	11629602	11641432	11830	0.10172317160982809	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	82	StakerNumbers incentive paid claim 10/10	paid	11566628	11578458	11830	0.1022769989663366	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	83	StakerNumbers incentive paid claim 1/100	paid	11566628	11578458	11830	0.1022769989663366	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	84	StakerNumbers incentive paid claim 2/100	paid	11565654	11577484	11830	0.10228561221008341	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	85	StakerNumbers incentive paid claim 3/100	paid	11629130	11640960	11830	0.10172730032255207	10378	5	5	0	0	0	0	11	13	1692	11	13	1692
+poc_staker_numerics_filetest.gno	86	StakerNumbers incentive paid claim 4/100	paid	11566919	11578749	11830	0.10227442588644392	10378	41	41	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	87	StakerNumbers incentive paid claim 5/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	88	StakerNumbers incentive paid claim 6/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	89	StakerNumbers incentive paid claim 7/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	90	StakerNumbers incentive paid claim 8/100	paid	11565948	11577778	11830	0.10228301216640434	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	91	StakerNumbers incentive paid claim 9/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	92	StakerNumbers incentive paid claim 10/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	93	StakerNumbers incentive paid claim 11/100	paid	11565461	11577291	11830	0.10228731911334965	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	94	StakerNumbers incentive paid claim 12/100	paid	11628922	11640752	11830	0.10172911986166903	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	95	StakerNumbers incentive paid claim 13/100	paid	11563140	11574970	11830	0.10230785063572698	10378	0	0	0	0	0	0	11	13	1691	11	13	1691
+poc_staker_numerics_filetest.gno	96	StakerNumbers incentive paid claim 14/100	paid	11562166	11573996	11830	0.10231646907681484	10378	0	0	0	0	0	0	11	13	1692	11	13	1692
+poc_staker_numerics_filetest.gno	97	StakerNumbers incentive paid claim 15/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	98	StakerNumbers incentive paid claim 16/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	99	StakerNumbers incentive paid claim 17/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	100	StakerNumbers incentive paid claim 18/100	paid	11629896	11641726	11830	0.10172060008103254	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	101	StakerNumbers incentive paid claim 19/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	102	StakerNumbers incentive paid claim 20/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	103	StakerNumbers incentive paid claim 21/100	paid	11629896	11641726	11830	0.10172060008103254	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	104	StakerNumbers incentive paid claim 22/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	105	StakerNumbers incentive paid claim 23/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	106	StakerNumbers incentive paid claim 24/100	paid	11565461	11577291	11830	0.10228731911334965	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	107	StakerNumbers incentive paid claim 25/100	paid	11628922	11640752	11830	0.10172911986166903	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	108	StakerNumbers incentive paid claim 26/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	109	StakerNumbers incentive paid claim 27/100	paid	11565461	11577291	11830	0.10228731911334965	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	110	StakerNumbers incentive paid claim 28/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	111	StakerNumbers incentive paid claim 29/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	112	StakerNumbers incentive paid claim 30/100	paid	11562166	11573996	11830	0.10231646907681484	10378	0	0	0	0	0	0	11	13	1692	11	13	1692
+poc_staker_numerics_filetest.gno	113	StakerNumbers incentive paid claim 31/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	114	StakerNumbers incentive paid claim 32/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	115	StakerNumbers incentive paid claim 33/100	paid	11565948	11577778	11830	0.10228301216640434	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	116	StakerNumbers incentive paid claim 34/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	117	StakerNumbers incentive paid claim 35/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	118	StakerNumbers incentive paid claim 36/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	119	StakerNumbers incentive paid claim 37/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	120	StakerNumbers incentive paid claim 38/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	121	StakerNumbers incentive paid claim 39/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	122	StakerNumbers incentive paid claim 40/100	paid	11629896	11641726	11830	0.10172060008103254	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	123	StakerNumbers incentive paid claim 41/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	124	StakerNumbers incentive paid claim 42/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	125	StakerNumbers incentive paid claim 43/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	126	StakerNumbers incentive paid claim 44/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	127	StakerNumbers incentive paid claim 45/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	128	StakerNumbers incentive paid claim 46/100	paid	11563140	11574970	11830	0.10230785063572698	10378	0	0	0	0	0	0	11	13	1691	11	13	1691
+poc_staker_numerics_filetest.gno	129	StakerNumbers incentive paid claim 47/100	paid	11620685	11632515	11830	0.10180122772452743	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	130	StakerNumbers incentive paid claim 48/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	131	StakerNumbers incentive paid claim 49/100	paid	11565948	11577778	11830	0.10228301216640434	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	132	StakerNumbers incentive paid claim 50/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	133	StakerNumbers incentive paid claim 51/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	134	StakerNumbers incentive paid claim 52/100	paid	11565948	11577778	11830	0.10228301216640434	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	135	StakerNumbers incentive paid claim 53/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	136	StakerNumbers incentive paid claim 54/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	137	StakerNumbers incentive paid claim 55/100	paid	11565461	11577291	11830	0.10228731911334965	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	138	StakerNumbers incentive paid claim 56/100	paid	11628922	11640752	11830	0.10172911986166903	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	139	StakerNumbers incentive paid claim 57/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	140	StakerNumbers incentive paid claim 58/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	141	StakerNumbers incentive paid claim 59/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	142	StakerNumbers incentive paid claim 60/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	143	StakerNumbers incentive paid claim 61/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	144	StakerNumbers incentive paid claim 62/100	paid	11626114	11637944	11830	0.10175369001198509	10378	0	0	0	0	0	0	11	13	1691	11	13	1691
+poc_staker_numerics_filetest.gno	145	StakerNumbers incentive paid claim 63/100	paid	11563140	11574970	11830	0.10230785063572698	10378	0	0	0	0	0	0	11	13	1691	11	13	1691
+poc_staker_numerics_filetest.gno	146	StakerNumbers incentive paid claim 64/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	147	StakerNumbers incentive paid claim 65/100	paid	11629896	11641726	11830	0.10172060008103254	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	148	StakerNumbers incentive paid claim 66/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	149	StakerNumbers incentive paid claim 67/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	150	StakerNumbers incentive paid claim 68/100	paid	11565461	11577291	11830	0.10228731911334965	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	151	StakerNumbers incentive paid claim 69/100	paid	11628922	11640752	11830	0.10172911986166903	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	152	StakerNumbers incentive paid claim 70/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	153	StakerNumbers incentive paid claim 71/100	paid	11565948	11577778	11830	0.10228301216640434	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	154	StakerNumbers incentive paid claim 72/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	155	StakerNumbers incentive paid claim 73/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	156	StakerNumbers incentive paid claim 74/100	paid	11565461	11577291	11830	0.10228731911334965	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	157	StakerNumbers incentive paid claim 75/100	paid	11628922	11640752	11830	0.10172911986166903	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	158	StakerNumbers incentive paid claim 76/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	159	StakerNumbers incentive paid claim 77/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	160	StakerNumbers incentive paid claim 78/100	paid	11626114	11637944	11830	0.10175369001198509	10378	0	0	0	0	0	0	11	13	1691	11	13	1691
+poc_staker_numerics_filetest.gno	161	StakerNumbers incentive paid claim 79/100	paid	11563140	11574970	11830	0.10230785063572698	10378	0	0	0	0	0	0	11	13	1691	11	13	1691
+poc_staker_numerics_filetest.gno	162	StakerNumbers incentive paid claim 80/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	163	StakerNumbers incentive paid claim 81/100	paid	11629896	11641726	11830	0.10172060008103254	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	164	StakerNumbers incentive paid claim 82/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	165	StakerNumbers incentive paid claim 83/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	166	StakerNumbers incentive paid claim 84/100	paid	11629896	11641726	11830	0.10172060008103254	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	167	StakerNumbers incentive paid claim 85/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	168	StakerNumbers incentive paid claim 86/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	169	StakerNumbers incentive paid claim 87/100	paid	11565461	11577291	11830	0.10228731911334965	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	170	StakerNumbers incentive paid claim 88/100	paid	11628922	11640752	11830	0.10172911986166903	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	171	StakerNumbers incentive paid claim 89/100	paid	11566435	11578265	11830	0.1022787055821435	10378	0	0	0	0	0	0	12	13	1691	12	13	1691
+poc_staker_numerics_filetest.gno	172	StakerNumbers incentive paid claim 90/100	paid	11565461	11577291	11830	0.10228731911334965	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	173	StakerNumbers incentive paid claim 91/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	174	StakerNumbers incentive paid claim 92/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	175	StakerNumbers incentive paid claim 93/100	paid	11565461	11577291	11830	0.10228731911334965	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	176	StakerNumbers incentive paid claim 94/100	paid	11628922	11640752	11830	0.10172911986166903	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	177	StakerNumbers incentive paid claim 95/100	paid	11563140	11574970	11830	0.10230785063572698	10378	0	0	0	0	0	0	11	13	1691	11	13	1691
+poc_staker_numerics_filetest.gno	178	StakerNumbers incentive paid claim 96/100	paid	11565948	11577778	11830	0.10228301216640434	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	179	StakerNumbers incentive paid claim 97/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	180	StakerNumbers incentive paid claim 98/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	181	StakerNumbers incentive paid claim 99/100	paid	11566922	11578752	11830	0.10227439936052132	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	182	StakerNumbers incentive paid claim 100/100	paid	11629409	11641239	11830	0.1017248597929611	10378	0	0	0	0	0	0	12	13	1692	12	13	1692
+poc_staker_numerics_filetest.gno	183	StakerNumbers incentive end	paid	1913300	1925202	11902	0.6220665865258976	10378	36	36	0	0	0	0	12	13	1702	12	13	1702
+poc_staker_numerics_filetest.gno	184	StakerNumbers deposit unstake delete	paid	55767635	55843851	76216	0.13666708297742947	69528	-17921	-16120	1801	180100	0	-180100	76	84	10899	180176	180184	190999
+poc_staker_numerics_filetest.gno	185	StakerNumbers deposit unstake boundary allocation 1/32	paid	42382728	42459076	76348	0.18013941905768785	69528	-14952	-13859	1093	109300	0	-109300	77	84	10917	109377	109384	120217
+poc_staker_numerics_filetest.gno	186	StakerNumbers deposit unstake boundary allocation 2/32	paid	42672526	42748874	76348	0.1789160547936628	69528	-14946	-13859	1087	108700	0	-108700	76	84	10917	108776	108784	119617
+poc_staker_numerics_filetest.gno	187	StakerNumbers deposit unstake boundary allocation 3/32	paid	42674635	42750983	76348	0.17890721268031934	69528	-14946	-13859	1087	108700	0	-108700	76	84	10918	108776	108784	119618
+poc_staker_numerics_filetest.gno	188	StakerNumbers deposit unstake boundary allocation 4/32	paid	42632633	42708981	76348	0.1790834734509595	69528	-14946	-13859	1087	108700	0	-108700	76	84	10918	108776	108784	119618
+poc_staker_numerics_filetest.gno	189	StakerNumbers deposit unstake boundary allocation 5/32	paid	42641589	42717937	76348	0.17904586060336541	69528	-14946	-13859	1087	108700	0	-108700	76	84	10917	108776	108784	119617
+poc_staker_numerics_filetest.gno	190	StakerNumbers deposit unstake boundary allocation 6/32	paid	42639028	42715376	76348	0.17905661451757296	69528	-14946	-13859	1087	108700	0	-108700	76	84	10917	108776	108784	119617
+poc_staker_numerics_filetest.gno	191	StakerNumbers deposit unstake boundary allocation 7/32	paid	42778592	42854913	76321	0.17840933147121812	69528	-14934	-13847	1087	108700	0	-108700	76	84	10914	108776	108784	119614
+poc_staker_numerics_filetest.gno	192	StakerNumbers deposit unstake boundary allocation 8/32	paid	42886474	42962795	76321	0.1779605383273057	69528	-18414	-17327	1087	108700	0	-108700	76	84	10914	108776	108784	119614
+poc_staker_numerics_filetest.gno	193	StakerNumbers deposit unstake boundary allocation 9/32	paid	42713287	42789608	76321	0.17868210423608935	69528	-14946	-13859	1087	108700	0	-108700	76	84	10913	108776	108784	119613
+poc_staker_numerics_filetest.gno	194	StakerNumbers deposit unstake boundary allocation 10/32	paid	42690635	42766956	76321	0.17877691442162902	69528	-14946	-13859	1087	108700	0	-108700	76	84	10914	108776	108784	119614
+poc_staker_numerics_filetest.gno	195	StakerNumbers deposit unstake boundary allocation 11/32	paid	42691214	42767535	76321	0.1787744897580097	69528	-14946	-13859	1087	108700	0	-108700	76	84	10914	108776	108784	119614
+poc_staker_numerics_filetest.gno	196	StakerNumbers deposit unstake boundary allocation 12/32	paid	42645885	42722206	76321	0.178964512050811	69528	-14946	-13859	1087	108700	0	-108700	77	84	10914	108777	108784	119614
+poc_staker_numerics_filetest.gno	197	StakerNumbers deposit unstake boundary allocation 13/32	paid	42646925	42723246	76321	0.17896014777149818	69528	-14946	-13859	1087	108700	0	-108700	77	84	10914	108777	108784	119614
+poc_staker_numerics_filetest.gno	198	StakerNumbers deposit unstake boundary allocation 14/32	paid	42645751	42722072	76321	0.17896507438689496	69528	-18424	-17337	1087	108700	0	-108700	77	84	10914	108777	108784	119614
+poc_staker_numerics_filetest.gno	199	StakerNumbers deposit unstake boundary allocation 15/32	paid	42527873	42604194	76321	0.1794611265886728	69528	-14946	-13859	1087	108700	0	-108700	77	84	10914	108777	108784	119614
+poc_staker_numerics_filetest.gno	200	StakerNumbers deposit unstake boundary allocation 16/32	paid	42649789	42726074	76285	0.17886372192837813	69528	-14946	-13859	1087	108700	0	-108700	77	84	10909	108777	108784	119609
+poc_staker_numerics_filetest.gno	201	StakerNumbers deposit unstake boundary allocation 17/32	paid	43221363	43297648	76285	0.17649836725417475	69528	-14946	-13859	1087	108700	0	-108700	76	84	10909	108776	108784	119609
+poc_staker_numerics_filetest.gno	202	StakerNumbers deposit unstake boundary allocation 18/32	paid	42672712	42748997	76285	0.17876763961006276	69528	-21556	-20469	1087	108700	0	-108700	76	84	10909	108776	108784	119609
+poc_staker_numerics_filetest.gno	203	StakerNumbers deposit unstake boundary allocation 19/32	paid	42416239	42492524	76285	0.17984857167557924	69528	-14946	-13859	1087	108700	0	-108700	76	84	10908	108776	108784	119608
+poc_staker_numerics_filetest.gno	204	StakerNumbers deposit unstake boundary allocation 20/32	paid	42241527	42317812	76285	0.1805924298143862	69528	-14946	-13859	1087	108700	0	-108700	76	84	10909	108776	108784	119609
+poc_staker_numerics_filetest.gno	205	StakerNumbers deposit unstake boundary allocation 21/32	paid	42537070	42613355	76285	0.17933769298167457	69528	-14946	-13859	1087	108700	0	-108700	76	84	10908	108776	108784	119608
+poc_staker_numerics_filetest.gno	206	StakerNumbers deposit unstake boundary allocation 22/32	paid	42365160	42441445	76285	0.18006541223967995	69528	-21374	-20287	1087	108700	0	-108700	76	84	10909	108776	108784	119609
+poc_staker_numerics_filetest.gno	207	StakerNumbers deposit unstake boundary allocation 23/32	paid	42247223	42323508	76285	0.18056808136241287	69528	-14946	-13859	1087	108700	0	-108700	76	84	10909	108776	108784	119609
+poc_staker_numerics_filetest.gno	208	StakerNumbers deposit unstake boundary allocation 24/32	paid	42062719	42139004	76285	0.18136012557818718	69528	-14946	-13859	1087	108700	0	-108700	77	84	10909	108777	108784	119609
+poc_staker_numerics_filetest.gno	209	StakerNumbers deposit unstake boundary allocation 25/32	paid	42442014	42518218	76204	0.17954850116207963	69528	-14982	-13859	1123	112300	0	-112300	76	84	10897	112376	112384	123197
+poc_staker_numerics_filetest.gno	210	StakerNumbers deposit unstake boundary allocation 26/32	paid	41994734	42070818	76084	0.1811750968585728	69528	-15005	-13859	1146	114600	0	-114600	76	83	10880	114676	114683	125480
+poc_staker_numerics_filetest.gno	211	StakerNumbers deposit unstake boundary allocation 27/32	paid	42135386	42211488	76102	0.18061303627312209	69528	-15005	-13859	1146	114600	0	-114600	76	84	10882	114676	114684	125482
+poc_staker_numerics_filetest.gno	212	StakerNumbers deposit unstake boundary allocation 28/32	paid	42009644	42085773	76129	0.18121791272499238	69528	-15005	-13873	1132	113200	0	-113200	76	84	10886	113276	113284	124086
+poc_staker_numerics_filetest.gno	213	StakerNumbers deposit unstake boundary allocation 29/32	paid	42271001	42347364	76363	0.18065103308057456	69528	-15005	-13915	1090	109000	0	-109000	76	84	10920	109076	109084	119920
+poc_staker_numerics_filetest.gno	214	StakerNumbers deposit unstake boundary allocation 30/32	paid	41952899	42029262	76363	0.1820207943198395	69528	-15006	-13916	1090	109000	0	-109000	77	84	10920	109077	109084	119920
+poc_staker_numerics_filetest.gno	215	StakerNumbers deposit unstake boundary allocation 31/32	paid	42049857	42126220	76363	0.18160109319753454	69528	-15007	-13917	1090	109000	0	-109000	77	84	10920	109077	109084	119920
+poc_staker_numerics_filetest.gno	216	StakerNumbers deposit unstake boundary allocation 32/32	paid	41879943	41956306	76363	0.18233787949520372	69528	-33036	-31220	1816	181600	0	-181600	77	84	10920	181677	181684	192520

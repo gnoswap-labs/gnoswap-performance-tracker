@@ -1,0 +1,68 @@
+{
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "runtime": "bac78a97b20e12ba471bdd73a41af31bd94bdc12",
+  "metric_success": true,
+  "unit_commands": [
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-staker/tmp/unit",
+      "PKG=gno.land/r/gnoswap/staker"
+    ],
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-staker/tmp/unit",
+      "PKG=gno.land/r/gnoswap/staker/v1"
+    ],
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-staker/tmp/unit",
+      "PKG=gno.land/r/gnoswap/staker"
+    ],
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-staker/tmp/unit",
+      "PKG=gno.land/r/gnoswap/staker/v1"
+    ],
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-staker/tmp/unit",
+      "PKG=gno.land/r/gnoswap/staker"
+    ],
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-staker/tmp/unit",
+      "PKG=gno.land/r/gnoswap/staker/v1"
+    ],
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-staker/tmp/unit",
+      "PKG=gno.land/r/gnoswap/staker"
+    ],
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-staker/tmp/unit",
+      "PKG=gno.land/r/gnoswap/staker/v1"
+    ]
+  ],
+  "metric_command": [
+    "make",
+    "compare-metric-force",
+    "cc1dacdb86b6cbfcc6ea215626a336ff83bb3b0d",
+    "27df6c6f44785a645c594cf263d8a4471d1013f1",
+    "97e45b8578003de3a2f190599d3b7fa5655c3b85",
+    "e0c5473c2907c9fb4436c5a66601fbe730045939",
+    "0bee3ad1b436a2d858f69d730d79b0cfc6be9558",
+    "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68"
+  ],
+  "non_golden_replay": true,
+  "state_and_fixture_parity": true,
+  "lsp": "No Gno language server configured; exact reference search used"
+}

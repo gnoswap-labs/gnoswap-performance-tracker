@@ -133,3 +133,5 @@ func swapGnsToWugnotMetric(cur realm) {
 // - Gas Used: 47051400
 // - Storage Diff: 0
 // - CPU Cycles: 44151584
+// - Realm gno.land/r/gnoswap/pool: 6
+// - Realm gno.land/r/gnoswap/pool/v1: -6

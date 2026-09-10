@@ -1,0 +1,11 @@
+{
+  "poc_staker_numerics_filetest.gno": {
+    "observed_duration_seconds": 7864275,
+    "peak_reduced_locked_gnot": 1.2778,
+    "reduced_capital_gnot_days": 116.30522873263888,
+    "ending_storage_delta_gnot": 0.0,
+    "total_paid_delta_gnot": 0.001745,
+    "break_even_simple_apr_percent": 0.5476323007490539,
+    "limits": "Fresh-state 100 ugnot/B ledger; aggregates actors/realms. Only observed interval, no assumed yield and no extrapolated time after fixture end. Peak is not itself a lifetime saving."
+  }
+}

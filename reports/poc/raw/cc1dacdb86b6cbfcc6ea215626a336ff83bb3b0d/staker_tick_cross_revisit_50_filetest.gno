@@ -142,11 +142,18 @@ func runReverseMetric(cur realm, visit string) {
 // - Gas Used: 469330995
 // - Storage Diff: 165003
 // - CPU Cycles: 452352415
+// - Realm gno.land/r/gnoswap/pool: 3483
+// - Realm gno.land/r/gnoswap/pool/v1: -6
+// - Realm gno.land/r/gnoswap/staker: 161526
 // Accumulated-reward Reverse swap (50 staked tick-crosses, reverse visit)
 // - Gas Used: 578234242
 // - Storage Diff: 68151
 // - CPU Cycles: 560352491
+// - Realm gno.land/r/gnoswap/pool: 1657
+// - Realm gno.land/r/gnoswap/staker: 66494
 // Accumulated-reward Swap (50 staked tick-crosses, third visit)
 // - Gas Used: 575194422
 // - Storage Diff: 65368
 // - CPU Cycles: 557449708
+// - Realm gno.land/r/gnoswap/pool: 74
+// - Realm gno.land/r/gnoswap/staker: 65294

@@ -177,15 +177,32 @@ func collectMetrics(cur realm) {
 // - Gas Used: 13642463
 // - Storage Diff: 10026
 // - CPU Cycles: 12410992
+// - Realm gno.land/r/gnoswap/protocol_fee: 6982
+// - Realm gno.land/r/gnoswap/scenario/metric/main: 490
+// - Realm gno.land/r/gnoswap/staker: 515
+// - Realm gno.land/r/onbloc/baz: 2039
 // staker CollectReward (2 external-incentive tokens)
 // - Gas Used: 21000111
 // - Storage Diff: 4069
 // - CPU Cycles: 19662411
+// - Realm gno.land/r/gnoswap/protocol_fee: 1020
+// - Realm gno.land/r/gnoswap/staker: 991
+// - Realm gno.land/r/onbloc/baz: 19
+// - Realm gno.land/r/onbloc/qux: 2039
 // staker CollectReward (3 external-incentive tokens)
 // - Gas Used: 28672039
 // - Storage Diff: 4502
 // - CPU Cycles: 26846268
+// - Realm gno.land/r/gnoswap/protocol_fee: 980
+// - Realm gno.land/r/gnoswap/staker: 1467
+// - Realm gno.land/r/onbloc/baz: 16
+// - Realm gno.land/r/onbloc/obl: 2039
 // staker CollectReward (4 external-incentive tokens)
 // - Gas Used: 36532182
 // - Storage Diff: 5046
 // - CPU Cycles: 34182438
+// - Realm gno.land/r/gnoswap/protocol_fee: 980
+// - Realm gno.land/r/gnoswap/staker: 1946
+// - Realm gno.land/r/onbloc/bar: 2080
+// - Realm gno.land/r/onbloc/baz: 6
+// - Realm gno.land/r/onbloc/qux: 34

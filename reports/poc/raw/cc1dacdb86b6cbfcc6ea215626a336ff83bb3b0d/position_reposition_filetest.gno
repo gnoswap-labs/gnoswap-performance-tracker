@@ -140,7 +140,12 @@ func mintNewPositionMetric(cur realm) {
 // - Gas Used: 22338893
 // - Storage Diff: 62
 // - CPU Cycles: 19417426
+// - Realm gno.land/r/gnoswap/pool: 42
+// - Realm gno.land/r/gnoswap/position: 20
 // Mint (reposition)
 // - Gas Used: 30576495
 // - Storage Diff: 8619
 // - CPU Cycles: 29418394
+// - Realm gno.land/r/gnoswap/gnft: 4035
+// - Realm gno.land/r/gnoswap/pool: 3316
+// - Realm gno.land/r/gnoswap/position: 1268

@@ -146,131 +146,204 @@ func runReverseMetric(cur realm, visit int32) {
 // - Gas Used: 110358552
 // - Storage Diff: 34662
 // - CPU Cycles: 105714270
+// - Realm gno.land/r/gnoswap/pool: 820
+// - Realm gno.land/r/gnoswap/pool/v1: -6
+// - Realm gno.land/r/gnoswap/staker: 33848
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 2)
 // - Gas Used: 131917735
 // - Storage Diff: 15195
 // - CPU Cycles: 127223844
+// - Realm gno.land/r/gnoswap/pool: 321
+// - Realm gno.land/r/gnoswap/staker: 14872
+// - Realm gno.land/r/onbloc/bar: 2
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 3)
 // - Gas Used: 132794959
 // - Storage Diff: 14651
 // - CPU Cycles: 128106024
+// - Realm gno.land/r/gnoswap/pool: 18
+// - Realm gno.land/r/gnoswap/staker: 14632
+// - Realm gno.land/r/onbloc/bar: 1
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 4)
 // - Gas Used: 137012073
 // - Storage Diff: 14630
 // - CPU Cycles: 132289101
+// - Realm gno.land/r/gnoswap/pool: -2
+// - Realm gno.land/r/gnoswap/staker: 14632
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 5)
 // - Gas Used: 134206868
 // - Storage Diff: 57442
 // - CPU Cycles: 129292266
+// - Realm gno.land/r/gnoswap/pool: 4
+// - Realm gno.land/r/gnoswap/staker: 57438
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 6)
 // - Gas Used: 137642343
 // - Storage Diff: 15209
 // - CPU Cycles: 132826340
+// - Realm gno.land/r/gnoswap/pool: -4
+// - Realm gno.land/r/gnoswap/staker: 15213
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 7)
 // - Gas Used: 133747407
 // - Storage Diff: 14740
 // - CPU Cycles: 128952423
+// - Realm gno.land/r/gnoswap/pool: 7
+// - Realm gno.land/r/gnoswap/staker: 14733
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 8)
 // - Gas Used: 138800911
 // - Storage Diff: 35395
 // - CPU Cycles: 133831701
+// - Realm gno.land/r/gnoswap/pool: -2
+// - Realm gno.land/r/gnoswap/staker: 35397
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 9)
 // - Gas Used: 133752928
 // - Storage Diff: 14981
 // - CPU Cycles: 128953598
+// - Realm gno.land/r/gnoswap/pool: 7
+// - Realm gno.land/r/gnoswap/staker: 14974
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 10)
 // - Gas Used: 137858914
 // - Storage Diff: 14736
 // - CPU Cycles: 133025666
+// - Realm gno.land/r/gnoswap/pool: -4
+// - Realm gno.land/r/gnoswap/staker: 14734
+// - Realm gno.land/r/onbloc/baz: 6
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 11)
 // - Gas Used: 134934670
 // - Storage Diff: 35356
 // - CPU Cycles: 129981023
+// - Realm gno.land/r/gnoswap/pool: 8
+// - Realm gno.land/r/gnoswap/staker: 35334
+// - Realm gno.land/r/onbloc/baz: 14
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 12)
 // - Gas Used: 137987864
 // - Storage Diff: 14970
 // - CPU Cycles: 133150315
+// - Realm gno.land/r/gnoswap/pool: -5
+// - Realm gno.land/r/gnoswap/staker: 14975
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 13)
 // - Gas Used: 134071938
 // - Storage Diff: 14742
 // - CPU Cycles: 129255383
+// - Realm gno.land/r/gnoswap/pool: 7
+// - Realm gno.land/r/gnoswap/staker: 14735
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 14)
 // - Gas Used: 140531225
 // - Storage Diff: 80756
 // - CPU Cycles: 135323964
+// - Realm gno.land/r/gnoswap/pool: -5
+// - Realm gno.land/r/gnoswap/staker: 80761
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 15)
 // - Gas Used: 134569134
 // - Storage Diff: 15463
 // - CPU Cycles: 129663660
+// - Realm gno.land/r/gnoswap/pool: 6
+// - Realm gno.land/r/gnoswap/staker: 15455
+// - Realm gno.land/r/onbloc/baz: 2
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 16)
 // - Gas Used: 138644373
 // - Storage Diff: 14731
 // - CPU Cycles: 133705021
+// - Realm gno.land/r/gnoswap/pool: -5
+// - Realm gno.land/r/gnoswap/staker: 14735
+// - Realm gno.land/r/onbloc/baz: 1
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 17)
 // - Gas Used: 135717654
 // - Storage Diff: 35401
 // - CPU Cycles: 130657938
+// - Realm gno.land/r/gnoswap/pool: 6
+// - Realm gno.land/r/gnoswap/staker: 35395
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 18)
 // - Gas Used: 138697302
 // - Storage Diff: 14970
 // - CPU Cycles: 133753712
+// - Realm gno.land/r/gnoswap/pool: -5
+// - Realm gno.land/r/gnoswap/staker: 14975
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 19)
 // - Gas Used: 134717858
 // - Storage Diff: 14751
 // - CPU Cycles: 129795217
+// - Realm gno.land/r/gnoswap/pool: 16
+// - Realm gno.land/r/gnoswap/staker: 14735
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 20)
 // - Gas Used: 141258264
 // - Storage Diff: 58739
 // - CPU Cycles: 136017090
+// - Realm gno.land/r/gnoswap/pool: -16
+// - Realm gno.land/r/gnoswap/staker: 58755
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 21)
 // - Gas Used: 134632688
 // - Storage Diff: 15232
 // - CPU Cycles: 129711988
+// - Realm gno.land/r/gnoswap/pool: 17
+// - Realm gno.land/r/gnoswap/staker: 15215
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 22)
 // - Gas Used: 138815750
 // - Storage Diff: 14719
 // - CPU Cycles: 133861213
+// - Realm gno.land/r/gnoswap/pool: -16
+// - Realm gno.land/r/gnoswap/staker: 14735
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 23)
 // - Gas Used: 135785129
 // - Storage Diff: 35412
 // - CPU Cycles: 130710190
+// - Realm gno.land/r/gnoswap/pool: 17
+// - Realm gno.land/r/gnoswap/staker: 35395
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 24)
 // - Gas Used: 138889042
 // - Storage Diff: 14969
 // - CPU Cycles: 133930218
+// - Realm gno.land/r/gnoswap/pool: -6
+// - Realm gno.land/r/gnoswap/staker: 14975
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 25)
 // - Gas Used: 134947835
 // - Storage Diff: 14741
 // - CPU Cycles: 130010006
+// - Realm gno.land/r/gnoswap/pool: 6
+// - Realm gno.land/r/gnoswap/staker: 14735
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 26)
 // - Gas Used: 141357784
 // - Storage Diff: 58689
 // - CPU Cycles: 136100430
+// - Realm gno.land/r/gnoswap/pool: -6
+// - Realm gno.land/r/gnoswap/staker: 58695
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 27)
 // - Gas Used: 134869452
 // - Storage Diff: 15221
 // - CPU Cycles: 129933573
+// - Realm gno.land/r/gnoswap/pool: 6
+// - Realm gno.land/r/gnoswap/staker: 15215
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 28)
 // - Gas Used: 138959464
 // - Storage Diff: 14729
 // - CPU Cycles: 133989720
+// - Realm gno.land/r/gnoswap/pool: -6
+// - Realm gno.land/r/gnoswap/staker: 14735
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 29)
 // - Gas Used: 136029277
 // - Storage Diff: 35401
 // - CPU Cycles: 130939168
+// - Realm gno.land/r/gnoswap/pool: 6
+// - Realm gno.land/r/gnoswap/staker: 35395
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 30)
 // - Gas Used: 138992524
 // - Storage Diff: 14969
 // - CPU Cycles: 134018550
+// - Realm gno.land/r/gnoswap/pool: -6
+// - Realm gno.land/r/gnoswap/staker: 14975
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 31)
 // - Gas Used: 135084136
 // - Storage Diff: 14741
 // - CPU Cycles: 130131157
+// - Realm gno.land/r/gnoswap/pool: 6
+// - Realm gno.land/r/gnoswap/staker: 14735
 // Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 32)
 // - Gas Used: 142898398
 // - Storage Diff: 104110
 // - CPU Cycles: 137409074
+// - Realm gno.land/r/gnoswap/pool: -5
+// - Realm gno.land/r/gnoswap/staker: 104115
 // Long-history accumulated-reward Swap (10 staked tick-crosses, visit 33)
 // - Gas Used: 135459299
 // - Storage Diff: 15715
 // - CPU Cycles: 130420055
+// - Realm gno.land/r/gnoswap/pool: 20
+// - Realm gno.land/r/gnoswap/staker: 15695

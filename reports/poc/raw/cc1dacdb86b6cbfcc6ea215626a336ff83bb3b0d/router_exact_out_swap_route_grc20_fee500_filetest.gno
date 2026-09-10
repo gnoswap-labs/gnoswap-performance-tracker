@@ -125,3 +125,7 @@ func doSwap(cur realm) {
 // - Gas Used: 27922116
 // - Storage Diff: 9054
 // - CPU Cycles: 24400406
+// - Realm gno.land/r/gnoland/wugnot: 2044
+// - Realm gno.land/r/gnoswap/pool: 6
+// - Realm gno.land/r/gnoswap/pool/v1: -6
+// - Realm gno.land/r/gnoswap/protocol_fee: 7010

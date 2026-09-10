@@ -1,0 +1,77 @@
+{
+  "group": "staker",
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "fixture_files": [
+    "tests/metric/poc_staker_numerics_filetest.gno"
+  ],
+  "scope_notes": [
+    "All four isolated branches start at baseline b12f0f8760a3e88e9539b0c8cfd32b38a5297c68 and extract exactly one value-backed field from the combined candidate.",
+    "Deposit isolates Deposit.liquidity; gross isolates Tick.stakedLiquidityGross; delta isolates Tick.stakedLiquidityDelta; incentive isolates ExternalIncentive.rewardPerSecondX128.",
+    "Each isolated value keeps its pointer-compatible getter/setter signatures, presence flag, constructor behavior, clone behavior, and detached-copy semantics; unrelated numeric fields remain pointer-backed.",
+    "The immutable combined candidate cc1dacdb86b6cbfcc6ea215626a336ff83bb3b0d is included for attribution only; its correctness tests were already reported passing and are not rerun by Main.",
+    "The shared public fixture preserves deposit, signed tick-crossing, and incentive create/claim/end scenarios while measuring each of 33 stake allocations, each of 33 unstakes, and repeated paid external claims as separate metric windows.",
+    "Fixture clocks and state assertions are outside metric windows; warmup template and a 1% unstaking fee are configured explicitly, and final assertions require zero active deposits, reward entitlements, and staked tick liquidity while historical records may persist."
+  ],
+  "variants": [
+    {
+      "id": "combined",
+      "ref": "cc1dacdb86b6cbfcc6ea215626a336ff83bb3b0d",
+      "packages": [
+        "gno.land/r/gnoswap/staker"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/staker/deposit.gno",
+        "contract/r/gnoswap/staker/pool.gno",
+        "contract/r/gnoswap/staker/value_fields_test.gno"
+      ]
+    },
+    {
+      "id": "deposit",
+      "packages": [
+        "gno.land/r/gnoswap/staker",
+        "gno.land/r/gnoswap/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/staker/deposit.gno",
+        "contract/r/gnoswap/staker/value_fields_test.gno"
+      ],
+      "ref": "27df6c6f44785a645c594cf263d8a4471d1013f1"
+    },
+    {
+      "id": "gross",
+      "packages": [
+        "gno.land/r/gnoswap/staker",
+        "gno.land/r/gnoswap/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/staker/pool.gno",
+        "contract/r/gnoswap/staker/value_fields_test.gno"
+      ],
+      "ref": "97e45b8578003de3a2f190599d3b7fa5655c3b85"
+    },
+    {
+      "id": "delta",
+      "packages": [
+        "gno.land/r/gnoswap/staker",
+        "gno.land/r/gnoswap/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/staker/pool.gno",
+        "contract/r/gnoswap/staker/value_fields_test.gno"
+      ],
+      "ref": "e0c5473c2907c9fb4436c5a66601fbe730045939"
+    },
+    {
+      "id": "incentive",
+      "packages": [
+        "gno.land/r/gnoswap/staker",
+        "gno.land/r/gnoswap/staker/v1"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/staker/pool.gno",
+        "contract/r/gnoswap/staker/value_fields_test.gno"
+      ],
+      "ref": "0bee3ad1b436a2d858f69d730d79b0cfc6be9558"
+    }
+  ]
+}

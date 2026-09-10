@@ -111,3 +111,5 @@ func collectFeeMetric(cur realm) {
 // - Gas Used: 7921911
 // - Storage Diff: 44
 // - CPU Cycles: 5945168
+// - Realm gno.land/r/gnoswap/pool: 24
+// - Realm gno.land/r/gnoswap/position: 20

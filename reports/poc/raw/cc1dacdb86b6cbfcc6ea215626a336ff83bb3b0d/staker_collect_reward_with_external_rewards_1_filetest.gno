@@ -173,7 +173,13 @@ func collectRewardMetric(cur realm) {
 // - Gas Used: 22038907
 // - Storage Diff: 14734
 // - CPU Cycles: 20083870
+// - Realm gno.land/r/gnoswap/gns: 4115
+// - Realm gno.land/r/gnoswap/protocol_fee: 8006
+// - Realm gno.land/r/gnoswap/staker: 533
+// - Realm gno.land/r/onbloc/bar: 2080
 // CollectReward With External Rewards 2nd (1 incentives)
 // - Gas Used: 21442937
 // - Storage Diff: 31
 // - CPU Cycles: 19959187
+// - Realm gno.land/r/gnoswap/protocol_fee: 10
+// - Realm gno.land/r/onbloc/bar: 21

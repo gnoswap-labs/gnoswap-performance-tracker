@@ -1,0 +1,4932 @@
+{
+  "contract_commit": "27df6c6f44785a645c594cf263d8a4471d1013f1",
+  "gno_commit": "bac78a97b20e12ba471bdd73a41af31bd94bdc12",
+  "fixture_sha256": {
+    "common_filetest.gno": "ac096b8d6d536fd7a96870b2d0b1c6801150920b1c209fe3f0a79b3498a50bde",
+    "gnomod.toml": "f472b2ca3dba51afafac38c18f25d517437086491907bc4834e1cf5f5a39a99b",
+    "gnsmath_filetest.gno": "f017039f370116c693891823e41f612a963a1cd9034e1df5f1995aa8d696caed",
+    "gov_governance_propose_community_pool_spend_filetest.gno": "6a260d1b82e2a79008f43ff7fff5756ca8caa881ec33a6a95dc7231ef3a87988",
+    "gov_governance_propose_parameter_change_filetest.gno": "0d9804e4844fbff422618781d01fbe64dfab85423d5e76e6bc5eecee88496fb5",
+    "gov_governance_propose_text_filetest.gno": "109bea14f3d3566ac2d8ebd1c69397619f776b8b7a44096dbd76cb27bc3f43f4",
+    "gov_governance_propose_text_with_incative_proposals_filetest.gno": "6c1c1fe0e8a8ef09492f6210d2e616d3bd42b2dd93f3f2b3f5091ef90f5c949b",
+    "gov_staker_collect_delegation100_withdraw10_filetest.gnoa": "0cde1d5b2d7c31ca76e2b33d1f07d006c9e133c6d4857ceaa4c6bf7a8afa4a34",
+    "gov_staker_collect_gns_delegation100_withdraw1_filetest.gno": "69033c8935cf60e73e61f3961a506cb9d5123546bb63460e8dbe68fb42270898",
+    "gov_staker_collect_gns_delegation10_withdraw10_filetest.gno": "672a4b0819d394bcbefec8ce6cadeec95da49d541610732a988b044460ed9f3a",
+    "gov_staker_collect_gns_delegation10_withdraw1_filetest.gno": "f2d0d3541bdba2e6b86f78977979466f01cfe1acd4d40b34dd100b3be4ea50b3",
+    "gov_staker_collect_gns_delegation10_withdraw50_filetest.gno": "faa670c7862a88114b8d88fd1f6744025db0aacf12a03c3745ea15ae14a997f6",
+    "gov_staker_collect_gns_delegation10_withdraw5_filetest.gno": "95b82467c288eb0bf62de97c605e62847a5aaaa67c95fc1ed17302507c1f9746",
+    "gov_staker_collect_gns_delegation1_withdraw10_filetest.gno": "4336c4736e8ce6908eef81a6199ffb4538b3d5c1cbc856db01230ea1e7a5d47e",
+    "gov_staker_collect_gns_delegation1_withdraw1_filetest.gno": "419d5b86825342d4273e059b0f8dacbaa8642d07ae6411e4ca15db81153aa3c9",
+    "gov_staker_collect_gns_delegation1_withdraw50_filetest.gno": "e6323ae683c182857a9388efe914c1f300cc07c085abb9951483c3a10e828cad",
+    "gov_staker_collect_gns_delegation1_withdraw5_filetest.gno": "1fb10718cb083b0a7be4135f00799a877aad722db7e28dc077b042db311fdca9",
+    "gov_staker_collect_reward_delegation100_withdraw1_filetest.gno": "2b05cf9539bda876926e513b730247717efa01f9010bfd0fe7672fe2dec4d49a",
+    "gov_staker_collect_reward_delegation10_withdraw10_filetest.gno": "ceafef9d4d7d8d7fbf3be715756c8c511b2111269fb63898b419a83f3cdddaa3",
+    "gov_staker_collect_reward_delegation10_withdraw1_filetest.gno": "4aaefdf03b675249dade8e6e1fdeb134ffd0cd86a7806b852da5a1d46b7603fb",
+    "gov_staker_collect_reward_delegation10_withdraw50_filetest.gno": "9912cb55fcf46ae76614dd1985d523ea0017be79cdee36a9127d9658bc18e288",
+    "gov_staker_collect_reward_delegation10_withdraw5_filetest.gno": "a0dfc55beb4c61504f025d72b221039a2996ff34da6b7cf04ecb1cd855f85acb",
+    "gov_staker_collect_reward_delegation1_withdraw10_filetest.gno": "dfd5997e72942b2e2defde2b47795f9bbb46d0d5f0bd61e88bec597e94df71ba",
+    "gov_staker_collect_reward_delegation1_withdraw1_filetest.gno": "942a740ee67de49d7f8e7bde78b7aba390232bb084f7abe02757b055d30b8b3e",
+    "gov_staker_collect_reward_delegation1_withdraw50_filetest.gno": "673ca47fe8ccbf18763bbdad3da405d6bef98436715ea5fb5aee24ddbfe5c2e9",
+    "gov_staker_collect_reward_delegation1_withdraw5_filetest.gno": "4a1d65100f1999c07c86b05892daa54ab05ce8a3918512f819aa3c22e747ff80",
+    "gov_staker_collect_reward_pf_token_count_filetest.gno": "62cd46705dd57d1b5d1dcde15a77a4ebc7c52e0df39c97f325724d40ae353322",
+    "gov_staker_delegate_undelegate_filetest.gno": "49e59d2ff2957f28f9228bad49a9a20039b9ae797b131b2f26c11a2525447a75",
+    "gov_staker_optimizations_filetest.gno": "0026cf57154dacceeff4a89afc11a7361a735f957c6a6504fae3b67057824264",
+    "gov_staker_redelegate_filetest.gno": "2ff0bf9b8f4410366f0df9e28de4df41bce20f8d5d064049d0faf99d5a072344",
+    "gov_staker_redelegate_many_delegations_filetest.gno": "4b51c90ce8a1e281dda9ec6bcc2272556e844dc587a1575ee896183ba38b1e0d",
+    "gov_staker_undelegate_many_delegatees_filetest.gno": "8cf14ce8781fbd99a63d2342a4b7bf3cfb599fd8c7858392948a0a929d5b0ce2",
+    "helper.gno": "0afb5f4a063dd8503c40dc0b2d91a3834d5a31f8bb6bc116fdb6f04b784f951b",
+    "launchpad_collect_deposit_gns_accumulation_filetest.gno": "1e0d864cc488c9aaac4fe85d0160331720a01dcdc248dcf6022e2dde48aed403",
+    "launchpad_collect_deposit_gns_filetest.gno": "0374375858945aa18526849483a3e85127d31c21475ab1c93b033ace95b621c8",
+    "launchpad_collect_protocol_fee_1_token_filetest.gno": "ac05223ef25739be985097221647fb1fbf8e497c456669eb3a63e9782cdab1dc",
+    "launchpad_collect_protocol_fee_2_tokens_filetest.gno": "ddc88686976c0918dcfe02c8253b93b581bbd7325f3c1aca1e9a0dfb57dac131",
+    "launchpad_collect_protocol_fee_5_tokens_filetest.gno": "07cbfbbb515af663704cbcbf963a943c62b6a90f425bf192c50722eacfbba8c3",
+    "launchpad_collect_protocol_fee_filetest.gno": "62d425b9c47a85bdcd35baa4789706a2523023d2c667d08a4202e39ca6f15060",
+    "launchpad_collect_reward_filetest.gno": "fa1a7d9418ca9faf68da23b5bb6c98c6f4ad04fd14e99e0552aa4336625a981d",
+    "launchpad_create_project_filetest.gno": "32731a437722d3f8eccfab3311be66f761d922d743ed8929f8289610cc5df25f",
+    "launchpad_deposit_gns_filetest.gno": "e5234920ee6896fd25fe03dea0dc2c668436741bafcd82bb6a530c3864f59900",
+    "launchpad_transfer_left_from_project_filetest.gno": "f0b65ed7fe82477b612b928e08ca722fa310ae43724c6d950543f6745075f2a0",
+    "poc_staker_numerics_filetest.gno": "56efcb0123d0bf88d87f3b2caf7355577fdaabf9e7f149543df42a58667e80d4",
+    "pool_create_and_mint_filetest.gno": "28309fa876523d92744fc46f855c50486eb817a1cadcacaecca2a42e4bcf84c8",
+    "pool_swap_wugnot_gns_filetest.gno": "5a46356e9a08bdcf7dd33414df9b08c6018555c316ff2894553aba6821242336",
+    "position_decrease_liquidity_filetest.gno": "de0ab1c7ca26195a989393f0213f161d3af17b680b9157a3245d904cf79d1bbd",
+    "position_increase_liquidity_filetest.gno": "428b07a5fabe18b007df8037e11831aca060d727b1ebeb898913cbfacee0dd22",
+    "position_mint_filetest.gno": "318aa5f5f9389991fd854103bf434f827b0cec10732a52d0602a7092aeb55ac6",
+    "position_mint_with_gnot_filetest.gno": "290c68ebf7051e83a20487bc074866c71d4ddf0f0a47ed065187ce58ba2063d2",
+    "position_reposition_filetest.gno": "b0c8b882d25424ac17858ade8ea1ac6c775a97ea8c4554e676f1957f62ccefad",
+    "position_stake_position_filetest.gno": "27aa7db456b4d8094f73b16a1cdad92377b1195f91b9adf0c63438a8d366577c",
+    "raw_uint_tree_key_magnitude_filetest.gno": "c28f964728102155091b31029f201ee2ed814086db8ba9e43573ed3584b1da6f",
+    "router_exact_in_single_swap_route_grc20_fee10000_filetest.gno": "0dff18194adaf941b45fb5c5569458aba1f5e8f4a9a88e2b3c3f3fdb5f276ec6",
+    "router_exact_in_single_swap_route_grc20_fee100_filetest.gno": "d420a62efe1bd9e3fc692f58bf5239fb5027bddf9183bc0918096553b22a92be",
+    "router_exact_in_single_swap_route_grc20_fee3000_filetest.gno": "221f3acffb2d27bc10a5f7c118024bdec57c8f02f9642412da3028785ee0d763",
+    "router_exact_in_single_swap_route_grc20_fee500_filetest.gno": "8e93275a7b14ffe77f41503018d5a211ae867f35fcf37dc6b9aaa2875a1939b4",
+    "router_exact_in_swap_route_grc20_fee10000_filetest.gno": "21d8649f7a4130e3a8d9e6b2a073842583573c4b5f4edf0a396bdc6728036c2f",
+    "router_exact_in_swap_route_grc20_fee100_filetest.gno": "bfe980b1fe344a98c979b529b4be6bfb34049ca37d3d66f24a21bc0e0fd204f1",
+    "router_exact_in_swap_route_grc20_fee3000_filetest.gno": "a6f93f0b5b4a6212d8e6064b15278462e1f3bc5c2503eb4f028a6c3c0aaf1999",
+    "router_exact_in_swap_route_grc20_fee500_filetest.gno": "13e5b3a130a865a73211934861b86b9511ae7adc1afc500e90d9ea940d479658",
+    "router_exact_out_single_swap_route_grc20_fee10000_filetest.gno": "38709f041d3b00ae2fe03b1b1c7e012b54b55186b78aae50d33d01541baf83ac",
+    "router_exact_out_single_swap_route_grc20_fee100_filetest.gno": "3a9ad9a933bbad5687036e34cdb226f9cf2b7aa260f3b4689b243639672c8b1f",
+    "router_exact_out_single_swap_route_grc20_fee3000_filetest.gno": "16777578ab740cfba489179f96fbda0bbc891dc2279c09f90ea1c5ba83c8fbbe",
+    "router_exact_out_single_swap_route_grc20_fee500_filetest.gno": "847609b5ddf041289e49c3605dbf10bc44f19bc106f388f4327d3f688b099490",
+    "router_exact_out_swap_route_grc20_fee10000_filetest.gno": "918070565ddbfffcc48e63b9ee2aa62438cf5ed23e22dc32c3d62a48b732b218",
+    "router_exact_out_swap_route_grc20_fee100_filetest.gno": "53bfb9952ab7cae27015dc462c7890cd100d21c7da9a5620c02133d5d46671aa",
+    "router_exact_out_swap_route_grc20_fee3000_filetest.gno": "6b3e4f0a0cb67a07f9b5506a3ebbdf9c95ee19cc75a075f84ed7179d6c62ffdf",
+    "router_exact_out_swap_route_grc20_fee500_filetest.gno": "5cbc76ec283ae2b25da85e5589e05ea11974ea4477c418dfb2552b90a2937a71",
+    "router_single_hop_route_filetest.gno": "aa1cdd72a66289a43897ea58a54c36d582ee0fd379f60c3d8cad0e6d08c2117f",
+    "router_swap_multi_hop_filetest.gno": "2174dba302d63e7b90d0e27d672880cc35ae386979c817998121663751d248ca",
+    "staker_collect_reward_filetest.gno": "7ed6e1b2f3ca14be14ef7400f20ccb26443cf59f93c9acdfaed91db09dfaeef6",
+    "staker_collect_reward_incentive_token_count_filetest.gno": "ecfe6e47c2e9cfcf7d1659cafd8e95d0a10901bbb9f29753bbe495241b34bd7c",
+    "staker_collect_reward_position_growth_filetest.gno": "c1e8044b0afdafeeb00a208f00ff355e7cc01caaf753fcf97aa00cff2d57da04",
+    "staker_collect_reward_with_external_rewards_1_filetest.gno": "acf9e4486d0f6ea8065885520fd18a3dfaf053a5013149de127cf503456a5481",
+    "staker_collect_reward_with_external_rewards_5_filetest.gno": "a7baba0fce25dc293429ac063ddf0b1d0bca422ee31051ce1f9c0abc99f72637",
+    "staker_collect_reward_with_warmup_range_filetest.gno": "1a9424ac0f4c5e52551e158c62aa6795458d05e02511a58a329f98a5bdcb0762",
+    "staker_create_external_incentive_filetest.gno": "c78229ca861509b6b3a33160958661da4bd52530b037ef0e9c420a61ac052aef",
+    "staker_end_external_incentive_filetest.gno": "38ff81c25471b0b89ae0c118e1091a85075d73def36191e9fdb547eae2bdf3e8",
+    "staker_end_external_incentive_unclaimable100_filetest.gno": "a703c9d9332216a9cdb4d7dd889d5300cf15332326f58fc8b96e8f0c2c4d5e3f",
+    "staker_end_external_incentive_unclaimable10_filetest.gno": "08d212e281fdf540640763eb1f04c01bcf724ad945c486ca3344cd6545f0af90",
+    "staker_end_external_incentive_unclaimable50_filetest.gno": "a9fb3bb33b88e4d5ae20fd9fdb60e0464d14df670db2d7ce4c410dfffaaf51f0",
+    "staker_halving_tick_cross_batch_10_filetest.gno": "a717af15a023145ec05685d0cce6042edb12c78eed921feecb4606501d2a360b",
+    "staker_halving_tick_cross_batch_1_filetest.gno": "b29e8e464d3f2e8409e468852c9714b1539ed644217ba46e69326b592df97e40",
+    "staker_halving_tick_cross_batch_50_filetest.gno": "817deadd2be192fe898c66e218e6cb4e749a1eccb84b28a6f544a50c481da8c4",
+    "staker_tick_cross_batch_no_halving_10_filetest.gno": "0dccc3699fa05979045728cb7e32f6e92bfb595c191be6ead9bad432881daf31",
+    "staker_tick_cross_batch_no_halving_1_filetest.gno": "f9d81f1b1efffc2b300e2538ded300d5915629b84be05c05ab330f2bb2bbf196",
+    "staker_tick_cross_batch_no_halving_50_filetest.gno": "25dd29fa3d676cf46ee333cc8f3b6c95131b4463ec3926e3b9e3c746ef7cb805",
+    "staker_tick_cross_long_history_10_filetest.gno": "f4bf3676ec63c9474548cbea21a405c7d50de5dd67250b0eac07706108349f3a",
+    "staker_tick_cross_revisit_10_filetest.gno": "e02687a1b61719ac37e12e85f6e491a16c7ae207042535478eacf39dda72c945",
+    "staker_tick_cross_revisit_1_filetest.gno": "58d665b1af1f5e821937b44e21b1e266f3fc0f4c6e2228ccfd389651abf8a123",
+    "staker_tick_cross_revisit_50_filetest.gno": "0882161113a00728151a737a2cf5c00508f6c21b83b9ac91a8a8acd2c638a42d",
+    "staker_tick_no_cross_false_filetest.gno": "953e30249425449d1a7a1aa98e515d20bb70b49671b2c9c79639aac30dccb13b",
+    "staker_tick_no_cross_true_filetest.gno": "805b478894e52112991b2f5c00160f50f2d0a2c458a7d0710f0786356b853bbc",
+    "version_manager_filetest.gno": "d410e1a0c96bffc269e0f9ec48e942f8001f106ceb945ca4090591ca0390110a"
+  },
+  "fixtures": {
+    "common_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "TickMathGetSqrtRatioAtTick (minTick)",
+          "gas": 1689865,
+          "storage_bytes": 0,
+          "cycles": 1565901,
+          "realms": {}
+        },
+        {
+          "label": "TickMathGetSqrtRatioAtTick (maxTick)",
+          "gas": 2058854,
+          "storage_bytes": 0,
+          "cycles": 2010200,
+          "realms": {}
+        },
+        {
+          "label": "TickMathGetSqrtRatioAtTick (zero)",
+          "gas": 334802,
+          "storage_bytes": 0,
+          "cycles": 322554,
+          "realms": {}
+        },
+        {
+          "label": "TickMathGetSqrtRatioAtTick",
+          "gas": 1527883,
+          "storage_bytes": 0,
+          "cycles": 1501949,
+          "realms": {}
+        },
+        {
+          "label": "TickMathGetTickAtSqrtRatio",
+          "gas": 3863554,
+          "storage_bytes": 0,
+          "cycles": 3733669,
+          "realms": {}
+        },
+        {
+          "label": "GetLiquidityForAmounts",
+          "gas": 3211535,
+          "storage_bytes": 0,
+          "cycles": 3153602,
+          "realms": {}
+        },
+        {
+          "label": "GetAmountsForLiquidity",
+          "gas": 2981525,
+          "storage_bytes": 0,
+          "cycles": 2937658,
+          "realms": {}
+        },
+        {
+          "label": "LiquidityMathAddDelta (positive)",
+          "gas": 449547,
+          "storage_bytes": 0,
+          "cycles": 431320,
+          "realms": {}
+        },
+        {
+          "label": "LiquidityMathAddDelta (negative)",
+          "gas": 471588,
+          "storage_bytes": 0,
+          "cycles": 463867,
+          "realms": {}
+        },
+        {
+          "label": "LiquidityMathAddDelta",
+          "gas": 437865,
+          "storage_bytes": 0,
+          "cycles": 431320,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "599e461be77e05dcd58e8f07cc4ae2cededc5dd1201aa281d6176e4472c8f01e"
+    },
+    "gnsmath_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "GetAmount0Delta",
+          "gas": 3631434,
+          "storage_bytes": 0,
+          "cycles": 3328476,
+          "realms": {}
+        },
+        {
+          "label": "GetAmount1Delta",
+          "gas": 2329750,
+          "storage_bytes": 0,
+          "cycles": 2298269,
+          "realms": {}
+        },
+        {
+          "label": "SwapMathComputeSwapStep",
+          "gas": 4232740,
+          "storage_bytes": 0,
+          "cycles": 4157059,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "ef3e13c117fe7d8199c70981e5688f20f7e4cc4a4889b09f71d31d563e545987"
+    },
+    "gov_governance_propose_community_pool_spend_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Propose Community Pool Spend",
+          "gas": 2446348,
+          "storage_bytes": 20560,
+          "cycles": 1973983,
+          "realms": {
+            "gno.land/r/gnoswap/gov/governance": 20189,
+            "gno.land/r/gnoswap/gov/governance/v1": 371
+          }
+        }
+      ],
+      "output_sha256": "4891884870bd4c72e9f9d6e6a5cbdc12c629134339ff14bf7167168bfedacb25"
+    },
+    "gov_governance_propose_parameter_change_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Propose Parameter Change",
+          "gas": 2992330,
+          "storage_bytes": 19532,
+          "cycles": 2550061,
+          "realms": {
+            "gno.land/r/gnoswap/gov/governance": 19239,
+            "gno.land/r/gnoswap/gov/governance/v1": 293
+          }
+        },
+        {
+          "label": "Vote",
+          "gas": 1020769,
+          "storage_bytes": 4488,
+          "cycles": 860873,
+          "realms": {
+            "gno.land/r/gnoswap/gov/governance": 4488
+          }
+        },
+        {
+          "label": "Execute",
+          "gas": 2528088,
+          "storage_bytes": 76,
+          "cycles": 1353678,
+          "realms": {
+            "gno.land/r/gnoswap/gov/governance": 76
+          }
+        }
+      ],
+      "output_sha256": "bcf4128548ffc343072b5d2451fcb8960d63fbee6849f370042627907de2369d"
+    },
+    "gov_governance_propose_text_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Propose Text",
+          "gas": 1931909,
+          "storage_bytes": 18333,
+          "cycles": 1581409,
+          "realms": {
+            "gno.land/r/gnoswap/gov/governance": 18333
+          }
+        }
+      ],
+      "output_sha256": "02de3e43443a92a0e5db5964604a9efbe98b0c4db1d083f058338e017bfe9fd7"
+    },
+    "gov_governance_propose_text_with_incative_proposals_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Propose Text with Inactive: 100",
+          "gas": 2347937,
+          "storage_bytes": 8501,
+          "cycles": 2078803,
+          "realms": {
+            "gno.land/r/gnoswap/gov/governance": 8501
+          }
+        }
+      ],
+      "output_sha256": "e0155d4b97eb4f45c21b981e475cb03041252063fbaa904cd11ba60e435a5834"
+    },
+    "gov_staker_collect_gns_delegation100_withdraw1_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectUndelegatedGns (100 delegations, 1 withdraws)",
+          "gas": 25137447,
+          "storage_bytes": 0,
+          "cycles": 22353363,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "7c9f57e0e7a3104fe01628d19cc98ee491da7209b0f4c04dc69434fc631b9e31"
+    },
+    "gov_staker_collect_gns_delegation10_withdraw10_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectUndelegatedGns (10 delegations, 10 withdraws)",
+          "gas": 4375919,
+          "storage_bytes": 0,
+          "cycles": 3847077,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "66be2f1f9d6d07eafe2a4a47f154d1129f17163939e6f2d84fc691e21f40755f"
+    },
+    "gov_staker_collect_gns_delegation10_withdraw1_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectUndelegatedGns (10 delegations, 1 withdraws)",
+          "gas": 2337329,
+          "storage_bytes": 0,
+          "cycles": 1950057,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "e96b757cbc208f261e6db7d9e06a117fbfe84bb7c66a0cbd49a6c50593c5782f"
+    },
+    "gov_staker_collect_gns_delegation10_withdraw50_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectUndelegatedGns (10 delegations, 50 withdraws)",
+          "gas": 13436619,
+          "storage_bytes": 18,
+          "cycles": 12278277,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 18
+          }
+        }
+      ],
+      "output_sha256": "58b7be616da2de5b0faa4ec865ad99bfb2d563aab8229dcf012a143287d53954"
+    },
+    "gov_staker_collect_gns_delegation10_withdraw5_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectUndelegatedGns (10 delegations, 5 withdraws)",
+          "gas": 3243369,
+          "storage_bytes": 0,
+          "cycles": 2793177,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "4f0cc6ee6bb8074784131300bea48666084a141ded5b73eca2ab8b621f0b1423"
+    },
+    "gov_staker_collect_gns_delegation1_withdraw10_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectUndelegatedGns (1 delegation, 10 withdraws)",
+          "gas": 611432,
+          "storage_bytes": 0,
+          "cycles": 541799,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "4fe39ab057a345c2e8db21cd58b9b2b5b397cc8f42509463586c909a67155d26"
+    },
+    "gov_staker_collect_gns_delegation1_withdraw1_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectUndelegatedGns (1 delegation, 1 withdraws)",
+          "gas": 407573,
+          "storage_bytes": 0,
+          "cycles": 352097,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "ca2c53c66113f6883db9182ad64c7634bea46f19bcd375304477bf15ec2b604b"
+    },
+    "gov_staker_collect_gns_delegation1_withdraw50_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectUndelegatedGns (1 delegation, 50 withdraws)",
+          "gas": 1517472,
+          "storage_bytes": 0,
+          "cycles": 1384919,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "62f5e806a21dc6ae2974a4cc4f0cf296bedcc34c06271a2024d8abc3157f97c6"
+    },
+    "gov_staker_collect_gns_delegation1_withdraw5_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectUndelegatedGns (1 delegation, 5 withdraws)",
+          "gas": 498177,
+          "storage_bytes": 0,
+          "cycles": 436409,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "27301e56750ec4dcbe5e0606bd40a0ee9eda05de73aa7736e580922f1bbd3fb8"
+    },
+    "gov_staker_collect_reward_delegation100_withdraw1_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward (100 delegations, 1 withdraws)",
+          "gas": 3457355,
+          "storage_bytes": 2333,
+          "cycles": 2803833,
+          "realms": {
+            "gno.land/r/gnoswap/gns": -6,
+            "gno.land/r/gnoswap/gov/staker": 2432,
+            "gno.land/r/gnoswap/protocol_fee": -93
+          }
+        }
+      ],
+      "output_sha256": "11ac11bfc3fa0457b20fde230c99ca3f0d99dc3f230809ca215b3be82dfb5ff0"
+    },
+    "gov_staker_collect_reward_delegation10_withdraw10_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward (10 delegations, 10 withdraws)",
+          "gas": 3457265,
+          "storage_bytes": 2323,
+          "cycles": 2803833,
+          "realms": {
+            "gno.land/r/gnoswap/gns": -6,
+            "gno.land/r/gnoswap/gov/staker": 2422,
+            "gno.land/r/gnoswap/protocol_fee": -93
+          }
+        }
+      ],
+      "output_sha256": "325cd41b70256a8ea21d7b0d7d22ac70c03d1afdb318299ef4248e83c4d860f1"
+    },
+    "gov_staker_collect_reward_delegation10_withdraw1_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward (10 delegations, 1 withdraws)",
+          "gas": 3453477,
+          "storage_bytes": 2323,
+          "cycles": 2800047,
+          "realms": {
+            "gno.land/r/gnoswap/gns": -6,
+            "gno.land/r/gnoswap/gov/staker": 2422,
+            "gno.land/r/gnoswap/protocol_fee": -93
+          }
+        }
+      ],
+      "output_sha256": "d09818e136240af92a2e2c506d7a019b91e1ee7d366662f14d928a52699e814d"
+    },
+    "gov_staker_collect_reward_delegation10_withdraw50_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward (10 delegations, 50 withdraws)",
+          "gas": 3456198,
+          "storage_bytes": 2323,
+          "cycles": 2802766,
+          "realms": {
+            "gno.land/r/gnoswap/gns": -6,
+            "gno.land/r/gnoswap/gov/staker": 2422,
+            "gno.land/r/gnoswap/protocol_fee": -93
+          }
+        }
+      ],
+      "output_sha256": "371090f3def7dd36e7313afb766d8fd21710ff6934aef4d8efd65eb20dd55e99"
+    },
+    "gov_staker_collect_reward_delegation10_withdraw5_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward (10 delegations, 5 withdraws)",
+          "gas": 3450274,
+          "storage_bytes": 2323,
+          "cycles": 2796844,
+          "realms": {
+            "gno.land/r/gnoswap/gns": -6,
+            "gno.land/r/gnoswap/gov/staker": 2422,
+            "gno.land/r/gnoswap/protocol_fee": -93
+          }
+        }
+      ],
+      "output_sha256": "17640b7ab91af595b79f441ae6318601b3aee29cf10c8676b3a12f3c3e4f7d61"
+    },
+    "gov_staker_collect_reward_delegation1_withdraw10_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward (1 delegation, 10 withdraws)",
+          "gas": 3527397,
+          "storage_bytes": 2395,
+          "cycles": 2800047,
+          "realms": {
+            "gno.land/r/gnoswap/gns": -6,
+            "gno.land/r/gnoswap/gov/staker": 2494,
+            "gno.land/r/gnoswap/protocol_fee": -93
+          }
+        }
+      ],
+      "output_sha256": "f8c34801e5c34f40555793ba0df1096f0b02a6227607812f966f1bba42bf507e"
+    },
+    "gov_staker_collect_reward_delegation1_withdraw1_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward (1 delegation, 1 withdraws)",
+          "gas": 3702983,
+          "storage_bytes": 2395,
+          "cycles": 2972167,
+          "realms": {
+            "gno.land/r/gnoswap/gns": -6,
+            "gno.land/r/gnoswap/gov/staker": 2494,
+            "gno.land/r/gnoswap/protocol_fee": -93
+          }
+        }
+      ],
+      "output_sha256": "b0c1c6374501be74c76b584a11abad4ca5eac25c33c29e349caafa41cafb5bc2"
+    },
+    "gov_staker_collect_reward_delegation1_withdraw50_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward (1 delegation, 50 withdraws)",
+          "gas": 3524194,
+          "storage_bytes": 2395,
+          "cycles": 2796844,
+          "realms": {
+            "gno.land/r/gnoswap/gns": -6,
+            "gno.land/r/gnoswap/gov/staker": 2494,
+            "gno.land/r/gnoswap/protocol_fee": -93
+          }
+        }
+      ],
+      "output_sha256": "44e21c8be6cc84cf5eccdf8bba9cd7ccf8d325a163fdc958c7d167b19987b58a"
+    },
+    "gov_staker_collect_reward_delegation1_withdraw5_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward (1 delegation, 5 withdraws)",
+          "gas": 3525351,
+          "storage_bytes": 2395,
+          "cycles": 2798001,
+          "realms": {
+            "gno.land/r/gnoswap/gns": -6,
+            "gno.land/r/gnoswap/gov/staker": 2494,
+            "gno.land/r/gnoswap/protocol_fee": -93
+          }
+        }
+      ],
+      "output_sha256": "43a2a5277e7558c394e8f9ab4e4f3fdaa50c039c7684dd84110262d73bc916c0"
+    },
+    "gov_staker_collect_reward_pf_token_count_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "gov/staker CollectReward (1 protocol-fee tokens)",
+          "gas": 3710276,
+          "storage_bytes": 368,
+          "cycles": 2984857,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 2489,
+            "gno.land/r/gnoswap/protocol_fee": -92,
+            "gno.land/r/onbloc/bar": -2029
+          }
+        },
+        {
+          "label": "gov/staker CollectReward (2 protocol-fee tokens)",
+          "gas": 5888205,
+          "storage_bytes": -1860,
+          "cycles": 5059996,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 2382,
+            "gno.land/r/gnoswap/protocol_fee": -177,
+            "gno.land/r/onbloc/bar": -2036,
+            "gno.land/r/onbloc/baz": -2029
+          }
+        },
+        {
+          "label": "gov/staker CollectReward (3 protocol-fee tokens)",
+          "gas": 8186417,
+          "storage_bytes": -3992,
+          "cycles": 7136974,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 2382,
+            "gno.land/r/gnoswap/protocol_fee": -266,
+            "gno.land/r/onbloc/bar": -2043,
+            "gno.land/r/onbloc/baz": -2036,
+            "gno.land/r/onbloc/qux": -2029
+          }
+        },
+        {
+          "label": "gov/staker CollectReward (4 protocol-fee tokens)",
+          "gas": 10495832,
+          "storage_bytes": -6122,
+          "cycles": 9218459,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 2382,
+            "gno.land/r/gnoswap/protocol_fee": -353,
+            "gno.land/r/onbloc/bar": -2043,
+            "gno.land/r/onbloc/baz": -2043,
+            "gno.land/r/onbloc/obl": -2029,
+            "gno.land/r/onbloc/qux": -2036
+          }
+        },
+        {
+          "label": "gov/staker CollectReward (4 protocol-fee tokens but zero amount)",
+          "gas": 1701190,
+          "storage_bytes": 0,
+          "cycles": 1173935,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "91d5010e581f124b3b793f287b8b843f07241abd49065ba8ca2beba9a65d3a7a"
+    },
+    "gov_staker_delegate_undelegate_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Delegate",
+          "gas": 4989756,
+          "storage_bytes": 38285,
+          "cycles": 1942824,
+          "realms": {
+            "gno.land/r/gnoswap/gns": 2059,
+            "gno.land/r/gnoswap/gov/staker": 35183,
+            "gno.land/r/gnoswap/gov/xgns": 1043
+          }
+        },
+        {
+          "label": "Undelegate",
+          "gas": 2279200,
+          "storage_bytes": 840,
+          "cycles": 1586279,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 840
+          }
+        }
+      ],
+      "output_sha256": "ba4dea1415f208dc5d90032ccc67f770bdd17aceb7a2791ce311eb534c4f796b"
+    },
+    "gov_staker_optimizations_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Undelegate (5 delegations, cached external calls)",
+          "gas": 9705646,
+          "storage_bytes": 3510,
+          "cycles": 6778953,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 3510
+          }
+        },
+        {
+          "label": "Delegate (cached external calls)",
+          "gas": 3046853,
+          "storage_bytes": 3210,
+          "cycles": 2323417,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 3210
+          }
+        },
+        {
+          "label": "Undelegate (early exit, 3 of 10 delegations)",
+          "gas": 6656620,
+          "storage_bytes": 2088,
+          "cycles": 4833951,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 2088
+          }
+        }
+      ],
+      "output_sha256": "68a007848f7960ddb8a7b108c40d4809a22acadd27f9276dd53958b22982a145"
+    },
+    "gov_staker_redelegate_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Redelegate",
+          "gas": 4363314,
+          "storage_bytes": 1423,
+          "cycles": 3049928,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 1423
+          }
+        }
+      ],
+      "output_sha256": "d19349f962300dfdf0efe74defe9680522dcd1ee1630faaf4af690b78ff6d318"
+    },
+    "gov_staker_redelegate_many_delegations_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Redelegate (50 of 100 delegations, optimized)",
+          "gas": 123363976,
+          "storage_bytes": -118826,
+          "cycles": 90714642,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": -118826
+          }
+        }
+      ],
+      "output_sha256": "dce9d388901dbd8fb131886171270d8cbdba73bc452ede48913d0f09230884e9"
+    },
+    "gov_staker_undelegate_many_delegatees_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Undelegate (50 delegatees, large AVL traversal)",
+          "gas": 2459149,
+          "storage_bytes": 708,
+          "cycles": 1789243,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 708
+          }
+        }
+      ],
+      "output_sha256": "f39d4a51cfe3825b3d59baaf241d74675640baadbf957a44b82628dc369a0343"
+    },
+    "launchpad_collect_deposit_gns_accumulation_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectDepositGns (deposit 1/5, remaining 4)",
+          "gas": 7721509,
+          "storage_bytes": 1850,
+          "cycles": 6547860,
+          "realms": {
+            "gno.land/r/gnoswap/gns": 2043,
+            "gno.land/r/gnoswap/launchpad": -2227,
+            "gno.land/r/onbloc/obl": 2034
+          }
+        },
+        {
+          "label": "CollectDepositGns (deposit 2/5, remaining 3)",
+          "gas": 7380514,
+          "storage_bytes": -2257,
+          "cycles": 6324691,
+          "realms": {
+            "gno.land/r/gnoswap/launchpad": -2257
+          }
+        },
+        {
+          "label": "CollectDepositGns (deposit 3/5, remaining 2)",
+          "gas": 7354134,
+          "storage_bytes": -2257,
+          "cycles": 6300696,
+          "realms": {
+            "gno.land/r/gnoswap/launchpad": -2257
+          }
+        },
+        {
+          "label": "CollectDepositGns (deposit 4/5, remaining 1)",
+          "gas": 7359580,
+          "storage_bytes": -2257,
+          "cycles": 6308527,
+          "realms": {
+            "gno.land/r/gnoswap/launchpad": -2257
+          }
+        },
+        {
+          "label": "CollectDepositGns (deposit 5/5, remaining 0)",
+          "gas": 7231937,
+          "storage_bytes": -8456,
+          "cycles": 6203950,
+          "realms": {
+            "gno.land/r/gnoswap/gns": -2043,
+            "gno.land/r/gnoswap/gov/xgns": -1028,
+            "gno.land/r/gnoswap/launchpad": -5385
+          }
+        }
+      ],
+      "output_sha256": "5a83c1749b9678fefe6880553c30b01b3da95a7cd1d6d6cd10b0a811e647d9a9"
+    },
+    "launchpad_collect_deposit_gns_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Launchpad CollectDepositGns",
+          "gas": 7588751,
+          "storage_bytes": -4155,
+          "cycles": 6444729,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 96,
+            "gno.land/r/gnoswap/gov/xgns": -1028,
+            "gno.land/r/gnoswap/launchpad": -5257,
+            "gno.land/r/onbloc/obl": 2034
+          }
+        }
+      ],
+      "output_sha256": "18915dcef4c456b5211c0286c0f0ccb1510aa84b3977a473e6541e99bbe30777"
+    },
+    "launchpad_collect_protocol_fee_1_token_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectProtocolFee (1 token)",
+          "gas": 3584812,
+          "storage_bytes": 4426,
+          "cycles": 2932053,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 2489,
+            "gno.land/r/gnoswap/protocol_fee": -92,
+            "gno.land/r/onbloc/bar": 2029
+          }
+        }
+      ],
+      "output_sha256": "117824db48d7a743d9bbbc5b9abecbe5cdf28b27e5516efb07c41a10c2115b01"
+    },
+    "launchpad_collect_protocol_fee_2_tokens_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectProtocolFee (2 tokens)",
+          "gas": 5670124,
+          "storage_bytes": 8750,
+          "cycles": 4794387,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 4871,
+            "gno.land/r/gnoswap/protocol_fee": -179,
+            "gno.land/r/onbloc/bar": 2029,
+            "gno.land/r/onbloc/qux": 2029
+          }
+        }
+      ],
+      "output_sha256": "1b2c1943cd777b40e32ccd4d05828fb5804569e603a4a9aad21e229f701ea7bd"
+    },
+    "launchpad_collect_protocol_fee_5_tokens_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectProtocolFee (5 tokens)",
+          "gas": 11964755,
+          "storage_bytes": 21724,
+          "cycles": 10396093,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 12017,
+            "gno.land/r/gnoswap/protocol_fee": -438,
+            "gno.land/r/onbloc/bar": 2029,
+            "gno.land/r/onbloc/baz": 2029,
+            "gno.land/r/onbloc/foo": 2029,
+            "gno.land/r/onbloc/obl": 2029,
+            "gno.land/r/onbloc/qux": 2029
+          }
+        }
+      ],
+      "output_sha256": "43c1d5b6fa0d98040886d24128fa33f446628b80c387a8b297d0a302a404274a"
+    },
+    "launchpad_collect_protocol_fee_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Launchpad CollectProtocolFee (tokens: 10)",
+          "gas": 22358495,
+          "storage_bytes": 43713,
+          "cycles": 19585903,
+          "realms": {
+            "gno.land/r/gnoswap/gov/staker": 24387,
+            "gno.land/r/gnoswap/protocol_fee": -964,
+            "gno.land/r/gnoswap/test_token/test_btc": 2029,
+            "gno.land/r/gnoswap/test_token/test_eth": 2029,
+            "gno.land/r/gnoswap/test_token/test_sol": 2029,
+            "gno.land/r/gnoswap/test_token/test_usdc": 2029,
+            "gno.land/r/gnoswap/test_token/test_usdt": 2029,
+            "gno.land/r/onbloc/bar": 2029,
+            "gno.land/r/onbloc/baz": 2029,
+            "gno.land/r/onbloc/foo": 2029,
+            "gno.land/r/onbloc/obl": 2029,
+            "gno.land/r/onbloc/qux": 2029
+          }
+        }
+      ],
+      "output_sha256": "a57a6aac22329d8570e30aeee96694016e541e664986a0c5584e23958f7d4e92"
+    },
+    "launchpad_collect_reward_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Launchpad CollectRewardByDepositId",
+          "gas": 3308430,
+          "storage_bytes": 2070,
+          "cycles": 2934105,
+          "realms": {
+            "gno.land/r/gnoswap/launchpad": 36,
+            "gno.land/r/onbloc/obl": 2034
+          }
+        }
+      ],
+      "output_sha256": "fb22d1b7cdc103436ea060510695c98522bf225798f05e6ddb96a3f65931ccc6"
+    },
+    "launchpad_create_project_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Create Launchpad Project",
+          "gas": 8550023,
+          "storage_bytes": 33729,
+          "cycles": 6147317,
+          "realms": {
+            "gno.land/r/gnoswap/launchpad": 31276,
+            "gno.land/r/gnoswap/launchpad/v1": 419,
+            "gno.land/r/onbloc/bar": 2034
+          }
+        }
+      ],
+      "output_sha256": "770c15f5158d433d43d3849990660220bcded1aa4f10724d7eb1f6d8b08e33c6"
+    },
+    "launchpad_deposit_gns_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Launchpad DepositGns",
+          "gas": 6420331,
+          "storage_bytes": 24246,
+          "cycles": 4183559,
+          "realms": {
+            "gno.land/r/gnoswap/gns": -1064,
+            "gno.land/r/gnoswap/gov/staker": 14243,
+            "gno.land/r/gnoswap/gov/xgns": 1043,
+            "gno.land/r/gnoswap/launchpad": 10024
+          }
+        }
+      ],
+      "output_sha256": "c3d04ef4484c6aa7b4c9d0d28a8677f2f5cf29812e0c400cf2ef040974ae1249"
+    },
+    "launchpad_transfer_left_from_project_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Launchpad TransferLeftFromProjectByAdmin",
+          "gas": 1268570,
+          "storage_bytes": 41,
+          "cycles": 1078780,
+          "realms": {
+            "gno.land/r/gnoswap/launchpad": 36,
+            "gno.land/r/onbloc/obl": 5
+          }
+        }
+      ],
+      "output_sha256": "ec4882b3fcbe7eae8ffe6253ecf3966d280d314dc8213e8f3811630178aebf24"
+    },
+    "poc_staker_numerics_filetest.gno": {
+      "states": [
+        "STATE CLOCK staker_setup_before 1234567890",
+        "STATE staker-numerics config unstaking_fee=100 warmup_tiers=4",
+        "STATE CLOCK staker_setup_after 1234567895",
+        "STATE CLOCK staker_pool_after 1234567895",
+        "STATE CLOCK staker_mint_after 1234567895",
+        "STATE CLOCK staker_stake_wide_before 1234567900",
+        "STATE CLOCK staker_stake_wide_after 1234567900",
+        "STATE CLOCK staker_stake_boundary_01_before 1234567905",
+        "STATE CLOCK staker_stake_boundary_01_after 1234567905",
+        "STATE CLOCK staker_stake_boundary_2_before 1234567910",
+        "STATE CLOCK staker_stake_boundary_2_after 1234567910",
+        "STATE CLOCK staker_stake_boundary_3_before 1234567915",
+        "STATE CLOCK staker_stake_boundary_3_after 1234567915",
+        "STATE CLOCK staker_stake_boundary_4_before 1234567920",
+        "STATE CLOCK staker_stake_boundary_4_after 1234567920",
+        "STATE CLOCK staker_stake_boundary_5_before 1234567925",
+        "STATE CLOCK staker_stake_boundary_5_after 1234567925",
+        "STATE CLOCK staker_stake_boundary_6_before 1234567930",
+        "STATE CLOCK staker_stake_boundary_6_after 1234567930",
+        "STATE CLOCK staker_stake_boundary_7_before 1234567935",
+        "STATE CLOCK staker_stake_boundary_7_after 1234567935",
+        "STATE CLOCK staker_stake_boundary_8_before 1234567940",
+        "STATE CLOCK staker_stake_boundary_8_after 1234567940",
+        "STATE CLOCK staker_stake_boundary_9_before 1234567945",
+        "STATE CLOCK staker_stake_boundary_9_after 1234567945",
+        "STATE CLOCK staker_stake_boundary_10_before 1234567950",
+        "STATE CLOCK staker_stake_boundary_10_after 1234567950",
+        "STATE CLOCK staker_stake_boundary_11_before 1234567955",
+        "STATE CLOCK staker_stake_boundary_11_after 1234567955",
+        "STATE CLOCK staker_stake_boundary_12_before 1234567960",
+        "STATE CLOCK staker_stake_boundary_12_after 1234567960",
+        "STATE CLOCK staker_stake_boundary_13_before 1234567965",
+        "STATE CLOCK staker_stake_boundary_13_after 1234567965",
+        "STATE CLOCK staker_stake_boundary_14_before 1234567970",
+        "STATE CLOCK staker_stake_boundary_14_after 1234567970",
+        "STATE CLOCK staker_stake_boundary_15_before 1234567975",
+        "STATE CLOCK staker_stake_boundary_15_after 1234567975",
+        "STATE CLOCK staker_stake_boundary_16_before 1234567980",
+        "STATE CLOCK staker_stake_boundary_16_after 1234567980",
+        "STATE CLOCK staker_stake_boundary_17_before 1234567985",
+        "STATE CLOCK staker_stake_boundary_17_after 1234567985",
+        "STATE CLOCK staker_stake_boundary_18_before 1234567990",
+        "STATE CLOCK staker_stake_boundary_18_after 1234567990",
+        "STATE CLOCK staker_stake_boundary_19_before 1234567995",
+        "STATE CLOCK staker_stake_boundary_19_after 1234567995",
+        "STATE CLOCK staker_stake_boundary_20_before 1234568000",
+        "STATE CLOCK staker_stake_boundary_20_after 1234568000",
+        "STATE CLOCK staker_stake_boundary_21_before 1234568005",
+        "STATE CLOCK staker_stake_boundary_21_after 1234568005",
+        "STATE CLOCK staker_stake_boundary_22_before 1234568010",
+        "STATE CLOCK staker_stake_boundary_22_after 1234568010",
+        "STATE CLOCK staker_stake_boundary_23_before 1234568015",
+        "STATE CLOCK staker_stake_boundary_23_after 1234568015",
+        "STATE CLOCK staker_stake_boundary_24_before 1234568020",
+        "STATE CLOCK staker_stake_boundary_24_after 1234568020",
+        "STATE CLOCK staker_stake_boundary_25_before 1234568025",
+        "STATE CLOCK staker_stake_boundary_25_after 1234568025",
+        "STATE CLOCK staker_stake_boundary_26_before 1234568030",
+        "STATE CLOCK staker_stake_boundary_26_after 1234568030",
+        "STATE CLOCK staker_stake_boundary_27_before 1234568035",
+        "STATE CLOCK staker_stake_boundary_27_after 1234568035",
+        "STATE CLOCK staker_stake_boundary_28_before 1234568040",
+        "STATE CLOCK staker_stake_boundary_28_after 1234568040",
+        "STATE CLOCK staker_stake_boundary_29_before 1234568045",
+        "STATE CLOCK staker_stake_boundary_29_after 1234568045",
+        "STATE CLOCK staker_stake_boundary_30_before 1234568050",
+        "STATE CLOCK staker_stake_boundary_30_after 1234568050",
+        "STATE CLOCK staker_stake_boundary_31_before 1234568055",
+        "STATE CLOCK staker_stake_boundary_31_after 1234568055",
+        "STATE CLOCK staker_stake_boundary_32_before 1234568060",
+        "STATE CLOCK staker_stake_boundary_32_after 1234568060",
+        "STATE staker-numerics aggregate after_stake deposits=33 boundary_records=32 pool_staked=500000000 expected=500000000 boundary_active=false",
+        "STATE staker-numerics deposit after_stake 1 g1v9kxjcm9ta047h6lta047h6lta047h6lzd40gh 500000000 1234567900 1234567900 0 -887220 887220 gno.land/r/onbloc/bar.BAR:gno.land/r/onbloc/foo.FOO:3000 500000000",
+        "STATE staker-numerics deposit after_stake_boundary_first 2 g1v9kxjcm9ta047h6lta047h6lta047h6lzd40gh 3903576 1234567905 1234567905 0 60 6000 gno.land/r/onbloc/bar.BAR:gno.land/r/onbloc/foo.FOO:3000 500000000",
+        "STATE staker-numerics deposit after_stake_boundary_last 33 g1v9kxjcm9ta047h6lta047h6lta047h6lzd40gh 5965197 1234568060 1234568060 0 1920 6000 gno.land/r/onbloc/bar.BAR:gno.land/r/onbloc/foo.FOO:3000 500000000",
+        "STATE CLOCK staker_stake_phase_after 1234568060",
+        "STATE CLOCK staker_collect_wide_before 1234568065",
+        "STATE CLOCK staker_collect_wide_after 1234568065",
+        "STATE staker-numerics aggregate after_collect deposits=33 boundary_records=32 pool_staked=500000000 expected=500000000 boundary_active=false",
+        "STATE staker-numerics deposit after_collect 1 g1v9kxjcm9ta047h6lta047h6lta047h6lzd40gh 500000000 1234567900 1234568065 441459644 -887220 887220 gno.land/r/onbloc/bar.BAR:gno.land/r/onbloc/foo.FOO:3000 500000000",
+        "STATE CLOCK staker_collect_wide_repeat_before 1234568070",
+        "STATE CLOCK staker_collect_wide_repeat_after 1234568070",
+        "STATE staker-numerics aggregate after_collect_repeat deposits=33 boundary_records=32 pool_staked=500000000 expected=500000000 boundary_active=false",
+        "STATE staker-numerics deposit after_collect_repeat 1 g1v9kxjcm9ta047h6lta047h6lta047h6lzd40gh 500000000 1234567900 1234568070 454837209 -887220 887220 gno.land/r/onbloc/bar.BAR:gno.land/r/onbloc/foo.FOO:3000 500000000",
+        "STATE CLOCK staker_collect_boundary_1_before 1234568075",
+        "STATE CLOCK staker_collect_boundary_1_after 1234568075",
+        "STATE CLOCK staker_collect_boundary_2_before 1234568080",
+        "STATE CLOCK staker_collect_boundary_2_after 1234568080",
+        "STATE CLOCK staker_collect_boundary_3_before 1234568085",
+        "STATE CLOCK staker_collect_boundary_3_after 1234568085",
+        "STATE CLOCK staker_collect_boundary_4_before 1234568090",
+        "STATE CLOCK staker_collect_boundary_4_after 1234568090",
+        "STATE CLOCK staker_collect_boundary_5_before 1234568095",
+        "STATE CLOCK staker_collect_boundary_5_after 1234568095",
+        "STATE CLOCK staker_collect_boundary_6_before 1234568100",
+        "STATE CLOCK staker_collect_boundary_6_after 1234568100",
+        "STATE CLOCK staker_collect_boundary_7_before 1234568105",
+        "STATE CLOCK staker_collect_boundary_7_after 1234568105",
+        "STATE CLOCK staker_collect_boundary_8_before 1234568110",
+        "STATE CLOCK staker_collect_boundary_8_after 1234568110",
+        "STATE CLOCK staker_collect_boundary_9_before 1234568115",
+        "STATE CLOCK staker_collect_boundary_9_after 1234568115",
+        "STATE CLOCK staker_collect_boundary_10_before 1234568120",
+        "STATE CLOCK staker_collect_boundary_10_after 1234568120",
+        "STATE CLOCK staker_collect_boundary_11_before 1234568125",
+        "STATE CLOCK staker_collect_boundary_11_after 1234568125",
+        "STATE CLOCK staker_collect_boundary_12_before 1234568130",
+        "STATE CLOCK staker_collect_boundary_12_after 1234568130",
+        "STATE CLOCK staker_collect_boundary_13_before 1234568135",
+        "STATE CLOCK staker_collect_boundary_13_after 1234568135",
+        "STATE CLOCK staker_collect_boundary_14_before 1234568140",
+        "STATE CLOCK staker_collect_boundary_14_after 1234568140",
+        "STATE CLOCK staker_collect_boundary_15_before 1234568145",
+        "STATE CLOCK staker_collect_boundary_15_after 1234568145",
+        "STATE CLOCK staker_collect_boundary_16_before 1234568150",
+        "STATE CLOCK staker_collect_boundary_16_after 1234568150",
+        "STATE CLOCK staker_collect_boundary_17_before 1234568155",
+        "STATE CLOCK staker_collect_boundary_17_after 1234568155",
+        "STATE CLOCK staker_collect_boundary_18_before 1234568160",
+        "STATE CLOCK staker_collect_boundary_18_after 1234568160",
+        "STATE CLOCK staker_collect_boundary_19_before 1234568165",
+        "STATE CLOCK staker_collect_boundary_19_after 1234568165",
+        "STATE CLOCK staker_collect_boundary_20_before 1234568170",
+        "STATE CLOCK staker_collect_boundary_20_after 1234568170",
+        "STATE CLOCK staker_collect_boundary_21_before 1234568175",
+        "STATE CLOCK staker_collect_boundary_21_after 1234568175",
+        "STATE CLOCK staker_collect_boundary_22_before 1234568180",
+        "STATE CLOCK staker_collect_boundary_22_after 1234568180",
+        "STATE CLOCK staker_collect_boundary_23_before 1234568185",
+        "STATE CLOCK staker_collect_boundary_23_after 1234568185",
+        "STATE CLOCK staker_collect_boundary_24_before 1234568190",
+        "STATE CLOCK staker_collect_boundary_24_after 1234568190",
+        "STATE CLOCK staker_collect_boundary_25_before 1234568195",
+        "STATE CLOCK staker_collect_boundary_25_after 1234568195",
+        "STATE CLOCK staker_collect_boundary_26_before 1234568200",
+        "STATE CLOCK staker_collect_boundary_26_after 1234568200",
+        "STATE CLOCK staker_collect_boundary_27_before 1234568205",
+        "STATE CLOCK staker_collect_boundary_27_after 1234568205",
+        "STATE CLOCK staker_collect_boundary_28_before 1234568210",
+        "STATE CLOCK staker_collect_boundary_28_after 1234568210",
+        "STATE CLOCK staker_collect_boundary_29_before 1234568215",
+        "STATE CLOCK staker_collect_boundary_29_after 1234568215",
+        "STATE CLOCK staker_collect_boundary_30_before 1234568220",
+        "STATE CLOCK staker_collect_boundary_30_after 1234568220",
+        "STATE CLOCK staker_collect_boundary_31_before 1234568225",
+        "STATE CLOCK staker_collect_boundary_31_after 1234568225",
+        "STATE CLOCK staker_collect_boundary_32_before 1234568230",
+        "STATE CLOCK staker_collect_boundary_32_after 1234568230",
+        "STATE staker-numerics aggregate after_batch_collect deposits=33 boundary_records=32 pool_staked=500000000 expected=500000000 boundary_active=false",
+        "STATE staker-numerics deposit after_batch_collect_boundary_first 2 g1v9kxjcm9ta047h6lta047h6lta047h6lzd40gh 3903576 1234567905 1234567905 0 60 6000 gno.land/r/onbloc/bar.BAR:gno.land/r/onbloc/foo.FOO:3000 500000000",
+        "STATE staker-numerics deposit after_batch_collect_boundary_last 33 g1v9kxjcm9ta047h6lta047h6lta047h6lzd40gh 5965197 1234568060 1234568060 0 1920 6000 gno.land/r/onbloc/bar.BAR:gno.land/r/onbloc/foo.FOO:3000 500000000",
+        "STATE CLOCK staker_collect_phase_after 1234568230",
+        "STATE CLOCK staker_tick_positive_before 1234568235",
+        "STATE CLOCK staker_tick_positive_after 1234568235",
+        "STATE staker-numerics tick after_positive_cross current_tick=1921 pool_staked=653902384 expected=653902384 wide_gross=500000000 boundary_gross=153902384 narrow_active=true boundary_records=32 historical_ticks=2",
+        "STATE CLOCK staker_tick_upper_before 1234568240",
+        "STATE CLOCK staker_tick_upper_after 1234568240",
+        "STATE staker-numerics tick after_upper_cross current_tick=6001 pool_staked=500000000 expected=500000000 wide_gross=500000000 boundary_gross=153902384 narrow_active=false boundary_records=32 historical_ticks=3",
+        "STATE CLOCK staker_tick_negative_before 1234568245",
+        "STATE CLOCK staker_tick_negative_after 1234568245",
+        "STATE staker-numerics tick after_negative_cross current_tick=59 pool_staked=500000000 expected=500000000 wide_gross=500000000 boundary_gross=153902384 narrow_active=false boundary_records=32 historical_ticks=4",
+        "STATE CLOCK staker_tick_phase_after 1234568245",
+        "STATE CLOCK staker_incentive_create_before 1234568245",
+        "STATE CLOCK staker_incentive_create_after 1234568245",
+        "STATE staker-numerics incentive after_create g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5:1234568245:1 gno.land/r/onbloc/bar.BAR 1234656000 1242432000 194 1234568245 100000000000 90000000000000 90000000000000 0 0 0 3938453320844195178974243141571391336296296296 false 0 0 0 500000000",
+        "STATE CLOCK staker_incentive_collect_before 1234656010",
+        "STATE CLOCK staker_incentive_collect_after 1234656010",
+        "STATE staker-numerics incentive after_collect g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5:1234568245:1 gno.land/r/onbloc/bar.BAR 1234656000 1242432000 194 1234568245 100000000000 90000000000000 89999884259260 34722222 81018518 0 3938453320844195178974243141571391336296296296 false 115740740 1234656010 1 500000000",
+        "STATE CLOCK staker_paid_claim_1_1_before 1234656015",
+        "STATE CLOCK staker_paid_claim_1_1_after 1234656015",
+        "STATE staker-numerics incentive after_paid_claims_1 g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5:1234568245:1 gno.land/r/onbloc/bar.BAR 1234656000 1242432000 194 1234568245 100000000000 90000000000000 89999826388890 52083333 121527777 0 3938453320844195178974243141571391336296296296 false 173611110 1234656015 1 500000000",
+        "STATE CLOCK staker_paid_claim_10_1_before 1234656020",
+        "STATE CLOCK staker_paid_claim_10_1_after 1234656020",
+        "STATE CLOCK staker_paid_claim_10_2_before 1234656025",
+        "STATE CLOCK staker_paid_claim_10_2_after 1234656025",
+        "STATE CLOCK staker_paid_claim_10_3_before 1234656030",
+        "STATE CLOCK staker_paid_claim_10_3_after 1234656030",
+        "STATE CLOCK staker_paid_claim_10_4_before 1234656035",
+        "STATE CLOCK staker_paid_claim_10_4_after 1234656035",
+        "STATE CLOCK staker_paid_claim_10_5_before 1234656040",
+        "STATE CLOCK staker_paid_claim_10_5_after 1234656040",
+        "STATE CLOCK staker_paid_claim_10_6_before 1234656045",
+        "STATE CLOCK staker_paid_claim_10_6_after 1234656045",
+        "STATE CLOCK staker_paid_claim_10_7_before 1234656050",
+        "STATE CLOCK staker_paid_claim_10_7_after 1234656050",
+        "STATE CLOCK staker_paid_claim_10_8_before 1234656055",
+        "STATE CLOCK staker_paid_claim_10_8_after 1234656055",
+        "STATE CLOCK staker_paid_claim_10_9_before 1234656060",
+        "STATE CLOCK staker_paid_claim_10_9_after 1234656060",
+        "STATE CLOCK staker_paid_claim_10_10_before 1234656065",
+        "STATE CLOCK staker_paid_claim_10_10_after 1234656065",
+        "STATE staker-numerics incentive after_paid_claims_10 g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5:1234568245:1 gno.land/r/onbloc/bar.BAR 1234656000 1242432000 194 1234568245 100000000000 90000000000000 89999247685190 225694443 526620367 0 3938453320844195178974243141571391336296296296 false 752314810 1234656065 1 500000000",
+        "STATE CLOCK staker_paid_claim_100_1_before 1234656070",
+        "STATE CLOCK staker_paid_claim_100_1_after 1234656070",
+        "STATE CLOCK staker_paid_claim_100_2_before 1234656075",
+        "STATE CLOCK staker_paid_claim_100_2_after 1234656075",
+        "STATE CLOCK staker_paid_claim_100_3_before 1234656080",
+        "STATE CLOCK staker_paid_claim_100_3_after 1234656080",
+        "STATE CLOCK staker_paid_claim_100_4_before 1234656085",
+        "STATE CLOCK staker_paid_claim_100_4_after 1234656085",
+        "STATE CLOCK staker_paid_claim_100_5_before 1234656090",
+        "STATE CLOCK staker_paid_claim_100_5_after 1234656090",
+        "STATE CLOCK staker_paid_claim_100_6_before 1234656095",
+        "STATE CLOCK staker_paid_claim_100_6_after 1234656095",
+        "STATE CLOCK staker_paid_claim_100_7_before 1234656100",
+        "STATE CLOCK staker_paid_claim_100_7_after 1234656100",
+        "STATE CLOCK staker_paid_claim_100_8_before 1234656105",
+        "STATE CLOCK staker_paid_claim_100_8_after 1234656105",
+        "STATE CLOCK staker_paid_claim_100_9_before 1234656110",
+        "STATE CLOCK staker_paid_claim_100_9_after 1234656110",
+        "STATE CLOCK staker_paid_claim_100_10_before 1234656115",
+        "STATE CLOCK staker_paid_claim_100_10_after 1234656115",
+        "STATE CLOCK staker_paid_claim_100_11_before 1234656120",
+        "STATE CLOCK staker_paid_claim_100_11_after 1234656120",
+        "STATE CLOCK staker_paid_claim_100_12_before 1234656125",
+        "STATE CLOCK staker_paid_claim_100_12_after 1234656125",
+        "STATE CLOCK staker_paid_claim_100_13_before 1234656130",
+        "STATE CLOCK staker_paid_claim_100_13_after 1234656130",
+        "STATE CLOCK staker_paid_claim_100_14_before 1234656135",
+        "STATE CLOCK staker_paid_claim_100_14_after 1234656135",
+        "STATE CLOCK staker_paid_claim_100_15_before 1234656140",
+        "STATE CLOCK staker_paid_claim_100_15_after 1234656140",
+        "STATE CLOCK staker_paid_claim_100_16_before 1234656145",
+        "STATE CLOCK staker_paid_claim_100_16_after 1234656145",
+        "STATE CLOCK staker_paid_claim_100_17_before 1234656150",
+        "STATE CLOCK staker_paid_claim_100_17_after 1234656150",
+        "STATE CLOCK staker_paid_claim_100_18_before 1234656155",
+        "STATE CLOCK staker_paid_claim_100_18_after 1234656155",
+        "STATE CLOCK staker_paid_claim_100_19_before 1234656160",
+        "STATE CLOCK staker_paid_claim_100_19_after 1234656160",
+        "STATE CLOCK staker_paid_claim_100_20_before 1234656165",
+        "STATE CLOCK staker_paid_claim_100_20_after 1234656165",
+        "STATE CLOCK staker_paid_claim_100_21_before 1234656170",
+        "STATE CLOCK staker_paid_claim_100_21_after 1234656170",
+        "STATE CLOCK staker_paid_claim_100_22_before 1234656175",
+        "STATE CLOCK staker_paid_claim_100_22_after 1234656175",
+        "STATE CLOCK staker_paid_claim_100_23_before 1234656180",
+        "STATE CLOCK staker_paid_claim_100_23_after 1234656180",
+        "STATE CLOCK staker_paid_claim_100_24_before 1234656185",
+        "STATE CLOCK staker_paid_claim_100_24_after 1234656185",
+        "STATE CLOCK staker_paid_claim_100_25_before 1234656190",
+        "STATE CLOCK staker_paid_claim_100_25_after 1234656190",
+        "STATE CLOCK staker_paid_claim_100_26_before 1234656195",
+        "STATE CLOCK staker_paid_claim_100_26_after 1234656195",
+        "STATE CLOCK staker_paid_claim_100_27_before 1234656200",
+        "STATE CLOCK staker_paid_claim_100_27_after 1234656200",
+        "STATE CLOCK staker_paid_claim_100_28_before 1234656205",
+        "STATE CLOCK staker_paid_claim_100_28_after 1234656205",
+        "STATE CLOCK staker_paid_claim_100_29_before 1234656210",
+        "STATE CLOCK staker_paid_claim_100_29_after 1234656210",
+        "STATE CLOCK staker_paid_claim_100_30_before 1234656215",
+        "STATE CLOCK staker_paid_claim_100_30_after 1234656215",
+        "STATE CLOCK staker_paid_claim_100_31_before 1234656220",
+        "STATE CLOCK staker_paid_claim_100_31_after 1234656220",
+        "STATE CLOCK staker_paid_claim_100_32_before 1234656225",
+        "STATE CLOCK staker_paid_claim_100_32_after 1234656225",
+        "STATE CLOCK staker_paid_claim_100_33_before 1234656230",
+        "STATE CLOCK staker_paid_claim_100_33_after 1234656230",
+        "STATE CLOCK staker_paid_claim_100_34_before 1234656235",
+        "STATE CLOCK staker_paid_claim_100_34_after 1234656235",
+        "STATE CLOCK staker_paid_claim_100_35_before 1234656240",
+        "STATE CLOCK staker_paid_claim_100_35_after 1234656240",
+        "STATE CLOCK staker_paid_claim_100_36_before 1234656245",
+        "STATE CLOCK staker_paid_claim_100_36_after 1234656245",
+        "STATE CLOCK staker_paid_claim_100_37_before 1234656250",
+        "STATE CLOCK staker_paid_claim_100_37_after 1234656250",
+        "STATE CLOCK staker_paid_claim_100_38_before 1234656255",
+        "STATE CLOCK staker_paid_claim_100_38_after 1234656255",
+        "STATE CLOCK staker_paid_claim_100_39_before 1234656260",
+        "STATE CLOCK staker_paid_claim_100_39_after 1234656260",
+        "STATE CLOCK staker_paid_claim_100_40_before 1234656265",
+        "STATE CLOCK staker_paid_claim_100_40_after 1234656265",
+        "STATE CLOCK staker_paid_claim_100_41_before 1234656270",
+        "STATE CLOCK staker_paid_claim_100_41_after 1234656270",
+        "STATE CLOCK staker_paid_claim_100_42_before 1234656275",
+        "STATE CLOCK staker_paid_claim_100_42_after 1234656275",
+        "STATE CLOCK staker_paid_claim_100_43_before 1234656280",
+        "STATE CLOCK staker_paid_claim_100_43_after 1234656280",
+        "STATE CLOCK staker_paid_claim_100_44_before 1234656285",
+        "STATE CLOCK staker_paid_claim_100_44_after 1234656285",
+        "STATE CLOCK staker_paid_claim_100_45_before 1234656290",
+        "STATE CLOCK staker_paid_claim_100_45_after 1234656290",
+        "STATE CLOCK staker_paid_claim_100_46_before 1234656295",
+        "STATE CLOCK staker_paid_claim_100_46_after 1234656295",
+        "STATE CLOCK staker_paid_claim_100_47_before 1234656300",
+        "STATE CLOCK staker_paid_claim_100_47_after 1234656300",
+        "STATE CLOCK staker_paid_claim_100_48_before 1234656305",
+        "STATE CLOCK staker_paid_claim_100_48_after 1234656305",
+        "STATE CLOCK staker_paid_claim_100_49_before 1234656310",
+        "STATE CLOCK staker_paid_claim_100_49_after 1234656310",
+        "STATE CLOCK staker_paid_claim_100_50_before 1234656315",
+        "STATE CLOCK staker_paid_claim_100_50_after 1234656315",
+        "STATE CLOCK staker_paid_claim_100_51_before 1234656320",
+        "STATE CLOCK staker_paid_claim_100_51_after 1234656320",
+        "STATE CLOCK staker_paid_claim_100_52_before 1234656325",
+        "STATE CLOCK staker_paid_claim_100_52_after 1234656325",
+        "STATE CLOCK staker_paid_claim_100_53_before 1234656330",
+        "STATE CLOCK staker_paid_claim_100_53_after 1234656330",
+        "STATE CLOCK staker_paid_claim_100_54_before 1234656335",
+        "STATE CLOCK staker_paid_claim_100_54_after 1234656335",
+        "STATE CLOCK staker_paid_claim_100_55_before 1234656340",
+        "STATE CLOCK staker_paid_claim_100_55_after 1234656340",
+        "STATE CLOCK staker_paid_claim_100_56_before 1234656345",
+        "STATE CLOCK staker_paid_claim_100_56_after 1234656345",
+        "STATE CLOCK staker_paid_claim_100_57_before 1234656350",
+        "STATE CLOCK staker_paid_claim_100_57_after 1234656350",
+        "STATE CLOCK staker_paid_claim_100_58_before 1234656355",
+        "STATE CLOCK staker_paid_claim_100_58_after 1234656355",
+        "STATE CLOCK staker_paid_claim_100_59_before 1234656360",
+        "STATE CLOCK staker_paid_claim_100_59_after 1234656360",
+        "STATE CLOCK staker_paid_claim_100_60_before 1234656365",
+        "STATE CLOCK staker_paid_claim_100_60_after 1234656365",
+        "STATE CLOCK staker_paid_claim_100_61_before 1234656370",
+        "STATE CLOCK staker_paid_claim_100_61_after 1234656370",
+        "STATE CLOCK staker_paid_claim_100_62_before 1234656375",
+        "STATE CLOCK staker_paid_claim_100_62_after 1234656375",
+        "STATE CLOCK staker_paid_claim_100_63_before 1234656380",
+        "STATE CLOCK staker_paid_claim_100_63_after 1234656380",
+        "STATE CLOCK staker_paid_claim_100_64_before 1234656385",
+        "STATE CLOCK staker_paid_claim_100_64_after 1234656385",
+        "STATE CLOCK staker_paid_claim_100_65_before 1234656390",
+        "STATE CLOCK staker_paid_claim_100_65_after 1234656390",
+        "STATE CLOCK staker_paid_claim_100_66_before 1234656395",
+        "STATE CLOCK staker_paid_claim_100_66_after 1234656395",
+        "STATE CLOCK staker_paid_claim_100_67_before 1234656400",
+        "STATE CLOCK staker_paid_claim_100_67_after 1234656400",
+        "STATE CLOCK staker_paid_claim_100_68_before 1234656405",
+        "STATE CLOCK staker_paid_claim_100_68_after 1234656405",
+        "STATE CLOCK staker_paid_claim_100_69_before 1234656410",
+        "STATE CLOCK staker_paid_claim_100_69_after 1234656410",
+        "STATE CLOCK staker_paid_claim_100_70_before 1234656415",
+        "STATE CLOCK staker_paid_claim_100_70_after 1234656415",
+        "STATE CLOCK staker_paid_claim_100_71_before 1234656420",
+        "STATE CLOCK staker_paid_claim_100_71_after 1234656420",
+        "STATE CLOCK staker_paid_claim_100_72_before 1234656425",
+        "STATE CLOCK staker_paid_claim_100_72_after 1234656425",
+        "STATE CLOCK staker_paid_claim_100_73_before 1234656430",
+        "STATE CLOCK staker_paid_claim_100_73_after 1234656430",
+        "STATE CLOCK staker_paid_claim_100_74_before 1234656435",
+        "STATE CLOCK staker_paid_claim_100_74_after 1234656435",
+        "STATE CLOCK staker_paid_claim_100_75_before 1234656440",
+        "STATE CLOCK staker_paid_claim_100_75_after 1234656440",
+        "STATE CLOCK staker_paid_claim_100_76_before 1234656445",
+        "STATE CLOCK staker_paid_claim_100_76_after 1234656445",
+        "STATE CLOCK staker_paid_claim_100_77_before 1234656450",
+        "STATE CLOCK staker_paid_claim_100_77_after 1234656450",
+        "STATE CLOCK staker_paid_claim_100_78_before 1234656455",
+        "STATE CLOCK staker_paid_claim_100_78_after 1234656455",
+        "STATE CLOCK staker_paid_claim_100_79_before 1234656460",
+        "STATE CLOCK staker_paid_claim_100_79_after 1234656460",
+        "STATE CLOCK staker_paid_claim_100_80_before 1234656465",
+        "STATE CLOCK staker_paid_claim_100_80_after 1234656465",
+        "STATE CLOCK staker_paid_claim_100_81_before 1234656470",
+        "STATE CLOCK staker_paid_claim_100_81_after 1234656470",
+        "STATE CLOCK staker_paid_claim_100_82_before 1234656475",
+        "STATE CLOCK staker_paid_claim_100_82_after 1234656475",
+        "STATE CLOCK staker_paid_claim_100_83_before 1234656480",
+        "STATE CLOCK staker_paid_claim_100_83_after 1234656480",
+        "STATE CLOCK staker_paid_claim_100_84_before 1234656485",
+        "STATE CLOCK staker_paid_claim_100_84_after 1234656485",
+        "STATE CLOCK staker_paid_claim_100_85_before 1234656490",
+        "STATE CLOCK staker_paid_claim_100_85_after 1234656490",
+        "STATE CLOCK staker_paid_claim_100_86_before 1234656495",
+        "STATE CLOCK staker_paid_claim_100_86_after 1234656495",
+        "STATE CLOCK staker_paid_claim_100_87_before 1234656500",
+        "STATE CLOCK staker_paid_claim_100_87_after 1234656500",
+        "STATE CLOCK staker_paid_claim_100_88_before 1234656505",
+        "STATE CLOCK staker_paid_claim_100_88_after 1234656505",
+        "STATE CLOCK staker_paid_claim_100_89_before 1234656510",
+        "STATE CLOCK staker_paid_claim_100_89_after 1234656510",
+        "STATE CLOCK staker_paid_claim_100_90_before 1234656515",
+        "STATE CLOCK staker_paid_claim_100_90_after 1234656515",
+        "STATE CLOCK staker_paid_claim_100_91_before 1234656520",
+        "STATE CLOCK staker_paid_claim_100_91_after 1234656520",
+        "STATE CLOCK staker_paid_claim_100_92_before 1234656525",
+        "STATE CLOCK staker_paid_claim_100_92_after 1234656525",
+        "STATE CLOCK staker_paid_claim_100_93_before 1234656530",
+        "STATE CLOCK staker_paid_claim_100_93_after 1234656530",
+        "STATE CLOCK staker_paid_claim_100_94_before 1234656535",
+        "STATE CLOCK staker_paid_claim_100_94_after 1234656535",
+        "STATE CLOCK staker_paid_claim_100_95_before 1234656540",
+        "STATE CLOCK staker_paid_claim_100_95_after 1234656540",
+        "STATE CLOCK staker_paid_claim_100_96_before 1234656545",
+        "STATE CLOCK staker_paid_claim_100_96_after 1234656545",
+        "STATE CLOCK staker_paid_claim_100_97_before 1234656550",
+        "STATE CLOCK staker_paid_claim_100_97_after 1234656550",
+        "STATE CLOCK staker_paid_claim_100_98_before 1234656555",
+        "STATE CLOCK staker_paid_claim_100_98_after 1234656555",
+        "STATE CLOCK staker_paid_claim_100_99_before 1234656560",
+        "STATE CLOCK staker_paid_claim_100_99_after 1234656560",
+        "STATE CLOCK staker_paid_claim_100_100_before 1234656565",
+        "STATE CLOCK staker_paid_claim_100_100_after 1234656565",
+        "STATE staker-numerics incentive after_paid_claims_100 g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5:1234568245:1 gno.land/r/onbloc/bar.BAR 1234656000 1242432000 194 1234568245 100000000000 90000000000000 89993460648190 1961805543 4577546267 0 3938453320844195178974243141571391336296296296 false 6539351810 1234656565 1 500000000",
+        "STATE CLOCK staker_incentive_end_before 1242432010",
+        "STATE CLOCK staker_incentive_end_after 1242432010",
+        "STATE staker-numerics incentive after_end g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5:1234568245:1 gno.land/r/onbloc/bar.BAR 1234656000 1242432000 194 1234568245 100000000000 90000000000000 89993460648189 1961805544 4577546267 0 3938453320844195178974243141571391336296296296 true 6539351810 1234656565 1 500000000",
+        "STATE CLOCK staker_unstake_wide_before 1242432015",
+        "STATE CLOCK staker_unstake_wide_after 1242432015",
+        "STATE staker-numerics deposit after_unstake 1 present=false pool_staked=0",
+        "STATE CLOCK staker_unstake_boundary_1_before 1242432020",
+        "STATE CLOCK staker_unstake_boundary_1_after 1242432020",
+        "STATE CLOCK staker_unstake_boundary_2_before 1242432025",
+        "STATE CLOCK staker_unstake_boundary_2_after 1242432025",
+        "STATE CLOCK staker_unstake_boundary_3_before 1242432030",
+        "STATE CLOCK staker_unstake_boundary_3_after 1242432030",
+        "STATE CLOCK staker_unstake_boundary_4_before 1242432035",
+        "STATE CLOCK staker_unstake_boundary_4_after 1242432035",
+        "STATE CLOCK staker_unstake_boundary_5_before 1242432040",
+        "STATE CLOCK staker_unstake_boundary_5_after 1242432040",
+        "STATE CLOCK staker_unstake_boundary_6_before 1242432045",
+        "STATE CLOCK staker_unstake_boundary_6_after 1242432045",
+        "STATE CLOCK staker_unstake_boundary_7_before 1242432050",
+        "STATE CLOCK staker_unstake_boundary_7_after 1242432050",
+        "STATE CLOCK staker_unstake_boundary_8_before 1242432055",
+        "STATE CLOCK staker_unstake_boundary_8_after 1242432055",
+        "STATE CLOCK staker_unstake_boundary_9_before 1242432060",
+        "STATE CLOCK staker_unstake_boundary_9_after 1242432060",
+        "STATE CLOCK staker_unstake_boundary_10_before 1242432065",
+        "STATE CLOCK staker_unstake_boundary_10_after 1242432065",
+        "STATE CLOCK staker_unstake_boundary_11_before 1242432070",
+        "STATE CLOCK staker_unstake_boundary_11_after 1242432070",
+        "STATE CLOCK staker_unstake_boundary_12_before 1242432075",
+        "STATE CLOCK staker_unstake_boundary_12_after 1242432075",
+        "STATE CLOCK staker_unstake_boundary_13_before 1242432080",
+        "STATE CLOCK staker_unstake_boundary_13_after 1242432080",
+        "STATE CLOCK staker_unstake_boundary_14_before 1242432085",
+        "STATE CLOCK staker_unstake_boundary_14_after 1242432085",
+        "STATE CLOCK staker_unstake_boundary_15_before 1242432090",
+        "STATE CLOCK staker_unstake_boundary_15_after 1242432090",
+        "STATE CLOCK staker_unstake_boundary_16_before 1242432095",
+        "STATE CLOCK staker_unstake_boundary_16_after 1242432095",
+        "STATE CLOCK staker_unstake_boundary_17_before 1242432100",
+        "STATE CLOCK staker_unstake_boundary_17_after 1242432100",
+        "STATE CLOCK staker_unstake_boundary_18_before 1242432105",
+        "STATE CLOCK staker_unstake_boundary_18_after 1242432105",
+        "STATE CLOCK staker_unstake_boundary_19_before 1242432110",
+        "STATE CLOCK staker_unstake_boundary_19_after 1242432110",
+        "STATE CLOCK staker_unstake_boundary_20_before 1242432115",
+        "STATE CLOCK staker_unstake_boundary_20_after 1242432115",
+        "STATE CLOCK staker_unstake_boundary_21_before 1242432120",
+        "STATE CLOCK staker_unstake_boundary_21_after 1242432120",
+        "STATE CLOCK staker_unstake_boundary_22_before 1242432125",
+        "STATE CLOCK staker_unstake_boundary_22_after 1242432125",
+        "STATE CLOCK staker_unstake_boundary_23_before 1242432130",
+        "STATE CLOCK staker_unstake_boundary_23_after 1242432130",
+        "STATE CLOCK staker_unstake_boundary_24_before 1242432135",
+        "STATE CLOCK staker_unstake_boundary_24_after 1242432135",
+        "STATE CLOCK staker_unstake_boundary_25_before 1242432140",
+        "STATE CLOCK staker_unstake_boundary_25_after 1242432140",
+        "STATE CLOCK staker_unstake_boundary_26_before 1242432145",
+        "STATE CLOCK staker_unstake_boundary_26_after 1242432145",
+        "STATE CLOCK staker_unstake_boundary_27_before 1242432150",
+        "STATE CLOCK staker_unstake_boundary_27_after 1242432150",
+        "STATE CLOCK staker_unstake_boundary_28_before 1242432155",
+        "STATE CLOCK staker_unstake_boundary_28_after 1242432155",
+        "STATE CLOCK staker_unstake_boundary_29_before 1242432160",
+        "STATE CLOCK staker_unstake_boundary_29_after 1242432160",
+        "STATE CLOCK staker_unstake_boundary_30_before 1242432165",
+        "STATE CLOCK staker_unstake_boundary_30_after 1242432165",
+        "STATE CLOCK staker_unstake_boundary_31_before 1242432170",
+        "STATE CLOCK staker_unstake_boundary_31_after 1242432170",
+        "STATE CLOCK staker_unstake_boundary_32_before 1242432175",
+        "STATE CLOCK staker_unstake_boundary_32_after 1242432175",
+        "STATE staker-numerics cleanup after_unstake_all active_deposits=0 active_rewards=0 active_ticks=0 pending_protocol_fee_tokens=0 historical_ticks=4 pool_staked=0",
+        "STATE CLOCK staker_lifecycle_after 1242432175"
+      ],
+      "rows": [
+        {
+          "label": "StakerNumbers deposit stake wide (first allocation)",
+          "gas": 16442833,
+          "storage_bytes": 35292,
+          "cycles": 15044250,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": 22,
+            "gno.land/r/gnoswap/gns": 11,
+            "gno.land/r/gnoswap/position": 47,
+            "gno.land/r/gnoswap/scenario/metric/main": 1610,
+            "gno.land/r/gnoswap/staker": 32735,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary (first allocation)",
+          "gas": 14500106,
+          "storage_bytes": 12683,
+          "cycles": 13581701,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2048,
+            "gno.land/r/gnoswap/position": 46,
+            "gno.land/r/gnoswap/staker": 13818,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 2/32",
+          "gas": 14637371,
+          "storage_bytes": 8104,
+          "cycles": 13628336,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2030,
+            "gno.land/r/gnoswap/position": 46,
+            "gno.land/r/gnoswap/staker": 9221,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 3/32",
+          "gas": 14674634,
+          "storage_bytes": 8109,
+          "cycles": 13663381,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2013,
+            "gno.land/r/gnoswap/position": 46,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 4/32",
+          "gas": 14631046,
+          "storage_bytes": 8091,
+          "cycles": 13624068,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2031,
+            "gno.land/r/gnoswap/position": 46,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 5/32",
+          "gas": 14599522,
+          "storage_bytes": 8079,
+          "cycles": 13598634,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2043,
+            "gno.land/r/gnoswap/position": 46,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 6/32",
+          "gas": 14609921,
+          "storage_bytes": 8085,
+          "cycles": 13605751,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2037,
+            "gno.land/r/gnoswap/position": 46,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 7/32",
+          "gas": 14696049,
+          "storage_bytes": 8073,
+          "cycles": 13675006,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2049,
+            "gno.land/r/gnoswap/position": 46,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 8/32",
+          "gas": 14651020,
+          "storage_bytes": 8073,
+          "cycles": 13636050,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2049,
+            "gno.land/r/gnoswap/position": 46,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 9/32",
+          "gas": 14555676,
+          "storage_bytes": 8072,
+          "cycles": 13553815,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2051,
+            "gno.land/r/gnoswap/position": 47,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 10/32",
+          "gas": 14533076,
+          "storage_bytes": 8066,
+          "cycles": 13529037,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2057,
+            "gno.land/r/gnoswap/position": 47,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 11/32",
+          "gas": 14653413,
+          "storage_bytes": 8072,
+          "cycles": 13629716,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2051,
+            "gno.land/r/gnoswap/position": 47,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 12/32",
+          "gas": 14541786,
+          "storage_bytes": 8072,
+          "cycles": 13532762,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2051,
+            "gno.land/r/gnoswap/position": 47,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 13/32",
+          "gas": 14501974,
+          "storage_bytes": 8072,
+          "cycles": 13497966,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2051,
+            "gno.land/r/gnoswap/position": 47,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 14/32",
+          "gas": 14710386,
+          "storage_bytes": 14703,
+          "cycles": 13656782,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2051,
+            "gno.land/r/gnoswap/position": 47,
+            "gno.land/r/gnoswap/staker": 15840,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 15/32",
+          "gas": 14414541,
+          "storage_bytes": 8118,
+          "cycles": 13557463,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2051,
+            "gno.land/r/gnoswap/position": 45,
+            "gno.land/r/gnoswap/staker": 9257,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 16/32",
+          "gas": 14560910,
+          "storage_bytes": 14576,
+          "cycles": 13660590,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2045,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 15710,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 17/32",
+          "gas": 15040246,
+          "storage_bytes": 8123,
+          "cycles": 14166379,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2045,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 9257,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 18/32",
+          "gas": 14460544,
+          "storage_bytes": 8069,
+          "cycles": 13598777,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2051,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 19/32",
+          "gas": 14783157,
+          "storage_bytes": 8045,
+          "cycles": 13887289,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2075,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 20/32",
+          "gas": 14493292,
+          "storage_bytes": 8118,
+          "cycles": 13622266,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2045,
+            "gno.land/r/gnoswap/gns": 43,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 21/32",
+          "gas": 14752012,
+          "storage_bytes": 8073,
+          "cycles": 13876914,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2051,
+            "gno.land/r/gnoswap/gns": 4,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 9209,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 22/32",
+          "gas": 14768864,
+          "storage_bytes": 11405,
+          "cycles": 13848295,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2069,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 12563,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 23/32",
+          "gas": 14602516,
+          "storage_bytes": 8099,
+          "cycles": 13737369,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2045,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 9233,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 24/32",
+          "gas": 14471538,
+          "storage_bytes": 8115,
+          "cycles": 13605773,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2051,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 9255,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 25/32",
+          "gas": 14960798,
+          "storage_bytes": 8118,
+          "cycles": 14074238,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2063,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 9265,
+            "gno.land/r/gnoswap/staker/v1": 872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 26/32",
+          "gas": 14432003,
+          "storage_bytes": 8136,
+          "cycles": 13571825,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2045,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 9265,
+            "gno.land/r/gnoswap/staker/v1": 872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 27/32",
+          "gas": 14579937,
+          "storage_bytes": 8136,
+          "cycles": 13710809,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2045,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 9265,
+            "gno.land/r/gnoswap/staker/v1": 872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 28/32",
+          "gas": 14565724,
+          "storage_bytes": 8112,
+          "cycles": 13680683,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2069,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 9265,
+            "gno.land/r/gnoswap/staker/v1": 872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 29/32",
+          "gas": 14728184,
+          "storage_bytes": 8136,
+          "cycles": 13855346,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2045,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 9265,
+            "gno.land/r/gnoswap/staker/v1": 872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 30/32",
+          "gas": 14603628,
+          "storage_bytes": 11496,
+          "cycles": 13708959,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2049,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 12629,
+            "gno.land/r/gnoswap/staker/v1": 872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 31/32",
+          "gas": 14705525,
+          "storage_bytes": 11419,
+          "cycles": 13809674,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2057,
+            "gno.land/r/gnoswap/position": 44,
+            "gno.land/r/gnoswap/staker": 12560,
+            "gno.land/r/gnoswap/staker/v1": 872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit stake boundary allocation 32/32",
+          "gas": 14370442,
+          "storage_bytes": 7101,
+          "cycles": 13507584,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -3130,
+            "gno.land/r/gnoswap/position": 68,
+            "gno.land/r/gnoswap/staker": 9291,
+            "gno.land/r/gnoswap/staker/v1": 872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect",
+          "gas": 14603604,
+          "storage_bytes": 11128,
+          "cycles": 13313698,
+          "realms": {
+            "gno.land/r/gnoswap/gns": 4130,
+            "gno.land/r/gnoswap/protocol_fee": 6986,
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect repeat",
+          "gas": 13921278,
+          "storage_bytes": 40,
+          "cycles": 13046670,
+          "realms": {
+            "gno.land/r/gnoswap/protocol_fee": 40
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 1/32",
+          "gas": 9184833,
+          "storage_bytes": 12,
+          "cycles": 8599689,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 2/32",
+          "gas": 9235674,
+          "storage_bytes": 12,
+          "cycles": 8649144,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 3/32",
+          "gas": 9236412,
+          "storage_bytes": 12,
+          "cycles": 8649882,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 4/32",
+          "gas": 9236409,
+          "storage_bytes": 12,
+          "cycles": 8649879,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 5/32",
+          "gas": 9236899,
+          "storage_bytes": 12,
+          "cycles": 8650369,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 6/32",
+          "gas": 9236173,
+          "storage_bytes": 12,
+          "cycles": 8649643,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 7/32",
+          "gas": 9238859,
+          "storage_bytes": 12,
+          "cycles": 8652329,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 8/32",
+          "gas": 9244635,
+          "storage_bytes": 12,
+          "cycles": 8658105,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 9/32",
+          "gas": 9246108,
+          "storage_bytes": 12,
+          "cycles": 8659578,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 10/32",
+          "gas": 9236660,
+          "storage_bytes": 12,
+          "cycles": 8650130,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 11/32",
+          "gas": 9238859,
+          "storage_bytes": 12,
+          "cycles": 8652329,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 12/32",
+          "gas": 9238369,
+          "storage_bytes": 12,
+          "cycles": 8651839,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 13/32",
+          "gas": 9237885,
+          "storage_bytes": 12,
+          "cycles": 8651355,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 14/32",
+          "gas": 9239594,
+          "storage_bytes": 12,
+          "cycles": 8653064,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 15/32",
+          "gas": 9237144,
+          "storage_bytes": 12,
+          "cycles": 8650614,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 16/32",
+          "gas": 9244886,
+          "storage_bytes": 12,
+          "cycles": 8658356,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 17/32",
+          "gas": 9249646,
+          "storage_bytes": 12,
+          "cycles": 8663122,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 18/32",
+          "gas": 9241910,
+          "storage_bytes": 12,
+          "cycles": 8655386,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 19/32",
+          "gas": 9240685,
+          "storage_bytes": 12,
+          "cycles": 8654161,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 20/32",
+          "gas": 9242645,
+          "storage_bytes": 12,
+          "cycles": 8656121,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 21/32",
+          "gas": 9241910,
+          "storage_bytes": 12,
+          "cycles": 8655386,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 22/32",
+          "gas": 9243383,
+          "storage_bytes": 12,
+          "cycles": 8656859,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 23/32",
+          "gas": 9241420,
+          "storage_bytes": 12,
+          "cycles": 8654896,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 24/32",
+          "gas": 9250877,
+          "storage_bytes": 12,
+          "cycles": 8664347,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 25/32",
+          "gas": 9251167,
+          "storage_bytes": 12,
+          "cycles": 8664595,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 26/32",
+          "gas": 9243918,
+          "storage_bytes": 12,
+          "cycles": 8657346,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 27/32",
+          "gas": 9251654,
+          "storage_bytes": 12,
+          "cycles": 8665082,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 28/32",
+          "gas": 9252153,
+          "storage_bytes": 12,
+          "cycles": 8665581,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 29/32",
+          "gas": 9244653,
+          "storage_bytes": 12,
+          "cycles": 8658081,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 30/32",
+          "gas": 9204434,
+          "storage_bytes": 12,
+          "cycles": 8617862,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 31/32",
+          "gas": 9278297,
+          "storage_bytes": 18,
+          "cycles": 8619335,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 18
+          }
+        },
+        {
+          "label": "StakerNumbers deposit collect boundary allocation 32/32",
+          "gas": 9268849,
+          "storage_bytes": 18,
+          "cycles": 8609887,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 18
+          }
+        },
+        {
+          "label": "StakerNumbers tick cross positive (32 lower ticks)",
+          "gas": 305136466,
+          "storage_bytes": 106532,
+          "cycles": 294153477,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 2220,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/staker": 104311,
+            "gno.land/r/onbloc/bar": 7
+          }
+        },
+        {
+          "label": "StakerNumbers tick cross positive upper rewrite",
+          "gas": 34536313,
+          "storage_bytes": 5341,
+          "cycles": 33113104,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 67,
+            "gno.land/r/gnoswap/staker": 5274
+          }
+        },
+        {
+          "label": "StakerNumbers tick cross negative (32 lower ticks)",
+          "gas": 386118216,
+          "storage_bytes": 44449,
+          "cycles": 374543574,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 1115,
+            "gno.land/r/gnoswap/staker": 43334
+          }
+        },
+        {
+          "label": "StakerNumbers incentive create",
+          "gas": 6036974,
+          "storage_bytes": 20127,
+          "cycles": 5349319,
+          "realms": {
+            "gno.land/r/gnoswap/gns": 3,
+            "gno.land/r/gnoswap/scenario/metric/main": 10,
+            "gno.land/r/gnoswap/staker": 18058,
+            "gno.land/r/onbloc/bar": 2056
+          }
+        },
+        {
+          "label": "StakerNumbers incentive collect",
+          "gas": 11787986,
+          "storage_bytes": 3620,
+          "cycles": 11182986,
+          "realms": {
+            "gno.land/r/gnoswap/protocol_fee": 980,
+            "gno.land/r/gnoswap/scenario/metric/main": 82,
+            "gno.land/r/gnoswap/staker": 497,
+            "gno.land/r/onbloc/bar": 2061
+          }
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 1/1",
+          "gas": 11635819,
+          "storage_bytes": 10,
+          "cycles": 11104718,
+          "realms": {
+            "gno.land/r/gnoswap/protocol_fee": 10
+          }
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 1/10",
+          "gas": 11572543,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 2/10",
+          "gas": 11571082,
+          "storage_bytes": 0,
+          "cycles": 11040770,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 3/10",
+          "gas": 11634543,
+          "storage_bytes": 0,
+          "cycles": 11104231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 4/10",
+          "gas": 11572056,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 5/10",
+          "gas": 11572056,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 6/10",
+          "gas": 11635030,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 7/10",
+          "gas": 11569248,
+          "storage_bytes": 0,
+          "cycles": 11038936,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 8/10",
+          "gas": 11568761,
+          "storage_bytes": 0,
+          "cycles": 11038449,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 9/10",
+          "gas": 11635517,
+          "storage_bytes": 0,
+          "cycles": 11105205,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 10/10",
+          "gas": 11572543,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 1/100",
+          "gas": 11572543,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 2/100",
+          "gas": 11571569,
+          "storage_bytes": 0,
+          "cycles": 11041257,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 3/100",
+          "gas": 11635045,
+          "storage_bytes": 5,
+          "cycles": 11104718,
+          "realms": {
+            "gno.land/r/onbloc/bar": 5
+          }
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 4/100",
+          "gas": 11572834,
+          "storage_bytes": 41,
+          "cycles": 11042231,
+          "realms": {
+            "gno.land/r/onbloc/bar": 41
+          }
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 5/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 6/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 7/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 8/100",
+          "gas": 11571863,
+          "storage_bytes": 0,
+          "cycles": 11041257,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 9/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 10/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 11/100",
+          "gas": 11571376,
+          "storage_bytes": 0,
+          "cycles": 11040770,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 12/100",
+          "gas": 11634837,
+          "storage_bytes": 0,
+          "cycles": 11104231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 13/100",
+          "gas": 11569055,
+          "storage_bytes": 0,
+          "cycles": 11038449,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 14/100",
+          "gas": 11568081,
+          "storage_bytes": 0,
+          "cycles": 11037475,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 15/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 16/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 17/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 18/100",
+          "gas": 11635811,
+          "storage_bytes": 0,
+          "cycles": 11105205,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 19/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 20/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 21/100",
+          "gas": 11635811,
+          "storage_bytes": 0,
+          "cycles": 11105205,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 22/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 23/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 24/100",
+          "gas": 11571376,
+          "storage_bytes": 0,
+          "cycles": 11040770,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 25/100",
+          "gas": 11634837,
+          "storage_bytes": 0,
+          "cycles": 11104231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 26/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 27/100",
+          "gas": 11571376,
+          "storage_bytes": 0,
+          "cycles": 11040770,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 28/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 29/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 30/100",
+          "gas": 11568081,
+          "storage_bytes": 0,
+          "cycles": 11037475,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 31/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 32/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 33/100",
+          "gas": 11571863,
+          "storage_bytes": 0,
+          "cycles": 11041257,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 34/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 35/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 36/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 37/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 38/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 39/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 40/100",
+          "gas": 11635811,
+          "storage_bytes": 0,
+          "cycles": 11105205,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 41/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 42/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 43/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 44/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 45/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 46/100",
+          "gas": 11569055,
+          "storage_bytes": 0,
+          "cycles": 11038449,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 47/100",
+          "gas": 11626600,
+          "storage_bytes": 0,
+          "cycles": 11095994,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 48/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 49/100",
+          "gas": 11571863,
+          "storage_bytes": 0,
+          "cycles": 11041257,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 50/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 51/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 52/100",
+          "gas": 11571863,
+          "storage_bytes": 0,
+          "cycles": 11041257,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 53/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 54/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 55/100",
+          "gas": 11571376,
+          "storage_bytes": 0,
+          "cycles": 11040770,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 56/100",
+          "gas": 11634837,
+          "storage_bytes": 0,
+          "cycles": 11104231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 57/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 58/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 59/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 60/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 61/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 62/100",
+          "gas": 11632029,
+          "storage_bytes": 0,
+          "cycles": 11101423,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 63/100",
+          "gas": 11569055,
+          "storage_bytes": 0,
+          "cycles": 11038449,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 64/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 65/100",
+          "gas": 11635811,
+          "storage_bytes": 0,
+          "cycles": 11105205,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 66/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 67/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 68/100",
+          "gas": 11571376,
+          "storage_bytes": 0,
+          "cycles": 11040770,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 69/100",
+          "gas": 11634837,
+          "storage_bytes": 0,
+          "cycles": 11104231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 70/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 71/100",
+          "gas": 11571863,
+          "storage_bytes": 0,
+          "cycles": 11041257,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 72/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 73/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 74/100",
+          "gas": 11571376,
+          "storage_bytes": 0,
+          "cycles": 11040770,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 75/100",
+          "gas": 11634837,
+          "storage_bytes": 0,
+          "cycles": 11104231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 76/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 77/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 78/100",
+          "gas": 11632029,
+          "storage_bytes": 0,
+          "cycles": 11101423,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 79/100",
+          "gas": 11569055,
+          "storage_bytes": 0,
+          "cycles": 11038449,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 80/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 81/100",
+          "gas": 11635811,
+          "storage_bytes": 0,
+          "cycles": 11105205,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 82/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 83/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 84/100",
+          "gas": 11635811,
+          "storage_bytes": 0,
+          "cycles": 11105205,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 85/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 86/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 87/100",
+          "gas": 11571376,
+          "storage_bytes": 0,
+          "cycles": 11040770,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 88/100",
+          "gas": 11634837,
+          "storage_bytes": 0,
+          "cycles": 11104231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 89/100",
+          "gas": 11572350,
+          "storage_bytes": 0,
+          "cycles": 11041744,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 90/100",
+          "gas": 11571376,
+          "storage_bytes": 0,
+          "cycles": 11040770,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 91/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 92/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 93/100",
+          "gas": 11571376,
+          "storage_bytes": 0,
+          "cycles": 11040770,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 94/100",
+          "gas": 11634837,
+          "storage_bytes": 0,
+          "cycles": 11104231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 95/100",
+          "gas": 11569055,
+          "storage_bytes": 0,
+          "cycles": 11038449,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 96/100",
+          "gas": 11571863,
+          "storage_bytes": 0,
+          "cycles": 11041257,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 97/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 98/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 99/100",
+          "gas": 11572837,
+          "storage_bytes": 0,
+          "cycles": 11042231,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive paid claim 100/100",
+          "gas": 11635324,
+          "storage_bytes": 0,
+          "cycles": 11104718,
+          "realms": {}
+        },
+        {
+          "label": "StakerNumbers incentive end",
+          "gas": 1913300,
+          "storage_bytes": 36,
+          "cycles": 1744142,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 24,
+            "gno.land/r/onbloc/bar": 12
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake delete",
+          "gas": 55821353,
+          "storage_bytes": -17560,
+          "cycles": 53510354,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": 2055,
+            "gno.land/r/gnoswap/gns": 14,
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -18718,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 1/32",
+          "gas": 42436491,
+          "storage_bytes": -14591,
+          "cycles": 40623230,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13680,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 2/32",
+          "gas": 42726289,
+          "storage_bytes": -14585,
+          "cycles": 40909870,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 3/32",
+          "gas": 42728398,
+          "storage_bytes": -14585,
+          "cycles": 40914988,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 4/32",
+          "gas": 42686396,
+          "storage_bytes": -14585,
+          "cycles": 40882659,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 5/32",
+          "gas": 42695352,
+          "storage_bytes": -14585,
+          "cycles": 40894711,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 6/32",
+          "gas": 42692791,
+          "storage_bytes": -14585,
+          "cycles": 40895333,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 7/32",
+          "gas": 42832364,
+          "storage_bytes": -14573,
+          "cycles": 40994346,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13662,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 8/32",
+          "gas": 42940246,
+          "storage_bytes": -18053,
+          "cycles": 41088528,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -17142,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 9/32",
+          "gas": 42767059,
+          "storage_bytes": -14585,
+          "cycles": 40929940,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 10/32",
+          "gas": 42744407,
+          "storage_bytes": -14585,
+          "cycles": 40910471,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 11/32",
+          "gas": 42744986,
+          "storage_bytes": -14585,
+          "cycles": 40914146,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 12/32",
+          "gas": 42699657,
+          "storage_bytes": -14585,
+          "cycles": 40878400,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 13/32",
+          "gas": 42700697,
+          "storage_bytes": -14585,
+          "cycles": 40882536,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 14/32",
+          "gas": 42699523,
+          "storage_bytes": -18063,
+          "cycles": 40894028,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -17152,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 15/32",
+          "gas": 42581645,
+          "storage_bytes": -14585,
+          "cycles": 40783868,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 16/32",
+          "gas": 42703570,
+          "storage_bytes": -14585,
+          "cycles": 40880171,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 17/32",
+          "gas": 43275144,
+          "storage_bytes": -14585,
+          "cycles": 41442658,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 18/32",
+          "gas": 42726493,
+          "storage_bytes": -21195,
+          "cycles": 40922517,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -20284,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 19/32",
+          "gas": 42470020,
+          "storage_bytes": -14585,
+          "cycles": 40676663,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 20/32",
+          "gas": 42295308,
+          "storage_bytes": -14585,
+          "cycles": 40512921,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 21/32",
+          "gas": 42590851,
+          "storage_bytes": -14585,
+          "cycles": 40802386,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 22/32",
+          "gas": 42418941,
+          "storage_bytes": -21013,
+          "cycles": 40638414,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -20102,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 23/32",
+          "gas": 42301004,
+          "storage_bytes": -14585,
+          "cycles": 40535473,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13674,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 24/32",
+          "gas": 42116581,
+          "storage_bytes": -14621,
+          "cycles": 40355713,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13710,
+            "gno.land/r/gnoswap/staker/v1": -867
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 25/32",
+          "gas": 42495930,
+          "storage_bytes": -14646,
+          "cycles": 40733601,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13730,
+            "gno.land/r/gnoswap/staker/v1": -872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 26/32",
+          "gas": 42048512,
+          "storage_bytes": -14646,
+          "cycles": 40300119,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13730,
+            "gno.land/r/gnoswap/staker/v1": -872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 27/32",
+          "gas": 42189164,
+          "storage_bytes": -14646,
+          "cycles": 40429965,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13730,
+            "gno.land/r/gnoswap/staker/v1": -872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 28/32",
+          "gas": 42063422,
+          "storage_bytes": -14646,
+          "cycles": 40308811,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13730,
+            "gno.land/r/gnoswap/staker/v1": -872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 29/32",
+          "gas": 42324779,
+          "storage_bytes": -14646,
+          "cycles": 40570334,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13730,
+            "gno.land/r/gnoswap/staker/v1": -872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 30/32",
+          "gas": 42006677,
+          "storage_bytes": -14647,
+          "cycles": 40258462,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13731,
+            "gno.land/r/gnoswap/staker/v1": -872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 31/32",
+          "gas": 42103635,
+          "storage_bytes": -14648,
+          "cycles": 40357048,
+          "realms": {
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -13732,
+            "gno.land/r/gnoswap/staker/v1": -872
+          }
+        },
+        {
+          "label": "StakerNumbers deposit unstake boundary allocation 32/32",
+          "gas": 41933721,
+          "storage_bytes": -32677,
+          "cycles": 40186642,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -2055,
+            "gno.land/r/gnoswap/position": -44,
+            "gno.land/r/gnoswap/staker": -29706,
+            "gno.land/r/gnoswap/staker/v1": -872
+          }
+        }
+      ],
+      "output_sha256": "fa01ea53d4bd7e4a9cd5d4ea653898fdb8e8ba654e325e0cae698a0111e5a7f1"
+    },
+    "pool_create_and_mint_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CreatePool",
+          "gas": 6718031,
+          "storage_bytes": 25361,
+          "cycles": 5871037,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 24669,
+            "gno.land/r/gnoswap/pool/v1": 692
+          }
+        },
+        {
+          "label": "Mint (fee:3000, wide range)",
+          "gas": 31555821,
+          "storage_bytes": 22702,
+          "cycles": 29304202,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2029,
+            "gno.land/r/gnoswap/gnft": 3170,
+            "gno.land/r/gnoswap/gns": 2056,
+            "gno.land/r/gnoswap/pool": 11169,
+            "gno.land/r/gnoswap/pool/v1": 6,
+            "gno.land/r/gnoswap/position": 4272
+          }
+        }
+      ],
+      "output_sha256": "1a61935e956454653d3aca6b4f75355d835f79585eb6bfe83949d353fb81dfd3"
+    },
+    "pool_swap_wugnot_gns_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Swap (gns -> wugnot, fee:500)",
+          "gas": 47051124,
+          "storage_bytes": 0,
+          "cycles": 44151584,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6
+          }
+        }
+      ],
+      "output_sha256": "e1dce577b20e63bc9239dec92a9d9a441ee4acb0776b9f2a4329ad8ca808214a"
+    },
+    "position_decrease_liquidity_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "DecreaseLiquidity",
+          "gas": 25630642,
+          "storage_bytes": 18,
+          "cycles": 24170632,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 12,
+            "gno.land/r/gnoswap/pool/v1": 6
+          }
+        }
+      ],
+      "output_sha256": "2c95c336b48be408151ca01daa0ad7deda457a4da4df1afcbbeb88a77e502e7d"
+    },
+    "position_increase_liquidity_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "IncreaseLiquidity",
+          "gas": 23148004,
+          "storage_bytes": -2084,
+          "cycles": 22239125,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 36,
+            "gno.land/r/gnoswap/position": 20,
+            "gno.land/r/onbloc/bar": -1070,
+            "gno.land/r/onbloc/foo": -1070
+          }
+        }
+      ],
+      "output_sha256": "15b03915b159d4322bfd3c09de7243ccd242ca412692eeb549bd7719860a5195"
+    },
+    "position_mint_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Mint (bar:foo:500)",
+          "gas": 29749968,
+          "storage_bytes": 22689,
+          "cycles": 27402585,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": 3170,
+            "gno.land/r/gnoswap/pool": 11180,
+            "gno.land/r/gnoswap/pool/v1": 6,
+            "gno.land/r/gnoswap/position": 4265,
+            "gno.land/r/onbloc/bar": 2034,
+            "gno.land/r/onbloc/foo": 2034
+          }
+        }
+      ],
+      "output_sha256": "be6f9532ec28a8da21e7c0060b4584734f2c682f8c6ece537447ef4fc7352f1b"
+    },
+    "position_mint_with_gnot_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectFee (with unwrap)",
+          "gas": 7921635,
+          "storage_bytes": 44,
+          "cycles": 5945168,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 24,
+            "gno.land/r/gnoswap/position": 20
+          }
+        }
+      ],
+      "output_sha256": "d353c902ba818a8ad70c7419ade9ab82534f2985585029d5c97b4c94e3a0580d"
+    },
+    "position_reposition_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "DecreaseLiquidity (w. Remove)",
+          "gas": 22338617,
+          "storage_bytes": 62,
+          "cycles": 19417426,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 42,
+            "gno.land/r/gnoswap/position": 20
+          }
+        },
+        {
+          "label": "Mint (reposition)",
+          "gas": 30576495,
+          "storage_bytes": 8619,
+          "cycles": 29418394,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": 4035,
+            "gno.land/r/gnoswap/pool": 3316,
+            "gno.land/r/gnoswap/position": 1268
+          }
+        }
+      ],
+      "output_sha256": "6cfac6365703035d65e0e2d0f3781d0373fb2a5bcdedc1561a3810ac34bd31dd"
+    },
+    "position_stake_position_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "SetPoolTier (tier 1)",
+          "gas": 4030540,
+          "storage_bytes": 47025,
+          "cycles": 1842521,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 47025
+          }
+        },
+        {
+          "label": "StakeToken",
+          "gas": 10621129,
+          "storage_bytes": 23032,
+          "cycles": 9718816,
+          "realms": {
+            "gno.land/r/gnoswap/gnft": -1061,
+            "gno.land/r/gnoswap/position": 64,
+            "gno.land/r/gnoswap/staker": 23162,
+            "gno.land/r/gnoswap/staker/v1": 867
+          }
+        }
+      ],
+      "output_sha256": "6d515f2d2b50a6786ace75874019b4f99ec30ff1547172390fa37b72fe73d01f"
+    },
+    "raw_uint_tree_key_magnitude_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "UintTree Set (0)",
+          "gas": 73225,
+          "storage_bytes": 0,
+          "cycles": 50305,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Get (0)",
+          "gas": 56128,
+          "storage_bytes": 0,
+          "cycles": 53965,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Set (1)",
+          "gas": 57310,
+          "storage_bytes": 0,
+          "cycles": 53249,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Get (1)",
+          "gas": 56128,
+          "storage_bytes": 0,
+          "cycles": 53965,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Set (255)",
+          "gas": 57310,
+          "storage_bytes": 0,
+          "cycles": 53249,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Get (255)",
+          "gas": 56128,
+          "storage_bytes": 0,
+          "cycles": 53965,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Set (256)",
+          "gas": 57310,
+          "storage_bytes": 0,
+          "cycles": 53249,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Get (256)",
+          "gas": 56128,
+          "storage_bytes": 0,
+          "cycles": 53965,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Set (65535)",
+          "gas": 57310,
+          "storage_bytes": 0,
+          "cycles": 53249,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Get (65535)",
+          "gas": 56128,
+          "storage_bytes": 0,
+          "cycles": 53965,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Set (4294967295)",
+          "gas": 57310,
+          "storage_bytes": 0,
+          "cycles": 53249,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Get (4294967295)",
+          "gas": 56128,
+          "storage_bytes": 0,
+          "cycles": 53965,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Set (9223372036854775807)",
+          "gas": 57310,
+          "storage_bytes": 0,
+          "cycles": 53249,
+          "realms": {}
+        },
+        {
+          "label": "UintTree Get (9223372036854775807)",
+          "gas": 56128,
+          "storage_bytes": 0,
+          "cycles": 53965,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "03e8ef7e28c2caae699091a9392ae445caa84692bc35583d72635ed6d4065675"
+    },
+    "router_exact_in_single_swap_route_grc20_fee10000_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactInSingleSwapRoute(grc20) - fee:10000",
+          "gas": 26973892,
+          "storage_bytes": 9054,
+          "cycles": 23470149,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "f82999d69b8c53461fd34a87aaa1b81ae4f27b7c0654c69da998ccd5b27dc879"
+    },
+    "router_exact_in_single_swap_route_grc20_fee100_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactInSingleSwapRoute(grc20) - fee:100",
+          "gas": 31564612,
+          "storage_bytes": 9054,
+          "cycles": 27965525,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "5ad0a990b46066c91f08f63cccfeb9e41f2130af8e4d2aa9a0cf0b893c54a36d"
+    },
+    "router_exact_in_single_swap_route_grc20_fee3000_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactInSingleSwapRoute(grc20) - fee:3000",
+          "gas": 27038229,
+          "storage_bytes": 9054,
+          "cycles": 23515666,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "ff778fa9a10ac93512d50c9263b384bf49de10d6cbe0760a89097f05e5518aa9"
+    },
+    "router_exact_in_single_swap_route_grc20_fee500_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactInSingleSwapRoute(grc20) - fee:500",
+          "gas": 26900466,
+          "storage_bytes": 9054,
+          "cycles": 23396963,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "2bfa53c988e1bdfdc1d12a273573017c0fab5a1f95cc0599375e4af30802fdea"
+    },
+    "router_exact_in_swap_route_grc20_fee10000_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactInSwapRoute(grc20) - fee:10000",
+          "gas": 26212362,
+          "storage_bytes": 9054,
+          "cycles": 22716734,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "6ba85f69b3026453b5faf93e231de7a645f0a512f5cba02e20dfe58ef0ebbd46"
+    },
+    "router_exact_in_swap_route_grc20_fee100_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactInSwapRoute(grc20) - fee:100",
+          "gas": 30820386,
+          "storage_bytes": 9054,
+          "cycles": 27229414,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "d53aaadad4803652890fb33fa77970a57ad1028de8bdd129bc5c0269437a1870"
+    },
+    "router_exact_in_swap_route_grc20_fee3000_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactInSwapRoute(grc20) - fee:3000",
+          "gas": 26285351,
+          "storage_bytes": 9054,
+          "cycles": 22770903,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "6dceb0d0ec55d52d035bad393db786fc97b75e4cef44cb8a96acae41b68f5c4e"
+    },
+    "router_exact_in_swap_route_grc20_fee500_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactInSwapRoute(grc20) - fee:500",
+          "gas": 26156240,
+          "storage_bytes": 9054,
+          "cycles": 22660852,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "f57e7510a6935a72ada735154e1650bced80563d0c5d0228ec6e8f5f0d0d8d8d"
+    },
+    "router_exact_out_single_swap_route_grc20_fee10000_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactOutSingleSwapRoute(grc20) - fee:10000",
+          "gas": 28806893,
+          "storage_bytes": 9054,
+          "cycles": 25277331,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "269ec4540778dd084c55e11cc45d6af466fbd139b574e674354b009d2d9d7e87"
+    },
+    "router_exact_out_single_swap_route_grc20_fee100_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactOutSingleSwapRoute(grc20) - fee:100",
+          "gas": 33248389,
+          "storage_bytes": 9054,
+          "cycles": 29626096,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "844fc8d00b904baf540d608bc978778d66620498d2333b85ffe4c88a349ff5e0"
+    },
+    "router_exact_out_single_swap_route_grc20_fee3000_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactOutSingleSwapRoute(grc20) - fee:3000",
+          "gas": 28747246,
+          "storage_bytes": 9054,
+          "cycles": 25198632,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "56f223526d1d2f48ccbe30177e3cf14e63ed12bd0e2d2c62afc23c0a98723ed2"
+    },
+    "router_exact_out_single_swap_route_grc20_fee500_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactOutSingleSwapRoute(grc20) - fee:500",
+          "gas": 28643031,
+          "storage_bytes": 9054,
+          "cycles": 25113477,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "d90d69b63725d9a826bc4101739e42bbf09f3a5eda95eed1b6c338594e5d6542"
+    },
+    "router_exact_out_swap_route_grc20_fee10000_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactOutSwapRoute(grc20) - fee:10000",
+          "gas": 28068398,
+          "storage_bytes": 9054,
+          "cycles": 24546956,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "a3588bcb8085fe0f8405a177081bf214310ad1f357fad095f3d3db6eb81874a6"
+    },
+    "router_exact_out_swap_route_grc20_fee100_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactOutSwapRoute(grc20) - fee:100",
+          "gas": 32527198,
+          "storage_bytes": 9054,
+          "cycles": 28913025,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "8ca782ff84257200786857f283221e4c9da9f28b0a5918b80abd4be709c03c6b"
+    },
+    "router_exact_out_swap_route_grc20_fee3000_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactOutSwapRoute(grc20) - fee:3000",
+          "gas": 28017403,
+          "storage_bytes": 9054,
+          "cycles": 24476909,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "973e4ad7419e4e6252e70e1d5190c0b41c8c712e98de4b5af6e3e1756a8018ac"
+    },
+    "router_exact_out_swap_route_grc20_fee500_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "ExactOutSwapRoute(grc20) - fee:500",
+          "gas": 27921840,
+          "storage_bytes": 9054,
+          "cycles": 24400406,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/protocol_fee": 7010
+          }
+        }
+      ],
+      "output_sha256": "8f90153b61f6bcd029490726f0f2f0308a3311043ef7ad9fb8408aef92c52397"
+    },
+    "router_single_hop_route_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "BuildSingleHopRoutePath",
+          "gas": 202459,
+          "storage_bytes": 0,
+          "cycles": 47814,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "c0d1032f77431c291908e44cfa27c79b7e0888e1fc23706fe5d627c960ffd718"
+    },
+    "router_swap_multi_hop_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "MultiHop ExactIn (2 hops)",
+          "gas": 52640815,
+          "storage_bytes": 9061,
+          "cycles": 48288432,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 2044,
+            "gno.land/r/gnoswap/gns": 2,
+            "gno.land/r/gnoswap/pool": 12,
+            "gno.land/r/gnoswap/pool/v1": -12,
+            "gno.land/r/gnoswap/protocol_fee": 7010,
+            "gno.land/r/onbloc/obl": 5
+          }
+        },
+        {
+          "label": "MultiHop ExactOut (2 hops)",
+          "gas": 73105182,
+          "storage_bytes": 76,
+          "cycles": 70765261,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 33,
+            "gno.land/r/gnoswap/gns": 3,
+            "gno.land/r/gnoswap/protocol_fee": 40
+          }
+        },
+        {
+          "label": "MultiHop ExactIn (3 hops)",
+          "gas": 72264029,
+          "storage_bytes": 33,
+          "cycles": 69731314,
+          "realms": {
+            "gno.land/r/gnoland/wugnot": 15,
+            "gno.land/r/gnoswap/pool": 12,
+            "gno.land/r/gnoswap/pool/v1": -12,
+            "gno.land/r/onbloc/bar": 5,
+            "gno.land/r/onbloc/obl": 13
+          }
+        },
+        {
+          "label": "MultiHop ExactOut (3 hops)",
+          "gas": 110815944,
+          "storage_bytes": 0,
+          "cycles": 107483762,
+          "realms": {}
+        },
+        {
+          "label": "MultiRoute ExactIn (50:50 split)",
+          "gas": 71586063,
+          "storage_bytes": 0,
+          "cycles": 68991980,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6
+          }
+        },
+        {
+          "label": "MultiRoute ExactOut (50:50 split)",
+          "gas": 96971305,
+          "storage_bytes": 4,
+          "cycles": 93861429,
+          "realms": {
+            "gno.land/r/onbloc/obl": 4
+          }
+        }
+      ],
+      "output_sha256": "23244b228272d06f0846c6bf9f909469127f3091f93b7ece077230a96636545c"
+    },
+    "staker_collect_reward_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward (only Internal Reward)",
+          "gas": 14003329,
+          "storage_bytes": 11137,
+          "cycles": 12602762,
+          "realms": {
+            "gno.land/r/gnoswap/gns": 4115,
+            "gno.land/r/gnoswap/protocol_fee": 6986,
+            "gno.land/r/gnoswap/staker": 36
+          }
+        },
+        {
+          "label": "CollectReward 2nd (only Internal Reward)",
+          "gas": 13784722,
+          "storage_bytes": 40,
+          "cycles": 12771456,
+          "realms": {
+            "gno.land/r/gnoswap/protocol_fee": 40
+          }
+        }
+      ],
+      "output_sha256": "783f35bcc93189c872a0fd7891b41692dc79d9c6820976734b05c6b23b78eb84"
+    },
+    "staker_collect_reward_incentive_token_count_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "staker CollectReward (1 external-incentive token)",
+          "gas": 13636548,
+          "storage_bytes": 10026,
+          "cycles": 12405803,
+          "realms": {
+            "gno.land/r/gnoswap/protocol_fee": 6982,
+            "gno.land/r/gnoswap/scenario/metric/main": 490,
+            "gno.land/r/gnoswap/staker": 515,
+            "gno.land/r/onbloc/baz": 2039
+          }
+        },
+        {
+          "label": "staker CollectReward (2 external-incentive tokens)",
+          "gas": 20988281,
+          "storage_bytes": 4069,
+          "cycles": 19652033,
+          "realms": {
+            "gno.land/r/gnoswap/protocol_fee": 1020,
+            "gno.land/r/gnoswap/staker": 991,
+            "gno.land/r/onbloc/baz": 19,
+            "gno.land/r/onbloc/qux": 2039
+          }
+        },
+        {
+          "label": "staker CollectReward (3 external-incentive tokens)",
+          "gas": 28654294,
+          "storage_bytes": 4502,
+          "cycles": 26830701,
+          "realms": {
+            "gno.land/r/gnoswap/protocol_fee": 980,
+            "gno.land/r/gnoswap/staker": 1467,
+            "gno.land/r/onbloc/baz": 16,
+            "gno.land/r/onbloc/obl": 2039
+          }
+        },
+        {
+          "label": "staker CollectReward (4 external-incentive tokens)",
+          "gas": 36508522,
+          "storage_bytes": 5046,
+          "cycles": 34161682,
+          "realms": {
+            "gno.land/r/gnoswap/protocol_fee": 980,
+            "gno.land/r/gnoswap/staker": 1946,
+            "gno.land/r/onbloc/bar": 2080,
+            "gno.land/r/onbloc/baz": 6,
+            "gno.land/r/onbloc/qux": 34
+          }
+        }
+      ],
+      "output_sha256": "af38345091656bb20a71bc515b8d5a0c4017f6133aefc2f185e6cf1fefb8e978"
+    },
+    "staker_collect_reward_position_growth_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "storage growth: CollectReward 20 staked positions",
+          "gas": 15328589,
+          "storage_bytes": 62,
+          "cycles": 14438645,
+          "realms": {
+            "gno.land/r/gnoswap/gns": 12,
+            "gno.land/r/gnoswap/protocol_fee": 40,
+            "gno.land/r/gnoswap/scenario/metric/main": 10
+          }
+        },
+        {
+          "label": "storage growth: CollectReward 40 staked positions",
+          "gas": 15790968,
+          "storage_bytes": 0,
+          "cycles": 14911571,
+          "realms": {}
+        },
+        {
+          "label": "storage growth: CollectReward 60 staked positions",
+          "gas": 15793458,
+          "storage_bytes": 0,
+          "cycles": 14914061,
+          "realms": {}
+        },
+        {
+          "label": "storage growth: CollectReward 80 staked positions",
+          "gas": 15924735,
+          "storage_bytes": 0,
+          "cycles": 15037981,
+          "realms": {}
+        },
+        {
+          "label": "storage growth: CollectReward 100 staked positions",
+          "gas": 15910466,
+          "storage_bytes": 0,
+          "cycles": 15023712,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "56325c8e3ee84d8c3a31f0a6b087f654a8cb48fae3ed8a4184e04cf1372f3713"
+    },
+    "staker_collect_reward_with_external_rewards_1_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward With External Rewards (1 incentives)",
+          "gas": 22032992,
+          "storage_bytes": 14734,
+          "cycles": 20078681,
+          "realms": {
+            "gno.land/r/gnoswap/gns": 4115,
+            "gno.land/r/gnoswap/protocol_fee": 8006,
+            "gno.land/r/gnoswap/staker": 533,
+            "gno.land/r/onbloc/bar": 2080
+          }
+        },
+        {
+          "label": "CollectReward With External Rewards 2nd (1 incentives)",
+          "gas": 21437022,
+          "storage_bytes": 31,
+          "cycles": 19953998,
+          "realms": {
+            "gno.land/r/gnoswap/protocol_fee": 10,
+            "gno.land/r/onbloc/bar": 21
+          }
+        }
+      ],
+      "output_sha256": "05cc89b8bb5468eb1fb2e720013876575b02085c56943904d35e6fe110f452ab"
+    },
+    "staker_collect_reward_with_external_rewards_5_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward With External Rewards (5 incentives)",
+          "gas": 53093371,
+          "storage_bytes": 28757,
+          "cycles": 48961352,
+          "realms": {
+            "gno.land/r/gnoswap/gns": 4115,
+            "gno.land/r/gnoswap/protocol_fee": 11928,
+            "gno.land/r/gnoswap/staker": 2437,
+            "gno.land/r/onbloc/bar": 2080,
+            "gno.land/r/onbloc/baz": 2039,
+            "gno.land/r/onbloc/foo": 2080,
+            "gno.land/r/onbloc/obl": 2039,
+            "gno.land/r/onbloc/qux": 2039
+          }
+        },
+        {
+          "label": "CollectReward With External Rewards 2nd (5 incentives)",
+          "gas": 51341137,
+          "storage_bytes": 52,
+          "cycles": 48013452,
+          "realms": {
+            "gno.land/r/gnoswap/protocol_fee": 10,
+            "gno.land/r/onbloc/bar": 21,
+            "gno.land/r/onbloc/foo": 21
+          }
+        }
+      ],
+      "output_sha256": "445098f53e5b5deb0b52f4e776cdb71beffed8db1b5e2676603a5e0a7d34f01a"
+    },
+    "staker_collect_reward_with_warmup_range_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CollectReward with Warmup Range (30% ~ 30%)",
+          "gas": 14041325,
+          "storage_bytes": 11119,
+          "cycles": 12634817,
+          "realms": {
+            "gno.land/r/gnoswap/gns": 4115,
+            "gno.land/r/gnoswap/protocol_fee": 6986,
+            "gno.land/r/gnoswap/staker": 18
+          }
+        },
+        {
+          "label": "CollectReward with Warmup Range (30% ~ 50%)",
+          "gas": 16066231,
+          "storage_bytes": 58,
+          "cycles": 14991935,
+          "realms": {
+            "gno.land/r/gnoswap/protocol_fee": 40,
+            "gno.land/r/gnoswap/staker": 18
+          }
+        },
+        {
+          "label": "CollectReward with Warmup Range (30% ~ 70%)",
+          "gas": 18377084,
+          "storage_bytes": 18,
+          "cycles": 17242284,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 18
+          }
+        },
+        {
+          "label": "CollectReward with Warmup Range (30% ~ 100%)",
+          "gas": 20711864,
+          "storage_bytes": 18,
+          "cycles": 19516556,
+          "realms": {
+            "gno.land/r/gnoswap/staker": 18
+          }
+        },
+        {
+          "label": "CollectReward with Warmup Range (100% ~)",
+          "gas": 13459597,
+          "storage_bytes": -6,
+          "cycles": 12524895,
+          "realms": {
+            "gno.land/r/gnoswap/gns": -6
+          }
+        },
+        {
+          "label": "CollectReward with Warmup Range 2nd (100% ~)",
+          "gas": 13344244,
+          "storage_bytes": 0,
+          "cycles": 12409563,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "c898d6d04b6e9ae270249635c6a1bca153c145f288b71f19e907f227341b652e"
+    },
+    "staker_create_external_incentive_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "CreateExternalIncentive",
+          "gas": 3858805,
+          "storage_bytes": 66634,
+          "cycles": 3184531,
+          "realms": {
+            "gno.land/r/gnoswap/gns": 12,
+            "gno.land/r/gnoswap/staker": 64588,
+            "gno.land/r/onbloc/bar": 2034
+          }
+        }
+      ],
+      "output_sha256": "840a6638009dfae9b0d07bdc7da1c62c2c023aaaaaa3a75349c0e3dae43220ee"
+    },
+    "staker_end_external_incentive_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "EndExternalIncentive",
+          "gas": 2312242,
+          "storage_bytes": -1979,
+          "cycles": 2105747,
+          "realms": {
+            "gno.land/r/gnoswap/scenario/metric/main": 15,
+            "gno.land/r/gnoswap/staker": 30,
+            "gno.land/r/onbloc/bar": -2024
+          }
+        }
+      ],
+      "output_sha256": "969f900d16f92f6cd5ab18f8022ceb386f53c76c746ef82311f30d8779aacb26"
+    },
+    "staker_end_external_incentive_unclaimable100_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "EndExternalIncentive (unclaimablePeriods=100)",
+          "gas": 2352154,
+          "storage_bytes": 147,
+          "cycles": 2135539,
+          "realms": {
+            "gno.land/r/gnoswap/gns": 6,
+            "gno.land/r/gnoswap/scenario/metric/main": 102,
+            "gno.land/r/gnoswap/staker": 24,
+            "gno.land/r/onbloc/bar": 15
+          }
+        }
+      ],
+      "output_sha256": "30d33f060942f0073cad9773d0b2db187d6caf6ebd7a9b75e47741c25f9702c4"
+    },
+    "staker_end_external_incentive_unclaimable10_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "EndExternalIncentive (unclaimablePeriods=10)",
+          "gas": 2301857,
+          "storage_bytes": 141,
+          "cycles": 2087490,
+          "realms": {
+            "gno.land/r/gnoswap/scenario/metric/main": 102,
+            "gno.land/r/gnoswap/staker": 24,
+            "gno.land/r/onbloc/bar": 15
+          }
+        }
+      ],
+      "output_sha256": "80277e8a275fcf9d9b5e03f2bf6860c6e94041b68d8b2ebbbac5f1dbf92a9bc3"
+    },
+    "staker_end_external_incentive_unclaimable50_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "EndExternalIncentive (unclaimablePeriods=50)",
+          "gas": 2314287,
+          "storage_bytes": 141,
+          "cycles": 2099920,
+          "realms": {
+            "gno.land/r/gnoswap/scenario/metric/main": 102,
+            "gno.land/r/gnoswap/staker": 24,
+            "gno.land/r/onbloc/bar": 15
+          }
+        }
+      ],
+      "output_sha256": "4f69e976c4bd449573e096537892ec4291427eabe8e18ac915f467483a49ab45"
+    },
+    "staker_halving_tick_cross_batch_10_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Swap (halving, 10 staked tick-crosses)",
+          "gas": 106403913,
+          "storage_bytes": 3729,
+          "cycles": 101891195,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 875,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/staker": 2860
+          }
+        }
+      ],
+      "output_sha256": "10db78daf18fd7193833d412221361534c77799be92a7f229d16aa08e8101ea2"
+    },
+    "staker_halving_tick_cross_batch_1_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Swap (halving, 1 staked tick-cross)",
+          "gas": 32197775,
+          "storage_bytes": 2813,
+          "cycles": 30504890,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 175,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/staker": 2644
+          }
+        }
+      ],
+      "output_sha256": "c4063c94bf384e4af68d1da169c5767e5ba5a6086458097b0bbcb820f2a8265d"
+    },
+    "staker_halving_tick_cross_batch_50_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Swap (halving, 50 staked tick-crosses)",
+          "gas": 445343855,
+          "storage_bytes": 7259,
+          "cycles": 429528623,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 3738,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/staker": 3527
+          }
+        }
+      ],
+      "output_sha256": "aec80af1c62c9913cb29555b288538a6df805d97c485949231001ac70f2c032e"
+    },
+    "staker_tick_cross_batch_no_halving_10_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Swap (no halving, 10 staked tick-crosses)",
+          "gas": 94229033,
+          "storage_bytes": -7110,
+          "cycles": 90113065,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 403,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/staker": -7507
+          }
+        }
+      ],
+      "output_sha256": "e2486a08b1dc5ec57137f7ab8a3f7cd80574865f48bd74d53d24f6800aec611b"
+    },
+    "staker_tick_cross_batch_no_halving_1_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Swap (no halving, 1 staked tick-cross)",
+          "gas": 26002108,
+          "storage_bytes": -7684,
+          "cycles": 24585688,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 45,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/staker": -7723
+          }
+        }
+      ],
+      "output_sha256": "b5e0083a2a3eb27bcf7b16c16e9ff51e5d1845973dd3e9ede787a0dbe7d5115b"
+    },
+    "staker_tick_cross_batch_no_halving_50_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Swap (no halving, 50 staked tick-crosses)",
+          "gas": 406594653,
+          "storage_bytes": -5109,
+          "cycles": 391710813,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 1746,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/staker": -6849
+          }
+        }
+      ],
+      "output_sha256": "f3d81a2b6a754c759cbdc005446a4c08aeb0fe726aa1cb4d9a83b2bc82e8a4e8"
+    },
+    "staker_tick_cross_long_history_10_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 1)",
+          "gas": 110312442,
+          "storage_bytes": 34722,
+          "cycles": 105448030,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 820,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/staker": 33908
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 2)",
+          "gas": 131622355,
+          "storage_bytes": 15195,
+          "cycles": 126957604,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 321,
+            "gno.land/r/gnoswap/staker": 14872,
+            "gno.land/r/onbloc/bar": 2
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 3)",
+          "gas": 132500299,
+          "storage_bytes": 14651,
+          "cycles": 127839784,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 18,
+            "gno.land/r/gnoswap/staker": 14632,
+            "gno.land/r/onbloc/bar": 1
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 4)",
+          "gas": 136716693,
+          "storage_bytes": 14630,
+          "cycles": 132022861,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -2,
+            "gno.land/r/gnoswap/staker": 14632
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 5)",
+          "gas": 133912064,
+          "storage_bytes": 57394,
+          "cycles": 129026026,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 4,
+            "gno.land/r/gnoswap/staker": 57390
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 6)",
+          "gas": 137346864,
+          "storage_bytes": 15208,
+          "cycles": 132560100,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -4,
+            "gno.land/r/gnoswap/staker": 15212
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 7)",
+          "gas": 133452468,
+          "storage_bytes": 14739,
+          "cycles": 128686183,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 7,
+            "gno.land/r/gnoswap/staker": 14732
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 8)",
+          "gas": 138505420,
+          "storage_bytes": 35398,
+          "cycles": 133565461,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -2,
+            "gno.land/r/gnoswap/staker": 35400
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 9)",
+          "gas": 133458025,
+          "storage_bytes": 14981,
+          "cycles": 128687358,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 7,
+            "gno.land/r/gnoswap/staker": 14974
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 10)",
+          "gas": 137563471,
+          "storage_bytes": 14736,
+          "cycles": 132759426,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -4,
+            "gno.land/r/gnoswap/staker": 14734,
+            "gno.land/r/onbloc/baz": 6
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 11)",
+          "gas": 134639752,
+          "storage_bytes": 35355,
+          "cycles": 129714783,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 8,
+            "gno.land/r/gnoswap/staker": 35333,
+            "gno.land/r/onbloc/baz": 14
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 12)",
+          "gas": 137692421,
+          "storage_bytes": 14970,
+          "cycles": 132884075,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -5,
+            "gno.land/r/gnoswap/staker": 14975
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 13)",
+          "gas": 133777035,
+          "storage_bytes": 14742,
+          "cycles": 128989143,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 7,
+            "gno.land/r/gnoswap/staker": 14735
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 14)",
+          "gas": 140235776,
+          "storage_bytes": 80762,
+          "cycles": 135057724,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -5,
+            "gno.land/r/gnoswap/staker": 80767
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 15)",
+          "gas": 134274288,
+          "storage_bytes": 15463,
+          "cycles": 129397420,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/staker": 15455,
+            "gno.land/r/onbloc/baz": 2
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 16)",
+          "gas": 138348987,
+          "storage_bytes": 14731,
+          "cycles": 133438781,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -5,
+            "gno.land/r/gnoswap/staker": 14735,
+            "gno.land/r/onbloc/baz": 1
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 17)",
+          "gas": 135422808,
+          "storage_bytes": 35401,
+          "cycles": 130391698,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/staker": 35395
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 18)",
+          "gas": 138401916,
+          "storage_bytes": 14970,
+          "cycles": 133487472,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -5,
+            "gno.land/r/gnoswap/staker": 14975
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 19)",
+          "gas": 134423012,
+          "storage_bytes": 14751,
+          "cycles": 129528977,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 16,
+            "gno.land/r/gnoswap/staker": 14735
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 20)",
+          "gas": 140962872,
+          "storage_bytes": 58739,
+          "cycles": 135750850,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -16,
+            "gno.land/r/gnoswap/staker": 58755
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 21)",
+          "gas": 134337842,
+          "storage_bytes": 15232,
+          "cycles": 129445748,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 17,
+            "gno.land/r/gnoswap/staker": 15215
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 22)",
+          "gas": 138520364,
+          "storage_bytes": 14719,
+          "cycles": 133594973,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -16,
+            "gno.land/r/gnoswap/staker": 14735
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 23)",
+          "gas": 135490283,
+          "storage_bytes": 35412,
+          "cycles": 130443950,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 17,
+            "gno.land/r/gnoswap/staker": 35395
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 24)",
+          "gas": 138593656,
+          "storage_bytes": 14969,
+          "cycles": 133663978,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -6,
+            "gno.land/r/gnoswap/staker": 14975
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 25)",
+          "gas": 134652989,
+          "storage_bytes": 14741,
+          "cycles": 129743766,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/staker": 14735
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 26)",
+          "gas": 141062398,
+          "storage_bytes": 58689,
+          "cycles": 135834190,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -6,
+            "gno.land/r/gnoswap/staker": 58695
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 27)",
+          "gas": 134574606,
+          "storage_bytes": 15221,
+          "cycles": 129667333,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/staker": 15215
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 28)",
+          "gas": 138664078,
+          "storage_bytes": 14729,
+          "cycles": 133723480,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -6,
+            "gno.land/r/gnoswap/staker": 14735
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 29)",
+          "gas": 135734431,
+          "storage_bytes": 35401,
+          "cycles": 130672928,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/staker": 35395
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 30)",
+          "gas": 138697138,
+          "storage_bytes": 14969,
+          "cycles": 133752310,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -6,
+            "gno.land/r/gnoswap/staker": 14975
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 31)",
+          "gas": 134789290,
+          "storage_bytes": 14741,
+          "cycles": 129864917,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/staker": 14735
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Reverse swap (10 staked tick-crosses, visit 32)",
+          "gas": 142603000,
+          "storage_bytes": 104110,
+          "cycles": 137142834,
+          "realms": {
+            "gno.land/r/gnoswap/pool": -5,
+            "gno.land/r/gnoswap/staker": 104115
+          }
+        },
+        {
+          "label": "Long-history accumulated-reward Swap (10 staked tick-crosses, visit 33)",
+          "gas": 135164459,
+          "storage_bytes": 15715,
+          "cycles": 130153815,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 20,
+            "gno.land/r/gnoswap/staker": 15695
+          }
+        }
+      ],
+      "output_sha256": "457f0933bb0d225dbc8395c2729226de5e8b3ce44400082c30e75a2bdc0653d4"
+    },
+    "staker_tick_cross_revisit_10_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Accumulated-reward Swap (10 staked tick-crosses, first visit)",
+          "gas": 110311916,
+          "storage_bytes": 34722,
+          "cycles": 105448030,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 820,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/staker": 33908
+          }
+        },
+        {
+          "label": "Accumulated-reward Reverse swap (10 staked tick-crosses, reverse visit)",
+          "gas": 131622355,
+          "storage_bytes": 15195,
+          "cycles": 126957604,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 321,
+            "gno.land/r/gnoswap/staker": 14872,
+            "gno.land/r/onbloc/bar": 2
+          }
+        },
+        {
+          "label": "Accumulated-reward Swap (10 staked tick-crosses, third visit)",
+          "gas": 132500299,
+          "storage_bytes": 14651,
+          "cycles": 127839784,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 18,
+            "gno.land/r/gnoswap/staker": 14632,
+            "gno.land/r/onbloc/bar": 1
+          }
+        }
+      ],
+      "output_sha256": "b4d3068f6d06d51a08cb42fc54e001810ca08d25b7d2cd9282cda0316b33cd36"
+    },
+    "staker_tick_cross_revisit_1_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Accumulated-reward Swap (1 staked tick-cross, first visit)",
+          "gas": 31632123,
+          "storage_bytes": 5456,
+          "cycles": 30018884,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 165,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/staker": 5297
+          }
+        },
+        {
+          "label": "Accumulated-reward Reverse swap (1 staked tick-cross, reverse visit)",
+          "gas": 33517609,
+          "storage_bytes": 3390,
+          "cycles": 32067012,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 29,
+            "gno.land/r/gnoswap/staker": 3361
+          }
+        },
+        {
+          "label": "Accumulated-reward Swap (1 staked tick-cross, third visit)",
+          "gas": 35473262,
+          "storage_bytes": 3341,
+          "cycles": 33996449,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 4,
+            "gno.land/r/gnoswap/staker": 3337
+          }
+        }
+      ],
+      "output_sha256": "91408a4ce7f0058a981c6ae99959dbf303fd8ee0d302dc416f74abc9ba3e6d94"
+    },
+    "staker_tick_cross_revisit_50_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "Accumulated-reward Swap (50 staked tick-crosses, first visit)",
+          "gas": 468208362,
+          "storage_bytes": 165281,
+          "cycles": 451021215,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 3483,
+            "gno.land/r/gnoswap/pool/v1": -6,
+            "gno.land/r/gnoswap/staker": 161804
+          }
+        },
+        {
+          "label": "Accumulated-reward Reverse swap (50 staked tick-crosses, reverse visit)",
+          "gas": 576757666,
+          "storage_bytes": 68151,
+          "cycles": 559021291,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 1657,
+            "gno.land/r/gnoswap/staker": 66494
+          }
+        },
+        {
+          "label": "Accumulated-reward Swap (50 staked tick-crosses, third visit)",
+          "gas": 573720951,
+          "storage_bytes": 65368,
+          "cycles": 556118508,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 74,
+            "gno.land/r/gnoswap/staker": 65294
+          }
+        }
+      ],
+      "output_sha256": "0ff0b0812a573b9efc3c88799e7cbf8e0d1d35b3c0ada9503b427062f5ff8c07"
+    },
+    "staker_tick_no_cross_false_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "No-cross control (boundary staked=false)",
+          "gas": 15229635,
+          "storage_bytes": 0,
+          "cycles": 14374631,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6
+          }
+        }
+      ],
+      "output_sha256": "cb8a82cf29845e0c9a890a3ea34370c01e4a227d61b2083b93bbe59207be9a66"
+    },
+    "staker_tick_no_cross_true_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "No-cross control (boundary staked=true)",
+          "gas": 15414465,
+          "storage_bytes": 0,
+          "cycles": 14475581,
+          "realms": {
+            "gno.land/r/gnoswap/pool": 6,
+            "gno.land/r/gnoswap/pool/v1": -6
+          }
+        }
+      ],
+      "output_sha256": "3b7dc0b8c53dad9f4ac0a33ce4060aff2139b558e13a145330e468e7da08149b"
+    },
+    "version_manager_filetest.gno": {
+      "states": [],
+      "rows": [
+        {
+          "label": "RegisterInitializer (v1)",
+          "gas": 71548,
+          "storage_bytes": 0,
+          "cycles": 49682,
+          "realms": {}
+        },
+        {
+          "label": "RegisterInitializer (v2)",
+          "gas": 55268,
+          "storage_bytes": 0,
+          "cycles": 52396,
+          "realms": {}
+        }
+      ],
+      "output_sha256": "7c0434d8136951809f54eb0bdaf393edaa1a484af1b3f9b5fdf4af49a58763c1"
+    }
+  },
+  "errors": []
+}

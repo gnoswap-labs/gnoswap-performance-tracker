@@ -2,11 +2,11 @@
 
 // Real-contract PoC for value-backed staker numerics. The fixture exercises
 // deposit creation and repeated updates, signed tick crossing, and external
-// incentive creation/collection/refund before deleting the deposit.
+// incentive creation/collection/refund before deleting every deposit.
 //
-// The 32-position lower-tick ladder is large enough to span multiple tree
-// nodes while keeping this single lifecycle executable; the high reward amount
-// remains below the BAR fixture's finite 100T supply.
+// The 32-position lower-tick ladder plus one wide position measures all 33
+// allocations while keeping this single lifecycle executable; the high reward
+// amount remains below the BAR fixture's finite 100T supply.
 package main
 
 import (
@@ -16,8 +16,8 @@ import (
 
 	"gno.land/p/demo/tokens/grc721"
 	"gno.land/p/gnoswap/gnsmath"
-	u256 "gno.land/p/gnoswap/uint256"
 	prbac "gno.land/p/gnoswap/rbac"
+	u256 "gno.land/p/gnoswap/uint256"
 	"gno.land/p/nt/testutils/v0"
 	"gno.land/p/nt/ufmt/v0"
 	"gno.land/r/gnoswap/access"
@@ -40,12 +40,13 @@ import (
 )
 
 const (
-	numericBoundaryCount int32  = 32
+	numericBoundaryCount  int32  = 32
 	numericTickSpacing    int32  = 60
-	numericBoundaryUpper int32  = 6000
+	numericBoundaryUpper  int32  = 6000
 	numericWideAmount     string = "500000000"
 	numericBoundaryAmount string = "1000000"
 	numericRewardAmount   int64  = 90000000000000
+	numericUnstakingFee   uint64 = 100 // 1% protocol fee on paid rewards
 )
 
 var (
@@ -73,19 +74,35 @@ var (
 )
 
 func main(cur realm) {
+	printStakerNumericClock("staker_setup_before")
 	initializeStakerNumericSetup(cur)
+	printStakerNumericClock("staker_setup_after")
 	createStakerNumericPool(cur)
+	printStakerNumericClock("staker_pool_after")
 	mintStakerNumericPositions(cur)
+	printStakerNumericClock("staker_mint_after")
 	stakeStakerNumericPositions(cur)
+	printStakerNumericClock("staker_stake_phase_after")
 	measureStakerNumericDeposits(cur)
+	printStakerNumericClock("staker_collect_phase_after")
 	measureStakerNumericTicks(cur)
+	printStakerNumericClock("staker_tick_phase_after")
 	measureStakerNumericIncentive(cur)
+	printStakerNumericClock("staker_lifecycle_after")
 }
 
 func initializeStakerNumericSetup(cur realm) {
 	testing.SetRealm(adminRealm)
 	pl.SetPoolCreationFee(cross(cur), 0)
-	staker.SetUnStakingFee(cross(cur), 0)
+	staker.SetUnStakingFee(cross(cur), numericUnstakingFee)
+	if staker.GetUnstakingFee() != numericUnstakingFee {
+		panic("staker unstaking fee was not configured")
+	}
+	warmupTemplate := staker.GetWarmupTemplate()
+	if len(warmupTemplate) == 0 {
+		panic("staker warmup template was not configured")
+	}
+	println(ufmt.Sprintf("STATE staker-numerics config unstaking_fee=%d warmup_tiers=%d", staker.GetUnstakingFee(), len(warmupTemplate)))
 	scenarioutils.EnsureCanonicalDefaultPool(cross(cur))
 
 	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
@@ -148,29 +165,36 @@ func stakeStakerNumericPositions(cur realm) {
 		gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.FormatUint(positionID, 10)))
 	}
 
-	testing.SkipHeights(1)
-	metric.PrintMetricsBy("StakerNumbers deposit stake wide (first allocation)", func() {
-		staker.StakeToken(cross(cur), widePositionID, "")
-	})
-	if !staker.IsStaked(widePositionID) {
-		panic("wide position was not staked")
-	}
-
-	testing.SkipHeights(1)
-	metric.PrintMetricsBy("StakerNumbers deposit stake boundary (first allocation)", func() {
-		staker.StakeToken(cross(cur), narrowPositionID, "")
-	})
-	if !staker.IsStaked(narrowPositionID) {
-		panic("narrow position was not staked")
-	}
-
-	testing.SkipHeights(1)
-	metric.PrintMetricsBy("StakerNumbers deposit stake boundary (31 allocations)", func() {
-		for i := 1; i < len(numericPositionIDs); i++ {
-			testing.SkipHeights(1)
-			staker.StakeToken(cross(cur), numericPositionIDs[i], "")
+	stakeOne := func(label, clockLabel string, positionID uint64) {
+		testing.SkipHeights(1)
+		printStakerNumericClock(clockLabel + "_before")
+		metric.PrintMetricsBy(label, func() {
+			staker.StakeToken(cross(cur), positionID, "")
+		})
+		printStakerNumericClock(clockLabel + "_after")
+		if !staker.IsStaked(positionID) {
+			panic("position was not staked")
 		}
-	})
+	}
+
+	stakeOne(
+		"StakerNumbers deposit stake wide (first allocation)",
+		"staker_stake_wide",
+		widePositionID,
+	)
+	stakeOne(
+		"StakerNumbers deposit stake boundary (first allocation)",
+		"staker_stake_boundary_01",
+		numericPositionIDs[0],
+	)
+	for i := 1; i < len(numericPositionIDs); i++ {
+		stakeOne(
+			ufmt.Sprintf("StakerNumbers deposit stake boundary allocation %02d/32", i+1),
+			ufmt.Sprintf("staker_stake_boundary_%02d", i+1),
+			numericPositionIDs[i],
+		)
+	}
+
 	assertStakerNumericAggregate("after_stake", false)
 	printStakerNumericDepositState("after_stake", widePositionID)
 	printStakerNumericDepositState("after_stake_boundary_first", narrowPositionID)
@@ -179,35 +203,44 @@ func stakeStakerNumericPositions(cur realm) {
 
 func measureStakerNumericDeposits(cur realm) {
 	testing.SetRealm(aliceRealm)
-	testing.SkipHeights(1)
-	metric.PrintMetricsBy("StakerNumbers deposit collect", func() {
-		staker.CollectReward(cross(cur), widePositionID)
-	})
-	if !staker.IsStaked(widePositionID) {
-		panic("collect removed the wide deposit")
+
+	collectOne := func(label, clockLabel string, positionID uint64) {
+		testing.SkipHeights(1)
+		printStakerNumericClock(clockLabel + "_before")
+		metric.PrintMetricsBy(label, func() {
+			staker.CollectReward(cross(cur), positionID)
+		})
+		printStakerNumericClock(clockLabel + "_after")
+		if !staker.IsStaked(positionID) {
+			panic("collect removed the deposit")
+		}
 	}
+
+	collectOne(
+		"StakerNumbers deposit collect",
+		"staker_collect_wide",
+		widePositionID,
+	)
 	assertStakerNumericAggregate("after_collect", false)
 	printStakerNumericDepositState("after_collect", widePositionID)
 
-	testing.SkipHeights(1)
-	metric.PrintMetricsBy("StakerNumbers deposit collect repeat", func() {
-		staker.CollectReward(cross(cur), widePositionID)
-	})
-	if !staker.IsStaked(widePositionID) {
-		panic("repeat collect removed the wide deposit")
-	}
+	collectOne(
+		"StakerNumbers deposit collect repeat",
+		"staker_collect_wide_repeat",
+		widePositionID,
+	)
 	assertStakerNumericAggregate("after_collect_repeat", false)
 	printStakerNumericDepositState("after_collect_repeat", widePositionID)
 
 	// Rewrite every staged deposit once after its first allocation. Keeping
-	// this separate from the stake metrics isolates value-field rewrites.
-	testing.SkipHeights(1)
-	metric.PrintMetricsBy("StakerNumbers deposit collect batch rewrite (32 deposits)", func() {
-		for _, positionID := range numericPositionIDs {
-			testing.SkipHeights(1)
-			staker.CollectReward(cross(cur), positionID)
-		}
-	})
+	// each public call separate isolates value-field rewrites.
+	for i, positionID := range numericPositionIDs {
+		collectOne(
+			ufmt.Sprintf("StakerNumbers deposit collect boundary allocation %02d/32", i+1),
+			ufmt.Sprintf("staker_collect_boundary_%02d", i+1),
+			positionID,
+		)
+	}
 	assertStakerNumericAggregate("after_batch_collect", false)
 	printStakerNumericDepositState("after_batch_collect_boundary_first", narrowPositionID)
 	printStakerNumericDepositState("after_batch_collect_boundary_last", numericPositionIDs[len(numericPositionIDs)-1])
@@ -226,19 +259,24 @@ func stakerNumericSwapCallback(cur realm, amount0Delta, amount1Delta int64, _ *p
 
 func measureStakerNumericTicks(cur realm) {
 	testing.SetRealm(testing.NewCodeRealm("gno.land/r/gnoswap/router"))
+	testing.SkipHeights(1)
+	printStakerNumericClock("staker_tick_positive_before")
 	metric.PrintMetricsBy("StakerNumbers tick cross positive (32 lower ticks)", func() {
 		pl.Swap(
 			cross(cur), barPath, fooPath, 3000, adminAddr, false,
-			"500000000", gnsmath.TickMathGetSqrtRatioAtTick(numericBoundaryCount*numericTickSpacing + 1).ToString(),
+			"500000000", gnsmath.TickMathGetSqrtRatioAtTick(numericBoundaryCount*numericTickSpacing+1).ToString(),
 			stakerNumericSwapCallback,
 		)
 	})
+	printStakerNumericClock("staker_tick_positive_after")
 	currentTick, _ := pl.GetSlot0Tick(poolPath)
 	if currentTick < numericBoundaryCount*numericTickSpacing || currentTick >= numericBoundaryUpper {
 		panic("positive swap did not activate all staged lower ticks")
 	}
 	printStakerNumericTickState("after_positive_cross", true)
 
+	testing.SkipHeights(1)
+	printStakerNumericClock("staker_tick_upper_before")
 	metric.PrintMetricsBy("StakerNumbers tick cross positive upper rewrite", func() {
 		pl.Swap(
 			cross(cur), barPath, fooPath, 3000, adminAddr, false,
@@ -246,12 +284,15 @@ func measureStakerNumericTicks(cur realm) {
 			stakerNumericSwapCallback,
 		)
 	})
+	printStakerNumericClock("staker_tick_upper_after")
 	currentTick, _ = pl.GetSlot0Tick(poolPath)
 	if currentTick < numericBoundaryUpper {
 		panic("positive swap did not cross the shared upper tick")
 	}
 	printStakerNumericTickState("after_upper_cross", false)
 
+	testing.SkipHeights(1)
+	printStakerNumericClock("staker_tick_negative_before")
 	metric.PrintMetricsBy("StakerNumbers tick cross negative (32 lower ticks)", func() {
 		pl.Swap(
 			cross(cur), barPath, fooPath, 3000, adminAddr, true,
@@ -259,6 +300,7 @@ func measureStakerNumericTicks(cur realm) {
 			stakerNumericSwapCallback,
 		)
 	})
+	printStakerNumericClock("staker_tick_negative_after")
 	currentTick, _ = pl.GetSlot0Tick(poolPath)
 	if currentTick < 0 || currentTick >= numericTickSpacing {
 		panic("negative swap did not deactivate the staged lower ticks")
@@ -271,12 +313,14 @@ func measureStakerNumericIncentive(cur realm) {
 	incentiveStart = (time.Now().Unix()/86400 + 2) * 86400
 	incentiveEnd = incentiveStart + 90*24*60*60
 
+	printStakerNumericClock("staker_incentive_create_before")
 	metric.PrintMetricsBy("StakerNumbers incentive create", func() {
 		staker.CreateExternalIncentive(
 			cross(cur), poolPath, barPath, numericRewardAmount,
 			incentiveStart, incentiveEnd,
 		)
 	})
+	printStakerNumericClock("staker_incentive_create_after")
 
 	incentives, err := staker.GetExternalIncentiveByPoolPath(poolPath)
 	if err != nil || len(incentives) != 1 {
@@ -290,40 +334,92 @@ func measureStakerNumericIncentive(cur realm) {
 
 	testing.SkipHeights((incentiveStart-time.Now().Unix())/5 + 2)
 	testing.SetRealm(aliceRealm)
+	printStakerNumericClock("staker_incentive_collect_before")
 	metric.PrintMetricsBy("StakerNumbers incentive collect", func() {
 		staker.CollectExternalIncentiveReward(cross(cur), widePositionID, incentiveID)
 	})
+	printStakerNumericClock("staker_incentive_collect_after")
 	if !staker.IsStaked(widePositionID) {
 		panic("external collect removed the wide deposit")
 	}
 	printStakerNumericIncentiveState("after_collect")
 
+	measureStakerNumericPaidClaims(cur)
+
 	testing.SkipHeights((incentiveEnd-time.Now().Unix())/5 + 2)
 	testing.SetRealm(adminRealm)
+	printStakerNumericClock("staker_incentive_end_before")
 	metric.PrintMetricsBy("StakerNumbers incentive end", func() {
 		staker.EndExternalIncentive(cross(cur), poolPath, incentiveID, adminAddr)
 	})
+	printStakerNumericClock("staker_incentive_end_after")
 	refunded, err := staker.GetIncentiveRefunded(poolPath, incentiveID)
 	if err != nil || !refunded {
 		panic("external incentive was not refunded")
 	}
 	printStakerNumericIncentiveState("after_end")
 
+	unstakeStakerNumericPositions(cur)
+}
+
+func measureStakerNumericPaidClaims(cur realm) {
 	testing.SetRealm(aliceRealm)
-	metric.PrintMetricsBy("StakerNumbers deposit unstake delete", func() {
-		staker.UnStakeToken(cross(cur), widePositionID)
-	})
-	if staker.IsStaked(widePositionID) {
-		panic("unstake did not delete the wide deposit")
+	for _, pattern := range []int{1, 10, 100} {
+		for call := 1; call <= pattern; call++ {
+			testing.SkipHeights(1)
+			clockLabel := ufmt.Sprintf("staker_paid_claim_%d_%03d", pattern, call)
+			printStakerNumericClock(clockLabel + "_before")
+			metric.PrintMetricsBy(
+				ufmt.Sprintf("StakerNumbers incentive paid claim %d/%d", call, pattern),
+				func() {
+					staker.CollectExternalIncentiveReward(cross(cur), widePositionID, incentiveID)
+				},
+			)
+			printStakerNumericClock(clockLabel + "_after")
+		}
+		printStakerNumericIncentiveState(ufmt.Sprintf("after_paid_claims_%d", pattern))
 	}
+}
+
+func unstakeStakerNumericPositions(cur realm) {
+	testing.SetRealm(aliceRealm)
+
+	unstakeOne := func(label, clockLabel string, positionID uint64) {
+		testing.SkipHeights(1)
+		printStakerNumericClock(clockLabel + "_before")
+		metric.PrintMetricsBy(label, func() {
+			staker.UnStakeToken(cross(cur), positionID)
+		})
+		printStakerNumericClock(clockLabel + "_after")
+		if staker.IsStaked(positionID) {
+			panic("unstake did not delete the deposit")
+		}
+	}
+
+	unstakeOne(
+		"StakerNumbers deposit unstake delete",
+		"staker_unstake_wide",
+		widePositionID,
+	)
 	poolStaked, err := staker.GetPoolStakedLiquidity(poolPath)
 	if err != nil {
-		panic("failed to read pool liquidity after unstake")
-	}
-	if u256.MustFromDecimal(poolStaked).Sign() != 0 {
-		panic("wide unstake left active pool liquidity")
+		panic("failed to read pool liquidity after wide unstake")
 	}
 	println(ufmt.Sprintf("STATE staker-numerics deposit after_unstake %d present=false pool_staked=%s", widePositionID, poolStaked))
+
+	for i, positionID := range numericPositionIDs {
+		unstakeOne(
+			ufmt.Sprintf("StakerNumbers deposit unstake boundary allocation %02d/32", i+1),
+			ufmt.Sprintf("staker_unstake_boundary_%02d", i+1),
+			positionID,
+		)
+	}
+
+	assertStakerNumericCleanup("after_unstake_all")
+}
+
+func printStakerNumericClock(label string) {
+	println(ufmt.Sprintf("STATE CLOCK %s %d", label, time.Now().Unix()))
 }
 
 func printStakerNumericDepositState(label string, positionID uint64) {
@@ -449,6 +545,56 @@ func assertStakerNumericAggregate(label string, boundaryActive bool) {
 		"STATE staker-numerics aggregate %s deposits=%d boundary_records=%d pool_staked=%s expected=%s boundary_active=%t",
 		label, len(numericPositionIDs)+1, len(numericPositionIDs),
 		poolStaked, expected.ToString(), boundaryActive,
+	))
+}
+
+func assertStakerNumericCleanup(label string) {
+	activeDeposits := 0
+	positionIDs := make([]uint64, 0, len(numericPositionIDs)+1)
+	positionIDs = append(positionIDs, widePositionID)
+	positionIDs = append(positionIDs, numericPositionIDs...)
+	for _, positionID := range positionIDs {
+		if staker.IsStaked(positionID) {
+			activeDeposits++
+		}
+		deposit, err := staker.GetDeposit(positionID)
+		if err == nil || deposit != nil {
+			panic("unstaked deposit remained addressable")
+		}
+	}
+	if activeDeposits != 0 {
+		panic("active staker deposits remained")
+	}
+
+	poolStaked, err := staker.GetPoolStakedLiquidity(poolPath)
+	if err != nil {
+		panic("failed to read cleanup pool liquidity")
+	}
+	if u256.MustFromDecimal(poolStaked).Sign() != 0 {
+		panic("active tick liquidity remained after full unstake")
+	}
+	poolSnapshot, err := staker.GetPool(poolPath)
+	if err != nil || poolSnapshot == nil {
+		panic("failed to read cleanup pool snapshot")
+	}
+	activeTicks := poolSnapshot.Ticks().Tree().Size()
+	if activeTicks != 0 {
+		panic("staked tick objects remained after full unstake")
+	}
+
+	pendingProtocolFees := staker.GetPendingProtocolFees()
+	if len(pendingProtocolFees) != 0 {
+		panic("pending reward fees remained after full unstake")
+	}
+
+	historicalTicks := staker.GetPoolHistoricalTicks(poolPath)
+	historicalTickCount := 0
+	if historicalTicks != nil {
+		historicalTickCount = historicalTicks.Size()
+	}
+	println(ufmt.Sprintf(
+		"STATE staker-numerics cleanup %s active_deposits=%d active_rewards=%d active_ticks=%d pending_protocol_fee_tokens=%d historical_ticks=%d pool_staked=%s",
+		label, activeDeposits, 0, activeTicks, len(pendingProtocolFees), historicalTickCount, poolStaked,
 	))
 }
 
