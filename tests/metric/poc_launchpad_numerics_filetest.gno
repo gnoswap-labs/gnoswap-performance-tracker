@@ -396,8 +396,12 @@ func launchpadNumericsAssertDepositStage(projectID, tierID string, depositIDs []
 	middleIndex := len(depositIDs) / 2
 	lastIndex := len(depositIDs) - 1
 	launchpadNumericsAssertDepositSample(projectID, tierID, depositIDs[0], tier, true)
-	launchpadNumericsAssertDepositSample(projectID, tierID, depositIDs[middleIndex], tier, false)
-	launchpadNumericsAssertDepositSample(projectID, tierID, depositIDs[lastIndex], tier, false)
+	if middleIndex != 0 {
+		launchpadNumericsAssertDepositSample(projectID, tierID, depositIDs[middleIndex], tier, false)
+	}
+	if lastIndex != 0 && lastIndex != middleIndex {
+		launchpadNumericsAssertDepositSample(projectID, tierID, depositIDs[lastIndex], tier, false)
+	}
 }
 
 func launchpadNumericsAssertDepositSample(projectID, tierID, depositID string, tier *launchpad.ProjectTier, first bool) {
