@@ -170,6 +170,10 @@ gas-report:
 	GNO_BIN="$$GNO_WORKTREE/gnovm/build/gno"; \
 	test -x "$$GNO_BIN"; \
 	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && GNOROOT="$$GNO_WORKTREE" "$$GNO_BIN" test . -v -run . -update-golden-tests); \
+	if [ -n "$${METRIC_RAW_OUTPUT_DIR:-}" ]; then \
+		mkdir -p "$${METRIC_RAW_OUTPUT_DIR}/$$FULL_COMMIT"; \
+		cp -R "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests/." "$${METRIC_RAW_OUTPUT_DIR}/$$FULL_COMMIT/"; \
+	fi; \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) | sort | xargs cat | ./scripts/parse_metrics.sh > "reports/metric/commits/$$SHORT_COMMIT.md"; \
 	if [ "$$(tail -n +3 "reports/metric/commits/$$SHORT_COMMIT.md" | wc -l | tr -d ' ')" -eq 0 ]; then \
 		echo "Metric report contained no metric rows" >&2; \
