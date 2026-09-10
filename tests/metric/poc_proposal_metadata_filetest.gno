@@ -24,10 +24,15 @@ import (
 )
 
 var (
-	pmdAdminAddr, _ = access.GetAddress(prabc.ROLE_ADMIN.String())
-	pmdAdminRealm   = testing.NewUserRealm(pmdAdminAddr)
+	pmdAdminAddr, _    = access.GetAddress(prabc.ROLE_ADMIN.String())
+	pmdAdminRealm      = testing.NewUserRealm(pmdAdminAddr)
 	pmdGovStakerAddr, _ = access.GetAddress(prabc.ROLE_GOV_STAKER.String())
-	pmdMaxInt64 int64 = 9223372036854775807
+	pmdMaxInt64 int64  = 9223372036854775807
+)
+
+const (
+	pmdFirstBatchCount  = 32
+	pmdFinalProposalCount = 128
 )
 
 // pmdDescription returns a deterministic description at the requested bounded
@@ -51,66 +56,65 @@ func main(cur realm) {
 
 	pmdInitializeSetup(cur)
 
-	// Root + metadata creation/read workload at the 4KiB scale.
-	testing.SetRealm(pmdAdminRealm)
-	metric.PrintMetricsBy("Proposal metadata create text (4KiB)", func() {
-		governance.ProposeText(cross(cur), "Metadata 4KiB", description4KiB)
-	})
-	text4KiBID := governance.GetCurrentProposalID()
-	pmdAssertProposalState(text4KiBID, governance.Text, "active", "Metadata 4KiB", description4KiB, false, false, 0)
+	// A text proposal becomes inactive after the voting period. Each lifecycle
+	// stage therefore creates, votes, and advances the height before the next
+	// proposal, growing the real proposal and per-user trees without mocks.
+	pmdMeasureTextLifecycle(
+		cur,
+		1,
+		pmdFirstBatchCount,
+		description4KiB,
+		"Proposal metadata lifecycle text (4KiB, 32 proposals)",
+	)
+	pmdAssertProposalBatch(pmdFirstBatchCount, description4KiB)
 
-	testing.SetRealm(pmdAdminRealm)
-	metric.PrintMetricsBy("Proposal metadata hot scalar reads (4KiB)", func() {
-		for i := 0; i < 8; i++ {
-			governance.GetTitleByProposalId(text4KiBID)
-			governance.GetDescriptionByProposalId(text4KiBID)
-			governance.GetProposalStatusByProposalId(text4KiBID)
-			governance.GetProposalTypeByProposalId(text4KiBID)
-			governance.GetYeaByProposalId(text4KiBID)
-			governance.GetNayByProposalId(text4KiBID)
-		}
-	})
+	pmdMeasureTextLifecycle(
+		cur,
+		int64(pmdFirstBatchCount+1),
+		pmdFinalProposalCount-pmdFirstBatchCount,
+		description4KiB,
+		ufmt.Sprintf(
+			"Proposal metadata lifecycle text (4KiB, %d proposals, total %d)",
+			pmdFinalProposalCount-pmdFirstBatchCount,
+			pmdFinalProposalCount,
+		),
+	)
+	pmdAssertProposalBatch(pmdFinalProposalCount, description4KiB)
 
-	testing.SetRealm(pmdAdminRealm)
-	metric.PrintMetricsBy("Proposal metadata whole getters (4KiB)", func() {
-		proposals := governance.GetProposals()
-		if proposals == nil || proposals.Size() != 1 {
-			panic("proposal whole getter did not expose the created proposal")
-		}
-		if governance.GetVotingInfos(text4KiBID) == nil {
-			panic("proposal voting-info whole getter returned nil")
-		}
-		if governance.GetUserProposals() == nil {
-			panic("user-proposals whole getter returned nil")
-		}
-	})
+	// Keep root Proposal cloning, nested metadata getters, and child/list
+	// traversals in separate stages so representation changes are attributable.
+	pmdMeasureRootReads(cur, pmdFinalProposalCount)
+	pmdMeasureNestedMetadataReads(cur, pmdFinalProposalCount)
+	pmdMeasureListReads(cur, pmdFinalProposalCount)
 
-	// Vote through the public proxy, then let the text proposal become
-	// inactive so the next real proposal creation exercises cleanup/writeback.
+	// Repeat one real proposal with a larger metadata payload after the large
+	// tree exists to expose description-size scaling independently of count.
 	testing.SetRealm(pmdAdminRealm)
-	metric.PrintMetricsBy("Proposal metadata vote text (4KiB)", func() {
-		governance.Vote(cross(cur), text4KiBID, true)
-	})
-	pmdAssertProposalState(text4KiBID, governance.Text, "active", "Metadata 4KiB", description4KiB, false, false, 1)
-	testing.SkipHeights(2)
-	pmdAssertProposalState(text4KiBID, governance.Text, "passed", "Metadata 4KiB", description4KiB, false, false, 1)
-
-	// Repeat a real text proposal at 8KiB to expose description-size scaling.
-	testing.SetRealm(pmdAdminRealm)
-	metric.PrintMetricsBy("Proposal metadata create text (8KiB)", func() {
+	metric.PrintMetricsBy("Proposal metadata create text (8KiB, total 129)", func() {
 		governance.ProposeText(cross(cur), "Metadata 8KiB", description8KiB)
 	})
 	text8KiBID := governance.GetCurrentProposalID()
+	if text8KiBID != int64(pmdFinalProposalCount+1) {
+		panic("8KiB proposal counter did not follow the large lifecycle")
+	}
 	pmdAssertProposalState(text8KiBID, governance.Text, "active", "Metadata 8KiB", description8KiB, false, false, 0)
 
 	testing.SetRealm(pmdAdminRealm)
-	metric.PrintMetricsBy("Proposal metadata whole getters (8KiB)", func() {
+	metric.PrintMetricsBy("Proposal metadata root Proposal read (8KiB)", func() {
 		proposals := governance.GetProposals()
-		if proposals == nil || proposals.Size() != 2 {
-			panic("proposal whole getter lost an earlier proposal")
+		wholeRaw := proposals.Get(ufmt.Sprintf("%d", text8KiBID))
+		whole, ok := wholeRaw.(*governance.Proposal)
+		if !ok || whole == nil || whole.ID() != text8KiBID {
+			panic("8KiB root Proposal getter returned an unexpected record")
 		}
-		if governance.GetVotingInfos(text8KiBID) == nil {
-			panic("8KiB proposal voting-info getter returned nil")
+	})
+
+	testing.SetRealm(pmdAdminRealm)
+	metric.PrintMetricsBy("Proposal metadata nested metadata reads (8KiB)", func() {
+		title, titleErr := governance.GetTitleByProposalId(text8KiBID)
+		description, descriptionErr := governance.GetDescriptionByProposalId(text8KiBID)
+		if titleErr != nil || descriptionErr != nil || title != "Metadata 8KiB" || description != description8KiB {
+			panic("8KiB nested metadata getter mismatch")
 		}
 	})
 
@@ -187,6 +191,141 @@ func pmdInitializeSetup(cur realm) {
 	gns.Approve(cross(cur), pmdGovStakerAddr, pmdMaxInt64)
 	govstaker.Delegate(cross(cur), pmdAdminAddr, int64(1000000000), "")
 	testing.SkipHeights(5)
+}
+
+func pmdTextTitle(proposalID int64) string {
+	return ufmt.Sprintf("Metadata text %d", proposalID)
+}
+
+func pmdMeasureTextLifecycle(
+	cur realm,
+	startProposalID int64,
+	proposalCount int,
+	description string,
+	label string,
+) {
+	testing.SetRealm(pmdAdminRealm)
+	metric.PrintMetricsBy(label, func() {
+		for i := 0; i < proposalCount; i++ {
+			expectedID := startProposalID + int64(i)
+
+			testing.SetRealm(pmdAdminRealm)
+			proposalID := governance.ProposeText(cross(cur), pmdTextTitle(expectedID), description)
+			if proposalID != expectedID {
+				panic("proposal lifecycle counter diverged")
+			}
+
+			testing.SetRealm(pmdAdminRealm)
+			governance.Vote(cross(cur), proposalID, true)
+			testing.SkipHeights(2)
+		}
+	})
+}
+
+func pmdMeasureRootReads(cur realm, proposalCount int) {
+	testing.SetRealm(pmdAdminRealm)
+	metric.PrintMetricsBy(
+		ufmt.Sprintf("Proposal metadata root Proposal reads (%d proposals)", proposalCount),
+		func() {
+			proposals := governance.GetProposals()
+			if proposals == nil {
+				panic("proposal root getter returned nil")
+			}
+			for i := 1; i <= proposalCount; i++ {
+				wholeRaw := proposals.Get(ufmt.Sprintf("%d", i))
+				whole, ok := wholeRaw.(*governance.Proposal)
+				if !ok || whole == nil || whole.ID() != int64(i) {
+					panic("proposal root getter returned an unexpected record")
+				}
+			}
+		},
+	)
+}
+
+func pmdMeasureNestedMetadataReads(cur realm, proposalCount int) {
+	testing.SetRealm(pmdAdminRealm)
+	metric.PrintMetricsBy(
+		ufmt.Sprintf("Proposal metadata nested metadata reads (%d proposals)", proposalCount),
+		func() {
+			for i := 1; i <= proposalCount; i++ {
+				proposalID := int64(i)
+				title, titleErr := governance.GetTitleByProposalId(proposalID)
+				description, descriptionErr := governance.GetDescriptionByProposalId(proposalID)
+				if titleErr != nil || descriptionErr != nil || title == "" || len(description) < 4096 {
+					panic("proposal nested metadata getter failed")
+				}
+			}
+		},
+	)
+}
+
+func pmdMeasureListReads(cur realm, proposalCount int) {
+	testing.SetRealm(pmdAdminRealm)
+	metric.PrintMetricsBy(
+		ufmt.Sprintf("Proposal metadata list and voting-info reads (%d proposals)", proposalCount),
+		func() {
+			proposals := governance.GetProposals()
+			userProposals := governance.GetUserProposals()
+			if proposals == nil || userProposals == nil {
+				panic("proposal list getter returned nil")
+			}
+			if userProposals.Get(pmdAdminAddr.String()) == nil {
+				panic("proposal user-list getter returned no admin entry")
+			}
+			for i := 0; i < proposalCount; i++ {
+				key, value := proposals.GetByIndex(i)
+				if key == "" || value == nil {
+					panic("proposal list index getter returned an empty entry")
+				}
+				votingInfos := governance.GetVotingInfos(int64(i + 1))
+				if votingInfos == nil || votingInfos.Size() != 1 {
+					panic("proposal voting-info list getter returned an unexpected count")
+				}
+			}
+		},
+	)
+}
+
+func pmdAssertProposalBatch(proposalCount int, description string) {
+	testing.SetRealm(pmdAdminRealm)
+
+	proposals := governance.GetProposals()
+	if proposals == nil || proposals.Size() != proposalCount {
+		panic("proposal aggregate count invariant failed")
+	}
+	if governance.GetCurrentProposalID() != int64(proposalCount) {
+		panic("proposal aggregate counter invariant failed")
+	}
+
+	passedCount := 0
+	for i := 1; i <= proposalCount; i++ {
+		status, err := governance.GetProposalStatusByProposalId(int64(i))
+		if err != nil {
+			panic("proposal aggregate status getter failed")
+		}
+		if status == "passed" {
+			passedCount++
+		}
+	}
+	if passedCount != proposalCount {
+		panic("proposal aggregate status invariant failed")
+	}
+
+	first := int64(1)
+	middle := int64((proposalCount + 1) / 2)
+	last := int64(proposalCount)
+	println(
+		"STATE proposal-metadata",
+		"aggregate",
+		"proposalCount", proposalCount,
+		"passedCount", passedCount,
+		"first", first,
+		"middle", middle,
+		"last", last,
+	)
+	pmdAssertProposalState(first, governance.Text, "passed", pmdTextTitle(first), description, false, false, 1)
+	pmdAssertProposalState(middle, governance.Text, "passed", pmdTextTitle(middle), description, false, false, 1)
+	pmdAssertProposalState(last, governance.Text, "passed", pmdTextTitle(last), description, false, false, 1)
 }
 
 func pmdAssertProposalState(
