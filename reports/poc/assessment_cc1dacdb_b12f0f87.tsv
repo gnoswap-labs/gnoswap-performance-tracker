@@ -1,0 +1,14 @@
+fixture	sample	label	baseline_gas	candidate_gas	gas_delta	baseline_net_realm_bytes	candidate_net_realm_bytes	storage_delta_bytes	storage_delta_ugnot	gas_delta_ugnot	total_delta_ugnot
+poc_staker_numerics_filetest.gno	0	StakerNumbers deposit stake wide (first allocation)	16445968	16460904	14936	35653	33852	-1801	-180100	15	-180085
+poc_staker_numerics_filetest.gno	1	StakerNumbers deposit stake boundary (first allocation)	14497051	14511987	14936	13044	11243	-1801	-180100	14	-180086
+poc_staker_numerics_filetest.gno	2	StakerNumbers deposit stake boundary (31 allocations)	455216852	455754746	537894	284182	250449	-33733	-3373300	538	-3372762
+poc_staker_numerics_filetest.gno	3	StakerNumbers deposit collect	12254913	12260804	5891	2073	2073	0	0	6	6
+poc_staker_numerics_filetest.gno	4	StakerNumbers deposit collect repeat	12091096	12096987	5891	0	0	0	0	5	5
+poc_staker_numerics_filetest.gno	5	StakerNumbers deposit collect batch rewrite (32 deposits)	296660940	296851627	190687	396	396	0	0	191	191
+poc_staker_numerics_filetest.gno	6	StakerNumbers tick cross positive (32 lower ticks)	305082520	305793892	711372	106532	106345	-187	-18700	711	-17989
+poc_staker_numerics_filetest.gno	7	StakerNumbers tick cross positive upper rewrite	31093064	31117790	24726	3266	3260	-6	-600	24	-576
+poc_staker_numerics_filetest.gno	8	StakerNumbers tick cross negative (32 lower ticks)	347508379	348482872	974493	917	917	0	0	974	974
+poc_staker_numerics_filetest.gno	9	StakerNumbers incentive create	3435195	3437691	2496	20135	19771	-364	-36400	2	-36398
+poc_staker_numerics_filetest.gno	10	StakerNumbers incentive collect	9611770	9623576	11806	579	579	0	0	12	12
+poc_staker_numerics_filetest.gno	11	StakerNumbers incentive end	1853144	1865046	11902	24	24	0	0	12	12
+poc_staker_numerics_filetest.gno	12	StakerNumbers deposit unstake delete	51630932	51707148	76216	-17929	-16128	1801	180100	77	180177
