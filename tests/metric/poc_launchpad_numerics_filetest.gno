@@ -1,10 +1,9 @@
 // PKGPATH: gno.land/r/gnoswap/scenario/metric/main
 
 // Gas and storage metrics for launchpad Q128 numeric value fields.
-// The fixture scales one real project through staged deposits, repeated reward
-// claims, and sampled-to-complete withdrawals. State checks cover every tier,
-// the reward manager, and first/middle/last deposit records without dumping
-// the full reward tree.
+// Every deposit and withdrawal is measured in its own paid-call window. The
+// lifecycle also measures 1/10/100 paid reward-claim patterns and settles the
+// remaining project balance through the admin refund path.
 package main
 
 import (
@@ -37,8 +36,8 @@ const (
 	launchpadNumericsDepositAmount       int64 = 1_000_000
 	launchpadNumericsProjectAmount       int64 = 1_000_000_000
 
-	// Three stages make both the first (cold) record and warm tree traversals
-	// visible while keeping one fixture bounded for the benchmark runner.
+	// Boundary snapshots expose cold, warm, and full 256-record states.
+	launchpadNumericsStage1   int = 1
 	launchpadNumericsStage32  int = 32
 	launchpadNumericsStage128 int = 128
 	launchpadNumericsStage256 int = 256
@@ -59,83 +58,55 @@ var (
 )
 
 func main(cur realm) {
+	initialAdminObl := obl.BalanceOf(launchpadNumericsAdminAddr)
+	initialLaunchpadObl := obl.BalanceOf(launchpadNumericsLaunchpadAddr)
+	initialProjectRecipientObl := obl.BalanceOf(launchpadNumericsProjectAddr)
+	initialAdminGns := gns.BalanceOf(launchpadNumericsAdminAddr)
+	initialAliceGns := gns.BalanceOf(launchpadNumericsAliceAddr)
+	initialLaunchpadGns := gns.BalanceOf(launchpadNumericsLaunchpadAddr)
+	initialAliceObl := obl.BalanceOf(launchpadNumericsAliceAddr)
+
 	launchpadNumericsInitialize(cur)
 
 	projectID := launchpadNumericsCreateProject(cur)
 	tierID := projectID + ":30"
+	launchpadNumericsAssertProjectFunding(initialAdminObl, initialLaunchpadObl)
 	launchpadNumericsAssertCreated(projectID)
 	launchpadNumericsPrintState("created", projectID, "", "")
 
 	launchpadNumericsFundDeposits(cur)
+	launchpadNumericsAssertDepositFunding(initialAdminGns, initialAliceGns, initialLaunchpadGns)
 	depositIDs := launchpadNumericsCreateDeposits(cur, tierID, projectID)
 
 	launchpadNumericsSkipToClaimable(depositIDs[len(depositIDs)-1])
-	firstClaim := launchpadNumericsCollectReward(cur, depositIDs[0], "first")
-	middleIndex := len(depositIDs) / 2
-	middleClaim := launchpadNumericsCollectReward(cur, depositIDs[middleIndex], "middle")
-	lastIndex := len(depositIDs) - 1
-	lastClaim := launchpadNumericsCollectReward(cur, depositIDs[lastIndex], "last")
-	if firstClaim <= 0 || middleClaim <= 0 || lastClaim <= 0 {
-		panic("sampled launchpad reward claims should be positive")
-	}
-	launchpadNumericsAssertClaims(projectID, tierID, depositIDs, firstClaim, middleClaim, lastClaim)
-	launchpadNumericsPrintState("claimed-first", projectID, depositIDs[0], depositIDs[0])
-	launchpadNumericsPrintState("claimed-middle", projectID, depositIDs[middleIndex], depositIDs[middleIndex])
-	launchpadNumericsPrintState("claimed-last", projectID, depositIDs[lastIndex], depositIDs[lastIndex])
-
-	// Advance the reward cursor and repeat each sampled claim. The manager and
-	// reward states are warm by now, so these calls measure repeated updates.
-	testing.SkipHeights(launchpadNumericsDaySeconds/launchpadNumericsBlockTimeSeconds + 1)
-	firstRepeat := launchpadNumericsCollectReward(cur, depositIDs[0], "repeat-first")
-	middleRepeat := launchpadNumericsCollectReward(cur, depositIDs[middleIndex], "repeat-middle")
-	lastRepeat := launchpadNumericsCollectReward(cur, depositIDs[lastIndex], "repeat-last")
-	if firstRepeat <= 0 || middleRepeat <= 0 || lastRepeat <= 0 {
-		panic("repeated launchpad reward claims should be positive")
-	}
-	launchpadNumericsAssertClaims(
-		projectID,
-		tierID,
-		depositIDs,
-		firstClaim+firstRepeat,
-		middleClaim+middleRepeat,
-		lastClaim+lastRepeat,
-	)
-	launchpadNumericsPrintState("claimed-repeat-first", projectID, depositIDs[0], depositIDs[0])
-	launchpadNumericsPrintState("claimed-repeat-middle", projectID, depositIDs[middleIndex], depositIDs[middleIndex])
-	launchpadNumericsPrintState("claimed-repeat-last", projectID, depositIDs[lastIndex], depositIDs[lastIndex])
+	claimedAmount := launchpadNumericsMeasureClaimPatterns(cur, tierID, depositIDs)
+	launchpadNumericsAssertClaims(projectID, tierID, depositIDs, claimedAmount)
+	launchpadNumericsPrintState("claimed-pattern-1", projectID, depositIDs[0], depositIDs[0])
+	launchpadNumericsPrintState("claimed-pattern-10", projectID, depositIDs[10], depositIDs[10])
+	launchpadNumericsPrintState("claimed-pattern-100", projectID, depositIDs[110], depositIDs[110])
 
 	launchpadNumericsSkipToTierEnd(projectID)
-	firstWithdrawal := launchpadNumericsCollectDeposit(cur, depositIDs[0], "first")
-	if firstWithdrawal != launchpadNumericsDepositAmount {
-		panic("first launchpad withdrawal did not return the deposit amount")
-	}
-	launchpadNumericsAssertWithdrawal(projectID, tierID, depositIDs, 1, depositIDs[0])
-	launchpadNumericsPrintState("withdrawn-first", projectID, "", depositIDs[0])
+	launchpadNumericsWithdrawDeposits(cur, projectID, tierID, depositIDs)
+	launchpadNumericsAssertCompleteExit(projectID, tierID, depositIDs)
+	launchpadNumericsPrintState("withdrawn-final-zero-active", projectID, "", depositIDs[len(depositIDs)-1])
 
-	// Complete the lifecycle without adding one metric row per record. The
-	// measured middle and last calls still see the progressively smaller warm
-	// reward tree, while every deposit is verified through the public API.
-	for i := 1; i < middleIndex; i++ {
-		launchpadNumericsCollectDepositUnmeasured(cur, depositIDs[i])
+	launchpadNumericsSkipToProjectEnd(projectID)
+	refundedAmount := launchpadNumericsTransferLeftFromProject(cur, projectID)
+	if refundedAmount <= 0 {
+		panic("launchpad admin refund should return a positive remaining amount")
 	}
-
-	middleWithdrawal := launchpadNumericsCollectDeposit(cur, depositIDs[middleIndex], "middle")
-	if middleWithdrawal != launchpadNumericsDepositAmount {
-		panic("middle launchpad withdrawal did not return the deposit amount")
-	}
-	launchpadNumericsAssertWithdrawal(projectID, tierID, depositIDs, middleIndex+1, depositIDs[middleIndex])
-	launchpadNumericsPrintState("withdrawn-middle", projectID, "", depositIDs[middleIndex])
-
-	for i := middleIndex + 1; i < lastIndex; i++ {
-		launchpadNumericsCollectDepositUnmeasured(cur, depositIDs[i])
-	}
-
-	lastWithdrawal := launchpadNumericsCollectDeposit(cur, depositIDs[lastIndex], "last")
-	if lastWithdrawal != launchpadNumericsDepositAmount {
-		panic("last launchpad withdrawal did not return the deposit amount")
-	}
-	launchpadNumericsAssertWithdrawal(projectID, tierID, depositIDs, len(depositIDs), depositIDs[lastIndex])
-	launchpadNumericsPrintState("withdrawn-final-zero-active", projectID, "", depositIDs[lastIndex])
+	launchpadNumericsAssertRefundBalances(
+		projectID,
+		initialAdminObl,
+		initialLaunchpadObl,
+		initialProjectRecipientObl,
+		initialAliceObl,
+		initialAdminGns,
+		initialAliceGns,
+		initialLaunchpadGns,
+		refundedAmount,
+	)
+	launchpadNumericsPrintState("refunded-final-zero-active", projectID, "", "")
 }
 
 func launchpadNumericsInitialize(cur realm) {
@@ -143,11 +114,34 @@ func launchpadNumericsInitialize(cur realm) {
 	obl.Approve(cross(cur), launchpadNumericsLaunchpadAddr, launchpadNumericsMaxInt64)
 }
 
+func launchpadNumericsAssertProjectFunding(initialAdminObl, initialLaunchpadObl int64) {
+	if obl.BalanceOf(launchpadNumericsAdminAddr) != initialAdminObl-launchpadNumericsProjectAmount {
+		panic("launchpad project funding changed admin OBL balance incorrectly")
+	}
+	if obl.BalanceOf(launchpadNumericsLaunchpadAddr) != initialLaunchpadObl+launchpadNumericsProjectAmount {
+		panic("launchpad project funding changed launchpad OBL balance incorrectly")
+	}
+}
+
+func launchpadNumericsAssertDepositFunding(initialAdminGns, initialAliceGns, initialLaunchpadGns int64) {
+	total := launchpadNumericsDepositAmount * int64(launchpadNumericsStage256)
+	if gns.BalanceOf(launchpadNumericsAdminAddr) != initialAdminGns-total {
+		panic("launchpad deposit funding changed admin GNS balance incorrectly")
+	}
+	if gns.BalanceOf(launchpadNumericsAliceAddr) != initialAliceGns+total {
+		panic("launchpad deposit funding changed Alice GNS balance incorrectly")
+	}
+	if gns.BalanceOf(launchpadNumericsLaunchpadAddr) != initialLaunchpadGns {
+		panic("launchpad deposit funding unexpectedly changed launchpad GNS balance")
+	}
+}
+
 func launchpadNumericsCreateProject(cur realm) string {
 	testing.SetRealm(launchpadNumericsAdminRealm)
 
 	startTime := time.Now().Unix() + launchpadNumericsActivationDelayDays*launchpadNumericsDaySeconds
 	projectID := ""
+	launchpadNumericsPrintClock("launchpad_create_project_before")
 	metric.PrintMetricsBy("Launchpad Numerics CreateProject", func() {
 		projectID = launchpad.CreateProject(
 			cross(cur),
@@ -163,6 +157,7 @@ func launchpadNumericsCreateProject(cur realm) string {
 			startTime,
 		)
 	})
+	launchpadNumericsPrintClock("launchpad_create_project_after")
 
 	launchpadNumericsSkipUntil(startTime)
 	return projectID
@@ -178,36 +173,23 @@ func launchpadNumericsFundDeposits(cur realm) {
 
 func launchpadNumericsCreateDeposits(cur realm, tierID, projectID string) []string {
 	depositIDs := make([]string, 0, launchpadNumericsStage256)
-
-	depositIDs = launchpadNumericsMeasureDeposit(cur, tierID, depositIDs, "1 (cold)")
-	launchpadNumericsAssertDepositStage(projectID, tierID, depositIDs)
-	launchpadNumericsPrintState("deposited-stage-1", projectID, depositIDs[0], depositIDs[0])
-
-	depositIDs = launchpadNumericsAppendDeposits(cur, tierID, depositIDs, launchpadNumericsStage32-1)
-	depositIDs = launchpadNumericsMeasureDeposit(cur, tierID, depositIDs, "32 (warm)")
-	launchpadNumericsAssertDepositStage(projectID, tierID, depositIDs)
-
-	depositIDs = launchpadNumericsAppendDeposits(cur, tierID, depositIDs, launchpadNumericsStage128-1)
-	depositIDs = launchpadNumericsMeasureDeposit(cur, tierID, depositIDs, "128 (warm)")
-	launchpadNumericsAssertDepositStage(projectID, tierID, depositIDs)
-
-	depositIDs = launchpadNumericsAppendDeposits(cur, tierID, depositIDs, launchpadNumericsStage256-1)
-	depositIDs = launchpadNumericsMeasureDeposit(cur, tierID, depositIDs, "256 (warm)")
-	launchpadNumericsAssertDepositStage(projectID, tierID, depositIDs)
-	middleIndex := len(depositIDs) / 2
-	lastIndex := len(depositIDs) - 1
-	launchpadNumericsPrintState("deposited-stage-256-first", projectID, depositIDs[0], depositIDs[0])
-	launchpadNumericsPrintState("deposited-stage-256-middle", projectID, depositIDs[middleIndex], depositIDs[middleIndex])
-	launchpadNumericsPrintState("deposited-stage-256-last", projectID, depositIDs[lastIndex], depositIDs[lastIndex])
-
-	return depositIDs
-}
-
-func launchpadNumericsAppendDeposits(cur realm, tierID string, depositIDs []string, targetCount int) []string {
-	testing.SetRealm(launchpadNumericsAliceRealm)
-	for len(depositIDs) < targetCount {
-		depositIDs = append(depositIDs, launchpad.DepositGns(cross(cur), tierID, launchpadNumericsDepositAmount, ""))
-		testing.SkipHeights(1)
+	for i := 0; i < launchpadNumericsStage256; i++ {
+		depositIDs = launchpadNumericsMeasureDeposit(
+			cur,
+			tierID,
+			depositIDs,
+			ufmt.Sprintf("call=%03d/256", i+1),
+		)
+		count := i + 1
+		if count == launchpadNumericsStage1 || count == launchpadNumericsStage32 || count == launchpadNumericsStage128 || count == launchpadNumericsStage256 {
+			launchpadNumericsAssertDepositStage(projectID, tierID, depositIDs)
+			launchpadNumericsPrintState(
+				ufmt.Sprintf("deposited-stage-%d", count),
+				projectID,
+				depositIDs[0],
+				depositIDs[len(depositIDs)-1],
+			)
+		}
 	}
 	return depositIDs
 }
@@ -215,44 +197,92 @@ func launchpadNumericsAppendDeposits(cur realm, tierID string, depositIDs []stri
 func launchpadNumericsMeasureDeposit(cur realm, tierID string, depositIDs []string, label string) []string {
 	testing.SetRealm(launchpadNumericsAliceRealm)
 	depositID := ""
+	launchpadNumericsPrintClock(ufmt.Sprintf("launchpad_deposit_%s_before", label))
 	metric.PrintMetricsBy(ufmt.Sprintf("Launchpad Numerics DepositGns %s", label), func() {
 		depositID = launchpad.DepositGns(cross(cur), tierID, launchpadNumericsDepositAmount, "")
 	})
+	launchpadNumericsPrintClock(ufmt.Sprintf("launchpad_deposit_%s_after", label))
 	testing.SkipHeights(1)
 	return append(depositIDs, depositID)
 }
 
-func launchpadNumericsCollectReward(cur realm, depositID, label string) int64 {
+func launchpadNumericsMeasureClaimPatterns(cur realm, tierID string, depositIDs []string) int64 {
+	claimedAmount := int64(0)
+	claimedAmount += launchpadNumericsMeasureClaimPattern(cur, tierID, depositIDs, 0, 1, "pattern=1")
+	claimedAmount += launchpadNumericsMeasureClaimPattern(cur, tierID, depositIDs, 1, 10, "pattern=10")
+	claimedAmount += launchpadNumericsMeasureClaimPattern(cur, tierID, depositIDs, 11, 100, "pattern=100")
+	return claimedAmount
+}
+
+func launchpadNumericsMeasureClaimPattern(cur realm, tierID string, depositIDs []string, start, count int, label string) int64 {
+	if start < 0 || start+count > len(depositIDs) {
+		panic("launchpad claim pattern exceeds deposit records")
+	}
+
+	claimedAmount := int64(0)
+	for offset := 0; offset < count; offset++ {
+		index := start + offset
+		metricLabel := ufmt.Sprintf("%s call=%03d/%03d", label, offset+1, count)
+		clockLabel := ufmt.Sprintf("launchpad_claim_%d_%03d", count, index+1)
+		reward := launchpadNumericsCollectReward(cur, depositIDs[index], metricLabel, clockLabel)
+		if reward <= 0 {
+			panic("launchpad reward claim should be positive")
+		}
+		state := launchpadNumericsMustRewardState(tierID, depositIDs[index])
+		if state.ClaimedAmount() < reward {
+			panic("launchpad reward claim was not persisted")
+		}
+		claimedAmount += reward
+		testing.SkipHeights(1)
+	}
+	return claimedAmount
+}
+
+func launchpadNumericsCollectReward(cur realm, depositID, metricLabel, clockLabel string) int64 {
 	testing.SetRealm(launchpadNumericsAliceRealm)
 	reward := int64(0)
-	metric.PrintMetricsBy(ufmt.Sprintf("Launchpad Numerics CollectReward %s (records=%d)", label, launchpadNumericsStage256), func() {
+	launchpadNumericsPrintClock(clockLabel + "_before")
+	metric.PrintMetricsBy(ufmt.Sprintf("Launchpad Numerics CollectReward %s", metricLabel), func() {
 		reward = launchpad.CollectRewardByDepositId(cross(cur), depositID)
 	})
+	launchpadNumericsPrintClock(clockLabel + "_after")
 	return reward
 }
 
-func launchpadNumericsCollectDeposit(cur realm, depositID, label string) int64 {
+func launchpadNumericsWithdrawDeposits(cur realm, projectID, tierID string, depositIDs []string) {
+	for i, depositID := range depositIDs {
+		metricLabel := ufmt.Sprintf("call=%03d/256", i+1)
+		clockLabel := ufmt.Sprintf("launchpad_withdraw_%03d", i+1)
+		withdrawal := launchpadNumericsCollectDeposit(cur, depositID, metricLabel, clockLabel)
+		if withdrawal != launchpadNumericsDepositAmount {
+			panic("launchpad withdrawal did not return the deposit amount")
+		}
+		launchpadNumericsAssertWithdrawal(projectID, tierID, depositIDs, i+1, depositID)
+		if i+1 == 1 || i+1 == launchpadNumericsStage32 || i+1 == launchpadNumericsStage128 || i+1 == launchpadNumericsStage256 {
+			launchpadNumericsPrintState(
+				ufmt.Sprintf("withdrawn-stage-%d", i+1),
+				projectID,
+				"",
+				depositID,
+			)
+		}
+		testing.SkipHeights(1)
+	}
+}
+
+func launchpadNumericsCollectDeposit(cur realm, depositID, metricLabel, clockLabel string) int64 {
 	testing.SetRealm(launchpadNumericsAliceRealm)
 	withdrawal := int64(0)
-	metric.PrintMetricsBy(ufmt.Sprintf("Launchpad Numerics CollectDepositGns %s (records=%d)", label, launchpadNumericsStage256), func() {
+	launchpadNumericsPrintClock(clockLabel + "_before")
+	metric.PrintMetricsBy(ufmt.Sprintf("Launchpad Numerics CollectDepositGns %s", metricLabel), func() {
 		var err error
 		withdrawal, err = launchpad.CollectDepositGns(cross(cur), depositID)
 		if err != nil {
 			panic(err)
 		}
 	})
+	launchpadNumericsPrintClock(clockLabel + "_after")
 	return withdrawal
-}
-
-func launchpadNumericsCollectDepositUnmeasured(cur realm, depositID string) {
-	testing.SetRealm(launchpadNumericsAliceRealm)
-	withdrawal, err := launchpad.CollectDepositGns(cross(cur), depositID)
-	if err != nil {
-		panic(err)
-	}
-	if withdrawal != launchpadNumericsDepositAmount {
-		panic("unmeasured launchpad withdrawal did not return the deposit amount")
-	}
 }
 
 func launchpadNumericsSkipUntil(targetTime int64) {
@@ -262,6 +292,30 @@ func launchpadNumericsSkipUntil(targetTime int64) {
 		return
 	}
 	testing.SkipHeights(remaining/launchpadNumericsBlockTimeSeconds + 1)
+}
+
+func launchpadNumericsPrintClock(label string) {
+	println(ufmt.Sprintf("STATE CLOCK %s %d", label, time.Now().Unix()))
+}
+
+func launchpadNumericsSkipToProjectEnd(projectID string) {
+	tier := launchpadNumericsMustTier(projectID, launchpadNumericsTier180)
+	launchpadNumericsSkipUntil(tier.EndTime() + 1)
+}
+
+func launchpadNumericsTransferLeftFromProject(cur realm, projectID string) int64 {
+	testing.SetRealm(launchpadNumericsAdminRealm)
+	refundedAmount := int64(0)
+	launchpadNumericsPrintClock("launchpad_refund_before")
+	metric.PrintMetricsBy("Launchpad Numerics TransferLeftFromProjectByAdmin", func() {
+		refundedAmount = launchpad.TransferLeftFromProjectByAdmin(
+			cross(cur),
+			projectID,
+			launchpadNumericsProjectAddr,
+		)
+	})
+	launchpadNumericsPrintClock("launchpad_refund_after")
+	return refundedAmount
 }
 
 func launchpadNumericsSkipToClaimable(depositID string) {
@@ -440,25 +494,61 @@ func launchpadNumericsAssertActiveDebt(manager *launchpad.RewardManager) {
 	}
 }
 
-func launchpadNumericsAssertClaims(projectID, tierID string, depositIDs []string, firstClaim, middleClaim, lastClaim int64) {
+func launchpadNumericsAssertClaims(projectID, tierID string, depositIDs []string, expectedClaimed int64) {
 	manager := launchpadNumericsMustManager(tierID)
 	tier := launchpadNumericsMustTier(projectID, launchpadNumericsTier30)
-	middleIndex := len(depositIDs) / 2
-	lastIndex := len(depositIDs) - 1
-	totalClaimed := firstClaim + middleClaim + lastClaim
-	if manager.TotalClaimedAmount() != totalClaimed || manager.ActiveClaimedAmount() != totalClaimed || tier.TotalCollectedAmount() != totalClaimed {
-		panic("launchpad sampled claim accounting is inconsistent")
+	if manager.TotalClaimedAmount() != expectedClaimed || manager.ActiveClaimedAmount() != expectedClaimed || tier.TotalCollectedAmount() != expectedClaimed {
+		panic("launchpad claim accounting is inconsistent")
 	}
 	if manager.AccumulatedTime() < manager.DistributeStartTime() || manager.AccumulatedTime() > manager.DistributeEndTime() || manager.AccumulatedRewardPerDepositX128().IsZero() || manager.AccumulatedDistributeAmount() != 0 {
 		panic("launchpad reward cursor is outside its expected window")
-	}
-	if launchpadNumericsMustRewardState(tierID, depositIDs[0]).ClaimedAmount() != firstClaim || launchpadNumericsMustRewardState(tierID, depositIDs[middleIndex]).ClaimedAmount() != middleClaim || launchpadNumericsMustRewardState(tierID, depositIDs[lastIndex]).ClaimedAmount() != lastClaim {
-		panic("launchpad sampled reward state claim totals are inconsistent")
 	}
 	if manager.ActiveDepositAmount() != launchpadNumericsDepositAmount*int64(len(depositIDs)) || manager.Rewards().Size() != len(depositIDs) {
 		panic("launchpad active reward tree changed during claim")
 	}
 	launchpadNumericsAssertActiveDebt(manager)
+}
+
+func launchpadNumericsAssertCompleteExit(projectID, tierID string, depositIDs []string) {
+	tier := launchpadNumericsMustTier(projectID, launchpadNumericsTier30)
+	manager := launchpadNumericsMustManager(tierID)
+	if launchpad.GetDepositCount() != len(depositIDs) || launchpad.GetCurrentDepositId() != int64(len(depositIDs)) {
+		panic("launchpad final deposit count changed")
+	}
+	for _, depositID := range depositIDs {
+		if !launchpadNumericsMustDeposit(depositID).IsWithdrawn() {
+			panic("launchpad final deposit is still active")
+		}
+	}
+	if tier.TotalWithdrawAmount() != tier.TotalDepositAmount() || tier.TotalWithdrawCount() != tier.TotalDepositCount() || manager.ActiveDepositAmount() != 0 || manager.ActiveClaimedAmount() != 0 || !manager.ActivePriceDebtX128().IsZero() || manager.Rewards().Size() != 0 || launchpad.GetTotalGNSStakedAmount() != 0 {
+		panic("launchpad final active reward state is not zero")
+	}
+	if tier.TotalCollectedAmount() != manager.TotalClaimedAmount() || manager.TotalClaimedAmount() > manager.TotalDistributeAmount() {
+		panic("launchpad final reward conservation is incorrect")
+	}
+	for _, duration := range []int64{launchpadNumericsTier30, launchpadNumericsTier90, launchpadNumericsTier180} {
+		tierManager := launchpadNumericsMustManager(projectID + ":" + ufmt.Sprintf("%d", duration))
+		if tierManager.ActiveDepositAmount() != 0 || tierManager.ActiveClaimedAmount() != 0 || !tierManager.ActivePriceDebtX128().IsZero() || tierManager.Rewards().Size() != 0 {
+			panic("launchpad final tier manager still has active state")
+		}
+	}
+}
+
+func launchpadNumericsAssertRefundBalances(projectID string, initialAdminObl, initialLaunchpadObl, initialProjectRecipientObl, initialAliceObl, initialAdminGns, initialAliceGns, initialLaunchpadGns, refundedAmount int64) {
+	manager := launchpadNumericsMustManager(projectID + ":30")
+	totalDeposited := launchpadNumericsDepositAmount * int64(launchpadNumericsStage256)
+	if manager.TotalClaimedAmount()+refundedAmount != launchpadNumericsProjectAmount {
+		panic("launchpad project OBL distribution is not conserved")
+	}
+	if gns.BalanceOf(launchpadNumericsAdminAddr) != initialAdminGns-totalDeposited || gns.BalanceOf(launchpadNumericsAliceAddr) != initialAliceGns+totalDeposited || gns.BalanceOf(launchpadNumericsLaunchpadAddr) != initialLaunchpadGns {
+		panic("launchpad final GNS balances are not conserved")
+	}
+	if obl.BalanceOf(launchpadNumericsAdminAddr) != initialAdminObl-launchpadNumericsProjectAmount || obl.BalanceOf(launchpadNumericsAliceAddr) != initialAliceObl+manager.TotalClaimedAmount() || obl.BalanceOf(launchpadNumericsProjectAddr) != initialProjectRecipientObl+refundedAmount || obl.BalanceOf(launchpadNumericsLaunchpadAddr) != initialLaunchpadObl {
+		panic("launchpad final OBL balances are not conserved")
+	}
+	if manager.ActiveDepositAmount() != 0 || manager.ActiveClaimedAmount() != 0 || !manager.ActivePriceDebtX128().IsZero() || manager.Rewards().Size() != 0 || launchpad.GetTotalGNSStakedAmount() != 0 {
+		panic("launchpad refund changed zero-active state")
+	}
 }
 
 func launchpadNumericsAssertWithdrawal(projectID, tierID string, depositIDs []string, withdrawnCount int, sampledDepositID string) {
@@ -471,6 +561,10 @@ func launchpadNumericsAssertWithdrawal(projectID, tierID string, depositIDs []st
 	}
 	if !launchpadNumericsMustDeposit(sampledDepositID).IsWithdrawn() {
 		panic("launchpad sampled withdrawal record is not marked withdrawn")
+	}
+	state, stateErr := launchpad.GetRewardState(tierID, sampledDepositID)
+	if stateErr == nil || state != nil {
+		panic("launchpad withdrawn reward state was not removed")
 	}
 	if manager.TotalClaimedAmount() < tier.TotalCollectedAmount() || tier.TotalCollectedAmount() != manager.TotalClaimedAmount() {
 		panic("launchpad withdrawal reward conservation is incorrect")

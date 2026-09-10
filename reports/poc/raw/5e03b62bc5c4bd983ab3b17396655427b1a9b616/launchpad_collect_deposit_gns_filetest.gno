@@ -1,0 +1,118 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
+// Gas and performance metrics for launchpad CollectDepositGns
+// Test cases based on gnoswap/contract/r/scenario/launchpad/launchpad_deposit_gns_basic_filetest.gno
+package main
+
+import (
+	"testing"
+	"time"
+
+	prabc "gno.land/p/gnoswap/rbac"
+	"gno.land/p/nt/testutils/v0"
+	_ "gno.land/r/gnoswap/rbac"
+
+	_ "gno.land/r/gnoswap/gov/staker"
+	_ "gno.land/r/gnoswap/gov/staker/v1"
+	_ "gno.land/r/gnoswap/launchpad/v1"
+
+	"gno.land/r/gnoswap/access"
+	"gno.land/r/gnoswap/gns"
+	"gno.land/r/gnoswap/launchpad"
+	"gno.land/r/onbloc/obl"
+
+	"gno.land/r/gnoswap/scenario/metric"
+)
+
+const blockTimeSeconds int64 = 5
+
+var (
+	adminAddr, _ = access.GetAddress(prabc.ROLE_ADMIN.String())
+	adminRealm   = testing.NewUserRealm(adminAddr)
+
+	launchpadAddr, _ = access.GetAddress(prabc.ROLE_LAUNCHPAD.String())
+
+	aliceAddr  = testutils.TestAddress("alice")
+	aliceRealm = testing.NewUserRealm(aliceAddr)
+
+	projectAddr = testutils.TestAddress("project-owner")
+
+	maxInt64 int64 = 9223372036854775807
+)
+
+var t *testing.T
+
+func main(cur realm) {
+	initializeSetup(cur)
+	projectId := createLaunchpadProject(cur)
+	depositId := depositGns(cur, projectId)
+	skipToProjectEnd()
+	collectDepositGnsMetric(cur, depositId)
+}
+
+func initializeSetup(cur realm) {
+	testing.SetRealm(adminRealm)
+	obl.Approve(cross(cur), launchpadAddr, maxInt64)
+}
+
+func createLaunchpadProject(cur realm) string {
+	testing.SetRealm(adminRealm)
+
+	projectId := launchpad.CreateProject(
+		cross(cur),
+		"OBL Launchpad Project",
+		"gno.land/r/onbloc/obl.OBL",
+		projectAddr,
+		int64(1_000_000_000),
+		"",
+		"",
+		int64(10),
+		int64(20),
+		int64(70),
+		time.Now().Unix()+604800,
+	)
+
+	// Activate project.
+	testing.SkipHeights(604800 / blockTimeSeconds)
+
+	return projectId
+}
+
+func depositGns(cur realm, projectId string) string {
+	projectTierId := projectId + ":30"
+	depositAmount := int64(1_000_000)
+
+	testing.SetRealm(adminRealm)
+	gns.Transfer(cross(cur), aliceAddr, depositAmount)
+
+	testing.SetRealm(aliceRealm)
+	gns.Approve(cross(cur), launchpadAddr, depositAmount)
+	depositId := launchpad.DepositGns(cross(cur), projectTierId, depositAmount, "")
+
+	testing.SkipHeights(1)
+
+	return depositId
+}
+
+func skipToProjectEnd() {
+	projectDurationSeconds := int64(30 * 24 * 60 * 60)
+	testing.SkipHeights(projectDurationSeconds/blockTimeSeconds + 1)
+}
+
+func collectDepositGnsMetric(cur realm, depositId string) {
+	testing.SetRealm(aliceRealm)
+
+	metric.PrintMetricsBy("Launchpad CollectDepositGns", func() {
+		_, _ = launchpad.CollectDepositGns(cross(cur), depositId)
+	})
+}
+
+// Output:
+// Launchpad CollectDepositGns
+// - Gas Used: 7652359
+// - Storage Diff: -3794
+// - CPU Cycles: 6505339
+// - Realm gno.land/r/gnoswap/gov/staker: 96
+// - Realm gno.land/r/gnoswap/gov/xgns: -1028
+// - Realm gno.land/r/gnoswap/launchpad: -4896
+// - Realm gno.land/r/onbloc/obl: 2034

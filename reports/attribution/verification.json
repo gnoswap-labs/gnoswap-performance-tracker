@@ -1,0 +1,54 @@
+{
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "runtime": "bac78a97b20e12ba471bdd73a41af31bd94bdc12",
+  "metric_success": true,
+  "unit_commands": [
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-launch/tmp/unit",
+      "PKG=gno.land/r/gnoswap/launchpad"
+    ],
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-launch/tmp/unit",
+      "PKG=gno.land/r/gnoswap/launchpad/v1"
+    ],
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-launch/tmp/unit",
+      "PKG=gno.land/r/gnoswap/launchpad/v3_valid"
+    ],
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-launch/tmp/unit",
+      "PKG=gno.land/r/gnoswap/launchpad"
+    ],
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-launch/tmp/unit",
+      "PKG=gno.land/r/gnoswap/launchpad/v1"
+    ],
+    [
+      "make",
+      "test",
+      "WORKDIR=/Users/junghoon/workspace/onbloc-meta/metarepo/gnoswap/worktrees/value-attribution-20260910/tracker-launch/tmp/unit",
+      "PKG=gno.land/r/gnoswap/launchpad/v3_valid"
+    ]
+  ],
+  "metric_command": [
+    "make",
+    "compare-metric-force",
+    "5e03b62bc5c4bd983ab3b17396655427b1a9b616",
+    "0d20572f0275665ede9f97e574e1cd4f6317c66f",
+    "3b5bc592bec2164f4bc1331eb7406e9e47db7056",
+    "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68"
+  ],
+  "non_golden_replay": true,
+  "state_and_fixture_parity": true,
+  "lsp": "No Gno language server configured; exact reference search used"
+}

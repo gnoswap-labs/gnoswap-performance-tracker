@@ -1,0 +1,70 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
+// Gas and performance metrics for launchpad create project
+// Test cases based on tests/integration/testdata/launchpad/create_new_launchpad_project.txtar
+package main
+
+import (
+	"testing"
+
+	prabc "gno.land/p/gnoswap/rbac"
+	_ "gno.land/r/gnoswap/rbac"
+
+	_ "gno.land/r/gnoswap/launchpad/v1"
+
+	"gno.land/r/gnoswap/access"
+	"gno.land/r/gnoswap/launchpad"
+	"gno.land/r/onbloc/bar"
+
+	"gno.land/r/gnoswap/scenario/metric"
+)
+
+var (
+	adminAddr, _ = access.GetAddress(prabc.ROLE_ADMIN.String())
+	adminRealm   = testing.NewUserRealm(adminAddr)
+
+	launchpadAddr, _ = access.GetAddress(prabc.ROLE_LAUNCHPAD.String())
+
+	maxInt64 int64 = 9223372036854775807
+)
+
+var t *testing.T
+
+func main(cur realm) {
+	initializeSetup(cur)
+	createLaunchpadProjectMetric(cur)
+}
+
+func initializeSetup(cur realm) {
+	testing.SetRealm(adminRealm)
+	bar.Approve(cross(cur), launchpadAddr, maxInt64)
+}
+
+func createLaunchpadProjectMetric(cur realm) {
+	testing.SetRealm(adminRealm)
+
+	metric.PrintMetricsBy("Create Launchpad Project", func() {
+		launchpad.CreateProject(
+			cross(cur),
+			"Bar Launchpad Project",
+			"gno.land/r/onbloc/bar.BAR",
+			adminAddr,
+			int64(1000000000),
+			"gno.land/r/onbloc/bar.BAR",
+			"1000000",
+			int64(10),
+			int64(20),
+			int64(70),
+			int64(9999999999), // Far future timestamp to avoid time issues
+		)
+	})
+}
+
+// Output:
+// Create Launchpad Project
+// - Gas Used: 8493359
+// - Storage Diff: 29397
+// - CPU Cycles: 6103208
+// - Realm gno.land/r/gnoswap/launchpad: 26944
+// - Realm gno.land/r/gnoswap/launchpad/v1: 419
+// - Realm gno.land/r/onbloc/bar: 2034

@@ -1,0 +1,137 @@
+// PKGPATH: gno.land/r/demo/main
+
+// position increase decrease test
+
+package main
+
+import (
+	"chain"
+	"testing"
+
+	prbac "gno.land/p/gnoswap/rbac"
+	_ "gno.land/r/gnoswap/rbac"
+
+	_ "gno.land/r/gnoswap/pool/v1"
+	_ "gno.land/r/gnoswap/position/v1"
+	_ "gno.land/r/gnoswap/protocol_fee/v1"
+	_ "gno.land/r/gnoswap/staker/v1"
+
+	"gno.land/r/gnoswap/access"
+	"gno.land/r/gnoswap/common"
+
+	"gno.land/r/gnoswap/pool"
+	"gno.land/r/gnoswap/position"
+
+	"gno.land/r/gnoland/wugnot"
+	"gno.land/r/onbloc/bar"
+	"gno.land/r/onbloc/foo"
+
+	"gno.land/r/gnoswap/scenario/metric"
+)
+
+const MIN_PRICE string = "4295128740"
+
+var (
+	adminAddr  = access.MustGetAddress(prbac.ROLE_ADMIN.String())
+	adminRealm = testing.NewUserRealm(adminAddr)
+	poolAddr   = access.MustGetAddress(prbac.ROLE_POOL.String())
+
+	barPath = "gno.land/r/onbloc/bar.BAR"
+	fooPath = "gno.land/r/onbloc/foo.FOO"
+
+	fee500 uint32 = 500
+)
+
+func main(cur realm) {
+	initPool(cur)
+	mintInitialPosition(cur)
+	increasePositionLiquidity(cur)
+}
+
+func initPool(cur realm) {
+	testing.SetRealm(adminRealm)
+	pool.SetPoolCreationFee(cross(cur), 0)
+
+	pool.CreatePool(
+		cross(cur),
+		barPath,
+		fooPath,
+		fee500,
+		"130621891405341611593710811006",
+	)
+}
+
+func mintInitialPosition(cur realm) {
+	testing.SetRealm(adminRealm)
+	bar.Approve(cross(cur), poolAddr, 18394892)
+	foo.Approve(cross(cur), poolAddr, 50000000)
+
+	_, _, _, _ = position.Mint(
+		cross(cur),
+		barPath,
+		fooPath,
+		fee500,
+		8000,
+		12000,
+		"50000000",
+		"50000000",
+		"0",
+		"0",
+		9999999999,
+		adminAddr,
+		"",
+	)
+}
+
+func increasePositionLiquidity(cur realm) {
+	testing.SetRealm(adminRealm)
+	bar.Approve(cross(cur), poolAddr, 18394892)
+	foo.Approve(cross(cur), poolAddr, 50000000)
+
+	metric.PrintMetricsBy("IncreaseLiquidity", func() {
+		_, _, _, _, _ = position.IncreaseLiquidity(
+			cross(cur),
+			1,
+			"50000000",
+			"50000000",
+			"0",
+			"0",
+			9999999999,
+		)
+	})
+}
+
+func mockSwapCallback(cur realm, token0Path string, token1Path string, amount0Delta int64, amount1Delta int64, zeroForOne bool) error {
+	testing.SetRealm(adminRealm)
+
+	const wugnotPath = "gno.land/r/gnoland/wugnot.wugnot"
+	const ugnotDenom = "ugnot"
+
+	if zeroForOne {
+		if token0Path == wugnotPath {
+			testing.SetOriginSend(chain.Coins{{ugnotDenom, amount0Delta}})
+			wugnot.Deposit(cross(cur))
+		}
+
+		common.SafeGRC20Transfer(0, cur, token0Path, poolAddr, amount0Delta)
+	} else {
+		if token1Path == wugnotPath {
+			testing.SetOriginSend(chain.Coins{{ugnotDenom, amount1Delta}})
+			wugnot.Deposit(cross(cur))
+		}
+
+		common.SafeGRC20Transfer(0, cur, token1Path, poolAddr, amount1Delta)
+	}
+
+	return nil
+}
+
+// Output:
+// IncreaseLiquidity
+// - Gas Used: 23148004
+// - Storage Diff: -2084
+// - CPU Cycles: 22239125
+// - Realm gno.land/r/gnoswap/pool: 36
+// - Realm gno.land/r/gnoswap/position: 20
+// - Realm gno.land/r/onbloc/bar: -1070
+// - Realm gno.land/r/onbloc/foo: -1070

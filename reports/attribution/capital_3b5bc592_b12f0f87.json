@@ -1,0 +1,11 @@
+{
+  "poc_launchpad_numerics_filetest.gno": {
+    "observed_duration_seconds": 15897605,
+    "peak_reduced_locked_gnot": 9.3121,
+    "reduced_capital_gnot_days": 279.9329892824074,
+    "ending_storage_delta_gnot": -0.0038,
+    "total_paid_delta_gnot": 0.003504,
+    "break_even_simple_apr_percent": 0.4568807711011634,
+    "limits": "Fresh-state 100 ugnot/B ledger; aggregates actors/realms. Only observed interval, no assumed yield and no extrapolated time after fixture end. Peak is not itself a lifetime saving."
+  }
+}

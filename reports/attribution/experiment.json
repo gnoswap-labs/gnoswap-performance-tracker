@@ -1,0 +1,63 @@
+{
+  "group": "launch",
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "fixture_files": [
+    "tests/metric/poc_launchpad_numerics_filetest.gno"
+  ],
+  "scope_notes": [
+    "All isolated branches start at baseline b12f0f8760a3e88e9539b0c8cfd32b38a5297c68 and extract exactly one value-backed field family from the combined candidate.",
+    "retained isolates inline Q128 ProjectTier and RewardManager values while preserving nil/present-zero state and detached copy semantics; baseline active reward aggregation remains unchanged.",
+    "debt isolates inline RewardState price debt while preserving nil/present-zero state and detached copy semantics; v1 and upgrade-v3 claimability helpers reuse one detached getter result.",
+    "combined points to the existing all-five launch candidate at the pinned ref and is included for attribution only, not as a new candidate change.",
+    "The shared public fixture uses identical inputs across variants: 256 deposits, 1/10/100 paid reward-claim patterns (111 separate calls), 256 withdrawals, and a separately measured admin refund.",
+    "State snapshots and deterministic clock lines are outside paid-call metric windows; final assertions require zero active deposits, rewards, and staked GNS before and after admin refund (launchpad has no tick state), while retired history may persist."
+  ],
+  "variants": [
+    {
+      "id": "combined",
+      "ref": "5e03b62bc5c4bd983ab3b17396655427b1a9b616",
+      "packages": [
+        "gno.land/r/gnoswap/launchpad",
+        "gno.land/r/gnoswap/launchpad/v1",
+        "gno.land/r/scenario/upgrade/implements/v3_valid/launchpad"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/getter_test.gno",
+        "contract/r/gnoswap/launchpad/project_tier.gno",
+        "contract/r/gnoswap/launchpad/reward_manager.gno",
+        "contract/r/gnoswap/launchpad/reward_state.gno",
+        "contract/r/gnoswap/launchpad/v1/reward_state.gno",
+        "contract/r/scenario/upgrade/implements/v3_valid/launchpad/reward_state.gno"
+      ]
+    },
+    {
+      "id": "retained",
+      "packages": [
+        "gno.land/r/gnoswap/launchpad",
+        "gno.land/r/gnoswap/launchpad/v1",
+        "gno.land/r/scenario/upgrade/implements/v3_valid/launchpad"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/getter_test.gno",
+        "contract/r/gnoswap/launchpad/project_tier.gno",
+        "contract/r/gnoswap/launchpad/reward_manager.gno"
+      ],
+      "ref": "0d20572f0275665ede9f97e574e1cd4f6317c66f"
+    },
+    {
+      "id": "debt",
+      "packages": [
+        "gno.land/r/gnoswap/launchpad",
+        "gno.land/r/gnoswap/launchpad/v1",
+        "gno.land/r/scenario/upgrade/implements/v3_valid/launchpad"
+      ],
+      "changed_files": [
+        "contract/r/gnoswap/launchpad/getter_test.gno",
+        "contract/r/gnoswap/launchpad/reward_state.gno",
+        "contract/r/gnoswap/launchpad/v1/reward_state.gno",
+        "contract/r/scenario/upgrade/implements/v3_valid/launchpad/reward_state.gno"
+      ],
+      "ref": "3b5bc592bec2164f4bc1331eb7406e9e47db7056"
+    }
+  ]
+}

@@ -1,0 +1,626 @@
+fixture	sample	label	kind	base_gas	candidate_gas	gas_delta	gas_pct	cycles_delta	base_storage_bytes	candidate_storage_bytes	storage_delta_bytes	storage_delta_ugnot	deposits_delta_ugnot	refunds_delta_ugnot	fee_ugnot	buffered_fee_ugnot	historical143_fee_ugnot	net_delta_ugnot	buffered_net_delta_ugnot	historical143_net_delta_ugnot
+poc_launchpad_numerics_filetest.gno	0	Launchpad Numerics CreateProject	paid	6822113	6764897	-57216	-0.8386844369185911	-44109	32744	28412	-4332	-433200	-433200	0	-58	-63	-8182	-433258	-433263	-441382
+poc_launchpad_numerics_filetest.gno	1	Launchpad Numerics DepositGns call=1/256	paid	6391412	6427990	36578	0.57229920399436	34390	27369	27369	0	0	0	0	36	40	5231	36	40	5231
+poc_launchpad_numerics_filetest.gno	2	Launchpad Numerics DepositGns call=2/256	paid	5973016	6014285	41269	0.6909239821222646	39541	4070	4070	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	3	Launchpad Numerics DepositGns call=3/256	paid	5967308	6008577	41269	0.6915848821612693	39541	3929	3929	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	4	Launchpad Numerics DepositGns call=4/256	paid	5973728	6014997	41269	0.6908416318921785	39541	3928	3928	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	5	Launchpad Numerics DepositGns call=5/256	paid	5975644	6016913	41269	0.6906201239565142	39541	3926	3926	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	6	Launchpad Numerics DepositGns call=6/256	paid	5975125	6016394	41269	0.6906801112947428	39541	3926	3926	0	0	0	0	41	46	5902	41	46	5902
+poc_launchpad_numerics_filetest.gno	7	Launchpad Numerics DepositGns call=7/256	paid	5977528	6018797	41269	0.6904024539910143	39541	3926	3926	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	8	Launchpad Numerics DepositGns call=8/256	paid	5983942	6025211	41269	0.6896624332254557	39541	3926	3926	0	0	0	0	42	45	5902	42	45	5902
+poc_launchpad_numerics_filetest.gno	9	Launchpad Numerics DepositGns call=9/256	paid	5985371	6026640	41269	0.689497777163688	39541	3926	3926	0	0	0	0	41	46	5901	41	46	5901
+poc_launchpad_numerics_filetest.gno	10	Launchpad Numerics DepositGns call=10/256	paid	6017520	6058789	41269	0.6858140895252529	39541	4025	4025	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	11	Launchpad Numerics DepositGns call=11/256	paid	6012514	6053783	41269	0.6863850961511274	39541	3929	3929	0	0	0	0	41	46	5901	41	46	5901
+poc_launchpad_numerics_filetest.gno	12	Launchpad Numerics DepositGns call=12/256	paid	6019418	6060687	41269	0.6855978435124459	39541	3929	3929	0	0	0	0	41	45	5902	41	45	5902
+poc_launchpad_numerics_filetest.gno	13	Launchpad Numerics DepositGns call=13/256	paid	6020853	6062122	41269	0.6854344392729734	39541	3929	3929	0	0	0	0	42	46	5902	42	46	5902
+poc_launchpad_numerics_filetest.gno	14	Launchpad Numerics DepositGns call=14/256	paid	6021806	6063075	41269	0.6853259636726922	39541	3929	3929	0	0	0	0	42	46	5901	42	46	5901
+poc_launchpad_numerics_filetest.gno	15	Launchpad Numerics DepositGns call=15/256	paid	6022754	6064023	41269	0.6852180912585837	39541	3929	3929	0	0	0	0	42	45	5902	42	45	5902
+poc_launchpad_numerics_filetest.gno	16	Launchpad Numerics DepositGns call=16/256	paid	6024194	6065463	41269	0.6850542993801328	39541	3929	3929	0	0	0	0	41	46	5902	41	46	5902
+poc_launchpad_numerics_filetest.gno	17	Launchpad Numerics DepositGns call=17/256	paid	6312541	6353810	41269	0.6537620904165217	39541	17103	17103	0	0	0	0	41	46	5901	41	46	5901
+poc_launchpad_numerics_filetest.gno	18	Launchpad Numerics DepositGns call=18/256	paid	6072626	6113895	41269	0.6795906746109508	39541	4025	4025	0	0	0	0	41	46	5901	41	46	5901
+poc_launchpad_numerics_filetest.gno	19	Launchpad Numerics DepositGns call=19/256	paid	6064810	6106079	41269	0.6804664944161483	39541	3929	3929	0	0	0	0	42	45	5902	42	45	5902
+poc_launchpad_numerics_filetest.gno	20	Launchpad Numerics DepositGns call=20/256	paid	6072500	6113769	41269	0.6796047756278304	39541	3929	3929	0	0	0	0	41	46	5901	41	46	5901
+poc_launchpad_numerics_filetest.gno	21	Launchpad Numerics DepositGns call=21/256	paid	6073448	6114717	41269	0.6794986966217542	39541	3929	3929	0	0	0	0	41	46	5901	41	46	5901
+poc_launchpad_numerics_filetest.gno	22	Launchpad Numerics DepositGns call=22/256	paid	6068927	6110196	41269	0.6800048838946324	39541	3929	3929	0	0	0	0	42	46	5902	42	46	5902
+poc_launchpad_numerics_filetest.gno	23	Launchpad Numerics DepositGns call=23/256	paid	6076323	6117592	41269	0.6791771931808102	39541	3929	3929	0	0	0	0	41	46	5901	41	46	5901
+poc_launchpad_numerics_filetest.gno	24	Launchpad Numerics DepositGns call=24/256	paid	6076776	6118045	41269	0.6791265631644148	39541	3929	3929	0	0	0	0	42	45	5902	42	45	5902
+poc_launchpad_numerics_filetest.gno	25	Launchpad Numerics DepositGns call=25/256	paid	6378468	6419737	41269	0.6470048920838044	39541	10621	10621	0	0	0	0	41	45	5902	41	45	5902
+poc_launchpad_numerics_filetest.gno	26	Launchpad Numerics DepositGns call=26/256	paid	6065400	6106669	41269	0.6804003033600422	39541	3977	3977	0	0	0	0	41	46	5901	41	46	5901
+poc_launchpad_numerics_filetest.gno	27	Launchpad Numerics DepositGns call=27/256	paid	6072791	6114060	41269	0.6795722098784562	39541	3929	3929	0	0	0	0	42	45	5901	42	45	5901
+poc_launchpad_numerics_filetest.gno	28	Launchpad Numerics DepositGns call=28/256	paid	6074718	6115987	41269	0.6793566384480728	39541	3929	3929	0	0	0	0	41	45	5902	41	45	5902
+poc_launchpad_numerics_filetest.gno	29	Launchpad Numerics DepositGns call=29/256	paid	6070910	6112179	41269	0.679782767328127	39541	3929	3929	0	0	0	0	42	45	5901	42	45	5901
+poc_launchpad_numerics_filetest.gno	30	Launchpad Numerics DepositGns call=30/256	paid	6073121	6114390	41269	0.6795352834234655	39541	3929	3929	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	31	Launchpad Numerics DepositGns call=31/256	paid	6074558	6115827	41269	0.679374532270496	39541	3929	3929	0	0	0	0	41	45	5902	41	45	5902
+poc_launchpad_numerics_filetest.gno	32	Launchpad Numerics DepositGns call=32/256	paid	6072216	6113485	41269	0.679636561018251	39541	3929	3929	0	0	0	0	41	45	5902	41	45	5902
+poc_launchpad_numerics_filetest.gno	33	Launchpad Numerics DepositGns call=33/256	paid	6381172	6422441	41269	0.6467307259544172	39541	10609	10609	0	0	0	0	41	45	5902	41	45	5902
+poc_launchpad_numerics_filetest.gno	34	Launchpad Numerics DepositGns call=34/256	paid	6071063	6112332	41269	0.6797656357708691	39541	3977	3977	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	35	Launchpad Numerics DepositGns call=35/256	paid	6077972	6119241	41269	0.6789929272461275	39541	3929	3929	0	0	0	0	42	46	5902	42	46	5902
+poc_launchpad_numerics_filetest.gno	36	Launchpad Numerics DepositGns call=36/256	paid	6073451	6114720	41269	0.6794983609812609	39541	3929	3929	0	0	0	0	41	46	5901	41	46	5901
+poc_launchpad_numerics_filetest.gno	37	Launchpad Numerics DepositGns call=37/256	paid	6066742	6108011	41269	0.6802497947003515	39541	3929	3929	0	0	0	0	42	45	5901	42	45	5901
+poc_launchpad_numerics_filetest.gno	38	Launchpad Numerics DepositGns call=38/256	paid	6077029	6118298	41269	0.6790982896412046	39541	3929	3929	0	0	0	0	41	46	5901	41	46	5901
+poc_launchpad_numerics_filetest.gno	39	Launchpad Numerics DepositGns call=39/256	paid	6081290	6122559	41269	0.6786224633260377	39541	3935	3935	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	40	Launchpad Numerics DepositGns call=40/256	paid	6081190	6122459	41269	0.6786336226955579	39541	3929	3929	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	41	Launchpad Numerics DepositGns call=41/256	paid	6384605	6425874	41269	0.6463829790566527	39541	10609	10609	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	42	Launchpad Numerics DepositGns call=42/256	paid	6069810	6111079	41269	0.6799059608126119	39541	3977	3977	0	0	0	0	42	46	5902	42	46	5902
+poc_launchpad_numerics_filetest.gno	43	Launchpad Numerics DepositGns call=43/256	paid	6071732	6113001	41269	0.6796907373382093	39541	3929	3929	0	0	0	0	42	46	5902	42	46	5902
+poc_launchpad_numerics_filetest.gno	44	Launchpad Numerics DepositGns call=44/256	paid	6077170	6118439	41269	0.6790825334818674	39541	3929	3929	0	0	0	0	41	46	5901	41	46	5901
+poc_launchpad_numerics_filetest.gno	45	Launchpad Numerics DepositGns call=45/256	paid	6079092	6120361	41269	0.678867830919486	39541	3929	3929	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	46	Launchpad Numerics DepositGns call=46/256	paid	6079558	6120827	41269	0.6788157954903958	39541	3929	3929	0	0	0	0	41	45	5902	41	45	5902
+poc_launchpad_numerics_filetest.gno	47	Launchpad Numerics DepositGns call=47/256	paid	6080506	6121775	41269	0.678709962624821	39541	3929	3929	0	0	0	0	41	45	5901	41	45	5901
+poc_launchpad_numerics_filetest.gno	48	Launchpad Numerics DepositGns call=48/256	paid	6082467	6123697	41230	0.6778499579200348	39541	3942	3929	-13	-1300	-1300	0	41	46	5896	-1259	-1254	4596
+poc_launchpad_numerics_filetest.gno	49	Launchpad Numerics DepositGns call=49/256	paid	6390019	6431048	41029	0.6420794679953221	39541	10673	10609	-64	-6400	-6400	0	41	45	5867	-6359	-6355	-533
+poc_launchpad_numerics_filetest.gno	50	Launchpad Numerics DepositGns call=50/256	paid	6074233	6115271	41038	0.6756079327217115	39541	4001	3977	-24	-2400	-2400	0	41	45	5868	-2359	-2355	3468
+poc_launchpad_numerics_filetest.gno	51	Launchpad Numerics DepositGns call=51/256	paid	6075676	6116708	41032	0.6753487183977552	39541	3953	3929	-24	-2400	-2400	0	41	45	5868	-2359	-2355	3468
+poc_launchpad_numerics_filetest.gno	52	Launchpad Numerics DepositGns call=52/256	paid	6077122	6118148	41026	0.6750892939124803	39541	3953	3929	-24	-2400	-2400	0	41	45	5867	-2359	-2355	3467
+poc_launchpad_numerics_filetest.gno	53	Launchpad Numerics DepositGns call=53/256	paid	6077595	6118615	41020	0.6749380305861118	39541	3954	3930	-24	-2400	-2400	0	41	45	5865	-2359	-2355	3465
+poc_launchpad_numerics_filetest.gno	54	Launchpad Numerics DepositGns call=54/256	paid	6079529	6120543	41014	0.67462462963825	39541	3955	3931	-24	-2400	-2400	0	41	45	5865	-2359	-2355	3465
+poc_launchpad_numerics_filetest.gno	55	Launchpad Numerics DepositGns call=55/256	paid	6080483	6121491	41008	0.6744201077447302	39541	3953	3929	-24	-2400	-2400	0	41	45	5864	-2359	-2355	3464
+poc_launchpad_numerics_filetest.gno	56	Launchpad Numerics DepositGns call=56/256	paid	6081442	6122444	41002	0.6742150956960536	39541	3953	3929	-24	-2400	-2400	0	41	45	5863	-2359	-2355	3463
+poc_launchpad_numerics_filetest.gno	57	Launchpad Numerics DepositGns call=57/256	paid	6391030	6431816	40786	0.6381756931198883	39541	10655	10609	-46	-4600	-4600	0	40	44	5832	-4560	-4556	1232
+poc_launchpad_numerics_filetest.gno	58	Launchpad Numerics DepositGns call=58/256	paid	6076493	6117531	41038	0.6753566572034231	39541	4001	3987	-14	-1400	-1400	0	41	45	5868	-1359	-1355	4468
+poc_launchpad_numerics_filetest.gno	59	Launchpad Numerics DepositGns call=59/256	paid	6076960	6118079	41119	0.6766376609357311	39541	3953	3955	2	200	200	0	42	45	5880	242	245	6080
+poc_launchpad_numerics_filetest.gno	60	Launchpad Numerics DepositGns call=60/256	paid	6069449	6110577	41128	0.6776232900218784	39541	3953	3951	-2	-200	-200	0	41	45	5881	-159	-155	5681
+poc_launchpad_numerics_filetest.gno	61	Launchpad Numerics DepositGns call=61/256	paid	6071379	6112507	41128	0.6774078837773099	39541	3953	3951	-2	-200	-200	0	41	45	5881	-159	-155	5681
+poc_launchpad_numerics_filetest.gno	62	Launchpad Numerics DepositGns call=62/256	paid	6074999	6116127	41128	0.6770042266673624	39541	3953	3951	-2	-200	-200	0	42	45	5882	-158	-155	5682
+poc_launchpad_numerics_filetest.gno	63	Launchpad Numerics DepositGns call=63/256	paid	6079733	6120861	41128	0.6764770755557851	39541	3953	3951	-2	-200	-200	0	41	45	5882	-159	-155	5682
+poc_launchpad_numerics_filetest.gno	64	Launchpad Numerics DepositGns call=64/256	paid	6080195	6121323	41128	0.6764256738476315	39541	3953	3951	-2	-200	-200	0	41	45	5882	-159	-155	5682
+poc_launchpad_numerics_filetest.gno	65	Launchpad Numerics DepositGns call=65/256	paid	6393339	6434353	41014	0.6415114230607825	39541	10655	10663	8	800	800	0	41	45	5865	841	845	6665
+poc_launchpad_numerics_filetest.gno	66	Launchpad Numerics DepositGns call=66/256	paid	6081686	6122916	41230	0.6779370062841127	39541	4001	4001	0	0	0	0	41	46	5895	41	46	5895
+poc_launchpad_numerics_filetest.gno	67	Launchpad Numerics DepositGns call=67/256	paid	6082640	6123870	41230	0.6778306787842121	39541	3953	3953	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	68	Launchpad Numerics DepositGns call=68/256	paid	6078125	6119355	41230	0.6783341902313624	39541	3953	3953	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	69	Launchpad Numerics DepositGns call=69/256	paid	6078105	6119335	41230	0.678336422289513	39541	3953	3953	0	0	0	0	41	46	5895	41	46	5895
+poc_launchpad_numerics_filetest.gno	70	Launchpad Numerics DepositGns call=70/256	paid	6082501	6123731	41230	0.677846168870338	39541	3953	3953	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	71	Launchpad Numerics DepositGns call=71/256	paid	6083457	6124687	41230	0.6777396470460793	39541	3953	3953	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	72	Launchpad Numerics DepositGns call=72/256	paid	6085390	6126620	41230	0.6775243657349816	39541	3953	3953	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	73	Launchpad Numerics DepositGns call=73/256	paid	6401058	6442258	41200	0.6436435976677606	39541	10655	10655	0	0	0	0	41	45	5891	41	45	5891
+poc_launchpad_numerics_filetest.gno	74	Launchpad Numerics DepositGns call=74/256	paid	6074460	6115690	41230	0.6787434603240453	39541	4001	4001	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	75	Launchpad Numerics DepositGns call=75/256	paid	6075901	6117131	41230	0.6785824851326577	39541	3953	3953	0	0	0	0	42	45	5896	42	45	5896
+poc_launchpad_numerics_filetest.gno	76	Launchpad Numerics DepositGns call=76/256	paid	6082324	6123554	41230	0.6778658946810463	39541	3953	3953	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	77	Launchpad Numerics DepositGns call=77/256	paid	6083278	6124508	41230	0.6777595894844852	39541	3953	3953	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	78	Launchpad Numerics DepositGns call=78/256	paid	6083745	6124975	41230	0.6777075633511924	39541	3953	3953	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	79	Launchpad Numerics DepositGns call=79/256	paid	6085186	6126416	41230	0.6775470790868183	39541	3953	3953	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	80	Launchpad Numerics DepositGns call=80/256	paid	6084118	6125348	41230	0.6776660150246921	39541	3953	3953	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	81	Launchpad Numerics DepositGns call=81/256	paid	6401322	6442552	41230	0.6440857060463449	39541	10655	10655	0	0	0	0	41	45	5895	41	45	5895
+poc_launchpad_numerics_filetest.gno	82	Launchpad Numerics DepositGns call=82/256	paid	6073202	6114432	41230	0.6788840549021752	39541	4001	4001	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	83	Launchpad Numerics DepositGns call=83/256	paid	6070372	6111602	41230	0.6792005498180342	39541	3953	3953	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	84	Launchpad Numerics DepositGns call=84/256	paid	6081069	6122299	41230	0.6780057914159501	39541	3953	3953	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	85	Launchpad Numerics DepositGns call=85/256	paid	6078730	6119960	41230	0.6782666774145257	39541	3953	3953	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	86	Launchpad Numerics DepositGns call=86/256	paid	6083466	6124696	41230	0.677738644384632	39541	3953	3953	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	87	Launchpad Numerics DepositGns call=87/256	paid	6083446	6124676	41230	0.6777408725252102	39541	3953	3953	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	88	Launchpad Numerics DepositGns call=88/256	paid	6084887	6126117	41230	0.6775803724867857	39541	3953	3953	0	0	0	0	42	45	5896	42	45	5896
+poc_launchpad_numerics_filetest.gno	89	Launchpad Numerics DepositGns call=89/256	paid	6404211	6445441	41230	0.6437951529079851	39541	10655	10655	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	90	Launchpad Numerics DepositGns call=90/256	paid	6070382	6111612	41230	0.6791994309419078	39541	4014	4014	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	91	Launchpad Numerics DepositGns call=91/256	paid	6070407	6111637	41230	0.6791966337677193	39541	3968	3968	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	92	Launchpad Numerics DepositGns call=92/256	paid	6068066	6109296	41230	0.6794586611286034	39541	3953	3953	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	93	Launchpad Numerics DepositGns call=93/256	paid	6074358	6115588	41230	0.6787548577150047	39541	3953	3953	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	94	Launchpad Numerics DepositGns call=94/256	paid	6074338	6115568	41230	0.6787570925424301	39541	3953	3953	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	95	Launchpad Numerics DepositGns call=95/256	paid	6070443	6111673	41230	0.6791926058773635	39541	3953	3953	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	96	Launchpad Numerics DepositGns call=96/256	paid	6082694	6123924	41230	0.6778246612438502	39541	3953	3953	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	97	Launchpad Numerics DepositGns call=97/256	paid	6328944	6370174	41230	0.6514514901696081	39541	10375	10375	0	0	0	0	42	46	5896	42	46	5896
+poc_launchpad_numerics_filetest.gno	98	Launchpad Numerics DepositGns call=98/256	paid	6052689	6093919	41230	0.681184841976847	39541	4001	4001	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	99	Launchpad Numerics DepositGns call=99/256	paid	6060091	6101321	41230	0.6803528197843893	39541	3953	3953	0	0	0	0	41	45	5895	41	45	5895
+poc_launchpad_numerics_filetest.gno	100	Launchpad Numerics DepositGns call=100/256	paid	6123792	6165022	41230	0.6732756435881558	39541	3938	3938	0	0	0	0	42	45	5896	42	45	5896
+poc_launchpad_numerics_filetest.gno	101	Launchpad Numerics DepositGns call=101/256	paid	6123660	6164890	41230	0.6732901565403696	39541	3914	3914	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	102	Launchpad Numerics DepositGns call=102/256	paid	6131437	6172667	41230	0.6724361678999556	39541	3914	3914	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	103	Launchpad Numerics DepositGns call=103/256	paid	6126319	6167549	41230	0.6729979290990235	39541	3914	3914	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	104	Launchpad Numerics DepositGns call=104/256	paid	6127159	6168389	41230	0.6729056647624128	39541	3914	3914	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	105	Launchpad Numerics DepositGns call=105/256	paid	6133465	6174695	41230	0.6722138301922322	39541	3914	3914	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	106	Launchpad Numerics DepositGns call=106/256	paid	6133818	6175048	41230	0.6721751444206528	39541	3914	3914	0	0	0	0	42	45	5896	42	45	5896
+poc_launchpad_numerics_filetest.gno	107	Launchpad Numerics DepositGns call=107/256	paid	6136124	6177354	41230	0.6719225361156326	39541	3914	3914	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	108	Launchpad Numerics DepositGns call=108/256	paid	6445160	6486366	41206	0.6393324603268189	39541	10400	10400	0	0	0	0	41	46	5893	41	46	5893
+poc_launchpad_numerics_filetest.gno	109	Launchpad Numerics DepositGns call=109/256	paid	6125096	6166326	41230	0.6731323068242522	39541	4004	4004	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	110	Launchpad Numerics DepositGns call=110/256	paid	6120246	6161476	41230	0.6736657317369269	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	111	Launchpad Numerics DepositGns call=111/256	paid	6126674	6167904	41230	0.6729589333462169	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	112	Launchpad Numerics DepositGns call=112/256	paid	6131416	6172646	41230	0.6724384709828856	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	113	Launchpad Numerics DepositGns call=113/256	paid	6132868	6174098	41230	0.6722792664052121	39541	3956	3956	0	0	0	0	42	45	5896	42	45	5896
+poc_launchpad_numerics_filetest.gno	114	Launchpad Numerics DepositGns call=114/256	paid	6132367	6173597	41230	0.6723341900443989	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	115	Launchpad Numerics DepositGns call=115/256	paid	6134788	6176018	41230	0.6720688636673345	39541	3956	3956	0	0	0	0	42	45	5896	42	45	5896
+poc_launchpad_numerics_filetest.gno	116	Launchpad Numerics DepositGns call=116/256	paid	6468827	6510033	41206	0.6369933838082237	39541	10660	10660	0	0	0	0	42	46	5892	42	46	5892
+poc_launchpad_numerics_filetest.gno	117	Launchpad Numerics DepositGns call=117/256	paid	6123350	6164580	41230	0.6733242424489863	39541	4004	4004	0	0	0	0	41	46	5895	41	46	5895
+poc_launchpad_numerics_filetest.gno	118	Launchpad Numerics DepositGns call=118/256	paid	6124797	6166027	41230	0.6731651677598458	39541	3956	3956	0	0	0	0	42	45	5896	42	45	5896
+poc_launchpad_numerics_filetest.gno	119	Launchpad Numerics DepositGns call=119/256	paid	6131710	6172940	41230	0.6724062292574176	39541	3956	3956	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	120	Launchpad Numerics DepositGns call=120/256	paid	6130642	6171872	41230	0.6725233670470401	39541	3956	3956	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	121	Launchpad Numerics DepositGns call=121/256	paid	6131117	6172347	41230	0.6724712642084631	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	122	Launchpad Numerics DepositGns call=122/256	paid	6132075	6173305	41230	0.6723662055666312	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	123	Launchpad Numerics DepositGns call=123/256	paid	6133527	6174757	41230	0.6722070352017689	39541	3956	3956	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	124	Launchpad Numerics DepositGns call=124/256	paid	6470100	6511306	41206	0.6368680545895736	39541	10660	10660	0	0	0	0	41	45	5892	41	45	5892
+poc_launchpad_numerics_filetest.gno	125	Launchpad Numerics DepositGns call=125/256	paid	6129018	6170248	41230	0.6727015649162721	39541	4004	4004	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	126	Launchpad Numerics DepositGns call=126/256	paid	6126683	6167913	41230	0.6729579447802343	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	127	Launchpad Numerics DepositGns call=127/256	paid	6127648	6168878	41230	0.6728519653870457	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	128	Launchpad Numerics DepositGns call=128/256	paid	6131903	6173133	41230	0.6723850654519486	39541	3956	3956	0	0	0	0	42	45	5896	42	45	5896
+poc_launchpad_numerics_filetest.gno	129	Launchpad Numerics DepositGns call=129/256	paid	6132863	6174093	41230	0.6722798145009924	39541	3956	3956	0	0	0	0	42	45	5896	42	45	5896
+poc_launchpad_numerics_filetest.gno	130	Launchpad Numerics DepositGns call=130/256	paid	6131795	6173025	41230	0.6723969082462803	39541	3956	3956	0	0	0	0	42	46	5896	42	46	5896
+poc_launchpad_numerics_filetest.gno	131	Launchpad Numerics DepositGns call=131/256	paid	6132752	6173982	41230	0.6722919824574677	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	132	Launchpad Numerics DepositGns call=132/256	paid	6471855	6513061	41206	0.636695352414416	39541	10660	10660	0	0	0	0	42	45	5892	42	45	5892
+poc_launchpad_numerics_filetest.gno	133	Launchpad Numerics DepositGns call=133/256	paid	6127742	6168972	41230	0.6728416437898332	39541	4004	4004	0	0	0	0	41	45	5895	41	45	5895
+poc_launchpad_numerics_filetest.gno	134	Launchpad Numerics DepositGns call=134/256	paid	6128215	6169445	41230	0.6727897111964903	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	135	Launchpad Numerics DepositGns call=135/256	paid	6123704	6164934	41230	0.6732853188201128	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	136	Launchpad Numerics DepositGns call=136/256	paid	6124177	6165407	41230	0.6732333177176296	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	137	Launchpad Numerics DepositGns call=137/256	paid	6131100	6172330	41230	0.6724731288023357	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	138	Launchpad Numerics DepositGns call=138/256	paid	6132547	6173777	41230	0.6723144559674797	39541	3956	3956	0	0	0	0	41	46	5896	41	46	5896
+poc_launchpad_numerics_filetest.gno	139	Launchpad Numerics DepositGns call=139/256	paid	6132041	6173271	41230	0.672369933599596	39541	3956	3956	0	0	0	0	41	45	5896	41	45	5896
+poc_launchpad_numerics_filetest.gno	140	Launchpad Numerics DepositGns call=140/256	paid	6867783	6908989	41206	0.5999898366037483	39541	24222	24222	0	0	0	0	41	45	5893	41	45	5893
+poc_launchpad_numerics_filetest.gno	141	Launchpad Numerics DepositGns call=141/256	paid	6158642	6199884	41242	0.6696606167398592	39541	4076	4076	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	142	Launchpad Numerics DepositGns call=142/256	paid	6156305	6197547	41242	0.6699148271568741	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	143	Launchpad Numerics DepositGns call=143/256	paid	6167005	6208247	41242	0.6687524981737488	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	144	Launchpad Numerics DepositGns call=144/256	paid	6167967	6209209	41242	0.6686481947779552	39541	3956	3956	0	0	0	0	42	46	5897	42	46	5897
+poc_launchpad_numerics_filetest.gno	145	Launchpad Numerics DepositGns call=145/256	paid	6168927	6210169	41242	0.668544140658497	39541	3956	3956	0	0	0	0	42	46	5898	42	46	5898
+poc_launchpad_numerics_filetest.gno	146	Launchpad Numerics DepositGns call=146/256	paid	6169400	6210642	41242	0.6684928842350958	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	147	Launchpad Numerics DepositGns call=147/256	paid	6170852	6212094	41242	0.668335588019288	39541	3956	3956	0	0	0	0	42	46	5898	42	46	5898
+poc_launchpad_numerics_filetest.gno	148	Launchpad Numerics DepositGns call=148/256	paid	6492815	6534057	41242	0.6351944418561133	39541	10634	10634	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	149	Launchpad Numerics DepositGns call=149/256	paid	6160383	6201625	41242	0.6694713624136681	39541	4004	4004	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	150	Launchpad Numerics DepositGns call=150/256	paid	6158823	6200065	41242	0.6696409362633088	39541	3956	3956	0	0	0	0	42	46	5898	42	46	5898
+poc_launchpad_numerics_filetest.gno	151	Launchpad Numerics DepositGns call=151/256	paid	6165746	6206988	41242	0.6688890525169218	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	152	Launchpad Numerics DepositGns call=152/256	paid	6166708	6207950	41242	0.6687847065241292	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	153	Launchpad Numerics DepositGns call=153/256	paid	6167668	6208910	41242	0.6686806099160979	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	154	Launchpad Numerics DepositGns call=154/256	paid	6169115	6210357	41242	0.6685237671854066	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	155	Launchpad Numerics DepositGns call=155/256	paid	6170075	6211317	41242	0.6684197517858372	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	156	Launchpad Numerics DepositGns call=156/256	paid	6493468	6534710	41242	0.6351305650539897	39541	10620	10620	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	157	Launchpad Numerics DepositGns call=157/256	paid	6159592	6200834	41242	0.6695573343169483	39541	4004	4004	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	158	Launchpad Numerics DepositGns call=158/256	paid	6160065	6201307	41242	0.6695059224212732	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	159	Launchpad Numerics DepositGns call=159/256	paid	6167962	6209204	41242	0.6686487368112839	39541	3956	3956	0	0	0	0	42	46	5898	42	46	5898
+poc_launchpad_numerics_filetest.gno	160	Launchpad Numerics DepositGns call=160/256	paid	6157866	6199108	41242	0.6697450058185742	39541	3956	3956	0	0	0	0	42	46	5898	42	46	5898
+poc_launchpad_numerics_filetest.gno	161	Launchpad Numerics DepositGns call=161/256	paid	6158341	6199583	41242	0.6696933476077405	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	162	Launchpad Numerics DepositGns call=162/256	paid	6159299	6200541	41242	0.6695891853926883	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	163	Launchpad Numerics DepositGns call=163/256	paid	6166709	6207951	41242	0.6687845980732997	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	164	Launchpad Numerics DepositGns call=164/256	paid	6421177	6462419	41242	0.6422810023769786	39541	10342	10342	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	165	Launchpad Numerics DepositGns call=165/256	paid	6135662	6176904	41242	0.672168708119841	39541	4004	4004	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	166	Launchpad Numerics DepositGns call=166/256	paid	6142585	6183827	41242	0.6714111404237793	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	167	Launchpad Numerics DepositGns call=167/256	paid	6144519	6185761	41242	0.67119981238564	39541	3956	3956	0	0	0	0	41	46	5897	41	46	5897
+poc_launchpad_numerics_filetest.gno	168	Launchpad Numerics DepositGns call=168/256	paid	6137335	6178577	41242	0.671985479039355	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	169	Launchpad Numerics DepositGns call=169/256	paid	6146439	6187681	41242	0.67099014567622	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	170	Launchpad Numerics DepositGns call=170/256	paid	6165427	6206669	41242	0.6689236609240528	39541	3938	3938	0	0	0	0	41	46	5897	41	46	5897
+poc_launchpad_numerics_filetest.gno	171	Launchpad Numerics DepositGns call=171/256	paid	6159822	6201064	41242	0.6695323338888689	39541	3914	3914	0	0	0	0	42	46	5898	42	46	5898
+poc_launchpad_numerics_filetest.gno	172	Launchpad Numerics DepositGns call=172/256	paid	6162838	6204080	41242	0.6692046748592126	39541	3914	3914	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	173	Launchpad Numerics DepositGns call=173/256	paid	6167954	6209196	41242	0.6686496040664376	39541	3914	3914	0	0	0	0	42	46	5898	42	46	5898
+poc_launchpad_numerics_filetest.gno	174	Launchpad Numerics DepositGns call=174/256	paid	6169768	6211010	41242	0.6684530115232858	39541	3914	3914	0	0	0	0	42	46	5898	42	46	5898
+poc_launchpad_numerics_filetest.gno	175	Launchpad Numerics DepositGns call=175/256	paid	6163676	6204918	41242	0.6691136912452893	39541	3914	3914	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	176	Launchpad Numerics DepositGns call=176/256	paid	6171940	6213182	41242	0.668217772693837	39541	3914	3914	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	177	Launchpad Numerics DepositGns call=177/256	paid	6171309	6212551	41242	0.6682860961912619	39541	3914	3914	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	178	Launchpad Numerics DepositGns call=178/256	paid	6471687	6512929	41242	0.6372681497111958	39541	10350	10350	0	0	0	0	41	46	5897	41	46	5897
+poc_launchpad_numerics_filetest.gno	179	Launchpad Numerics DepositGns call=179/256	paid	6182585	6223827	41242	0.6670672542310376	39541	4004	4004	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	180	Launchpad Numerics DepositGns call=180/256	paid	6186988	6228230	41242	0.6665925325861307	39541	3956	3956	0	0	0	0	42	46	5897	42	46	5897
+poc_launchpad_numerics_filetest.gno	181	Launchpad Numerics DepositGns call=181/256	paid	6182481	6223723	41242	0.6670784754534628	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	182	Launchpad Numerics DepositGns call=182/256	paid	6183439	6224681	41242	0.6669751250072977	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	183	Launchpad Numerics DepositGns call=183/256	paid	6190352	6231594	41242	0.6662302886814837	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	184	Launchpad Numerics DepositGns call=184/256	paid	6190825	6232067	41242	0.6661793864307262	39541	3956	3956	0	0	0	0	42	46	5898	42	46	5898
+poc_launchpad_numerics_filetest.gno	185	Launchpad Numerics DepositGns call=185/256	paid	6192766	6234008	41242	0.6659705856801307	39541	3956	3956	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	186	Launchpad Numerics DepositGns call=186/256	paid	6502157	6543399	41242	0.6342818237086555	39541	10622	10622	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	187	Launchpad Numerics DepositGns call=187/256	paid	6181321	6222563	41242	0.6672036608356046	39541	4004	4004	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	188	Launchpad Numerics DepositGns call=188/256	paid	6188244	6229486	41242	0.6664572373035065	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	189	Launchpad Numerics DepositGns call=189/256	paid	6184222	6225464	41242	0.6668906775985727	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	190	Launchpad Numerics DepositGns call=190/256	paid	6187152	6228394	41242	0.6665748635236374	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	191	Launchpad Numerics DepositGns call=191/256	paid	6189091	6230333	41242	0.6663660301650113	39541	3956	3956	0	0	0	0	41	46	5897	41	46	5897
+poc_launchpad_numerics_filetest.gno	192	Launchpad Numerics DepositGns call=192/256	paid	6190540	6231782	41242	0.6662100559886537	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	193	Launchpad Numerics DepositGns call=193/256	paid	6190526	6231768	41242	0.666211562636196	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	194	Launchpad Numerics DepositGns call=194/256	paid	6503303	6544545	41242	0.6341700517413997	39541	10622	10622	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	195	Launchpad Numerics DepositGns call=195/256	paid	6180062	6221304	41242	0.6673395833245686	39541	4004	4004	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	196	Launchpad Numerics DepositGns call=196/256	paid	6181509	6222751	41242	0.6671833689799691	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	197	Launchpad Numerics DepositGns call=197/256	paid	6184153	6225395	41242	0.6668981184650509	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	198	Launchpad Numerics DepositGns call=198/256	paid	6185600	6226842	41242	0.6667421107087429	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	199	Launchpad Numerics DepositGns call=199/256	paid	6187539	6228781	41242	0.6665331725585891	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	200	Launchpad Numerics DepositGns call=200/256	paid	6186272	6227514	41242	0.6666696841005374	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	201	Launchpad Numerics DepositGns call=201/256	paid	6187233	6228475	41242	0.6665661370761372	39541	3956	3956	0	0	0	0	41	46	5897	41	46	5897
+poc_launchpad_numerics_filetest.gno	202	Launchpad Numerics DepositGns call=202/256	paid	6504780	6546022	41242	0.6340260546859386	39541	10622	10622	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	203	Launchpad Numerics DepositGns call=203/256	paid	6182230	6223472	41242	0.6671055589973197	39541	4004	4004	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	204	Launchpad Numerics DepositGns call=204/256	paid	6183677	6224919	41242	0.666949454183975	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	205	Launchpad Numerics DepositGns call=205/256	paid	6178192	6219434	41242	0.6675415720327241	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	206	Launchpad Numerics DepositGns call=206/256	paid	6179639	6220881	41242	0.6673852631197389	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	207	Launchpad Numerics DepositGns call=207/256	paid	6187049	6228291	41242	0.6665859604473797	39541	3956	3956	0	0	0	0	41	46	5897	41	46	5897
+poc_launchpad_numerics_filetest.gno	208	Launchpad Numerics DepositGns call=208/256	paid	6188009	6229251	41242	0.6664825471326884	39541	3956	3956	0	0	0	0	41	46	5897	41	46	5897
+poc_launchpad_numerics_filetest.gno	209	Launchpad Numerics DepositGns call=209/256	paid	6188477	6229719	41242	0.6664321447748776	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	210	Launchpad Numerics DepositGns call=210/256	paid	6505909	6547151	41242	0.6339160292589399	39541	10622	10622	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	211	Launchpad Numerics DepositGns call=211/256	paid	6175513	6216755	41242	0.6678311583183454	39541	4004	4004	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	212	Launchpad Numerics DepositGns call=212/256	paid	6176979	6218221	41242	0.6676726600495161	39541	3961	3961	0	0	0	0	42	46	5898	42	46	5898
+poc_launchpad_numerics_filetest.gno	213	Launchpad Numerics DepositGns call=213/256	paid	6183933	6225175	41242	0.666921844075607	39541	3961	3961	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	214	Launchpad Numerics DepositGns call=214/256	paid	6183921	6225163	41242	0.6669231382483702	39541	3956	3956	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	215	Launchpad Numerics DepositGns call=215/256	paid	6182073	6223315	41242	0.6671225008180913	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	216	Launchpad Numerics DepositGns call=216/256	paid	6186328	6227570	41242	0.6666636492601103	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	217	Launchpad Numerics DepositGns call=217/256	paid	6187293	6228535	41242	0.6665596731882586	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	218	Launchpad Numerics DepositGns call=218/256	paid	6917339	6958581	41242	0.5962119248456668	39541	17534	17534	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	219	Launchpad Numerics DepositGns call=219/256	paid	6168365	6209607	41242	0.6686050517438575	39541	4052	4052	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	220	Launchpad Numerics DepositGns call=220/256	paid	6166805	6208047	41242	0.6687741869574277	39541	3956	3956	0	0	0	0	42	45	5897	42	45	5897
+poc_launchpad_numerics_filetest.gno	221	Launchpad Numerics DepositGns call=221/256	paid	6173728	6214970	41242	0.6680242472619461	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	222	Launchpad Numerics DepositGns call=222/256	paid	6174690	6215932	41242	0.6679201708911703	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	223	Launchpad Numerics DepositGns call=223/256	paid	6176137	6217379	41242	0.6677636846462441	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	224	Launchpad Numerics DepositGns call=224/256	paid	6176610	6217852	41242	0.6677125478215397	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	225	Launchpad Numerics DepositGns call=225/256	paid	6177570	6218812	41242	0.6676087846839454	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	226	Launchpad Numerics DepositGns call=226/256	paid	6498114	6539356	41242	0.6346764615086777	39541	10672	10672	0	0	0	0	41	46	5897	41	46	5897
+poc_launchpad_numerics_filetest.gno	227	Launchpad Numerics DepositGns call=227/256	paid	6166600	6207842	41242	0.6687964194207505	39541	4004	4004	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	228	Launchpad Numerics DepositGns call=228/256	paid	6167073	6208315	41242	0.6687451243077551	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	229	Launchpad Numerics DepositGns call=229/256	paid	6175457	6216699	41242	0.6678372143146653	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	230	Launchpad Numerics DepositGns call=230/256	paid	6164387	6205629	41242	0.6690365157151879	39541	3956	3956	0	0	0	0	41	46	5897	41	46	5897
+poc_launchpad_numerics_filetest.gno	231	Launchpad Numerics DepositGns call=231/256	paid	6162054	6203296	41242	0.669289817973033	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	232	Launchpad Numerics DepositGns call=232/256	paid	6166794	6208036	41242	0.6687753798813452	39541	3956	3956	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	233	Launchpad Numerics DepositGns call=233/256	paid	6174691	6215933	41242	0.6679200627205475	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	234	Launchpad Numerics DepositGns call=234/256	paid	6425943	6467185	41242	0.6418046347438812	39541	10382	10382	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	235	Launchpad Numerics DepositGns call=235/256	paid	6143644	6184886	41242	0.6712954070906453	39541	4004	4004	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	236	Launchpad Numerics DepositGns call=236/256	paid	6151054	6192296	41242	0.6704867165854828	39541	3956	3956	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	237	Launchpad Numerics DepositGns call=237/256	paid	6152501	6193743	41242	0.6703290255458715	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	238	Launchpad Numerics DepositGns call=238/256	paid	6153461	6194703	41242	0.6702244476726187	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	239	Launchpad Numerics DepositGns call=239/256	paid	6153934	6195176	41242	0.6701729332813774	39541	3956	3956	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	240	Launchpad Numerics DepositGns call=240/256	paid	6189284	6230526	41242	0.666345250920785	39541	3938	3938	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	241	Launchpad Numerics DepositGns call=241/256	paid	6184655	6225897	41242	0.6668439872555543	39541	3914	3914	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	242	Launchpad Numerics DepositGns call=242/256	paid	6190479	6231721	41242	0.6662166207170721	39541	3914	3914	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	243	Launchpad Numerics DepositGns call=243/256	paid	6192298	6233540	41242	0.6660209182439217	39541	3914	3914	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	244	Launchpad Numerics DepositGns call=244/256	paid	6193138	6234380	41242	0.6659305831712453	39541	3914	3914	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	245	Launchpad Numerics DepositGns call=245/256	paid	6188020	6229262	41242	0.6664813623743944	39541	3914	3914	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	246	Launchpad Numerics DepositGns call=246/256	paid	6195797	6237039	41242	0.6656447911382507	39541	3914	3914	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	247	Launchpad Numerics DepositGns call=247/256	paid	6194679	6235921	41242	0.6657649250267851	39541	3914	3914	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	248	Launchpad Numerics DepositGns call=248/256	paid	6476578	6517820	41242	0.6367868957958972	39541	10390	10390	0	0	0	0	41	45	5898	41	45	5898
+poc_launchpad_numerics_filetest.gno	249	Launchpad Numerics DepositGns call=249/256	paid	6184128	6225370	41242	0.6669008144721454	39541	4004	4004	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	250	Launchpad Numerics DepositGns call=250/256	paid	6189505	6230747	41242	0.6663214586626879	39541	3956	3956	0	0	0	0	41	45	5897	41	45	5897
+poc_launchpad_numerics_filetest.gno	251	Launchpad Numerics DepositGns call=251/256	paid	6183535	6224777	41242	0.6669647701517013	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	252	Launchpad Numerics DepositGns call=252/256	paid	6184980	6226222	41242	0.6668089468357213	39541	3956	3956	0	0	0	0	42	45	5897	42	45	5897
+poc_launchpad_numerics_filetest.gno	253	Launchpad Numerics DepositGns call=253/256	paid	6191895	6233137	41242	0.6660642662706652	39541	3956	3956	0	0	0	0	42	45	5898	42	45	5898
+poc_launchpad_numerics_filetest.gno	254	Launchpad Numerics DepositGns call=254/256	paid	6192855	6234097	41242	0.6659610147500628	39541	3956	3956	0	0	0	0	42	45	5897	42	45	5897
+poc_launchpad_numerics_filetest.gno	255	Launchpad Numerics DepositGns call=255/256	paid	6194307	6235549	41242	0.6658049076353497	39541	3956	3956	0	0	0	0	41	46	5898	41	46	5898
+poc_launchpad_numerics_filetest.gno	256	Launchpad Numerics DepositGns call=256/256	paid	6481645	6522887	41242	0.6362890901923817	39541	7526	7526	0	0	0	0	41	46	5897	41	46	5897
+poc_launchpad_numerics_filetest.gno	257	Launchpad Numerics CollectReward pattern=1 call=1/1	paid	3205677	3234443	28766	0.8973455529050494	27538	2046	2046	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	258	Launchpad Numerics CollectReward pattern=10 call=1/10	paid	3193535	3222301	28766	0.9007573112553957	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	259	Launchpad Numerics CollectReward pattern=10 call=2/10	paid	3172162	3200928	28766	0.9068263222370105	27538	12	12	0	0	0	0	28	32	4113	28	32	4113
+poc_launchpad_numerics_filetest.gno	260	Launchpad Numerics CollectReward pattern=10 call=3/10	paid	3180641	3209407	28766	0.9044088911637622	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	261	Launchpad Numerics CollectReward pattern=10 call=4/10	paid	3154506	3183272	28766	0.9119018952571337	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	262	Launchpad Numerics CollectReward pattern=10 call=5/10	paid	3158288	3187054	28766	0.9108099071395642	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	263	Launchpad Numerics CollectReward pattern=10 call=6/10	paid	3157308	3186074	28766	0.9110926143410779	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	264	Launchpad Numerics CollectReward pattern=10 call=7/10	paid	3157858	3186624	28766	0.9109339305313918	27538	31	31	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	265	Launchpad Numerics CollectReward pattern=10 call=8/10	paid	3170281	3199047	28766	0.9073643629697178	27538	20	20	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	266	Launchpad Numerics CollectReward pattern=10 call=9/10	paid	3178798	3207564	28766	0.904933248353623	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	267	Launchpad Numerics CollectReward pattern=10 call=10/10	paid	3166053	3194819	28766	0.9085760724788877	27538	14	14	0	0	0	0	28	32	4114	28	32	4114
+poc_launchpad_numerics_filetest.gno	268	Launchpad Numerics CollectReward pattern=100 call=1/100	paid	3169354	3198120	28766	0.9076297567264496	27538	14	14	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	269	Launchpad Numerics CollectReward pattern=100 call=2/100	paid	3168374	3197140	28766	0.9079104928900439	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	270	Launchpad Numerics CollectReward pattern=100 call=3/100	paid	3169354	3198120	28766	0.9076297567264496	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	271	Launchpad Numerics CollectReward pattern=100 call=4/100	paid	3180783	3209549	28766	0.9043685155510451	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	272	Launchpad Numerics CollectReward pattern=100 call=5/100	paid	3183723	3212489	28766	0.9035333790031357	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	273	Launchpad Numerics CollectReward pattern=100 call=6/100	paid	3192196	3220962	28766	0.901135143330798	27538	12	12	0	0	0	0	28	32	4113	28	32	4113
+poc_launchpad_numerics_filetest.gno	274	Launchpad Numerics CollectReward pattern=100 call=7/100	paid	3181266	3210032	28766	0.9042312085817408	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	275	Launchpad Numerics CollectReward pattern=100 call=8/100	paid	3182739	3211505	28766	0.9038127223124485	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	276	Launchpad Numerics CollectReward pattern=100 call=9/100	paid	3182242	3211008	28766	0.9039538790575953	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	277	Launchpad Numerics CollectReward pattern=100 call=10/100	paid	3169847	3198613	28766	0.9074885948753993	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	278	Launchpad Numerics CollectReward pattern=100 call=11/100	paid	3189400	3218166	28766	0.9019251269831317	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	279	Launchpad Numerics CollectReward pattern=100 call=12/100	paid	3196122	3224888	28766	0.9000282217011741	27538	12	12	0	0	0	0	28	32	4113	28	32	4113
+poc_launchpad_numerics_filetest.gno	280	Launchpad Numerics CollectReward pattern=100 call=13/100	paid	3193176	3221942	28766	0.9008585809238201	27538	12	12	0	0	0	0	28	32	4113	28	32	4113
+poc_launchpad_numerics_filetest.gno	281	Launchpad Numerics CollectReward pattern=100 call=14/100	paid	3182739	3211505	28766	0.9038127223124485	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	282	Launchpad Numerics CollectReward pattern=100 call=15/100	paid	3171314	3200080	28766	0.9070688049180876	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	283	Launchpad Numerics CollectReward pattern=100 call=16/100	paid	3171807	3200573	28766	0.9069278174870035	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	284	Launchpad Numerics CollectReward pattern=100 call=17/100	paid	3179444	3208210	28766	0.9047493838545356	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	285	Launchpad Numerics CollectReward pattern=100 call=18/100	paid	3184206	3212972	28766	0.9033963254889916	27538	12	12	0	0	0	0	28	32	4113	28	32	4113
+poc_launchpad_numerics_filetest.gno	286	Launchpad Numerics CollectReward pattern=100 call=19/100	paid	3172290	3201056	28766	0.9067897323384684	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	287	Launchpad Numerics CollectReward pattern=100 call=20/100	paid	3178817	3207583	28766	0.9049278395075904	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	288	Launchpad Numerics CollectReward pattern=100 call=21/100	paid	3180284	3209050	28766	0.9045104147931443	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	289	Launchpad Numerics CollectReward pattern=100 call=22/100	paid	3167881	3196647	28766	0.9080517860361548	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	290	Launchpad Numerics CollectReward pattern=100 call=23/100	paid	3168368	3197134	28766	0.9079122122177726	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	291	Launchpad Numerics CollectReward pattern=100 call=24/100	paid	3169348	3198114	28766	0.9076314749910707	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	292	Launchpad Numerics CollectReward pattern=100 call=25/100	paid	3168368	3197134	28766	0.9079122122177726	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	293	Launchpad Numerics CollectReward pattern=100 call=26/100	paid	3168861	3197627	28766	0.9077709625004063	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	294	Launchpad Numerics CollectReward pattern=100 call=27/100	paid	3168861	3197627	28766	0.9077709625004063	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	295	Launchpad Numerics CollectReward pattern=100 call=28/100	paid	3176498	3205264	28766	0.9055884814031049	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	296	Launchpad Numerics CollectReward pattern=100 call=29/100	paid	3169344	3198110	28766	0.9076326205044325	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	297	Launchpad Numerics CollectReward pattern=100 call=30/100	paid	3169348	3198114	28766	0.9076314749910707	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	298	Launchpad Numerics CollectReward pattern=100 call=31/100	paid	3169841	3198607	28766	0.907490312605585	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	299	Launchpad Numerics CollectReward pattern=100 call=32/100	paid	3169348	3198114	28766	0.9076314749910707	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	300	Launchpad Numerics CollectReward pattern=100 call=33/100	paid	3169841	3198607	28766	0.907490312605585	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	301	Launchpad Numerics CollectReward pattern=100 call=34/100	paid	3165479	3194245	28766	0.9087408256380788	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	302	Launchpad Numerics CollectReward pattern=100 call=35/100	paid	3168368	3197134	28766	0.9079122122177726	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	303	Launchpad Numerics CollectReward pattern=100 call=36/100	paid	3169348	3198114	28766	0.9076314749910707	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	304	Launchpad Numerics CollectReward pattern=100 call=37/100	paid	3156945	3185711	28766	0.9111973759441485	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	305	Launchpad Numerics CollectReward pattern=100 call=38/100	paid	3157477	3186198	28721	0.9096186607218358	27538	12	12	0	0	0	0	29	31	4107	29	31	4107
+poc_launchpad_numerics_filetest.gno	306	Launchpad Numerics CollectReward pattern=100 call=39/100	paid	3156990	3185711	28721	0.9097589792808973	27538	12	12	0	0	0	0	29	32	4107	29	32	4107
+poc_launchpad_numerics_filetest.gno	307	Launchpad Numerics CollectReward pattern=100 call=40/100	paid	3158457	3187178	28721	0.9093364259826872	27538	12	12	0	0	0	0	29	31	4107	29	31	4107
+poc_launchpad_numerics_filetest.gno	308	Launchpad Numerics CollectReward pattern=100 call=41/100	paid	3158457	3187178	28721	0.9093364259826872	27538	12	12	0	0	0	0	29	31	4107	29	31	4107
+poc_launchpad_numerics_filetest.gno	309	Launchpad Numerics CollectReward pattern=100 call=42/100	paid	3168417	3197138	28721	0.906477903634528	27538	12	12	0	0	0	0	29	31	4107	29	31	4107
+poc_launchpad_numerics_filetest.gno	310	Launchpad Numerics CollectReward pattern=100 call=43/100	paid	3168910	3197631	28721	0.9063368792423894	27538	12	12	0	0	0	0	29	32	4107	29	32	4107
+poc_launchpad_numerics_filetest.gno	311	Launchpad Numerics CollectReward pattern=100 call=44/100	paid	3157481	3186202	28721	0.9096175083872239	27538	12	12	0	0	0	0	29	31	4107	29	31	4107
+poc_launchpad_numerics_filetest.gno	312	Launchpad Numerics CollectReward pattern=100 call=45/100	paid	3153699	3182420	28721	0.910708345977216	27538	12	12	0	0	0	0	29	31	4108	29	31	4108
+poc_launchpad_numerics_filetest.gno	313	Launchpad Numerics CollectReward pattern=100 call=46/100	paid	3158461	3187182	28721	0.9093352743630522	27538	12	12	0	0	0	0	29	31	4108	29	31	4108
+poc_launchpad_numerics_filetest.gno	314	Launchpad Numerics CollectReward pattern=100 call=47/100	paid	3157481	3186202	28721	0.9096175083872239	27538	12	12	0	0	0	0	29	31	4107	29	31	4107
+poc_launchpad_numerics_filetest.gno	315	Launchpad Numerics CollectReward pattern=100 call=48/100	paid	3157974	3186734	28760	0.9107104745004234	27538	12	12	0	0	0	0	29	32	4112	29	32	4112
+poc_launchpad_numerics_filetest.gno	316	Launchpad Numerics CollectReward pattern=100 call=49/100	paid	3168910	3197670	28760	0.9075675863309466	27538	12	12	0	0	0	0	29	32	4112	29	32	4112
+poc_launchpad_numerics_filetest.gno	317	Launchpad Numerics CollectReward pattern=100 call=50/100	paid	3169890	3198650	28760	0.907287003649969	27538	12	12	0	0	0	0	29	32	4112	29	32	4112
+poc_launchpad_numerics_filetest.gno	318	Launchpad Numerics CollectReward pattern=100 call=51/100	paid	3158461	3187221	28760	0.9105700529466725	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	319	Launchpad Numerics CollectReward pattern=100 call=52/100	paid	3157974	3186734	28760	0.9107104745004234	27538	12	12	0	0	0	0	29	32	4112	29	32	4112
+poc_launchpad_numerics_filetest.gno	320	Launchpad Numerics CollectReward pattern=100 call=53/100	paid	3159441	3188201	28760	0.910287611004605	27538	12	12	0	0	0	0	29	32	4112	29	32	4112
+poc_launchpad_numerics_filetest.gno	321	Launchpad Numerics CollectReward pattern=100 call=54/100	paid	3157974	3186740	28766	0.910900469731543	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	322	Launchpad Numerics CollectReward pattern=100 call=55/100	paid	3159441	3188207	28766	0.9104775180166365	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	323	Launchpad Numerics CollectReward pattern=100 call=56/100	paid	3155659	3184425	28766	0.9115687087863422	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	324	Launchpad Numerics CollectReward pattern=100 call=57/100	paid	3168413	3197179	28766	0.907899317418531	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	325	Launchpad Numerics CollectReward pattern=100 call=58/100	paid	3169393	3198159	28766	0.9076185881649893	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	326	Launchpad Numerics CollectReward pattern=100 call=59/100	paid	3157477	3186243	28766	0.9110438492505251	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	327	Launchpad Numerics CollectReward pattern=100 call=60/100	paid	3157970	3186736	28766	0.9109016235113063	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	328	Launchpad Numerics CollectReward pattern=100 call=61/100	paid	3157481	3186247	28766	0.9110426951104377	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	329	Launchpad Numerics CollectReward pattern=100 call=62/100	paid	3154679	3183445	28766	0.9118518873077103	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	330	Launchpad Numerics CollectReward pattern=100 call=63/100	paid	3158461	3187227	28766	0.910760018882614	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	331	Launchpad Numerics CollectReward pattern=100 call=64/100	paid	3169397	3198163	28766	0.9076174426870474	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	332	Launchpad Numerics CollectReward pattern=100 call=65/100	paid	3170377	3199143	28766	0.9073368876950596	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	333	Launchpad Numerics CollectReward pattern=100 call=66/100	paid	3157974	3186740	28766	0.910900469731543	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	334	Launchpad Numerics CollectReward pattern=100 call=67/100	paid	3157974	3186740	28766	0.910900469731543	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	335	Launchpad Numerics CollectReward pattern=100 call=68/100	paid	3159441	3188207	28766	0.9104775180166365	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	336	Launchpad Numerics CollectReward pattern=100 call=69/100	paid	3159437	3188203	28766	0.9104786707251956	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	337	Launchpad Numerics CollectReward pattern=100 call=70/100	paid	3159441	3188207	28766	0.9104775180166365	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	338	Launchpad Numerics CollectReward pattern=100 call=71/100	paid	3168910	3197676	28766	0.9077569258830324	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	339	Launchpad Numerics CollectReward pattern=100 call=72/100	paid	3169890	3198656	28766	0.9074762846660295	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	340	Launchpad Numerics CollectReward pattern=100 call=73/100	paid	3166595	3195361	28766	0.9084205589915982	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	341	Launchpad Numerics CollectReward pattern=100 call=74/100	paid	3171357	3200123	28766	0.907056506095025	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	342	Launchpad Numerics CollectReward pattern=100 call=75/100	paid	3169890	3198656	28766	0.9074762846660295	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	343	Launchpad Numerics CollectReward pattern=100 call=76/100	paid	3171357	3200123	28766	0.907056506095025	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	344	Launchpad Numerics CollectReward pattern=100 call=77/100	paid	3170870	3199636	28766	0.9071958169209081	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	345	Launchpad Numerics CollectReward pattern=100 call=78/100	paid	3171850	3200616	28766	0.9069155224868768	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	346	Launchpad Numerics CollectReward pattern=100 call=79/100	paid	3167571	3196337	28766	0.908140654147926	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	347	Launchpad Numerics CollectReward pattern=100 call=80/100	paid	3171357	3200123	28766	0.907056506095025	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	348	Launchpad Numerics CollectReward pattern=100 call=81/100	paid	3172337	3201103	28766	0.9067762977262503	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	349	Launchpad Numerics CollectReward pattern=100 call=82/100	paid	3171357	3200123	28766	0.907056506095025	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	350	Launchpad Numerics CollectReward pattern=100 call=83/100	paid	3171850	3200616	28766	0.9069155224868768	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	351	Launchpad Numerics CollectReward pattern=100 call=84/100	paid	3172337	3201103	28766	0.9067762977262503	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	352	Launchpad Numerics CollectReward pattern=100 call=85/100	paid	3158461	3187227	28766	0.910760018882614	27538	12	12	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	353	Launchpad Numerics CollectReward pattern=100 call=86/100	paid	3174495	3203261	28766	0.9061598773978223	27538	18	18	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	354	Launchpad Numerics CollectReward pattern=100 call=87/100	paid	3162579	3191345	28766	0.9095741165675229	27538	18	18	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	355	Launchpad Numerics CollectReward pattern=100 call=88/100	paid	3162579	3191345	28766	0.9095741165675229	27538	18	18	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	356	Launchpad Numerics CollectReward pattern=100 call=89/100	paid	3185490	3214256	28766	0.9030321865709828	27538	18	18	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	357	Launchpad Numerics CollectReward pattern=100 call=90/100	paid	3182199	3210965	28766	0.9039660938866488	27538	18	18	0	0	0	0	28	32	4113	28	32	4113
+poc_launchpad_numerics_filetest.gno	358	Launchpad Numerics CollectReward pattern=100 call=91/100	paid	3186961	3215727	28766	0.9026153755882171	27538	18	18	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	359	Launchpad Numerics CollectReward pattern=100 call=92/100	paid	3185981	3214747	28766	0.9028930178805209	27538	18	18	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	360	Launchpad Numerics CollectReward pattern=100 call=93/100	paid	3186961	3215727	28766	0.9026153755882171	27538	18	18	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	361	Launchpad Numerics CollectReward pattern=100 call=94/100	paid	3186474	3215240	28766	0.9027533254625646	27538	18	18	0	0	0	0	29	31	4114	29	31	4114
+poc_launchpad_numerics_filetest.gno	362	Launchpad Numerics CollectReward pattern=100 call=95/100	paid	3178894	3207660	28766	0.904905920109321	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	363	Launchpad Numerics CollectReward pattern=100 call=96/100	paid	3172217	3200983	28766	0.9068105996531763	27538	12	12	0	0	0	0	28	32	4113	28	32	4113
+poc_launchpad_numerics_filetest.gno	364	Launchpad Numerics CollectReward pattern=100 call=97/100	paid	3168441	3197207	28766	0.9078912941727493	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	365	Launchpad Numerics CollectReward pattern=100 call=98/100	paid	3167954	3196720	28766	0.9080308615592272	27538	12	12	0	0	0	0	29	32	4113	29	32	4113
+poc_launchpad_numerics_filetest.gno	366	Launchpad Numerics CollectReward pattern=100 call=99/100	paid	3168441	3197207	28766	0.9078912941727493	27538	12	12	0	0	0	0	29	31	4113	29	31	4113
+poc_launchpad_numerics_filetest.gno	367	Launchpad Numerics CollectReward pattern=100 call=100/100	paid	3168934	3197700	28766	0.9077500509635101	27538	12	12	0	0	0	0	29	32	4114	29	32	4114
+poc_launchpad_numerics_filetest.gno	368	Launchpad Numerics CollectDepositGns call=1/256	paid	8079071	8129025	49954	0.6183136650241098	48224	-3682	-3682	0	0	0	0	50	55	7143	50	55	7143
+poc_launchpad_numerics_filetest.gno	369	Launchpad Numerics CollectDepositGns call=2/256	paid	7667252	7712524	45272	0.5904592675446171	43073	-5733	-5733	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	370	Launchpad Numerics CollectDepositGns call=3/256	paid	7496100	7541372	45272	0.6039407158389029	43073	-2258	-2258	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	371	Launchpad Numerics CollectDepositGns call=4/256	paid	7642316	7687570	45254	0.5921503376725066	43073	-5699	-5695	4	400	0	-400	45	50	6471	445	450	6871
+poc_launchpad_numerics_filetest.gno	372	Launchpad Numerics CollectDepositGns call=5/256	paid	7569192	7614386	45194	0.5970782614577619	43073	-2263	-2263	0	0	0	0	45	49	6463	45	49	6463
+poc_launchpad_numerics_filetest.gno	373	Launchpad Numerics CollectDepositGns call=6/256	paid	7700861	7746013	45152	0.5863240487005285	43073	-5742	-5735	7	700	0	-700	46	50	6456	746	750	7156
+poc_launchpad_numerics_filetest.gno	374	Launchpad Numerics CollectDepositGns call=7/256	paid	7695911	7741174	45263	0.5881434959421958	43073	-5730	-5730	0	0	0	0	46	50	6472	46	50	6472
+poc_launchpad_numerics_filetest.gno	375	Launchpad Numerics CollectDepositGns call=8/256	paid	7569235	7614507	45272	0.5981053567500547	43073	-2263	-2263	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	376	Launchpad Numerics CollectDepositGns call=9/256	paid	7494403	7539675	45272	0.6040774695462734	43073	-2258	-2258	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	377	Launchpad Numerics CollectDepositGns call=10/256	paid	7529751	7575023	45272	0.6012416612448407	43073	-2258	-2258	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	378	Launchpad Numerics CollectDepositGns call=11/256	paid	7499633	7544905	45272	0.603656205576993	43073	-2277	-2277	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	379	Launchpad Numerics CollectDepositGns call=12/256	paid	7588253	7633525	45272	0.5966063598564781	43073	-2265	-2265	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	380	Launchpad Numerics CollectDepositGns call=13/256	paid	7713592	7758864	45272	0.5869120378677016	43073	-5733	-5733	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	381	Launchpad Numerics CollectDepositGns call=14/256	paid	7595355	7640627	45272	0.5960485059618675	43073	-2265	-2265	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	382	Launchpad Numerics CollectDepositGns call=15/256	paid	7544881	7590153	45272	0.6000359714089593	43073	-2264	-2264	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	383	Launchpad Numerics CollectDepositGns call=16/256	paid	7518840	7564112	45272	0.6021141559070282	43073	-2277	-2277	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	384	Launchpad Numerics CollectDepositGns call=17/256	paid	7758141	7803413	45272	0.5835418562256087	43073	-9095	-9095	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	385	Launchpad Numerics CollectDepositGns call=18/256	paid	7597998	7643270	45272	0.5958411676338952	43073	-2265	-2265	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	386	Launchpad Numerics CollectDepositGns call=19/256	paid	7617926	7663198	45272	0.5942824858104424	43073	-2265	-2265	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	387	Launchpad Numerics CollectDepositGns call=20/256	paid	7512230	7557502	45272	0.602643955256961	43073	-2277	-2277	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	388	Launchpad Numerics CollectDepositGns call=21/256	paid	7588704	7633976	45272	0.5965709032794005	43073	-2265	-2265	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	389	Launchpad Numerics CollectDepositGns call=22/256	paid	7547266	7592538	45272	0.599846354958206	43073	-2264	-2264	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	390	Launchpad Numerics CollectDepositGns call=23/256	paid	7521078	7566350	45272	0.6019349885747761	43073	-2277	-2277	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	391	Launchpad Numerics CollectDepositGns call=24/256	paid	7633998	7679270	45272	0.593031331682298	43073	-5563	-5563	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	392	Launchpad Numerics CollectDepositGns call=25/256	paid	7720779	7766042	45263	0.5862491336690249	43073	-5486	-5486	0	0	0	0	46	50	6473	46	50	6473
+poc_launchpad_numerics_filetest.gno	393	Launchpad Numerics CollectDepositGns call=26/256	paid	7492104	7537376	45272	0.6042628345789114	43073	-2277	-2277	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	394	Launchpad Numerics CollectDepositGns call=27/256	paid	7491160	7536432	45272	0.6043389808787958	43073	-2277	-2277	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	395	Launchpad Numerics CollectDepositGns call=28/256	paid	7498660	7543932	45272	0.6037345339033907	43073	-2277	-2277	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	396	Launchpad Numerics CollectDepositGns call=29/256	paid	7496736	7542008	45272	0.6038894793680877	43073	-2277	-2277	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	397	Launchpad Numerics CollectDepositGns call=30/256	paid	7487100	7532372	45272	0.604666693379279	43073	-2277	-2277	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	398	Launchpad Numerics CollectDepositGns call=31/256	paid	7522176	7567448	45272	0.6018471250872088	43073	-2276	-2276	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	399	Launchpad Numerics CollectDepositGns call=32/256	paid	7521235	7566507	45272	0.6019224236445212	43073	-2276	-2276	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	400	Launchpad Numerics CollectDepositGns call=33/256	paid	7510622	7555894	45272	0.6027729793883916	43073	-2276	-2276	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	401	Launchpad Numerics CollectDepositGns call=34/256	paid	7508946	7554218	45272	0.6029075185785062	43073	-2276	-2276	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	402	Launchpad Numerics CollectDepositGns call=35/256	paid	7508005	7553277	45272	0.6029830827230402	43073	-2276	-2276	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	403	Launchpad Numerics CollectDepositGns call=36/256	paid	7505594	7550866	45272	0.603176777214435	43073	-2276	-2276	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	404	Launchpad Numerics CollectDepositGns call=37/256	paid	7597517	7642789	45272	0.5958788904322294	43073	-2275	-2275	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	405	Launchpad Numerics CollectDepositGns call=38/256	paid	7585629	7630901	45272	0.5968127362938525	43073	-2276	-2276	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	406	Launchpad Numerics CollectDepositGns call=39/256	paid	7607840	7652959	45119	0.5930592651790785	43073	-2276	-2276	0	0	0	0	45	50	6452	45	50	6452
+poc_launchpad_numerics_filetest.gno	407	Launchpad Numerics CollectDepositGns call=40/256	paid	7597962	7643081	45119	0.5938302929127574	43073	-2276	-2276	0	0	0	0	46	50	6452	46	50	6452
+poc_launchpad_numerics_filetest.gno	408	Launchpad Numerics CollectDepositGns call=41/256	paid	7596289	7641408	45119	0.5939610775735362	43073	-2276	-2276	0	0	0	0	45	50	6452	45	50	6452
+poc_launchpad_numerics_filetest.gno	409	Launchpad Numerics CollectDepositGns call=42/256	paid	7595348	7640467	45119	0.5940346643761418	43073	-2276	-2276	0	0	0	0	45	50	6452	45	50	6452
+poc_launchpad_numerics_filetest.gno	410	Launchpad Numerics CollectDepositGns call=43/256	paid	7592937	7638056	45119	0.5942232893543039	43073	-2276	-2276	0	0	0	0	46	49	6453	46	49	6453
+poc_launchpad_numerics_filetest.gno	411	Launchpad Numerics CollectDepositGns call=44/256	paid	7591996	7637115	45119	0.5942969411469659	43073	-2276	-2276	0	0	0	0	46	49	6452	46	49	6452
+poc_launchpad_numerics_filetest.gno	412	Launchpad Numerics CollectDepositGns call=45/256	paid	7590320	7635439	45119	0.5944281664014165	43073	-2276	-2276	0	0	0	0	45	49	6452	45	49	6452
+poc_launchpad_numerics_filetest.gno	413	Launchpad Numerics CollectDepositGns call=46/256	paid	7708264	7753491	45227	0.5867339260824487	43073	-5745	-5745	0	0	0	0	45	49	6468	45	49	6468
+poc_launchpad_numerics_filetest.gno	414	Launchpad Numerics CollectDepositGns call=47/256	paid	7490643	7535879	45236	0.6039000924219723	43073	-2276	-2276	0	0	0	0	45	50	6469	45	50	6469
+poc_launchpad_numerics_filetest.gno	415	Launchpad Numerics CollectDepositGns call=48/256	paid	7480030	7525266	45236	0.6047569327930503	43073	-2278	-2276	2	200	0	-200	45	49	6469	245	249	6669
+poc_launchpad_numerics_filetest.gno	416	Launchpad Numerics CollectDepositGns call=49/256	paid	7479433	7524570	45137	0.6034815740711896	43073	-2291	-2276	15	1500	0	-1500	45	50	6455	1545	1550	7955
+poc_launchpad_numerics_filetest.gno	417	Launchpad Numerics CollectDepositGns call=50/256	paid	7476765	7521914	45149	0.6038574169443603	43073	-2291	-2276	15	1500	0	-1500	45	50	6456	1545	1550	7956
+poc_launchpad_numerics_filetest.gno	418	Launchpad Numerics CollectDepositGns call=51/256	paid	7476792	7521953	45161	0.6040157329507093	43073	-2291	-2276	15	1500	0	-1500	45	50	6458	1545	1550	7958
+poc_launchpad_numerics_filetest.gno	419	Launchpad Numerics CollectDepositGns call=52/256	paid	7590523	7635579	45056	0.5935822867541538	43073	-2290	-2275	15	1500	0	-1500	45	50	6443	1545	1550	7943
+poc_launchpad_numerics_filetest.gno	420	Launchpad Numerics CollectDepositGns call=53/256	paid	7586093	7631161	45068	0.5940871012258879	43073	-2291	-2276	15	1500	0	-1500	45	50	6445	1545	1550	7945
+poc_launchpad_numerics_filetest.gno	421	Launchpad Numerics CollectDepositGns call=54/256	paid	7599188	7644253	45065	0.5930238862362663	43073	-2291	-2276	15	1500	0	-1500	45	49	6445	1545	1549	7945
+poc_launchpad_numerics_filetest.gno	422	Launchpad Numerics CollectDepositGns call=55/256	paid	7588563	7633640	45077	0.5940123314519494	43073	-2291	-2276	15	1500	0	-1500	45	50	6446	1545	1550	7946
+poc_launchpad_numerics_filetest.gno	423	Launchpad Numerics CollectDepositGns call=56/256	paid	7586875	7631964	45089	0.5943026608452097	43073	-2291	-2276	15	1500	0	-1500	45	50	6447	1545	1550	7947
+poc_launchpad_numerics_filetest.gno	424	Launchpad Numerics CollectDepositGns call=57/256	paid	7585922	7631023	45101	0.5945355093289912	43073	-2291	-2276	15	1500	0	-1500	46	50	6450	1546	1550	7950
+poc_launchpad_numerics_filetest.gno	425	Launchpad Numerics CollectDepositGns call=58/256	paid	7583499	7628612	45113	0.5948837073757114	43073	-2291	-2278	13	1300	0	-1300	45	50	6451	1345	1350	7751
+poc_launchpad_numerics_filetest.gno	426	Launchpad Numerics CollectDepositGns call=59/256	paid	7582546	7627758	45212	0.596264104431414	43073	-2291	-2290	1	100	0	-100	45	50	6465	145	150	6565
+poc_launchpad_numerics_filetest.gno	427	Launchpad Numerics CollectDepositGns call=60/256	paid	7708699	7753944	45245	0.5869343192671033	43073	-5771	-5759	12	1200	0	-1200	45	50	6470	1245	1250	7670
+poc_launchpad_numerics_filetest.gno	428	Launchpad Numerics CollectDepositGns call=61/256	paid	7492484	7537732	45248	0.6039118668788616	43073	-2291	-2290	1	100	0	-100	45	50	6470	145	150	6570
+poc_launchpad_numerics_filetest.gno	429	Launchpad Numerics CollectDepositGns call=62/256	paid	7481859	7527110	45251	0.6048095800789617	43073	-2291	-2290	1	100	0	-100	46	49	6471	146	149	6571
+poc_launchpad_numerics_filetest.gno	430	Launchpad Numerics CollectDepositGns call=63/256	paid	7481151	7526405	45254	0.604906918734831	43073	-2291	-2290	1	100	0	-100	45	50	6471	145	150	6571
+poc_launchpad_numerics_filetest.gno	431	Launchpad Numerics CollectDepositGns call=64/256	paid	7479218	7524475	45257	0.6051033677585009	43073	-2291	-2290	1	100	0	-100	45	49	6471	145	149	6571
+poc_launchpad_numerics_filetest.gno	432	Launchpad Numerics CollectDepositGns call=65/256	paid	7477775	7523047	45272	0.6054207300968537	43073	-2291	-2291	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	433	Launchpad Numerics CollectDepositGns call=66/256	paid	7590284	7635556	45272	0.5964467205706664	43073	-2290	-2290	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	434	Launchpad Numerics CollectDepositGns call=67/256	paid	7578384	7623656	45272	0.5973832943804378	43073	-2291	-2291	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	435	Launchpad Numerics CollectDepositGns call=68/256	paid	7705563	7750835	45272	0.5875235852331621	43073	-5771	-5771	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	436	Launchpad Numerics CollectDepositGns call=69/256	paid	7490766	7536038	45272	0.6043707679561743	43073	-2291	-2291	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	437	Launchpad Numerics CollectDepositGns call=70/256	paid	7480141	7525413	45272	0.6052292329783623	43073	-2291	-2291	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	438	Launchpad Numerics CollectDepositGns call=71/256	paid	7480168	7525440	45272	0.6052270483764536	43073	-2291	-2291	0	0	0	0	45	49	6473	45	49	6473
+poc_launchpad_numerics_filetest.gno	439	Launchpad Numerics CollectDepositGns call=72/256	paid	7476768	7522040	45272	0.6055022704997668	43073	-2291	-2291	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	440	Launchpad Numerics CollectDepositGns call=73/256	paid	7476795	7522067	45272	0.6055000839263347	43073	-2291	-2291	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	441	Launchpad Numerics CollectDepositGns call=74/256	paid	7590532	7635804	45272	0.5964272332953737	43073	-2290	-2290	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	442	Launchpad Numerics CollectDepositGns call=75/256	paid	7586834	7632106	45272	0.5967179458519851	43073	-2291	-2291	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	443	Launchpad Numerics CollectDepositGns call=76/256	paid	7599929	7645201	45272	0.5956897755229029	43073	-2291	-2291	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	444	Launchpad Numerics CollectDepositGns call=77/256	paid	7589304	7634576	45272	0.596523739199273	43073	-2291	-2291	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	445	Launchpad Numerics CollectDepositGns call=78/256	paid	7587616	7632888	45272	0.5966564465044093	43073	-2291	-2291	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	446	Launchpad Numerics CollectDepositGns call=79/256	paid	7586663	7631935	45272	0.5967313956083194	43073	-2291	-2291	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	447	Launchpad Numerics CollectDepositGns call=80/256	paid	7584972	7630244	45272	0.5968644314046249	43073	-2291	-2291	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	448	Launchpad Numerics CollectDepositGns call=81/256	paid	7583287	7628559	45272	0.5969970541798035	43073	-2291	-2291	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	449	Launchpad Numerics CollectDepositGns call=82/256	paid	7705863	7751135	45272	0.587500712120109	43073	-5771	-5771	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	450	Launchpad Numerics CollectDepositGns call=83/256	paid	7492484	7537756	45272	0.6042321878832174	43073	-2291	-2291	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	451	Launchpad Numerics CollectDepositGns call=84/256	paid	7490796	7536068	45272	0.6043683475027221	43073	-2291	-2291	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	452	Launchpad Numerics CollectDepositGns call=85/256	paid	7490823	7536095	45272	0.6043661691111911	43073	-2291	-2291	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	453	Launchpad Numerics CollectDepositGns call=86/256	paid	7487420	7532692	45272	0.6046408509206108	43073	-2291	-2291	0	0	0	0	45	49	6473	45	49	6473
+poc_launchpad_numerics_filetest.gno	454	Launchpad Numerics CollectDepositGns call=87/256	paid	7487447	7532719	45272	0.6046386705642124	43073	-2291	-2291	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	455	Launchpad Numerics CollectDepositGns call=88/256	paid	7600207	7645479	45272	0.5956679864114227	43073	-2290	-2290	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	456	Launchpad Numerics CollectDepositGns call=89/256	paid	7589042	7634314	45272	0.5965443332636715	43073	-2291	-2291	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	457	Launchpad Numerics CollectDepositGns call=90/256	paid	7705912	7751184	45272	0.5874969763475109	43073	-5771	-5771	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	458	Launchpad Numerics CollectDepositGns call=91/256	paid	7493219	7538491	45272	0.6041729195423222	43073	-2291	-2291	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	459	Launchpad Numerics CollectDepositGns call=92/256	paid	7492266	7537538	45272	0.6042497690284888	43073	-2291	-2291	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	460	Launchpad Numerics CollectDepositGns call=93/256	paid	7490823	7536095	45272	0.6043661691111911	43073	-2291	-2291	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	461	Launchpad Numerics CollectDepositGns call=94/256	paid	7488890	7534162	45272	0.6045221655011623	43073	-2291	-2291	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	462	Launchpad Numerics CollectDepositGns call=95/256	paid	7488182	7533454	45272	0.6045793224577074	43073	-2291	-2291	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	463	Launchpad Numerics CollectDepositGns call=96/256	paid	7571468	7616740	45272	0.5979289617284257	43073	-2290	-2290	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	464	Launchpad Numerics CollectDepositGns call=97/256	paid	7597938	7643210	45272	0.5958458729197317	43073	-2285	-2285	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	465	Launchpad Numerics CollectDepositGns call=98/256	paid	7694810	7740082	45272	0.5883446114978798	43073	-12194	-12194	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	466	Launchpad Numerics CollectDepositGns call=99/256	paid	7420672	7465944	45272	0.6100795184048021	43073	-2285	-2285	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	467	Launchpad Numerics CollectDepositGns call=100/256	paid	7491199	7536471	45272	0.6043358346240701	43073	-2285	-2285	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	468	Launchpad Numerics CollectDepositGns call=101/256	paid	7488716	7533988	45272	0.604536211548148	43073	-2285	-2285	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	469	Launchpad Numerics CollectDepositGns call=102/256	paid	7486965	7532237	45272	0.6046775963290866	43073	-2285	-2285	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	470	Launchpad Numerics CollectDepositGns call=103/256	paid	7483744	7529016	45272	0.6049378492904086	43073	-2285	-2285	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	471	Launchpad Numerics CollectDepositGns call=104/256	paid	7613842	7659114	45272	0.5946012538741938	43073	-5765	-5765	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	472	Launchpad Numerics CollectDepositGns call=105/256	paid	7499419	7544691	45272	0.6036734312351397	43073	-2285	-2285	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	473	Launchpad Numerics CollectDepositGns call=106/256	paid	7454042	7499314	45272	0.607348335305865	43073	-2292	-2292	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	474	Launchpad Numerics CollectDepositGns call=107/256	paid	7453086	7498358	45272	0.6074262392786022	43073	-2292	-2292	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	475	Launchpad Numerics CollectDepositGns call=108/256	paid	7442455	7487727	45272	0.608293903019904	43073	-2292	-2292	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	476	Launchpad Numerics CollectDepositGns call=109/256	paid	7440764	7486036	45272	0.6084321448711449	43073	-2292	-2292	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	477	Launchpad Numerics CollectDepositGns call=110/256	paid	7439073	7484345	45272	0.6085704495708	43073	-2292	-2292	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	478	Launchpad Numerics CollectDepositGns call=111/256	paid	7438117	7483389	45272	0.608648667397945	43073	-2292	-2292	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	479	Launchpad Numerics CollectDepositGns call=112/256	paid	7552900	7598172	45272	0.5993989063803308	43073	-2280	-2280	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	480	Launchpad Numerics CollectDepositGns call=113/256	paid	7558682	7603954	45272	0.5989403972809016	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	481	Launchpad Numerics CollectDepositGns call=114/256	paid	7557726	7602998	45272	0.5990161590933569	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	482	Launchpad Numerics CollectDepositGns call=115/256	paid	7547095	7592367	45272	0.5998599461117158	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	483	Launchpad Numerics CollectDepositGns call=116/256	paid	7545404	7590676	45272	0.5999943806852489	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	484	Launchpad Numerics CollectDepositGns call=117/256	paid	7544448	7589720	45272	0.6000704093924433	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	485	Launchpad Numerics CollectDepositGns call=118/256	paid	7564714	7609986	45272	0.5984628103587261	43073	-5760	-5760	0	0	0	0	45	49	6473	45	49	6473
+poc_launchpad_numerics_filetest.gno	486	Launchpad Numerics CollectDepositGns call=119/256	paid	7447225	7492497	45272	0.6079042864959767	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	487	Launchpad Numerics CollectDepositGns call=120/256	paid	7453739	7499011	45272	0.6073730244646345	43073	-2280	-2280	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	488	Launchpad Numerics CollectDepositGns call=121/256	paid	7452783	7498055	45272	0.6074509347716148	43073	-2280	-2280	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	489	Launchpad Numerics CollectDepositGns call=122/256	paid	7442152	7487424	45272	0.6083186691161374	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	490	Launchpad Numerics CollectDepositGns call=123/256	paid	7440461	7485733	45272	0.6084569222256524	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	491	Launchpad Numerics CollectDepositGns call=124/256	paid	7439505	7484777	45272	0.6085351108709518	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	492	Launchpad Numerics CollectDepositGns call=125/256	paid	7437079	7482351	45272	0.6087336170558361	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	493	Launchpad Numerics CollectDepositGns call=126/256	paid	7564393	7609665	45272	0.598488206522321	43073	-5761	-5761	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	494	Launchpad Numerics CollectDepositGns call=127/256	paid	7447960	7493232	45272	0.6078442956192031	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	495	Launchpad Numerics CollectDepositGns call=128/256	paid	7453001	7498273	45272	0.6074331668545329	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	496	Launchpad Numerics CollectDepositGns call=129/256	paid	7452045	7497317	45272	0.6075110925927044	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	497	Launchpad Numerics CollectDepositGns call=130/256	paid	7441414	7486686	45272	0.6083789989375675	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	498	Launchpad Numerics CollectDepositGns call=131/256	paid	7440458	7485730	45272	0.6084571675560833	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	499	Launchpad Numerics CollectDepositGns call=132/256	paid	7438035	7483307	45272	0.6086553773947017	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	500	Launchpad Numerics CollectDepositGns call=133/256	paid	7437079	7482351	45272	0.6087336170558361	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	501	Launchpad Numerics CollectDepositGns call=134/256	paid	7561867	7607139	45272	0.5986881282096075	43073	-5749	-5749	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	502	Launchpad Numerics CollectDepositGns call=135/256	paid	7455430	7500702	45272	0.6072352634254496	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	503	Launchpad Numerics CollectDepositGns call=136/256	paid	7454474	7499746	45272	0.6073131383917899	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	504	Launchpad Numerics CollectDepositGns call=137/256	paid	7443843	7489115	45272	0.6081804788198784	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	505	Launchpad Numerics CollectDepositGns call=138/256	paid	7442152	7487424	45272	0.6083186691161374	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	506	Launchpad Numerics CollectDepositGns call=139/256	paid	7441196	7486468	45272	0.608396822231265	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	507	Launchpad Numerics CollectDepositGns call=140/256	paid	7439502	7484774	45272	0.6085353562644381	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	508	Launchpad Numerics CollectDepositGns call=141/256	paid	7437814	7483086	45272	0.608673462390966	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	509	Launchpad Numerics CollectDepositGns call=142/256	paid	7567292	7612564	45272	0.5982589280286792	43073	-2280	-2280	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	510	Launchpad Numerics CollectDepositGns call=143/256	paid	7566336	7611608	45272	0.5983345175260523	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	511	Launchpad Numerics CollectDepositGns call=144/256	paid	7555705	7600977	45272	0.5991763839377	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	512	Launchpad Numerics CollectDepositGns call=145/256	paid	7554014	7599286	45272	0.5993105122653996	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	513	Launchpad Numerics CollectDepositGns call=146/256	paid	7553058	7598330	45272	0.5993863677466795	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	514	Launchpad Numerics CollectDepositGns call=147/256	paid	7560073	7605345	45272	0.598830196480907	43073	-5761	-5761	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	515	Launchpad Numerics CollectDepositGns call=148/256	paid	7447957	7493229	45272	0.6078445404558592	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	516	Launchpad Numerics CollectDepositGns call=149/256	paid	7446266	7491538	45272	0.6079825781136479	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	517	Launchpad Numerics CollectDepositGns call=150/256	paid	7453512	7498784	45272	0.6073915222783568	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	518	Launchpad Numerics CollectDepositGns call=151/256	paid	7451824	7497096	45272	0.607529109651543	43073	-2280	-2280	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	519	Launchpad Numerics CollectDepositGns call=152/256	paid	7450868	7496140	45272	0.6076070600096526	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	520	Launchpad Numerics CollectDepositGns call=153/256	paid	7448442	7493714	45272	0.607804961091192	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	521	Launchpad Numerics CollectDepositGns call=154/256	paid	7447486	7492758	45272	0.6078829822573685	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	522	Launchpad Numerics CollectDepositGns call=155/256	paid	7561058	7606330	45272	0.5987521852100592	43073	-2244	-2244	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	523	Launchpad Numerics CollectDepositGns call=156/256	paid	7560102	7605374	45272	0.5988278994119391	43073	-2280	-2280	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	524	Launchpad Numerics CollectDepositGns call=157/256	paid	7547182	7592454	45272	0.5998530312373546	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	525	Launchpad Numerics CollectDepositGns call=158/256	paid	7542974	7588246	45272	0.6001876713349403	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	526	Launchpad Numerics CollectDepositGns call=159/256	paid	7541283	7586555	45272	0.6003222528580349	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	527	Launchpad Numerics CollectDepositGns call=160/256	paid	7555663	7600935	45272	0.5991797146061173	43073	-5607	-5607	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	528	Launchpad Numerics CollectDepositGns call=161/256	paid	7445338	7490610	45272	0.6080583581296107	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	529	Launchpad Numerics CollectDepositGns call=162/256	paid	7443647	7488919	45272	0.6081964929288023	43073	-2280	-2280	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	530	Launchpad Numerics CollectDepositGns call=163/256	paid	7438281	7483553	45272	0.6086352478482596	43073	-2280	-2280	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	531	Launchpad Numerics CollectDepositGns call=164/256	paid	7551319	7596591	45272	0.5995244009688904	43073	-2274	-2274	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	532	Launchpad Numerics CollectDepositGns call=165/256	paid	7549628	7594900	45272	0.5996586851696534	43073	-2274	-2274	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	533	Launchpad Numerics CollectDepositGns call=166/256	paid	7548672	7593944	45272	0.5997346288194798	43073	-2274	-2274	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	534	Launchpad Numerics CollectDepositGns call=167/256	paid	7546246	7591518	45272	0.5999274341175732	43073	-2274	-2274	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	535	Launchpad Numerics CollectDepositGns call=168/256	paid	7666393	7711665	45272	0.5905254270163296	43073	-5755	-5755	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	536	Launchpad Numerics CollectDepositGns call=169/256	paid	7545208	7590480	45272	0.6000099665907156	43073	-2274	-2274	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	537	Launchpad Numerics CollectDepositGns call=170/256	paid	7554062	7599334	45272	0.5993067041281895	43073	-2273	-2273	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	538	Launchpad Numerics CollectDepositGns call=171/256	paid	7543437	7588709	45272	0.600150833101675	43073	-2273	-2273	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	539	Launchpad Numerics CollectDepositGns call=172/256	paid	7541749	7587021	45272	0.6002851593178187	43073	-2273	-2273	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	540	Launchpad Numerics CollectDepositGns call=173/256	paid	7540796	7586068	45272	0.6003610228946652	43073	-2273	-2273	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	541	Launchpad Numerics CollectDepositGns call=174/256	paid	7538373	7583645	45272	0.6005539922208678	43073	-2273	-2273	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	542	Launchpad Numerics CollectDepositGns call=175/256	paid	7537420	7582692	45272	0.6006299237670184	43073	-2273	-2273	0	0	0	0	45	49	6473	45	49	6473
+poc_launchpad_numerics_filetest.gno	543	Launchpad Numerics CollectDepositGns call=176/256	paid	7655047	7700319	45272	0.5914006798390656	43073	-5754	-5754	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	544	Launchpad Numerics CollectDepositGns call=177/256	paid	7439443	7484715	45272	0.6085401823765569	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	545	Launchpad Numerics CollectDepositGns call=178/256	paid	7438487	7483759	45272	0.6086183924230828	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	546	Launchpad Numerics CollectDepositGns call=179/256	paid	7427856	7473128	45272	0.6094894677548945	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	547	Launchpad Numerics CollectDepositGns call=180/256	paid	7426897	7472169	45272	0.6095681682403836	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	548	Launchpad Numerics CollectDepositGns call=181/256	paid	7424474	7469746	45272	0.6097671026930662	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	549	Launchpad Numerics CollectDepositGns call=182/256	paid	7423518	7468790	45272	0.609845628447321	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	550	Launchpad Numerics CollectDepositGns call=183/256	paid	7421827	7467099	45272	0.6099845765739352	43073	-2280	-2280	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	551	Launchpad Numerics CollectDepositGns call=184/256	paid	7542330	7587602	45272	0.6002389182122766	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	552	Launchpad Numerics CollectDepositGns call=185/256	paid	7541374	7586646	45272	0.6003150089095171	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	553	Launchpad Numerics CollectDepositGns call=186/256	paid	7530743	7576015	45272	0.6011624616588297	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	554	Launchpad Numerics CollectDepositGns call=187/256	paid	7529052	7574324	45272	0.6012974807452519	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	555	Launchpad Numerics CollectDepositGns call=188/256	paid	7538395	7583667	45272	0.600552239568237	43073	-5761	-5761	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	556	Launchpad Numerics CollectDepositGns call=189/256	paid	7431970	7477242	45272	0.6091520821531842	43073	-2280	-2280	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	557	Launchpad Numerics CollectDepositGns call=190/256	paid	7431014	7476286	45272	0.6092304495725617	43073	-2280	-2280	0	0	0	0	45	49	6473	45	49	6473
+poc_launchpad_numerics_filetest.gno	558	Launchpad Numerics CollectDepositGns call=191/256	paid	7436061	7481333	45272	0.6088169529539901	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	559	Launchpad Numerics CollectDepositGns call=192/256	paid	7435105	7480377	45272	0.6088952341627993	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	560	Launchpad Numerics CollectDepositGns call=193/256	paid	7424474	7469746	45272	0.6097671026930662	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	561	Launchpad Numerics CollectDepositGns call=194/256	paid	7422783	7468055	45272	0.6099060150350617	43073	-2280	-2280	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	562	Launchpad Numerics CollectDepositGns call=195/256	paid	7421827	7467099	45272	0.6099845765739352	43073	-2280	-2280	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	563	Launchpad Numerics CollectDepositGns call=196/256	paid	7535134	7580406	45272	0.6008121421596484	43073	-5761	-5761	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	564	Launchpad Numerics CollectDepositGns call=197/256	paid	7431973	7477245	45272	0.6091518362620532	43073	-2280	-2280	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	565	Launchpad Numerics CollectDepositGns call=198/256	paid	7430282	7475554	45272	0.6092904683832996	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	566	Launchpad Numerics CollectDepositGns call=199/256	paid	7436787	7482059	45272	0.6087575185358945	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	567	Launchpad Numerics CollectDepositGns call=200/256	paid	7426897	7472169	45272	0.6095681682403836	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	568	Launchpad Numerics CollectDepositGns call=201/256	paid	7425941	7471213	45272	0.6096466427621765	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	569	Launchpad Numerics CollectDepositGns call=202/256	paid	7423518	7468790	45272	0.609845628447321	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	570	Launchpad Numerics CollectDepositGns call=203/256	paid	7422562	7467834	45272	0.6099241744292604	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	571	Launchpad Numerics CollectDepositGns call=204/256	paid	7534813	7580085	45272	0.600837738109758	43073	-5749	-5749	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	572	Launchpad Numerics CollectDepositGns call=205/256	paid	7419325	7464597	45272	0.6101902801130831	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	573	Launchpad Numerics CollectDepositGns call=206/256	paid	7418369	7463641	45272	0.6102689149056888	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	574	Launchpad Numerics CollectDepositGns call=207/256	paid	7407738	7453010	45272	0.6111447246109406	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	575	Launchpad Numerics CollectDepositGns call=208/256	paid	7406047	7451319	45272	0.6112842654117642	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	576	Launchpad Numerics CollectDepositGns call=209/256	paid	7405091	7450363	45272	0.611363182437596	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	577	Launchpad Numerics CollectDepositGns call=210/256	paid	7403397	7448669	45272	0.6115030708200573	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	578	Launchpad Numerics CollectDepositGns call=211/256	paid	7401709	7446981	45272	0.6116425274217077	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	579	Launchpad Numerics CollectDepositGns call=212/256	paid	7531301	7576573	45272	0.6011179210603852	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	580	Launchpad Numerics CollectDepositGns call=213/256	paid	7530345	7575617	45272	0.6011942347926954	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	581	Launchpad Numerics CollectDepositGns call=214/256	paid	7519714	7564986	45272	0.602044173488513	43073	-2280	-2280	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	582	Launchpad Numerics CollectDepositGns call=215/256	paid	7518023	7563295	45272	0.6021795889690681	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	583	Launchpad Numerics CollectDepositGns call=216/256	paid	7517067	7562339	45272	0.602256172520479	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	584	Launchpad Numerics CollectDepositGns call=217/256	paid	7519630	7564902	45272	0.6020508987809241	43073	-5761	-5761	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	585	Launchpad Numerics CollectDepositGns call=218/256	paid	7420051	7465323	45272	0.6101305772696172	43073	-2280	-2280	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	586	Launchpad Numerics CollectDepositGns call=219/256	paid	7418360	7463632	45272	0.6102696552876916	43073	-2280	-2280	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	587	Launchpad Numerics CollectDepositGns call=220/256	paid	7425606	7470878	45272	0.609674146460235	43073	-2280	-2280	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	588	Launchpad Numerics CollectDepositGns call=221/256	paid	7423918	7469190	45272	0.6098127700225138	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	589	Launchpad Numerics CollectDepositGns call=222/256	paid	7422962	7468234	45272	0.609891307540036	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	590	Launchpad Numerics CollectDepositGns call=223/256	paid	7420536	7465808	45272	0.6100906996475727	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	591	Launchpad Numerics CollectDepositGns call=224/256	paid	7419580	7464852	45272	0.6101693087748902	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	592	Launchpad Numerics CollectDepositGns call=225/256	paid	7534693	7579965	45272	0.6008473072492801	43073	-2244	-2244	0	0	0	0	45	49	6473	45	49	6473
+poc_launchpad_numerics_filetest.gno	593	Launchpad Numerics CollectDepositGns call=226/256	paid	7533737	7579009	45272	0.6009235522822206	43073	-2280	-2280	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	594	Launchpad Numerics CollectDepositGns call=227/256	paid	7530573	7575845	45272	0.6011760326870212	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	595	Launchpad Numerics CollectDepositGns call=228/256	paid	7529617	7574889	45272	0.6012523611758739	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	596	Launchpad Numerics CollectDepositGns call=229/256	paid	7527926	7573198	45272	0.6013874206521159	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	597	Launchpad Numerics CollectDepositGns call=230/256	paid	7526235	7571507	45272	0.6015225408188822	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	598	Launchpad Numerics CollectDepositGns call=231/256	paid	7528960	7574232	45272	0.6013048282896973	43073	-5607	-5607	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	599	Launchpad Numerics CollectDepositGns call=232/256	paid	7418521	7463793	45272	0.6102564109476808	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	600	Launchpad Numerics CollectDepositGns call=233/256	paid	7396769	7442041	45272	0.612051018491993	43073	-2275	-2275	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	601	Launchpad Numerics CollectDepositGns call=234/256	paid	7509807	7555079	45272	0.6028383951811278	43073	-2274	-2274	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	602	Launchpad Numerics CollectDepositGns call=235/256	paid	7508116	7553388	45272	0.6029741682200968	43073	-2274	-2274	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	603	Launchpad Numerics CollectDepositGns call=236/256	paid	7507160	7552432	45272	0.6030509540225598	43073	-2274	-2274	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	604	Launchpad Numerics CollectDepositGns call=237/256	paid	7504734	7550006	45272	0.60324589785594	43073	-2274	-2274	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	605	Launchpad Numerics CollectDepositGns call=238/256	paid	7503778	7549050	45272	0.6033227528852799	43073	-2274	-2274	0	0	0	0	46	49	6474	46	49	6474
+poc_launchpad_numerics_filetest.gno	606	Launchpad Numerics CollectDepositGns call=239/256	paid	7612589	7657861	45272	0.5946991227294682	43073	-2274	-2274	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	607	Launchpad Numerics CollectDepositGns call=240/256	paid	7629645	7674917	45272	0.593369678405745	43073	-2273	-2273	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	608	Launchpad Numerics CollectDepositGns call=241/256	paid	7610651	7655923	45272	0.5948505587761153	43073	-9446	-9446	0	0	0	0	45	50	6473	45	50	6473
+poc_launchpad_numerics_filetest.gno	609	Launchpad Numerics CollectDepositGns call=242/256	paid	7445428	7490700	45272	0.6080510079474276	43073	-2273	-2273	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	610	Launchpad Numerics CollectDepositGns call=243/256	paid	7444475	7489747	45272	0.6081288472323434	43073	-2273	-2273	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	611	Launchpad Numerics CollectDepositGns call=244/256	paid	7442052	7487324	45272	0.6083268431878734	43073	-2273	-2273	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	612	Launchpad Numerics CollectDepositGns call=245/256	paid	7441099	7486371	45272	0.6084047531150977	43073	-2273	-2273	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	613	Launchpad Numerics CollectDepositGns call=246/256	paid	7439411	7484683	45272	0.6085427999609109	43073	-2273	-2273	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	614	Launchpad Numerics CollectDepositGns call=247/256	paid	7327257	7372529	45272	0.6178574055748284	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	615	Launchpad Numerics CollectDepositGns call=248/256	paid	7325278	7370550	45272	0.6180243261757438	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	616	Launchpad Numerics CollectDepositGns call=249/256	paid	7314647	7359919	45272	0.6189225536105843	43073	-2280	-2280	0	0	0	0	45	49	6474	45	49	6474
+poc_launchpad_numerics_filetest.gno	617	Launchpad Numerics CollectDepositGns call=250/256	paid	7301768	7347040	45272	0.6200142212132733	43073	-2280	-2280	0	0	0	0	46	50	6474	46	50	6474
+poc_launchpad_numerics_filetest.gno	618	Launchpad Numerics CollectDepositGns call=251/256	paid	7299345	7344617	45272	0.6202200334413567	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	619	Launchpad Numerics CollectDepositGns call=252/256	paid	7298389	7343661	45272	0.620301274705966	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	620	Launchpad Numerics CollectDepositGns call=253/256	paid	7296698	7341970	45272	0.620445028696542	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	621	Launchpad Numerics CollectDepositGns call=254/256	paid	7281617	7326889	45272	0.621730036062045	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	622	Launchpad Numerics CollectDepositGns call=255/256	paid	7280661	7325933	45272	0.621811673418114	43073	-2280	-2280	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	623	Launchpad Numerics CollectDepositGns call=256/256	paid	7259369	7304641	45272	0.6236354702454167	43073	-8812	-8812	0	0	0	0	45	50	6474	45	50	6474
+poc_launchpad_numerics_filetest.gno	624	Launchpad Numerics TransferLeftFromProjectByAdmin	paid	1397082	1325502	-71580	-5.12353605586501	-65273	27	21	-6	-600	-600	0	-72	-78	-10236	-672	-678	-10836

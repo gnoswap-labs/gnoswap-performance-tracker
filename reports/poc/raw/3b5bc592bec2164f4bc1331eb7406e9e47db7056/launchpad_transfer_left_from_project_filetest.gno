@@ -1,0 +1,93 @@
+// PKGPATH: gno.land/r/gnoswap/scenario/metric/main
+
+// Gas and performance metrics for launchpad TransferLeftFromProjectByAdmin
+// Test cases based on gnoswap/contract/r/scenario/launchpad/launchpad_refund_ended_project_no_deposit_filetest.gno
+package main
+
+import (
+	"testing"
+	"time"
+
+	prabc "gno.land/p/gnoswap/rbac"
+	"gno.land/p/nt/testutils/v0"
+	_ "gno.land/r/gnoswap/rbac"
+
+	_ "gno.land/r/gnoswap/launchpad/v1"
+
+	"gno.land/r/gnoswap/access"
+	"gno.land/r/gnoswap/launchpad"
+	"gno.land/r/onbloc/obl"
+
+	"gno.land/r/gnoswap/scenario/metric"
+)
+
+const blockTimeSeconds int64 = 5
+
+var (
+	adminAddr, _ = access.GetAddress(prabc.ROLE_ADMIN.String())
+	adminRealm   = testing.NewUserRealm(adminAddr)
+
+	launchpadAddr, _ = access.GetAddress(prabc.ROLE_LAUNCHPAD.String())
+
+	projectAddr = testutils.TestAddress("project-owner")
+
+	maxInt64 int64 = 9223372036854775807
+)
+
+var t *testing.T
+
+func main(cur realm) {
+	initializeSetup(cur)
+	projectId := createLaunchpadProject(cur)
+	skipToProjectEnd()
+	transferLeftFromProjectMetric(cur, projectId)
+}
+
+func initializeSetup(cur realm) {
+	testing.SetRealm(adminRealm)
+	obl.Approve(cross(cur), launchpadAddr, maxInt64)
+}
+
+func createLaunchpadProject(cur realm) string {
+	testing.SetRealm(adminRealm)
+
+	projectId := launchpad.CreateProject(
+		cross(cur),
+		"OBL Launchpad Project",
+		"gno.land/r/onbloc/obl.OBL",
+		projectAddr,
+		int64(1_000_000_000),
+		"",
+		"",
+		int64(10),
+		int64(20),
+		int64(70),
+		time.Now().Unix()+604800,
+	)
+
+	// Activate project.
+	testing.SkipHeights(604800 / blockTimeSeconds)
+
+	return projectId
+}
+
+func skipToProjectEnd() {
+	projectDurationSeconds := int64(180 * 24 * 60 * 60)
+	testing.SkipHeights(projectDurationSeconds/blockTimeSeconds + 1)
+}
+
+func transferLeftFromProjectMetric(cur realm, projectId string) {
+	testing.SetRealm(adminRealm)
+
+	metric.PrintMetricsBy("Launchpad TransferLeftFromProjectByAdmin", func() {
+		_ = launchpad.TransferLeftFromProjectByAdmin(cross(cur), projectId, projectAddr)
+	})
+}
+
+// Output:
+// Launchpad TransferLeftFromProjectByAdmin
+// - Gas Used: 1268570
+// - Storage Diff: 41
+// - CPU Cycles: 1078780
+// - Realm gno.land/r/gnoswap/launchpad: 36
+// - Realm gno.land/r/onbloc/obl: 5
