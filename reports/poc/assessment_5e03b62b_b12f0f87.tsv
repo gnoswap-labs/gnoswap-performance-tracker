@@ -1,0 +1,15 @@
+fixture	sample	label	baseline_gas	candidate_gas	gas_delta	baseline_net_realm_bytes	candidate_net_realm_bytes	storage_delta_bytes	storage_delta_ugnot	gas_delta_ugnot	total_delta_ugnot
+poc_launchpad_numerics_filetest.gno	0	Launchpad Numerics CreateProject	6818137	6760921	-57216	32744	28412	-4332	-433200	-58	-433258
+poc_launchpad_numerics_filetest.gno	1	Launchpad Numerics DepositGns 1 (cold)	6393085	6440014	46929	27369	27008	-361	-36100	47	-36053
+poc_launchpad_numerics_filetest.gno	2	Launchpad Numerics DepositGns 32 (warm)	6072479	6125915	53436	3929	3568	-361	-36100	53	-36047
+poc_launchpad_numerics_filetest.gno	3	Launchpad Numerics DepositGns 128 (warm)	6131903	6185291	53388	3956	3592	-364	-36400	54	-36346
+poc_launchpad_numerics_filetest.gno	4	Launchpad Numerics DepositGns 256 (warm)	6481645	6535045	53400	7526	7162	-364	-36400	54	-36346
+poc_launchpad_numerics_filetest.gno	5	Launchpad Numerics CollectReward first (records=256)	3183372	3218250	34878	2046	2046	0	0	35	35
+poc_launchpad_numerics_filetest.gno	6	Launchpad Numerics CollectReward middle (records=256)	2827088	2857284	30196	12	12	0	0	30	30
+poc_launchpad_numerics_filetest.gno	7	Launchpad Numerics CollectReward last (records=256)	2927430	2957482	30052	36	36	0	0	30	30
+poc_launchpad_numerics_filetest.gno	8	Launchpad Numerics CollectReward repeat-first (records=256)	3156409	3191287	34878	0	0	0	0	35	35
+poc_launchpad_numerics_filetest.gno	9	Launchpad Numerics CollectReward repeat-middle (records=256)	2827088	2857284	30196	0	0	0	0	30	30
+poc_launchpad_numerics_filetest.gno	10	Launchpad Numerics CollectReward repeat-last (records=256)	2927430	2957482	30052	0	0	0	0	30	30
+poc_launchpad_numerics_filetest.gno	11	Launchpad Numerics CollectDepositGns first (records=256)	8027025	8090741	63716	-3652	-3291	361	36100	63	36163
+poc_launchpad_numerics_filetest.gno	12	Launchpad Numerics CollectDepositGns middle (records=256)	7411475	7470509	59034	-2292	-1928	364	36400	59	36459
+poc_launchpad_numerics_filetest.gno	13	Launchpad Numerics CollectDepositGns last (records=256)	7218799	7277833	59034	-8824	-8460	364	36400	59	36459
