@@ -3,6 +3,10 @@
 // Real-contract PoC for value-backed staker numerics. The fixture exercises
 // deposit creation and repeated updates, signed tick crossing, and external
 // incentive creation/collection/refund before deleting the deposit.
+//
+// The 32-position lower-tick ladder is large enough to span multiple tree
+// nodes while keeping this single lifecycle executable; the high reward amount
+// remains below the BAR fixture's finite 100T supply.
 package main
 
 import (
@@ -35,6 +39,15 @@ import (
 	"gno.land/r/onbloc/foo"
 )
 
+const (
+	numericBoundaryCount int32  = 32
+	numericTickSpacing    int32  = 60
+	numericBoundaryUpper int32  = 6000
+	numericWideAmount     string = "500000000"
+	numericBoundaryAmount string = "1000000"
+	numericRewardAmount   int64  = 90000000000000
+)
+
 var (
 	adminAddr, _ = access.GetAddress(prbac.ROLE_ADMIN.String())
 	adminRealm   = testing.NewUserRealm(adminAddr)
@@ -51,11 +64,12 @@ var (
 
 	maxInt64 int64 = 9223372036854775807
 
-	widePositionID   uint64
-	narrowPositionID uint64
-	incentiveID      string
-	incentiveStart   int64
-	incentiveEnd     int64
+	widePositionID     uint64
+	narrowPositionID   uint64
+	numericPositionIDs []uint64
+	incentiveID        string
+	incentiveStart     int64
+	incentiveEnd       int64
 )
 
 func main(cur realm) {
@@ -81,8 +95,8 @@ func initializeStakerNumericSetup(cur realm) {
 		panic("GNS distribution did not execute")
 	}
 
-	bar.Transfer(cross(cur), aliceAddr, 100000000)
-	foo.Transfer(cross(cur), aliceAddr, 100000000)
+	bar.Transfer(cross(cur), aliceAddr, 2000000000)
+	foo.Transfer(cross(cur), aliceAddr, 2000000000)
 
 	bar.Approve(cross(cur), poolAddr, maxInt64)
 	foo.Approve(cross(cur), poolAddr, maxInt64)
@@ -102,39 +116,65 @@ func mintStakerNumericPositions(cur realm) {
 	bar.Approve(cross(cur), poolAddr, maxInt64)
 	foo.Approve(cross(cur), poolAddr, maxInt64)
 
+	// Use fee-tier-aligned extremes for the wide record and smaller
+	// out-of-range records for the staged lower-tick workload.
 	widePositionID, _, _, _ = position.Mint(
 		cross(cur), barPath, fooPath, 3000,
-		-6000, 6000,
-		"5000000", "5000000", "0", "0",
+		-887220, 887220,
+		numericWideAmount, numericWideAmount, "0", "0",
 		9999999999, aliceAddr, "",
 	)
-	narrowPositionID, _, _, _ = position.Mint(
-		cross(cur), barPath, fooPath, 3000,
-		60, 120,
-		"5000000", "5000000", "0", "0",
-		9999999999, aliceAddr, "",
-	)
+
+	numericPositionIDs = make([]uint64, 0, numericBoundaryCount)
+	for i := int32(1); i <= numericBoundaryCount; i++ {
+		tickLower := i * numericTickSpacing
+		positionID, _, _, _ := position.Mint(
+			cross(cur), barPath, fooPath, 3000,
+			tickLower, numericBoundaryUpper,
+			numericBoundaryAmount, "0", "0", "0",
+			9999999999, aliceAddr, "",
+		)
+		numericPositionIDs = append(numericPositionIDs, positionID)
+		if i == 1 {
+			narrowPositionID = positionID
+		}
+	}
 }
 
 func stakeStakerNumericPositions(cur realm) {
 	testing.SetRealm(aliceRealm)
 	gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.FormatUint(widePositionID, 10)))
-	gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.FormatUint(narrowPositionID, 10)))
+	for _, positionID := range numericPositionIDs {
+		gnft.Approve(cross(cur), stakerAddr, grc721.TokenID(strconv.FormatUint(positionID, 10)))
+	}
 
-	metric.PrintMetricsBy("StakerNumbers deposit stake wide", func() {
+	testing.SkipHeights(1)
+	metric.PrintMetricsBy("StakerNumbers deposit stake wide (first allocation)", func() {
 		staker.StakeToken(cross(cur), widePositionID, "")
 	})
 	if !staker.IsStaked(widePositionID) {
 		panic("wide position was not staked")
 	}
 
-	metric.PrintMetricsBy("StakerNumbers deposit stake narrow", func() {
+	testing.SkipHeights(1)
+	metric.PrintMetricsBy("StakerNumbers deposit stake boundary (first allocation)", func() {
 		staker.StakeToken(cross(cur), narrowPositionID, "")
 	})
 	if !staker.IsStaked(narrowPositionID) {
 		panic("narrow position was not staked")
 	}
+
+	testing.SkipHeights(1)
+	metric.PrintMetricsBy("StakerNumbers deposit stake boundary (31 allocations)", func() {
+		for i := 1; i < len(numericPositionIDs); i++ {
+			testing.SkipHeights(1)
+			staker.StakeToken(cross(cur), numericPositionIDs[i], "")
+		}
+	})
+	assertStakerNumericAggregate("after_stake", false)
 	printStakerNumericDepositState("after_stake", widePositionID)
+	printStakerNumericDepositState("after_stake_boundary_first", narrowPositionID)
+	printStakerNumericDepositState("after_stake_boundary_last", numericPositionIDs[len(numericPositionIDs)-1])
 }
 
 func measureStakerNumericDeposits(cur realm) {
@@ -146,6 +186,7 @@ func measureStakerNumericDeposits(cur realm) {
 	if !staker.IsStaked(widePositionID) {
 		panic("collect removed the wide deposit")
 	}
+	assertStakerNumericAggregate("after_collect", false)
 	printStakerNumericDepositState("after_collect", widePositionID)
 
 	testing.SkipHeights(1)
@@ -155,7 +196,21 @@ func measureStakerNumericDeposits(cur realm) {
 	if !staker.IsStaked(widePositionID) {
 		panic("repeat collect removed the wide deposit")
 	}
+	assertStakerNumericAggregate("after_collect_repeat", false)
 	printStakerNumericDepositState("after_collect_repeat", widePositionID)
+
+	// Rewrite every staged deposit once after its first allocation. Keeping
+	// this separate from the stake metrics isolates value-field rewrites.
+	testing.SkipHeights(1)
+	metric.PrintMetricsBy("StakerNumbers deposit collect batch rewrite (32 deposits)", func() {
+		for _, positionID := range numericPositionIDs {
+			testing.SkipHeights(1)
+			staker.CollectReward(cross(cur), positionID)
+		}
+	})
+	assertStakerNumericAggregate("after_batch_collect", false)
+	printStakerNumericDepositState("after_batch_collect_boundary_first", narrowPositionID)
+	printStakerNumericDepositState("after_batch_collect_boundary_last", numericPositionIDs[len(numericPositionIDs)-1])
 }
 
 func stakerNumericSwapCallback(cur realm, amount0Delta, amount1Delta int64, _ *pl.CallbackMarker) error {
@@ -171,29 +226,42 @@ func stakerNumericSwapCallback(cur realm, amount0Delta, amount1Delta int64, _ *p
 
 func measureStakerNumericTicks(cur realm) {
 	testing.SetRealm(testing.NewCodeRealm("gno.land/r/gnoswap/router"))
-	metric.PrintMetricsBy("StakerNumbers tick cross positive", func() {
+	metric.PrintMetricsBy("StakerNumbers tick cross positive (32 lower ticks)", func() {
 		pl.Swap(
 			cross(cur), barPath, fooPath, 3000, adminAddr, false,
-			"100000000", gnsmath.TickMathGetSqrtRatioAtTick(61).ToString(),
+			"500000000", gnsmath.TickMathGetSqrtRatioAtTick(numericBoundaryCount*numericTickSpacing + 1).ToString(),
 			stakerNumericSwapCallback,
 		)
 	})
 	currentTick, _ := pl.GetSlot0Tick(poolPath)
-	if currentTick < 60 || currentTick >= 120 {
-		panic("positive swap did not cross the lower staked tick")
+	if currentTick < numericBoundaryCount*numericTickSpacing || currentTick >= numericBoundaryUpper {
+		panic("positive swap did not activate all staged lower ticks")
 	}
 	printStakerNumericTickState("after_positive_cross", true)
 
-	metric.PrintMetricsBy("StakerNumbers tick cross negative", func() {
+	metric.PrintMetricsBy("StakerNumbers tick cross positive upper rewrite", func() {
 		pl.Swap(
-			cross(cur), barPath, fooPath, 3000, adminAddr, true,
-			"100000000", gnsmath.TickMathGetSqrtRatioAtTick(59).ToString(),
+			cross(cur), barPath, fooPath, 3000, adminAddr, false,
+			"500000000", gnsmath.TickMathGetSqrtRatioAtTick(numericBoundaryUpper+1).ToString(),
 			stakerNumericSwapCallback,
 		)
 	})
 	currentTick, _ = pl.GetSlot0Tick(poolPath)
-	if currentTick < 0 || currentTick >= 60 {
-		panic("negative swap did not cross back below the lower staked tick")
+	if currentTick < numericBoundaryUpper {
+		panic("positive swap did not cross the shared upper tick")
+	}
+	printStakerNumericTickState("after_upper_cross", false)
+
+	metric.PrintMetricsBy("StakerNumbers tick cross negative (32 lower ticks)", func() {
+		pl.Swap(
+			cross(cur), barPath, fooPath, 3000, adminAddr, true,
+			"500000000", gnsmath.TickMathGetSqrtRatioAtTick(59).ToString(),
+			stakerNumericSwapCallback,
+		)
+	})
+	currentTick, _ = pl.GetSlot0Tick(poolPath)
+	if currentTick < 0 || currentTick >= numericTickSpacing {
+		panic("negative swap did not deactivate the staged lower ticks")
 	}
 	printStakerNumericTickState("after_negative_cross", false)
 }
@@ -205,7 +273,7 @@ func measureStakerNumericIncentive(cur realm) {
 
 	metric.PrintMetricsBy("StakerNumbers incentive create", func() {
 		staker.CreateExternalIncentive(
-			cross(cur), poolPath, barPath, 1000000000,
+			cross(cur), poolPath, barPath, numericRewardAmount,
 			incentiveStart, incentiveEnd,
 		)
 	})
@@ -252,13 +320,20 @@ func measureStakerNumericIncentive(cur realm) {
 	if err != nil {
 		panic("failed to read pool liquidity after unstake")
 	}
+	if u256.MustFromDecimal(poolStaked).Sign() != 0 {
+		panic("wide unstake left active pool liquidity")
+	}
 	println(ufmt.Sprintf("STATE staker-numerics deposit after_unstake %d present=false pool_staked=%s", widePositionID, poolStaked))
 }
 
 func printStakerNumericDepositState(label string, positionID uint64) {
 	deposit, err := staker.GetDeposit(positionID)
-	if err != nil {
+	if err != nil || deposit == nil {
 		panic("failed to read staker deposit")
+	}
+	liquidity := deposit.Liquidity()
+	if liquidity == nil || liquidity.IsZero() {
+		panic("staker deposit liquidity disappeared")
 	}
 	poolStaked, err := staker.GetPoolStakedLiquidity(poolPath)
 	if err != nil {
@@ -266,7 +341,7 @@ func printStakerNumericDepositState(label string, positionID uint64) {
 	}
 	println(ufmt.Sprintf(
 		"STATE staker-numerics deposit %s %d %s %s %d %d %d %d %d %s %s",
-		label, positionID, deposit.Owner().String(), deposit.Liquidity().ToString(),
+		label, positionID, deposit.Owner().String(), liquidity.ToString(),
 		deposit.StakeTime(), deposit.InternalRewardLastCollectTime(),
 		deposit.CollectedInternalReward(), deposit.TickLower(), deposit.TickUpper(),
 		deposit.TargetPoolPath(), poolStaked,
@@ -284,38 +359,96 @@ func printStakerNumericTickState(label string, narrowActive bool) {
 	}
 
 	wideDeposit, err := staker.GetDeposit(widePositionID)
-	if err != nil {
+	if err != nil || wideDeposit == nil {
 		panic("failed to read wide deposit for tick state")
 	}
-	narrowDeposit, err := staker.GetDeposit(narrowPositionID)
-	if err != nil {
-		panic("failed to read narrow deposit for tick state")
-	}
-	if narrowDeposit.TickLower() != 60 || narrowDeposit.TickUpper() != 120 {
-		panic("narrow deposit boundary record changed")
+	wideGross := wideDeposit.Liquidity()
+	if wideGross == nil || wideGross.IsZero() {
+		panic("wide staked gross liquidity disappeared")
 	}
 
-	wideGross := wideDeposit.Liquidity()
-	narrowGross := narrowDeposit.Liquidity()
-	if wideGross == nil || narrowGross == nil || wideGross.IsZero() || narrowGross.IsZero() {
-		panic("staked gross liquidity disappeared from deposit records")
+	boundaryGross := u256.Zero()
+	for _, positionID := range numericPositionIDs {
+		deposit, depositErr := staker.GetDeposit(positionID)
+		if depositErr != nil || deposit == nil {
+			panic("failed to read staged deposit for tick state")
+		}
+		if deposit.TickUpper() != numericBoundaryUpper {
+			panic("staged deposit upper boundary changed")
+		}
+		gross := deposit.Liquidity()
+		if gross == nil || gross.IsZero() {
+			panic("staged deposit gross liquidity disappeared")
+		}
+		boundaryGross.Add(boundaryGross, gross)
 	}
+
 	expected := u256.Zero().Set(wideGross)
 	if narrowActive {
-		expected.Add(expected, narrowGross)
+		expected.Add(expected, boundaryGross)
 	}
 	actual := u256.MustFromDecimal(poolStaked)
 	if !actual.Eq(expected) {
 		panic("signed boundary delta did not produce expected active gross liquidity")
 	}
 	historicalTicks := staker.GetPoolHistoricalTicks(poolPath)
-	if historicalTicks == nil {
+	if historicalTicks == nil || historicalTicks.Size() < 2 {
 		panic("pool historical tick cursor disappeared")
 	}
 	println(ufmt.Sprintf(
-		"STATE staker-numerics tick %s current_tick=%d pool_staked=%s expected=%s wide_gross=%s narrow_gross=%s narrow_active=%t historical_ticks=%d",
+		"STATE staker-numerics tick %s current_tick=%d pool_staked=%s expected=%s wide_gross=%s boundary_gross=%s narrow_active=%t boundary_records=%d historical_ticks=%d",
 		label, currentTick, poolStaked, expected.ToString(), wideGross.ToString(),
-		narrowGross.ToString(), narrowActive, historicalTicks.Size(),
+		boundaryGross.ToString(), narrowActive, len(numericPositionIDs), historicalTicks.Size(),
+	))
+}
+
+func assertStakerNumericAggregate(label string, boundaryActive bool) {
+	if len(numericPositionIDs) != int(numericBoundaryCount) {
+		panic("staged deposit count changed")
+	}
+
+	wideDeposit, err := staker.GetDeposit(widePositionID)
+	if err != nil || wideDeposit == nil {
+		panic("failed to read wide deposit aggregate")
+	}
+	wideGross := wideDeposit.Liquidity()
+	if wideGross == nil || wideGross.IsZero() {
+		panic("wide aggregate liquidity disappeared")
+	}
+
+	boundaryGross := u256.Zero()
+	for i, positionID := range numericPositionIDs {
+		deposit, depositErr := staker.GetDeposit(positionID)
+		if depositErr != nil || deposit == nil {
+			panic("failed to read staged deposit aggregate")
+		}
+		expectedLower := int32(i+1) * numericTickSpacing
+		if deposit.TickLower() != expectedLower || deposit.TickUpper() != numericBoundaryUpper {
+			panic("staged deposit tick boundary changed")
+		}
+		gross := deposit.Liquidity()
+		if gross == nil || gross.IsZero() {
+			panic("staged aggregate liquidity disappeared")
+		}
+		boundaryGross.Add(boundaryGross, gross)
+	}
+
+	expected := u256.Zero().Set(wideGross)
+	if boundaryActive {
+		expected.Add(expected, boundaryGross)
+	}
+	poolStaked, err := staker.GetPoolStakedLiquidity(poolPath)
+	if err != nil {
+		panic("failed to read aggregate pool liquidity")
+	}
+	actual := u256.MustFromDecimal(poolStaked)
+	if !actual.Eq(expected) {
+		panic("aggregate pool liquidity changed unexpectedly")
+	}
+	println(ufmt.Sprintf(
+		"STATE staker-numerics aggregate %s deposits=%d boundary_records=%d pool_staked=%s expected=%s boundary_active=%t",
+		label, len(numericPositionIDs)+1, len(numericPositionIDs),
+		poolStaked, expected.ToString(), boundaryActive,
 	))
 }
 
