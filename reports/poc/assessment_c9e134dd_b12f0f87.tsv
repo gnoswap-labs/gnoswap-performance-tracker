@@ -1,0 +1,15 @@
+fixture	sample	label	baseline_gas	candidate_gas	gas_delta	baseline_net_realm_bytes	candidate_net_realm_bytes	storage_delta_bytes	storage_delta_ugnot	gas_delta_ugnot	total_delta_ugnot
+poc_proposal_metadata_filetest.gno	0	Proposal metadata lifecycle text (4KiB, 32 proposals)	121553764	130983387	9429623	584356	558377	-25979	-2597900	9430	-2588470
+poc_proposal_metadata_filetest.gno	1	Proposal metadata lifecycle text (4KiB, 96 proposals, total 128)	386685310	417201419	30516109	1749185	1669305	-79880	-7988000	30516	-7957484
+poc_proposal_metadata_filetest.gno	2	Proposal metadata root Proposal reads (128 proposals)	21303579	21033755	-269824	0	0	0	0	-270	-270
+poc_proposal_metadata_filetest.gno	3	Proposal metadata nested metadata reads (128 proposals)	25044875	34664075	9619200	0	0	0	0	9620	9620
+poc_proposal_metadata_filetest.gno	4	Proposal metadata list and voting-info reads (128 proposals)	22759662	22526574	-233088	0	0	0	0	-233	-233
+poc_proposal_metadata_filetest.gno	5	Proposal metadata create text (8KiB, total 129)	2430344	2512490	82146	17324	16528	-796	-79600	82	-79518
+poc_proposal_metadata_filetest.gno	6	Proposal metadata root Proposal read (8KiB)	239395	237287	-2108	0	0	0	0	-2	-2
+poc_proposal_metadata_filetest.gno	7	Proposal metadata nested metadata reads (8KiB)	269860	345010	75150	0	0	0	0	76	76
+poc_proposal_metadata_filetest.gno	8	Proposal metadata vote text (8KiB)	1278317	1545158	266841	4471	4435	-36	-3600	267	-3333
+poc_proposal_metadata_filetest.gno	9	Proposal metadata create spend (8KiB)	2904899	3000846	95947	19565	18771	-794	-79400	96	-79304
+poc_proposal_metadata_filetest.gno	10	Proposal metadata cancel spend	670804	872999	202195	106	70	-36	-3600	202	-3398
+poc_proposal_metadata_filetest.gno	11	Proposal metadata create parameter change (4KiB)	3438831	3546626	107795	14153	13359	-794	-79400	108	-79292
+poc_proposal_metadata_filetest.gno	12	Proposal metadata vote parameter change	1285008	1566103	281095	4471	4435	-36	-3600	281	-3319
+poc_proposal_metadata_filetest.gno	13	Proposal metadata execute parameter change	2677051	2807072	130021	76	64	-12	-1200	130	-1070
