@@ -7,6 +7,7 @@ help:
 	@echo "Usage (Metric Reports):"
 	@echo "  make metric <commits>              # Generate metric reports (skip existing)"
 	@echo "  make metric-force <commits>        # Force regenerate all metric reports"
+	@echo "  METRIC_FILES=<glob> ...             # Limit metric runs to matching fixtures"
 	@echo "  make stress <commits>              # Generate stress reports (skip existing)"
 	@echo "  make stress-force <commits>        # Force regenerate all stress reports"
 	@echo ""
@@ -163,6 +164,7 @@ gas-report:
 	(cd "$$GNOSWAP_WORKTREE" && python3 setup.py --exclude-tests -w "$$RUN_ROOT"); \
 	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
 	cp -r tests/metric "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
+	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" -maxdepth 1 -type f -name '*_filetest.gno*' ! -name "$(or $(METRIC_FILES),*_filetest.gno*)" -delete; \
 	mkdir -p "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests"; \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) -exec mv {} "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests/" \;; \
 	mkdir -p reports/metric/commits; \
