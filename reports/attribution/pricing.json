@@ -1,0 +1,151 @@
+{
+  "observed_at": "2026-09-10T08:49:02.071342+00:00",
+  "rpc": "https://rpc.pearl.testnets.gno.land",
+  "responses": {
+    "status": {
+      "url": "https://rpc.pearl.testnets.gno.land/status",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "node_info": {
+            "version_set": [
+              {
+                "Name": "abci",
+                "Version": "v1.0.0-rc.0",
+                "Optional": false
+              },
+              {
+                "Name": "app",
+                "Version": "",
+                "Optional": false
+              },
+              {
+                "Name": "bft",
+                "Version": "v1.0.0-rc.0",
+                "Optional": false
+              },
+              {
+                "Name": "blockchain",
+                "Version": "v1.0.0-rc.0",
+                "Optional": false
+              },
+              {
+                "Name": "p2p",
+                "Version": "v1.0.0-rc.0",
+                "Optional": false
+              }
+            ],
+            "net_address": "g1pw8u479ltgzcs7249t8kx3clftgy5tzn9lz48q@0.0.0.0:26656",
+            "network": "pearl-1",
+            "software": "",
+            "version": "v1.0.0-rc.0",
+            "channels": "QCAhIiMwUA==",
+            "moniker": "gno-core-rpc-public-i-06569aa43b66867dc",
+            "other": {
+              "tx_index": "off",
+              "rpc_address": "tcp://0.0.0.0:26657"
+            }
+          },
+          "sync_info": {
+            "latest_block_hash": "XjeOBHPfGcBgBQuTRE7mlZhh+kMwF3/uVwaTI1abZ2c=",
+            "latest_app_hash": "Ncxx8o5Iu302xxxkjfs/2yaTTiLS0jM4Z+NZ7anctkM=",
+            "latest_block_height": "334247",
+            "latest_block_time": "2026-09-10T08:48:58.046582318Z",
+            "catching_up": false
+          },
+          "validator_info": {
+            "address": "g13g693c7fwzszwwuydcnpl3suwevvyu2mw28cj3",
+            "pub_key": {
+              "@type": "/tm.PubKeyEd25519",
+              "value": "gVyXaygWkg7QstmVaPVQoA54nDJ3uOeZrxxR46e7tNw="
+            },
+            "voting_power": "0"
+          },
+          "build_version": "heads/chain/pearl.3320+c4c72fdd2"
+        }
+      }
+    },
+    "gasprice": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22auth/gasprice%22&height=334227",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "ewogICJnYXMiOiAiMTAwMCIsCiAgInByaWNlIjogIjF1Z25vdCIKfQ==",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": {
+        "gas": "1000",
+        "price": "1ugnot"
+      }
+    },
+    "storage": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22params/vm%3Ap%3Astorage_price%22&height=334227",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "IjEwMHVnbm90Ig==",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": "100ugnot"
+    },
+    "restricted": {
+      "url": "https://rpc.pearl.testnets.gno.land/abci_query?path=%22params/bank%3Ap%3Arestricted_denoms%22&height=334227",
+      "raw": {
+        "jsonrpc": "2.0",
+        "id": "",
+        "result": {
+          "response": {
+            "ResponseBase": {
+              "Error": null,
+              "Data": "W10=",
+              "Events": null,
+              "Log": "",
+              "Info": ""
+            },
+            "Key": null,
+            "Value": null,
+            "Proof": null,
+            "Height": "0"
+          }
+        }
+      },
+      "decoded": []
+    }
+  },
+  "model": {
+    "gas_ugnot_per_1000": 1,
+    "storage_ugnot_per_byte": 100,
+    "same_fixed_fee_gas_delta": 0,
+    "buffered_fee_multiplier": 1.1,
+    "local_refund_assumption": "fresh-state uniform 100 ugnot per byte per realm; simulated net storage, not actual bank settlement",
+    "query_fee": 0,
+    "historical_sensitivity_ugnot_per_1000": 143
+  }
+}

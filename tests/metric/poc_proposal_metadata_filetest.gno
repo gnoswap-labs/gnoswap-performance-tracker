@@ -24,14 +24,14 @@ import (
 )
 
 var (
-	pmdAdminAddr, _    = access.GetAddress(prabc.ROLE_ADMIN.String())
-	pmdAdminRealm      = testing.NewUserRealm(pmdAdminAddr)
-	pmdGovStakerAddr, _ = access.GetAddress(prabc.ROLE_GOV_STAKER.String())
-	pmdMaxInt64 int64  = 9223372036854775807
+	pmdAdminAddr, _           = access.GetAddress(prabc.ROLE_ADMIN.String())
+	pmdAdminRealm             = testing.NewUserRealm(pmdAdminAddr)
+	pmdGovStakerAddr, _       = access.GetAddress(prabc.ROLE_GOV_STAKER.String())
+	pmdMaxInt64         int64 = 9223372036854775807
 )
 
 const (
-	pmdFirstBatchCount  = 32
+	pmdFirstBatchCount    = 32
 	pmdFinalProposalCount = 128
 )
 
@@ -204,22 +204,23 @@ func pmdMeasureTextLifecycle(
 	description string,
 	label string,
 ) {
-	testing.SetRealm(pmdAdminRealm)
-	metric.PrintMetricsBy(label, func() {
-		for i := 0; i < proposalCount; i++ {
-			expectedID := startProposalID + int64(i)
-
-			testing.SetRealm(pmdAdminRealm)
-			proposalID := governance.ProposeText(cross(cur), pmdTextTitle(expectedID), description)
-			if proposalID != expectedID {
-				panic("proposal lifecycle counter diverged")
-			}
-
-			testing.SetRealm(pmdAdminRealm)
-			governance.Vote(cross(cur), proposalID, true)
-			testing.SkipHeights(2)
+	for i := 0; i < proposalCount; i++ {
+		expectedID := startProposalID + int64(i)
+		title := pmdTextTitle(expectedID)
+		var proposalID int64
+		testing.SetRealm(pmdAdminRealm)
+		metric.PrintMetricsBy(ufmt.Sprintf("%s create %03d", label, expectedID), func() {
+			proposalID = governance.ProposeText(cross(cur), title, description)
+		})
+		if proposalID != expectedID {
+			panic("proposal lifecycle counter diverged")
 		}
-	})
+		testing.SetRealm(pmdAdminRealm)
+		metric.PrintMetricsBy(ufmt.Sprintf("%s vote %03d", label, expectedID), func() {
+			governance.Vote(cross(cur), proposalID, true)
+		})
+		testing.SkipHeights(2)
+	}
 }
 
 func pmdMeasureRootReads(cur realm, proposalCount int) {

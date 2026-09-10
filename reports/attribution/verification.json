@@ -1,0 +1,16 @@
+{
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "runtime": "bac78a97b20e12ba471bdd73a41af31bd94bdc12",
+  "metric_success": true,
+  "unit_commands": [],
+  "metric_command": [
+    "make",
+    "compare-metric-force",
+    "c9e134dd90fc8f50b2ed9b8e311a6d86df5b088a",
+    "602716defb8bdc21c8c226477b9f3b06cc6dbd81",
+    "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68"
+  ],
+  "non_golden_replay": true,
+  "state_and_fixture_parity": true,
+  "lsp": "No Gno language server configured; exact reference search used"
+}

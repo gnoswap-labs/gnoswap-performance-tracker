@@ -1,0 +1,33 @@
+{
+  "group": "proposal",
+  "baseline": "b12f0f8760a3e88e9539b0c8cfd32b38a5297c68",
+  "fixture_files": [
+    "tests/metric/poc_proposal_metadata_filetest.gno"
+  ],
+  "query_prefixes": [
+    "Proposal metadata root Proposal",
+    "Proposal metadata nested metadata",
+    "Proposal metadata list and voting-info"
+  ],
+  "scope_notes": [
+    "Same 128-proposal 4KiB lifecycle followed by 8KiB text/spend and 4KiB parameter changes for baseline, root-only and root+inline-metadata.",
+    "The former 32/96 lifecycle batches are now individually measured create/vote calls; counter assertions and SkipHeights are outside measured windows.",
+    "Root, nested metadata, and list reads are resource-only query scopes with zero transaction fee; retained assertions use exactly the same fixture on all three refs.",
+    "Root-only versus baseline isolates value-root storage and required writeback. Combined versus root-only isolates inline metadata plus direct metadata accessors.",
+    "No new contract code; immutable existing candidates use fresh-state setup, not migration. History remains after proposal execution/cancellation."
+  ],
+  "variants": [
+    {
+      "id": "combined",
+      "ref": "c9e134dd90fc8f50b2ed9b8e311a6d86df5b088a",
+      "packages": [],
+      "changed_files": []
+    },
+    {
+      "id": "root",
+      "ref": "602716defb8bdc21c8c226477b9f3b06cc6dbd81",
+      "packages": [],
+      "changed_files": []
+    }
+  ]
+}

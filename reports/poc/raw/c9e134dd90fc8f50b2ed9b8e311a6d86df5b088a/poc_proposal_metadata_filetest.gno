@@ -24,14 +24,14 @@ import (
 )
 
 var (
-	pmdAdminAddr, _    = access.GetAddress(prabc.ROLE_ADMIN.String())
-	pmdAdminRealm      = testing.NewUserRealm(pmdAdminAddr)
-	pmdGovStakerAddr, _ = access.GetAddress(prabc.ROLE_GOV_STAKER.String())
-	pmdMaxInt64 int64  = 9223372036854775807
+	pmdAdminAddr, _           = access.GetAddress(prabc.ROLE_ADMIN.String())
+	pmdAdminRealm             = testing.NewUserRealm(pmdAdminAddr)
+	pmdGovStakerAddr, _       = access.GetAddress(prabc.ROLE_GOV_STAKER.String())
+	pmdMaxInt64         int64 = 9223372036854775807
 )
 
 const (
-	pmdFirstBatchCount  = 32
+	pmdFirstBatchCount    = 32
 	pmdFinalProposalCount = 128
 )
 
@@ -204,22 +204,23 @@ func pmdMeasureTextLifecycle(
 	description string,
 	label string,
 ) {
-	testing.SetRealm(pmdAdminRealm)
-	metric.PrintMetricsBy(label, func() {
-		for i := 0; i < proposalCount; i++ {
-			expectedID := startProposalID + int64(i)
-
-			testing.SetRealm(pmdAdminRealm)
-			proposalID := governance.ProposeText(cross(cur), pmdTextTitle(expectedID), description)
-			if proposalID != expectedID {
-				panic("proposal lifecycle counter diverged")
-			}
-
-			testing.SetRealm(pmdAdminRealm)
-			governance.Vote(cross(cur), proposalID, true)
-			testing.SkipHeights(2)
+	for i := 0; i < proposalCount; i++ {
+		expectedID := startProposalID + int64(i)
+		title := pmdTextTitle(expectedID)
+		var proposalID int64
+		testing.SetRealm(pmdAdminRealm)
+		metric.PrintMetricsBy(ufmt.Sprintf("%s create %03d", label, expectedID), func() {
+			proposalID = governance.ProposeText(cross(cur), title, description)
+		})
+		if proposalID != expectedID {
+			panic("proposal lifecycle counter diverged")
 		}
-	})
+		testing.SetRealm(pmdAdminRealm)
+		metric.PrintMetricsBy(ufmt.Sprintf("%s vote %03d", label, expectedID), func() {
+			governance.Vote(cross(cur), proposalID, true)
+		})
+		testing.SkipHeights(2)
+	}
 }
 
 func pmdMeasureRootReads(cur realm, proposalCount int) {
@@ -494,18 +495,1290 @@ func pmdAssertProposalState(
 }
 
 // Output:
-// Proposal metadata lifecycle text (4KiB, 32 proposals)
-// - Gas Used: 130983387
-// - Storage Diff: 558377
-// - CPU Cycles: 115443301
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 1
+// - Gas Used: 1987604
+// - Storage Diff: 21926
+// - CPU Cycles: 1619960
+// - Realm gno.land/r/gnoswap/gov/governance: 21926
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 1
+// - Gas Used: 1217685
+// - Storage Diff: 4452
+// - CPU Cycles: 1022106
+// - Realm gno.land/r/gnoswap/gov/governance: 4452
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 2
+// - Gas Used: 2254568
+// - Storage Diff: 12092
+// - CPU Cycles: 2019092
+// - Realm gno.land/r/gnoswap/gov/governance: 12092
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 2
+// - Gas Used: 1202705
+// - Storage Diff: 4414
+// - CPU Cycles: 1038221
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 3
+// - Gas Used: 2258733
+// - Storage Diff: 12078
+// - CPU Cycles: 2022315
+// - Realm gno.land/r/gnoswap/gov/governance: 12078
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 3
+// - Gas Used: 1203893
+// - Storage Diff: 4414
+// - CPU Cycles: 1038221
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 4
+// - Gas Used: 2266121
+// - Storage Diff: 12078
+// - CPU Cycles: 2028761
+// - Realm gno.land/r/gnoswap/gov/governance: 12078
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 4
+// - Gas Used: 1205081
+// - Storage Diff: 4414
+// - CPU Cycles: 1038221
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 5
+// - Gas Used: 2267063
+// - Storage Diff: 12078
+// - CPU Cycles: 2028761
+// - Realm gno.land/r/gnoswap/gov/governance: 12078
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 5
+// - Gas Used: 1222384
+// - Storage Diff: 4414
+// - CPU Cycles: 1054336
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 6
+// - Gas Used: 2271228
+// - Storage Diff: 12078
+// - CPU Cycles: 2031984
+// - Realm gno.land/r/gnoswap/gov/governance: 12078
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 6
+// - Gas Used: 1223572
+// - Storage Diff: 4414
+// - CPU Cycles: 1054336
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 7
+// - Gas Used: 2272170
+// - Storage Diff: 12078
+// - CPU Cycles: 2031984
+// - Realm gno.land/r/gnoswap/gov/governance: 12078
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 7
+// - Gas Used: 1224760
+// - Storage Diff: 4414
+// - CPU Cycles: 1054336
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 8
+// - Gas Used: 2279558
+// - Storage Diff: 12078
+// - CPU Cycles: 2038430
+// - Realm gno.land/r/gnoswap/gov/governance: 12078
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 8
+// - Gas Used: 1225948
+// - Storage Diff: 4414
+// - CPU Cycles: 1054336
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 9
+// - Gas Used: 2280500
+// - Storage Diff: 12078
+// - CPU Cycles: 2038430
+// - Realm gno.land/r/gnoswap/gov/governance: 12078
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 9
+// - Gas Used: 1227136
+// - Storage Diff: 4414
+// - CPU Cycles: 1054336
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 10
+// - Gas Used: 2309339
+// - Storage Diff: 12081
+// - CPU Cycles: 2048698
+// - Realm gno.land/r/gnoswap/gov/governance: 12081
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 10
+// - Gas Used: 1244876
+// - Storage Diff: 4414
+// - CPU Cycles: 1070879
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 11
+// - Gas Used: 2307547
+// - Storage Diff: 12081
+// - CPU Cycles: 2045957
+// - Realm gno.land/r/gnoswap/gov/governance: 12081
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 11
+// - Gas Used: 1231179
+// - Storage Diff: 4414
+// - CPU Cycles: 1055994
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 12
+// - Gas Used: 2311474
+// - Storage Diff: 12081
+// - CPU Cycles: 2048936
+// - Realm gno.land/r/gnoswap/gov/governance: 12081
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 12
+// - Gas Used: 1248487
+// - Storage Diff: 4414
+// - CPU Cycles: 1072114
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 13
+// - Gas Used: 2315646
+// - Storage Diff: 12081
+// - CPU Cycles: 2052160
+// - Realm gno.land/r/gnoswap/gov/governance: 12081
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 13
+// - Gas Used: 1248445
+// - Storage Diff: 4414
+// - CPU Cycles: 1070884
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 14
+// - Gas Used: 2316840
+// - Storage Diff: 12081
+// - CPU Cycles: 2052406
+// - Realm gno.land/r/gnoswap/gov/governance: 12081
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 14
+// - Gas Used: 1250863
+// - Storage Diff: 4414
+// - CPU Cycles: 1072114
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 15
+// - Gas Used: 2318034
+// - Storage Diff: 12081
+// - CPU Cycles: 2052652
+// - Realm gno.land/r/gnoswap/gov/governance: 12081
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 15
+// - Gas Used: 1252051
+// - Storage Diff: 4414
+// - CPU Cycles: 1072114
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 16
+// - Gas Used: 2319474
+// - Storage Diff: 12081
+// - CPU Cycles: 2053144
+// - Realm gno.land/r/gnoswap/gov/governance: 12081
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 16
+// - Gas Used: 1253239
+// - Storage Diff: 4414
+// - CPU Cycles: 1072114
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 17
+// - Gas Used: 2606134
+// - Storage Diff: 25159
+// - CPU Cycles: 2273714
+// - Realm gno.land/r/gnoswap/gov/governance: 25159
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 17
+// - Gas Used: 1335011
+// - Storage Diff: 4486
+// - CPU Cycles: 1141800
+// - Realm gno.land/r/gnoswap/gov/governance: 4486
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 18
+// - Gas Used: 2380577
+// - Storage Diff: 12105
+// - CPU Cycles: 2101464
+// - Realm gno.land/r/gnoswap/gov/governance: 12105
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 18
+// - Gas Used: 1337429
+// - Storage Diff: 4414
+// - CPU Cycles: 1143030
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 19
+// - Gas Used: 2375815
+// - Storage Diff: 12081
+// - CPU Cycles: 2095754
+// - Realm gno.land/r/gnoswap/gov/governance: 12081
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 19
+// - Gas Used: 1323727
+// - Storage Diff: 4414
+// - CPU Cycles: 1128140
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 20
+// - Gas Used: 2377869
+// - Storage Diff: 12081
+// - CPU Cycles: 2099062
+// - Realm gno.land/r/gnoswap/gov/governance: 12081
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 20
+// - Gas Used: 1339800
+// - Storage Diff: 4414
+// - CPU Cycles: 1143025
+// - Realm gno.land/r/gnoswap/gov/governance: 4414
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 21
+// - Gas Used: 2381794
+// - Storage Diff: 12081
+// - CPU Cycles: 2102039
+// - Realm gno.land/r/gnoswap/gov/governance: 12081
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 21
+// - Gas Used: 1342356
+// - Storage Diff: 4460
+// - CPU Cycles: 1144255
+// - Realm gno.land/r/gnoswap/gov/governance: 4460
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 22
+// - Gas Used: 2377221
+// - Storage Diff: 12144
+// - CPU Cycles: 2096329
+// - Realm gno.land/r/gnoswap/gov/governance: 12144
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 22
+// - Gas Used: 1343625
+// - Storage Diff: 4435
+// - CPU Cycles: 1144255
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 23
+// - Gas Used: 2384623
+// - Storage Diff: 12127
+// - CPU Cycles: 2102777
+// - Realm gno.land/r/gnoswap/gov/governance: 12127
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 23
+// - Gas Used: 1346052
+// - Storage Diff: 4435
+// - CPU Cycles: 1145485
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 24
+// - Gas Used: 2384841
+// - Storage Diff: 12127
+// - CPU Cycles: 2102041
+// - Realm gno.land/r/gnoswap/gov/governance: 12127
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 24
+// - Gas Used: 1347254
+// - Storage Diff: 4435
+// - CPU Cycles: 1145490
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 25
+// - Gas Used: 2686299
+// - Storage Diff: 18755
+// - CPU Cycles: 2352868
+// - Realm gno.land/r/gnoswap/gov/governance: 18755
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 25
+// - Gas Used: 1338413
+// - Storage Diff: 4471
+// - CPU Cycles: 1143030
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 26
+// - Gas Used: 2374020
+// - Storage Diff: 12141
+// - CPU Cycles: 2095594
+// - Realm gno.land/r/gnoswap/gov/governance: 12141
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 26
+// - Gas Used: 1324720
+// - Storage Diff: 4435
+// - CPU Cycles: 1128140
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 27
+// - Gas Used: 2377952
+// - Storage Diff: 12129
+// - CPU Cycles: 2098572
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 27
+// - Gas Used: 1340807
+// - Storage Diff: 4435
+// - CPU Cycles: 1143030
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 28
+// - Gas Used: 2382376
+// - Storage Diff: 12129
+// - CPU Cycles: 2102042
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 28
+// - Gas Used: 1342004
+// - Storage Diff: 4435
+// - CPU Cycles: 1143030
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 29
+// - Gas Used: 2383330
+// - Storage Diff: 12129
+// - CPU Cycles: 2102042
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 29
+// - Gas Used: 1344431
+// - Storage Diff: 4435
+// - CPU Cycles: 1144260
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 30
+// - Gas Used: 2381674
+// - Storage Diff: 12129
+// - CPU Cycles: 2101634
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 30
+// - Gas Used: 1346853
+// - Storage Diff: 4435
+// - CPU Cycles: 1145485
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 31
+// - Gas Used: 2382875
+// - Storage Diff: 12129
+// - CPU Cycles: 2101881
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 31
+// - Gas Used: 1345595
+// - Storage Diff: 4435
+// - CPU Cycles: 1143030
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 32 proposals) create 32
+// - Gas Used: 2383830
+// - Storage Diff: 12129
+// - CPU Cycles: 2101882
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 32 proposals) vote 32
+// - Gas Used: 1346792
+// - Storage Diff: 4435
+// - CPU Cycles: 1143030
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
 // STATE proposal-metadata aggregate proposalCount 32 passedCount 32 first 1 middle 16 last 32
 // STATE proposal-metadata 1 currentProposalID 32 type Text status passed proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234567915 createdHeight 128 snapshotTime 1234567915 configVersion 2 quorum 500000000 maxVotingWeight 1000000000 yea 1000000000 nay 0 title Metadata text 1 descriptionLen 4400 metadataPresent true spendPresent false spendTo  spendToken  spendAmount -1 executionPresent false executionNum -1 executionMessages -1 votingInfos 1 userProposalEntries 1
 // STATE proposal-metadata 16 currentProposalID 32 type Text status passed proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234568065 createdHeight 158 snapshotTime 1234568065 configVersion 2 quorum 500000000 maxVotingWeight 1000000000 yea 1000000000 nay 0 title Metadata text 16 descriptionLen 4400 metadataPresent true spendPresent false spendTo  spendToken  spendAmount -1 executionPresent false executionNum -1 executionMessages -1 votingInfos 1 userProposalEntries 1
 // STATE proposal-metadata 32 currentProposalID 32 type Text status passed proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234568225 createdHeight 190 snapshotTime 1234568225 configVersion 2 quorum 500000000 maxVotingWeight 1000000000 yea 1000000000 nay 0 title Metadata text 32 descriptionLen 4400 metadataPresent true spendPresent false spendTo  spendToken  spendAmount -1 executionPresent false executionNum -1 executionMessages -1 votingInfos 1 userProposalEntries 1
-// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128)
-// - Gas Used: 417201419
-// - Storage Diff: 1669305
-// - CPU Cycles: 366628111
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 33
+// - Gas Used: 2687732
+// - Storage Diff: 18735
+// - CPU Cycles: 2352708
+// - Realm gno.land/r/gnoswap/gov/governance: 18735
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 33
+// - Gas Used: 1341510
+// - Storage Diff: 4471
+// - CPU Cycles: 1144255
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 34
+// - Gas Used: 2379603
+// - Storage Diff: 12141
+// - CPU Cycles: 2102125
+// - Realm gno.land/r/gnoswap/gov/governance: 12141
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 34
+// - Gas Used: 1357597
+// - Storage Diff: 4435
+// - CPU Cycles: 1159145
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 35
+// - Gas Used: 2389983
+// - Storage Diff: 12129
+// - CPU Cycles: 2111551
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 35
+// - Gas Used: 1360024
+// - Storage Diff: 4435
+// - CPU Cycles: 1160375
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 36
+// - Gas Used: 2385227
+// - Storage Diff: 12129
+// - CPU Cycles: 2105841
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 36
+// - Gas Used: 1361221
+// - Storage Diff: 4435
+// - CPU Cycles: 1160375
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 37
+// - Gas Used: 2386181
+// - Storage Diff: 12129
+// - CPU Cycles: 2105841
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 37
+// - Gas Used: 1347528
+// - Storage Diff: 4435
+// - CPU Cycles: 1145485
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 38
+// - Gas Used: 2389621
+// - Storage Diff: 12129
+// - CPU Cycles: 2108327
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 38
+// - Gas Used: 1364845
+// - Storage Diff: 4435
+// - CPU Cycles: 1161605
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 39
+// - Gas Used: 2393799
+// - Storage Diff: 12129
+// - CPU Cycles: 2111551
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 39
+// - Gas Used: 1363582
+// - Storage Diff: 4435
+// - CPU Cycles: 1159145
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 40
+// - Gas Used: 2392389
+// - Storage Diff: 12129
+// - CPU Cycles: 2111389
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 40
+// - Gas Used: 1366004
+// - Storage Diff: 4435
+// - CPU Cycles: 1160370
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 41
+// - Gas Used: 2698920
+// - Storage Diff: 18735
+// - CPU Cycles: 2362462
+// - Realm gno.land/r/gnoswap/gov/governance: 18735
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 41
+// - Gas Used: 1343373
+// - Storage Diff: 4471
+// - CPU Cycles: 1144255
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 42
+// - Gas Used: 2378975
+// - Storage Diff: 12141
+// - CPU Cycles: 2102457
+// - Realm gno.land/r/gnoswap/gov/governance: 12141
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 42
+// - Gas Used: 1360690
+// - Storage Diff: 4435
+// - CPU Cycles: 1160375
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 43
+// - Gas Used: 2383153
+// - Storage Diff: 12129
+// - CPU Cycles: 2105681
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 43
+// - Gas Used: 1346997
+// - Storage Diff: 4435
+// - CPU Cycles: 1145485
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 44
+// - Gas Used: 2386593
+// - Storage Diff: 12129
+// - CPU Cycles: 2108167
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 44
+// - Gas Used: 1348194
+// - Storage Diff: 4435
+// - CPU Cycles: 1145485
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 45
+// - Gas Used: 2387547
+// - Storage Diff: 12129
+// - CPU Cycles: 2108167
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 45
+// - Gas Used: 1363051
+// - Storage Diff: 4435
+// - CPU Cycles: 1159145
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 46
+// - Gas Used: 2391725
+// - Storage Diff: 12129
+// - CPU Cycles: 2111391
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 46
+// - Gas Used: 1364248
+// - Storage Diff: 4435
+// - CPU Cycles: 1159145
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 47
+// - Gas Used: 2392679
+// - Storage Diff: 12129
+// - CPU Cycles: 2111391
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 47
+// - Gas Used: 1366675
+// - Storage Diff: 4435
+// - CPU Cycles: 1160375
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 48
+// - Gas Used: 2393879
+// - Storage Diff: 12129
+// - CPU Cycles: 2111637
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 48
+// - Gas Used: 1367872
+// - Storage Diff: 4435
+// - CPU Cycles: 1160375
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 49
+// - Gas Used: 2700319
+// - Storage Diff: 18735
+// - CPU Cycles: 2362463
+// - Realm gno.land/r/gnoswap/gov/governance: 18735
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 49
+// - Gas Used: 1345245
+// - Storage Diff: 4471
+// - CPU Cycles: 1144255
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 50
+// - Gas Used: 2383329
+// - Storage Diff: 12141
+// - CPU Cycles: 2107759
+// - Realm gno.land/r/gnoswap/gov/governance: 12141
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 50
+// - Gas Used: 1347667
+// - Storage Diff: 4435
+// - CPU Cycles: 1145480
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 51
+// - Gas Used: 2384530
+// - Storage Diff: 12129
+// - CPU Cycles: 2108006
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 51
+// - Gas Used: 1362529
+// - Storage Diff: 4435
+// - CPU Cycles: 1159145
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 52
+// - Gas Used: 2388709
+// - Storage Diff: 12129
+// - CPU Cycles: 2111231
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 52
+// - Gas Used: 1363726
+// - Storage Diff: 4435
+// - CPU Cycles: 1159145
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 53
+// - Gas Used: 2389663
+// - Storage Diff: 12129
+// - CPU Cycles: 2111231
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 53
+// - Gas Used: 1366153
+// - Storage Diff: 4435
+// - CPU Cycles: 1160375
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 54
+// - Gas Used: 2390863
+// - Storage Diff: 12129
+// - CPU Cycles: 2111477
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 54
+// - Gas Used: 1367350
+// - Storage Diff: 4435
+// - CPU Cycles: 1160375
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 55
+// - Gas Used: 2391817
+// - Storage Diff: 12129
+// - CPU Cycles: 2111477
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 55
+// - Gas Used: 1368547
+// - Storage Diff: 4435
+// - CPU Cycles: 1160375
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 56
+// - Gas Used: 2393263
+// - Storage Diff: 12129
+// - CPU Cycles: 2111969
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 56
+// - Gas Used: 1369744
+// - Storage Diff: 4435
+// - CPU Cycles: 1160375
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 57
+// - Gas Used: 2702079
+// - Storage Diff: 18735
+// - CPU Cycles: 2362795
+// - Realm gno.land/r/gnoswap/gov/governance: 18735
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 57
+// - Gas Used: 1348347
+// - Storage Diff: 4471
+// - CPU Cycles: 1145485
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 58
+// - Gas Used: 2384831
+// - Storage Diff: 12141
+// - CPU Cycles: 2108007
+// - Realm gno.land/r/gnoswap/gov/governance: 12141
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 58
+// - Gas Used: 1349544
+// - Storage Diff: 4435
+// - CPU Cycles: 1145485
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 59
+// - Gas Used: 2385785
+// - Storage Diff: 12129
+// - CPU Cycles: 2108007
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 59
+// - Gas Used: 1364401
+// - Storage Diff: 4435
+// - CPU Cycles: 1159145
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 60
+// - Gas Used: 2381643
+// - Storage Diff: 12129
+// - CPU Cycles: 2105113
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 60
+// - Gas Used: 1366823
+// - Storage Diff: 4435
+// - CPU Cycles: 1160370
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 61
+// - Gas Used: 2382844
+// - Storage Diff: 12129
+// - CPU Cycles: 2105360
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 61
+// - Gas Used: 1368025
+// - Storage Diff: 4435
+// - CPU Cycles: 1160375
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 62
+// - Gas Used: 2390247
+// - Storage Diff: 12129
+// - CPU Cycles: 2111809
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 62
+// - Gas Used: 1369217
+// - Storage Diff: 4435
+// - CPU Cycles: 1160370
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 63
+// - Gas Used: 2391198
+// - Storage Diff: 12129
+// - CPU Cycles: 2111806
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 63
+// - Gas Used: 1371644
+// - Storage Diff: 4435
+// - CPU Cycles: 1161600
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 64
+// - Gas Used: 2391906
+// - Storage Diff: 12129
+// - CPU Cycles: 2111560
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 64
+// - Gas Used: 1372846
+// - Storage Diff: 4435
+// - CPU Cycles: 1161605
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 65
+// - Gas Used: 2703101
+// - Storage Diff: 18735
+// - CPU Cycles: 2362389
+// - Realm gno.land/r/gnoswap/gov/governance: 18735
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 65
+// - Gas Used: 1379994
+// - Storage Diff: 4471
+// - CPU Cycles: 1175260
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 66
+// - Gas Used: 2396616
+// - Storage Diff: 12141
+// - CPU Cycles: 2120740
+// - Realm gno.land/r/gnoswap/gov/governance: 12141
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 66
+// - Gas Used: 1381191
+// - Storage Diff: 4435
+// - CPU Cycles: 1175260
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 67
+// - Gas Used: 2397570
+// - Storage Diff: 12129
+// - CPU Cycles: 2120740
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 67
+// - Gas Used: 1383618
+// - Storage Diff: 4435
+// - CPU Cycles: 1176490
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 68
+// - Gas Used: 2392814
+// - Storage Diff: 12129
+// - CPU Cycles: 2115030
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 68
+// - Gas Used: 1384815
+// - Storage Diff: 4435
+// - CPU Cycles: 1176490
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 69
+// - Gas Used: 2393768
+// - Storage Diff: 12129
+// - CPU Cycles: 2115030
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 69
+// - Gas Used: 1386012
+// - Storage Diff: 4435
+// - CPU Cycles: 1176490
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 70
+// - Gas Used: 2398314
+// - Storage Diff: 12129
+// - CPU Cycles: 2120824
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 70
+// - Gas Used: 1388434
+// - Storage Diff: 4435
+// - CPU Cycles: 1177715
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 71
+// - Gas Used: 2399515
+// - Storage Diff: 12129
+// - CPU Cycles: 2121071
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 71
+// - Gas Used: 1388406
+// - Storage Diff: 4435
+// - CPU Cycles: 1176490
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 72
+// - Gas Used: 2400716
+// - Storage Diff: 12129
+// - CPU Cycles: 2121318
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 72
+// - Gas Used: 1389603
+// - Storage Diff: 4435
+// - CPU Cycles: 1176490
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 73
+// - Gas Used: 2714284
+// - Storage Diff: 18735
+// - CPU Cycles: 2372144
+// - Realm gno.land/r/gnoswap/gov/governance: 18735
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 73
+// - Gas Used: 1383087
+// - Storage Diff: 4471
+// - CPU Cycles: 1176490
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 74
+// - Gas Used: 2389786
+// - Storage Diff: 12141
+// - CPU Cycles: 2114870
+// - Realm gno.land/r/gnoswap/gov/governance: 12141
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 74
+// - Gas Used: 1384284
+// - Storage Diff: 4435
+// - CPU Cycles: 1176490
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 75
+// - Gas Used: 2390740
+// - Storage Diff: 12129
+// - CPU Cycles: 2114870
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 75
+// - Gas Used: 1370591
+// - Storage Diff: 4435
+// - CPU Cycles: 1161600
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 76
+// - Gas Used: 2394672
+// - Storage Diff: 12129
+// - CPU Cycles: 2117848
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 76
+// - Gas Used: 1371788
+// - Storage Diff: 4435
+// - CPU Cycles: 1161600
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 77
+// - Gas Used: 2395626
+// - Storage Diff: 12129
+// - CPU Cycles: 2117848
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 77
+// - Gas Used: 1389105
+// - Storage Diff: 4435
+// - CPU Cycles: 1177720
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 78
+// - Gas Used: 2399804
+// - Storage Diff: 12129
+// - CPU Cycles: 2121072
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 78
+// - Gas Used: 1390302
+// - Storage Diff: 4435
+// - CPU Cycles: 1177720
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 79
+// - Gas Used: 2400758
+// - Storage Diff: 12129
+// - CPU Cycles: 2121072
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 79
+// - Gas Used: 1390269
+// - Storage Diff: 4435
+// - CPU Cycles: 1176490
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 80
+// - Gas Used: 2399594
+// - Storage Diff: 12129
+// - CPU Cycles: 2121156
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 80
+// - Gas Used: 1392691
+// - Storage Diff: 4435
+// - CPU Cycles: 1177715
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 81
+// - Gas Used: 2715767
+// - Storage Diff: 18735
+// - CPU Cycles: 2372229
+// - Realm gno.land/r/gnoswap/gov/governance: 18735
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 81
+// - Gas Used: 1370069
+// - Storage Diff: 4471
+// - CPU Cycles: 1161600
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 82
+// - Gas Used: 2385700
+// - Storage Diff: 12141
+// - CPU Cycles: 2111732
+// - Realm gno.land/r/gnoswap/gov/governance: 12141
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 82
+// - Gas Used: 1371261
+// - Storage Diff: 4435
+// - CPU Cycles: 1161595
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 83
+// - Gas Used: 2386651
+// - Storage Diff: 12129
+// - CPU Cycles: 2111729
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 83
+// - Gas Used: 1387348
+// - Storage Diff: 4435
+// - CPU Cycles: 1176485
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 84
+// - Gas Used: 2397031
+// - Storage Diff: 12129
+// - CPU Cycles: 2121155
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 84
+// - Gas Used: 1388550
+// - Storage Diff: 4435
+// - CPU Cycles: 1176490
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 85
+// - Gas Used: 2397988
+// - Storage Diff: 12129
+// - CPU Cycles: 2121158
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 85
+// - Gas Used: 1389747
+// - Storage Diff: 4435
+// - CPU Cycles: 1176490
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 86
+// - Gas Used: 2398942
+// - Storage Diff: 12129
+// - CPU Cycles: 2121158
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 86
+// - Gas Used: 1390944
+// - Storage Diff: 4435
+// - CPU Cycles: 1176490
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 87
+// - Gas Used: 2399896
+// - Storage Diff: 12129
+// - CPU Cycles: 2121158
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 87
+// - Gas Used: 1393371
+// - Storage Diff: 4435
+// - CPU Cycles: 1177720
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 88
+// - Gas Used: 2401096
+// - Storage Diff: 12129
+// - CPU Cycles: 2121404
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 88
+// - Gas Used: 1394568
+// - Storage Diff: 4435
+// - CPU Cycles: 1177720
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 89
+// - Gas Used: 2717196
+// - Storage Diff: 18735
+// - CPU Cycles: 2372230
+// - Realm gno.land/r/gnoswap/gov/governance: 18735
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 89
+// - Gas Used: 1371941
+// - Storage Diff: 4471
+// - CPU Cycles: 1161600
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 90
+// - Gas Used: 2382504
+// - Storage Diff: 12141
+// - CPU Cycles: 2109484
+// - Realm gno.land/r/gnoswap/gov/governance: 12141
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 90
+// - Gas Used: 1373133
+// - Storage Diff: 4435
+// - CPU Cycles: 1161595
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 91
+// - Gas Used: 2383457
+// - Storage Diff: 12129
+// - CPU Cycles: 2109483
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 91
+// - Gas Used: 1390450
+// - Storage Diff: 4435
+// - CPU Cycles: 1177715
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 92
+// - Gas Used: 2387635
+// - Storage Diff: 12129
+// - CPU Cycles: 2112707
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 92
+// - Gas Used: 1391652
+// - Storage Diff: 4435
+// - CPU Cycles: 1177720
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 93
+// - Gas Used: 2388592
+// - Storage Diff: 12129
+// - CPU Cycles: 2112710
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 93
+// - Gas Used: 1392849
+// - Storage Diff: 4435
+// - CPU Cycles: 1177720
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 94
+// - Gas Used: 2389546
+// - Storage Diff: 12129
+// - CPU Cycles: 2112710
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 94
+// - Gas Used: 1394046
+// - Storage Diff: 4435
+// - CPU Cycles: 1177720
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 95
+// - Gas Used: 2390500
+// - Storage Diff: 12129
+// - CPU Cycles: 2112710
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 95
+// - Gas Used: 1395243
+// - Storage Diff: 4435
+// - CPU Cycles: 1177720
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 96
+// - Gas Used: 2397902
+// - Storage Diff: 12129
+// - CPU Cycles: 2119158
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 96
+// - Gas Used: 1396435
+// - Storage Diff: 4435
+// - CPU Cycles: 1177715
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 97
+// - Gas Used: 2644559
+// - Storage Diff: 18455
+// - CPU Cycles: 2299005
+// - Realm gno.land/r/gnoswap/gov/governance: 18455
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 97
+// - Gas Used: 1349314
+// - Storage Diff: 4471
+// - CPU Cycles: 1145480
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 98
+// - Gas Used: 2360962
+// - Storage Diff: 12141
+// - CPU Cycles: 2093366
+// - Realm gno.land/r/gnoswap/gov/governance: 12141
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 98
+// - Gas Used: 1350511
+// - Storage Diff: 4435
+// - CPU Cycles: 1145480
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 99
+// - Gas Used: 2368364
+// - Storage Diff: 12129
+// - CPU Cycles: 2099814
+// - Realm gno.land/r/gnoswap/gov/governance: 12129
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 99
+// - Gas Used: 1351708
+// - Storage Diff: 4435
+// - CPU Cycles: 1145480
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 100
+// - Gas Used: 2460264
+// - Storage Diff: 12114
+// - CPU Cycles: 2171029
+// - Realm gno.land/r/gnoswap/gov/governance: 12114
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 100
+// - Gas Used: 1502193
+// - Storage Diff: 4435
+// - CPU Cycles: 1287046
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 101
+// - Gas Used: 2486001
+// - Storage Diff: 12090
+// - CPU Cycles: 2195496
+// - Realm gno.land/r/gnoswap/gov/governance: 12090
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 101
+// - Gas Used: 1518290
+// - Storage Diff: 4435
+// - CPU Cycles: 1301946
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 102
+// - Gas Used: 2496271
+// - Storage Diff: 12090
+// - CPU Cycles: 2204926
+// - Realm gno.land/r/gnoswap/gov/governance: 12090
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 102
+// - Gas Used: 1520717
+// - Storage Diff: 4435
+// - CPU Cycles: 1303176
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 103
+// - Gas Used: 2491399
+// - Storage Diff: 12090
+// - CPU Cycles: 2199214
+// - Realm gno.land/r/gnoswap/gov/governance: 12090
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 103
+// - Gas Used: 1521914
+// - Storage Diff: 4435
+// - CPU Cycles: 1303176
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 104
+// - Gas Used: 2492239
+// - Storage Diff: 12090
+// - CPU Cycles: 2199214
+// - Realm gno.land/r/gnoswap/gov/governance: 12090
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 104
+// - Gas Used: 1508216
+// - Storage Diff: 4435
+// - CPU Cycles: 1288281
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 105
+// - Gas Used: 2495566
+// - Storage Diff: 12090
+// - CPU Cycles: 2201701
+// - Realm gno.land/r/gnoswap/gov/governance: 12090
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 105
+// - Gas Used: 1525538
+// - Storage Diff: 4435
+// - CPU Cycles: 1304406
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 106
+// - Gas Used: 2499631
+// - Storage Diff: 12090
+// - CPU Cycles: 2204926
+// - Realm gno.land/r/gnoswap/gov/governance: 12090
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 106
+// - Gas Used: 1524275
+// - Storage Diff: 4435
+// - CPU Cycles: 1301946
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 107
+// - Gas Used: 2500471
+// - Storage Diff: 12090
+// - CPU Cycles: 2204926
+// - Realm gno.land/r/gnoswap/gov/governance: 12090
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 107
+// - Gas Used: 1525472
+// - Storage Diff: 4435
+// - CPU Cycles: 1301946
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 108
+// - Gas Used: 2809243
+// - Storage Diff: 18552
+// - CPU Cycles: 2455832
+// - Realm gno.land/r/gnoswap/gov/governance: 18552
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 108
+// - Gas Used: 1504886
+// - Storage Diff: 4471
+// - CPU Cycles: 1288281
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 109
+// - Gas Used: 2486710
+// - Storage Diff: 12144
+// - CPU Cycles: 2196235
+// - Realm gno.land/r/gnoswap/gov/governance: 12144
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 109
+// - Gas Used: 1520978
+// - Storage Diff: 4435
+// - CPU Cycles: 1303176
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 110
+// - Gas Used: 2488771
+// - Storage Diff: 12132
+// - CPU Cycles: 2199544
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 110
+// - Gas Used: 1508505
+// - Storage Diff: 4435
+// - CPU Cycles: 1289506
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 111
+// - Gas Used: 2492465
+// - Storage Diff: 12132
+// - CPU Cycles: 2202278
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 111
+// - Gas Used: 1509707
+// - Storage Diff: 4435
+// - CPU Cycles: 1289511
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 112
+// - Gas Used: 2493426
+// - Storage Diff: 12132
+// - CPU Cycles: 2202279
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 112
+// - Gas Used: 1524569
+// - Storage Diff: 4435
+// - CPU Cycles: 1303176
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 113
+// - Gas Used: 2497611
+// - Storage Diff: 12132
+// - CPU Cycles: 2205504
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 113
+// - Gas Used: 1525766
+// - Storage Diff: 4435
+// - CPU Cycles: 1303176
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 114
+// - Gas Used: 2498571
+// - Storage Diff: 12132
+// - CPU Cycles: 2205504
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 114
+// - Gas Used: 1528193
+// - Storage Diff: 4435
+// - CPU Cycles: 1304406
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 115
+// - Gas Used: 2499777
+// - Storage Diff: 12132
+// - CPU Cycles: 2205750
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 115
+// - Gas Used: 1529390
+// - Storage Diff: 4435
+// - CPU Cycles: 1304406
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 116
+// - Gas Used: 2832689
+// - Storage Diff: 18740
+// - CPU Cycles: 2459216
+// - Realm gno.land/r/gnoswap/gov/governance: 18740
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 116
+// - Gas Used: 1506758
+// - Storage Diff: 4471
+// - CPU Cycles: 1288281
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 117
+// - Gas Used: 2486088
+// - Storage Diff: 12144
+// - CPU Cycles: 2196567
+// - Realm gno.land/r/gnoswap/gov/governance: 12144
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 117
+// - Gas Used: 1524080
+// - Storage Diff: 4435
+// - CPU Cycles: 1304406
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 118
+// - Gas Used: 2490273
+// - Storage Diff: 12132
+// - CPU Cycles: 2199792
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 118
+// - Gas Used: 1510382
+// - Storage Diff: 4435
+// - CPU Cycles: 1289511
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 119
+// - Gas Used: 2493720
+// - Storage Diff: 12132
+// - CPU Cycles: 2202279
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 119
+// - Gas Used: 1511579
+// - Storage Diff: 4435
+// - CPU Cycles: 1289511
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 120
+// - Gas Used: 2492802
+// - Storage Diff: 12132
+// - CPU Cycles: 2202609
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 120
+// - Gas Used: 1527666
+// - Storage Diff: 4435
+// - CPU Cycles: 1304401
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 121
+// - Gas Used: 2496742
+// - Storage Diff: 12132
+// - CPU Cycles: 2205589
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 121
+// - Gas Used: 1528863
+// - Storage Diff: 4435
+// - CPU Cycles: 1304401
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 122
+// - Gas Used: 2497700
+// - Storage Diff: 12132
+// - CPU Cycles: 2205587
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 122
+// - Gas Used: 1530060
+// - Storage Diff: 4435
+// - CPU Cycles: 1304401
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 123
+// - Gas Used: 2499152
+// - Storage Diff: 12132
+// - CPU Cycles: 2206079
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 123
+// - Gas Used: 1531262
+// - Storage Diff: 4435
+// - CPU Cycles: 1304406
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 124
+// - Gas Used: 2834449
+// - Storage Diff: 18740
+// - CPU Cycles: 2459548
+// - Realm gno.land/r/gnoswap/gov/governance: 18740
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 124
+// - Gas Used: 1511090
+// - Storage Diff: 4471
+// - CPU Cycles: 1290741
+// - Realm gno.land/r/gnoswap/gov/governance: 4471
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 125
+// - Gas Used: 2491424
+// - Storage Diff: 12144
+// - CPU Cycles: 2202857
+// - Realm gno.land/r/gnoswap/gov/governance: 12144
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 125
+// - Gas Used: 1512287
+// - Storage Diff: 4435
+// - CPU Cycles: 1290741
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 126
+// - Gas Used: 2492384
+// - Storage Diff: 12132
+// - CPU Cycles: 2202857
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 126
+// - Gas Used: 1527149
+// - Storage Diff: 4435
+// - CPU Cycles: 1304406
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 127
+// - Gas Used: 2496569
+// - Storage Diff: 12132
+// - CPU Cycles: 2206082
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 127
+// - Gas Used: 1528346
+// - Storage Diff: 4435
+// - CPU Cycles: 1304406
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) create 128
+// - Gas Used: 2497529
+// - Storage Diff: 12132
+// - CPU Cycles: 2206082
+// - Realm gno.land/r/gnoswap/gov/governance: 12132
+// Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) vote 128
+// - Gas Used: 1530773
+// - Storage Diff: 4435
+// - CPU Cycles: 1305636
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
 // STATE proposal-metadata aggregate proposalCount 128 passedCount 128 first 1 middle 64 last 128
 // STATE proposal-metadata 1 currentProposalID 128 type Text status passed proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234567915 createdHeight 128 snapshotTime 1234567915 configVersion 2 quorum 500000000 maxVotingWeight 1000000000 yea 1000000000 nay 0 title Metadata text 1 descriptionLen 4400 metadataPresent true spendPresent false spendTo  spendToken  spendAmount -1 executionPresent false executionNum -1 executionMessages -1 votingInfos 1 userProposalEntries 1
 // STATE proposal-metadata 64 currentProposalID 128 type Text status passed proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234568545 createdHeight 254 snapshotTime 1234568545 configVersion 2 quorum 500000000 maxVotingWeight 1000000000 yea 1000000000 nay 0 title Metadata text 64 descriptionLen 4400 metadataPresent true spendPresent false spendTo  spendToken  spendAmount -1 executionPresent false executionNum -1 executionMessages -1 votingInfos 1 userProposalEntries 1
@@ -526,6 +1799,7 @@ func pmdAssertProposalState(
 // - Gas Used: 2512490
 // - Storage Diff: 16528
 // - CPU Cycles: 2206082
+// - Realm gno.land/r/gnoswap/gov/governance: 16528
 // STATE proposal-metadata 129 currentProposalID 129 type Text status active proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234569195 createdHeight 384 snapshotTime 1234569195 configVersion 2 quorum 500000000 maxVotingWeight 1000000000 yea 0 nay 0 title Metadata 8KiB descriptionLen 8800 metadataPresent true spendPresent false spendTo  spendToken  spendAmount -1 executionPresent false executionNum -1 executionMessages -1 votingInfos 0 userProposalEntries 1
 // Proposal metadata root Proposal read (8KiB)
 // - Gas Used: 237287
@@ -539,30 +1813,36 @@ func pmdAssertProposalState(
 // - Gas Used: 1545158
 // - Storage Diff: 4435
 // - CPU Cycles: 1305636
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
 // STATE proposal-metadata 129 currentProposalID 129 type Text status passed proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234569195 createdHeight 384 snapshotTime 1234569195 configVersion 2 quorum 500000000 maxVotingWeight 1000000000 yea 1000000000 nay 0 title Metadata 8KiB descriptionLen 8800 metadataPresent true spendPresent false spendTo  spendToken  spendAmount -1 executionPresent false executionNum -1 executionMessages -1 votingInfos 1 userProposalEntries 1
 // Proposal metadata create spend (8KiB)
-// - Gas Used: 3000846
+// - Gas Used: 3041134
 // - Storage Diff: 18771
-// - CPU Cycles: 2587850
+// - CPU Cycles: 2612044
+// - Realm gno.land/r/gnoswap/gov/governance: 18771
 // STATE proposal-metadata 130 currentProposalID 130 type CommunityPoolSpend status upcoming proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234569205 createdHeight 386 snapshotTime 1234569205 configVersion 3 quorum 500000000 maxVotingWeight 1000000000 yea 0 nay 0 title Metadata spend descriptionLen 8800 metadataPresent true spendPresent true spendTo g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 spendToken gno.land/r/gnoswap/gns.GNS spendAmount 100 executionPresent true executionNum 1 executionMessages 1 votingInfos 0 userProposalEntries 1
 // Proposal metadata cancel spend
 // - Gas Used: 872999
 // - Storage Diff: 70
 // - CPU Cycles: 726131
+// - Realm gno.land/r/gnoswap/gov/governance: 70
 // STATE proposal-metadata 130 currentProposalID 130 type CommunityPoolSpend status canceled proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234569205 createdHeight 386 snapshotTime 1234569205 configVersion 3 quorum 500000000 maxVotingWeight 1000000000 yea 0 nay 0 title Metadata spend descriptionLen 8800 metadataPresent true spendPresent true spendTo g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 spendToken gno.land/r/gnoswap/gns.GNS spendAmount 100 executionPresent true executionNum 1 executionMessages 1 votingInfos 0 userProposalEntries 1
 // Proposal metadata create parameter change (4KiB)
-// - Gas Used: 3546626
+// - Gas Used: 3544690
 // - Storage Diff: 13359
 // - CPU Cycles: 3163315
+// - Realm gno.land/r/gnoswap/gov/governance: 13359
 // STATE proposal-metadata 131 currentProposalID 131 type ParameterChange status active proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234569205 createdHeight 386 snapshotTime 1234569205 configVersion 4 quorum 500000000 maxVotingWeight 1000000000 yea 0 nay 0 title Metadata parameter descriptionLen 4400 metadataPresent true spendPresent false spendTo  spendToken  spendAmount -1 executionPresent true executionNum 1 executionMessages 1 votingInfos 0 userProposalEntries 1
 // Proposal metadata vote parameter change
 // - Gas Used: 1566103
 // - Storage Diff: 4435
 // - CPU Cycles: 1332417
+// - Realm gno.land/r/gnoswap/gov/governance: 4435
 // STATE proposal-metadata 131 currentProposalID 131 type ParameterChange status active proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234569205 createdHeight 386 snapshotTime 1234569205 configVersion 4 quorum 500000000 maxVotingWeight 1000000000 yea 1000000000 nay 0 title Metadata parameter descriptionLen 4400 metadataPresent true spendPresent false spendTo  spendToken  spendAmount -1 executionPresent true executionNum 1 executionMessages 1 votingInfos 1 userProposalEntries 1
 // STATE proposal-metadata 131 currentProposalID 131 type ParameterChange status executable proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234569205 createdHeight 386 snapshotTime 1234569205 configVersion 4 quorum 500000000 maxVotingWeight 1000000000 yea 1000000000 nay 0 title Metadata parameter descriptionLen 4400 metadataPresent true spendPresent false spendTo  spendToken  spendAmount -1 executionPresent true executionNum 1 executionMessages 1 votingInfos 1 userProposalEntries 1
 // Proposal metadata execute parameter change
-// - Gas Used: 2807072
+// - Gas Used: 2806809
 // - Storage Diff: 64
 // - CPU Cycles: 1667112
+// - Realm gno.land/r/gnoswap/gov/governance: 64
 // STATE proposal-metadata 131 currentProposalID 131 type ParameterChange status executed proposer g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5 createdAt 1234569205 createdHeight 386 snapshotTime 1234569205 configVersion 4 quorum 500000000 maxVotingWeight 1000000000 yea 1000000000 nay 0 title Metadata parameter descriptionLen 4400 metadataPresent true spendPresent false spendTo  spendToken  spendAmount -1 executionPresent true executionNum 1 executionMessages 1 votingInfos 1 userProposalEntries 1
