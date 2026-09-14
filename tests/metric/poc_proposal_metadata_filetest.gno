@@ -24,14 +24,14 @@ import (
 )
 
 var (
-	pmdAdminAddr, _    = access.GetAddress(prabc.ROLE_ADMIN.String())
-	pmdAdminRealm      = testing.NewUserRealm(pmdAdminAddr)
-	pmdGovStakerAddr, _ = access.GetAddress(prabc.ROLE_GOV_STAKER.String())
-	pmdMaxInt64 int64  = 9223372036854775807
+	pmdAdminAddr, _           = access.GetAddress(prabc.ROLE_ADMIN.String())
+	pmdAdminRealm             = testing.NewUserRealm(pmdAdminAddr)
+	pmdGovStakerAddr, _       = access.GetAddress(prabc.ROLE_GOV_STAKER.String())
+	pmdMaxInt64         int64 = 9223372036854775807
 )
 
 const (
-	pmdFirstBatchCount  = 32
+	pmdFirstBatchCount    = 32
 	pmdFinalProposalCount = 128
 )
 
@@ -81,7 +81,7 @@ func main(cur realm) {
 	)
 	pmdAssertProposalBatch(pmdFinalProposalCount, description4KiB)
 
-	// Keep root Proposal cloning, nested metadata getters, and child/list
+	// Keep root Proposal reads, nested metadata getters, and child/list
 	// traversals in separate stages so representation changes are attributable.
 	pmdMeasureRootReads(cur, pmdFinalProposalCount)
 	pmdMeasureNestedMetadataReads(cur, pmdFinalProposalCount)
@@ -103,8 +103,8 @@ func main(cur realm) {
 	metric.PrintMetricsBy("Proposal metadata root Proposal read (8KiB)", func() {
 		proposals := governance.GetProposals()
 		wholeRaw := proposals.Get(ufmt.Sprintf("%d", text8KiBID))
-		whole, ok := wholeRaw.(*governance.Proposal)
-		if !ok || whole == nil || whole.ID() != text8KiBID {
+		whole, ok := wholeRaw.(governance.Proposal)
+		if !ok || whole.ID() != text8KiBID {
 			panic("8KiB root Proposal getter returned an unexpected record")
 		}
 	})
@@ -233,8 +233,8 @@ func pmdMeasureRootReads(cur realm, proposalCount int) {
 			}
 			for i := 1; i <= proposalCount; i++ {
 				wholeRaw := proposals.Get(ufmt.Sprintf("%d", i))
-				whole, ok := wholeRaw.(*governance.Proposal)
-				if !ok || whole == nil || whole.ID() != int64(i) {
+				whole, ok := wholeRaw.(governance.Proposal)
+				if !ok || whole.ID() != int64(i) {
 					panic("proposal root getter returned an unexpected record")
 				}
 			}
@@ -389,7 +389,7 @@ func pmdAssertProposalState(
 	}
 
 	spend, spendErr := governance.GetProposalCommunityPoolSpendInfo(proposalID)
-	actualSpend := spendErr == nil && spend != nil
+	actualSpend := spendErr == nil
 	if actualSpend != expectedSpend {
 		panic("proposal spend presence invariant failed")
 	}
@@ -408,7 +408,7 @@ func pmdAssertProposalState(
 	}
 
 	execution, executionErr := governance.GetProposalExecutionInfo(proposalID)
-	actualExecution := executionErr == nil && execution != nil
+	actualExecution := executionErr == nil
 	if actualExecution != expectedExecution {
 		panic("proposal execution presence invariant failed")
 	}
@@ -429,8 +429,8 @@ func pmdAssertProposalState(
 		panic("proposal read-only tree invariant failed")
 	}
 	wholeRaw := proposals.Get(ufmt.Sprintf("%d", proposalID))
-	whole, ok := wholeRaw.(*governance.Proposal)
-	if !ok || whole == nil {
+	whole, ok := wholeRaw.(governance.Proposal)
+	if !ok {
 		panic("proposal whole getter returned an unexpected record")
 	}
 	if whole.ID() != proposalID || whole.Proposer() != pmdAdminAddr || !whole.IsProposer(pmdAdminAddr) {
@@ -440,13 +440,12 @@ func pmdAssertProposalState(
 		panic("proposal whole getter metadata invariant failed")
 	}
 	metadata := whole.Metadata()
-	if metadata == nil || metadata.Title() != expectedTitle || metadata.Description() != expectedDescription {
-		panic("proposal metadata pointer/inline invariant failed")
+	if metadata.Title() != expectedTitle || metadata.Description() != expectedDescription {
+		panic("proposal metadata value invariant failed")
 	}
-	if whole.Status() == nil || whole.Data() == nil {
-		panic("proposal status/data presence invariant failed")
-	}
-	if (whole.Data().CommunityPoolSpend() != nil) != expectedSpend || (whole.Data().Execution() != nil) != expectedExecution {
+	_, hasSpend := whole.Data().CommunityPoolSpend()
+	_, hasExecution := whole.Data().Execution()
+	if hasSpend != expectedSpend || hasExecution != expectedExecution {
 		panic("proposal optional data child invariant failed")
 	}
 	snapshotTime := whole.SnapshotTime()
@@ -480,7 +479,7 @@ func pmdAssertProposalState(
 		"nay", nay,
 		"title", title,
 		"descriptionLen", len(description),
-		"metadataPresent", metadata != nil,
+		"metadataPresent", true,
 		"spendPresent", actualSpend,
 		"spendTo", spendTo,
 		"spendToken", spendToken,
