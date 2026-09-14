@@ -163,7 +163,6 @@ gas-report:
 	(cd "$$GNOSWAP_WORKTREE" && python3 setup.py --exclude-tests -w "$$RUN_ROOT"); \
 	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
 	cp -r tests/metric "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
-	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" -maxdepth 1 -type f -name '*_filetest.gno*' ! -name "$(or $(METRIC_FILES),*_filetest.gno*)" -delete; \
 	mkdir -p "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests"; \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" -maxdepth 1 -type f -name '*_filetest.gno' -exec mv {} "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests/" \;; \
 	mkdir -p reports/metric/commits; \
