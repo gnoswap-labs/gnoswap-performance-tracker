@@ -1,25 +1,171 @@
 | Name | Gas Used | Storage Diff | CPU Cycles |
 |------|----------|--------------|------------|
-| launchpad-deposit project create projects=1 | 8,245,338 | 36,394 | 5,808,735 |
-| launchpad-deposit project create projects=2 | 6,405,873 | 25,260 | 5,961,032 |
-| launchpad-deposit project create projects=3 | 6,414,169 | 25,186 | 5,963,367 |
-| launchpad-deposit create project=1 deposits=16 | 92,624,343 | 89,668 | 78,577,441 |
-| launchpad-deposit create project=1 deposits=32 | 93,646,348 | 83,295 | 80,502,622 |
-| launchpad-deposit create project=1 deposits=48 | 93,786,857 | 76,796 | 80,651,751 |
-| launchpad-deposit create project=1 deposits=64 | 93,787,997 | 77,180 | 80,665,920 |
-| launchpad-deposit create project=2 deposits=16 | 92,365,079 | 80,266 | 79,696,773 |
-| launchpad-deposit create project=2 deposits=32 | 93,675,196 | 78,222 | 80,652,688 |
-| launchpad-deposit claim project=1 deposits=16 | 47,244,553 | 2,562 | 43,344,849 |
-| launchpad-deposit claim project=1 deposits=32 | 46,868,258 | 192 | 43,080,861 |
-| launchpad-deposit claim project=1 deposits=48 | 46,866,694 | 192 | 43,079,219 |
-| launchpad-deposit claim project=1 deposits=64 | 47,679,138 | 240 | 43,078,189 |
-| launchpad-deposit principal withdraw project=1 withdrawn=16 | 118,242,300 | -44,688 | 102,288,400 |
-| launchpad-deposit principal withdraw project=1 withdrawn=32 | 118,181,052 | -39,874 | 102,147,866 |
-| launchpad-deposit principal withdraw project=1 withdrawn=48 | 117,819,148 | -39,923 | 101,873,695 |
-| launchpad-deposit principal withdraw project=1 withdrawn=64 | 115,846,968 | -46,857 | 100,274,030 |
-| launchpad-deposit refund project=2 active=32 | 3,689,049 | 2,082 | 3,412,167 |
-| launchpad-deposit refund project=3 active=0 | 1,399,997 | 2,117 | 1,264,368 |
-| launchpad-deposit refund cleanup withdraw project=2 withdrawn=16 | 122,812,972 | -39,908 | 106,573,803 |
-| launchpad-deposit refund cleanup withdraw project=2 withdrawn=32 | 121,759,226 | -49,372 | 105,104,801 |
-| launchpad-deposit refund project=1 active=0 | 1,595,959 | 2,082 | 1,421,893 |
-| launchpad-deposit retained getters | 1,103,483 | 0 | 1,049,329 |
+| TickMathGetSqrtRatioAtTick (minTick) | 1,689,859 | 0 | 1,565,901 |
+| TickMathGetSqrtRatioAtTick (maxTick) | 2,058,854 | 0 | 2,010,200 |
+| TickMathGetSqrtRatioAtTick (zero) | 334,802 | 0 | 322,554 |
+| TickMathGetSqrtRatioAtTick | 1,527,883 | 0 | 1,501,949 |
+| TickMathGetTickAtSqrtRatio | 3,620,172 | 0 | 3,510,280 |
+| GetLiquidityForAmounts | 3,211,514 | 0 | 3,153,602 |
+| GetAmountsForLiquidity | 2,981,516 | 0 | 2,937,658 |
+| LiquidityMathAddDelta (positive) | 449,544 | 0 | 431,320 |
+| LiquidityMathAddDelta (negative) | 471,588 | 0 | 463,867 |
+| LiquidityMathAddDelta | 437,865 | 0 | 431,320 |
+| GetAmount0Delta | 3,274,179 | 0 | 2,977,700 |
+| GetAmount1Delta | 2,329,750 | 0 | 2,298,269 |
+| SwapMathComputeSwapStep | 4,232,740 | 0 | 4,157,059 |
+| Propose Community Pool Spend | 2,613,981 | 20,560 | 2,087,061 |
+| Propose Parameter Change | 2,990,651 | 19,532 | 2,545,868 |
+| Vote | 1,003,134 | 4,076 | 844,222 |
+| Execute | 2,522,505 | 76 | 1,351,503 |
+| Propose Text | 1,928,438 | 18,333 | 1,577,956 |
+| Propose Text with Inactive: 100 | 2,344,532 | 8,501 | 2,075,398 |
+| CollectUndelegatedGns (100 delegations, 1 withdraws) | 25,063,477 | 0 | 22,279,393 |
+| CollectUndelegatedGns (10 delegations, 10 withdraws) | 4,368,525 | 0 | 3,839,683 |
+| CollectUndelegatedGns (10 delegations, 1 withdraws) | 2,329,935 | 0 | 1,942,663 |
+| CollectUndelegatedGns (10 delegations, 50 withdraws) | 13,429,225 | 18 | 12,270,883 |
+| CollectUndelegatedGns (10 delegations, 5 withdraws) | 3,235,975 | 0 | 2,785,783 |
+| CollectUndelegatedGns (1 delegation, 10 withdraws) | 610,698 | 0 | 541,065 |
+| CollectUndelegatedGns (1 delegation, 1 withdraws) | 406,839 | 0 | 351,363 |
+| CollectUndelegatedGns (1 delegation, 50 withdraws) | 1,516,738 | 0 | 1,384,185 |
+| CollectUndelegatedGns (1 delegation, 5 withdraws) | 497,443 | 0 | 435,675 |
+| CollectReward (100 delegations, 1 withdraws) | 3,808,216 | 2,333 | 3,155,623 |
+| CollectReward (10 delegations, 10 withdraws) | 3,808,126 | 2,323 | 3,155,623 |
+| CollectReward (10 delegations, 1 withdraws) | 3,804,334 | 2,323 | 3,151,833 |
+| CollectReward (10 delegations, 50 withdraws) | 3,807,055 | 2,323 | 3,154,552 |
+| CollectReward (10 delegations, 5 withdraws) | 3,801,127 | 2,323 | 3,148,626 |
+| CollectReward (1 delegation, 10 withdraws) | 3,878,254 | 2,395 | 3,151,833 |
+| CollectReward (1 delegation, 1 withdraws) | 4,053,844 | 2,395 | 3,323,957 |
+| CollectReward (1 delegation, 50 withdraws) | 3,875,047 | 2,395 | 3,148,626 |
+| CollectReward (1 delegation, 5 withdraws) | 3,876,200 | 2,395 | 3,149,779 |
+| gov/staker CollectReward (1 protocol-fee tokens) | 4,044,081 | 368 | 3,320,204 |
+| gov/staker CollectReward (2 protocol-fee tokens) | 6,560,400 | -1,860 | 5,731,361 |
+| gov/staker CollectReward (3 protocol-fee tokens) | 9,194,956 | -3,992 | 8,144,361 |
+| gov/staker CollectReward (4 protocol-fee tokens) | 11,840,715 | -6,122 | 10,561,868 |
+| gov/staker CollectReward (4 protocol-fee tokens but zero amount) | 1,700,705 | 0 | 1,173,264 |
+| Delegate | 4,981,724 | 38,285 | 1,940,105 |
+| Undelegate | 2,275,753 | 840 | 1,582,832 |
+| Undelegate (5 delegations, cached external calls) | 9,694,307 | 3,510 | 6,767,614 |
+| Delegate (cached external calls) | 3,044,126 | 3,210 | 2,320,762 |
+| Undelegate (early exit, 3 of 10 delegations) | 6,649,287 | 2,088 | 4,826,618 |
+| Redelegate | 4,358,634 | 1,423 | 3,045,248 |
+| Redelegate (50 of 100 delegations, optimized) | 123,262,883 | -118,826 | 90,613,549 |
+| Undelegate (50 delegatees, large AVL traversal) | 2,455,766 | 708 | 1,785,860 |
+| CollectDepositGns (deposit 1/5, remaining 4) | 7,967,948 | 1,850 | 6,775,110 |
+| CollectDepositGns (deposit 2/5, remaining 3) | 7,626,364 | -2,257 | 6,551,949 |
+| CollectDepositGns (deposit 3/5, remaining 2) | 7,599,972 | -2,257 | 6,527,942 |
+| CollectDepositGns (deposit 4/5, remaining 1) | 7,605,414 | -2,257 | 6,535,769 |
+| CollectDepositGns (deposit 5/5, remaining 0) | 7,477,687 | -8,456 | 6,431,108 |
+| Launchpad CollectDepositGns | 7,835,106 | -4,155 | 6,671,895 |
+| CollectProtocolFee (1 token) | 3,917,325 | 4,426 | 3,266,178 |
+| CollectProtocolFee (2 tokens) | 6,338,927 | 8,750 | 5,464,482 |
+| CollectProtocolFee (5 tokens) | 13,642,438 | 21,724 | 12,074,102 |
+| Launchpad CollectProtocolFee (tokens: 10) | 28,153,033 | 44,272 | 25,377,685 |
+| Launchpad CollectRewardByDepositId | 3,432,630 | 2,070 | 3,046,082 |
+| Create Launchpad Project | 9,156,265 | 37,161 | 6,652,301 |
+| Launchpad DepositGns | 6,424,987 | 24,246 | 4,178,255 |
+| Launchpad TransferLeftFromProjectByAdmin | 1,381,305 | 41 | 1,188,126 |
+| launchpad-deposit project create projects=1 | 8,278,838 | 36,394 | 5,829,188 |
+| launchpad-deposit project create projects=2 | 6,431,557 | 25,260 | 5,981,485 |
+| launchpad-deposit project create projects=3 | 6,439,853 | 25,186 | 5,983,820 |
+| launchpad-deposit create project=1 deposits=16 | 92,538,978 | 89,668 | 78,492,865 |
+| launchpad-deposit create project=1 deposits=32 | 93,564,188 | 83,295 | 80,420,462 |
+| launchpad-deposit create project=1 deposits=48 | 93,704,697 | 76,796 | 80,569,591 |
+| launchpad-deposit create project=1 deposits=64 | 93,705,837 | 77,180 | 80,583,760 |
+| launchpad-deposit create project=2 deposits=16 | 92,280,579 | 80,266 | 79,612,273 |
+| launchpad-deposit create project=2 deposits=32 | 93,593,036 | 78,222 | 80,570,528 |
+| launchpad-deposit claim project=1 deposits=16 | 47,414,921 | 2,562 | 43,491,041 |
+| launchpad-deposit claim project=1 deposits=32 | 47,038,626 | 192 | 43,227,053 |
+| launchpad-deposit claim project=1 deposits=48 | 47,037,062 | 192 | 43,225,411 |
+| launchpad-deposit claim project=1 deposits=64 | 47,849,506 | 240 | 43,224,381 |
+| launchpad-deposit principal withdraw project=1 withdrawn=16 | 118,567,831 | -44,688 | 102,570,288 |
+| launchpad-deposit principal withdraw project=1 withdrawn=32 | 118,500,124 | -39,874 | 102,429,754 |
+| launchpad-deposit principal withdraw project=1 withdrawn=48 | 118,138,220 | -39,923 | 102,155,583 |
+| launchpad-deposit principal withdraw project=1 withdrawn=64 | 116,165,936 | -46,857 | 100,555,814 |
+| launchpad-deposit refund project=2 active=32 | 3,695,364 | 2,082 | 3,417,669 |
+| launchpad-deposit refund project=3 active=0 | 1,407,352 | 2,117 | 1,270,910 |
+| launchpad-deposit refund cleanup withdraw project=2 withdrawn=16 | 123,132,172 | -39,908 | 106,855,819 |
+| launchpad-deposit refund cleanup withdraw project=2 withdrawn=32 | 122,078,186 | -49,372 | 105,386,577 |
+| launchpad-deposit refund project=1 active=0 | 1,603,338 | 2,082 | 1,428,459 |
+| launchpad-deposit retained getters | 1,100,651 | 0 | 1,045,101 |
+| CreatePool | 6,766,055 | 24,958 | 5,896,094 |
+| Mint (fee:3000, wide range) | 32,381,198 | 22,702 | 30,132,961 |
+| Swap (gns -> wugnot, fee:500) | 47,474,258 | 0 | 44,415,958 |
+| DecreaseLiquidity | 25,838,209 | 18 | 24,376,236 |
+| IncreaseLiquidity | 23,859,948 | -2,084 | 22,949,726 |
+| Mint (bar:foo:500) | 30,457,605 | 22,689 | 28,115,855 |
+| CollectFee (with unwrap) | 8,077,042 | 44 | 5,938,992 |
+| DecreaseLiquidity (w. Remove) | 22,708,951 | 62 | 19,622,426 |
+| Mint (reposition) | 31,291,838 | 8,619 | 30,131,732 |
+| SetPoolTier (tier 1) | 4,205,550 | 47,025 | 1,834,429 |
+| StakeToken | 10,849,190 | 22,578 | 9,847,380 |
+| UintTree Set (0) | 75,309 | 0 | 50,337 |
+| UintTree Get (0) | 56,160 | 0 | 53,997 |
+| UintTree Set (1) | 57,342 | 0 | 53,281 |
+| UintTree Get (1) | 56,160 | 0 | 53,997 |
+| UintTree Set (255) | 57,342 | 0 | 53,281 |
+| UintTree Get (255) | 56,160 | 0 | 53,997 |
+| UintTree Set (256) | 57,342 | 0 | 53,281 |
+| UintTree Get (256) | 56,160 | 0 | 53,997 |
+| UintTree Set (65535) | 57,342 | 0 | 53,281 |
+| UintTree Get (65535) | 56,160 | 0 | 53,997 |
+| UintTree Set (4294967295) | 57,342 | 0 | 53,281 |
+| UintTree Get (4294967295) | 56,160 | 0 | 53,997 |
+| UintTree Set (9223372036854775807) | 57,342 | 0 | 53,281 |
+| UintTree Get (9223372036854775807) | 56,160 | 0 | 53,997 |
+| ExactInSingleSwapRoute(grc20) - fee:10000 | 28,182,156 | 9,054 | 24,516,704 |
+| ExactInSingleSwapRoute(grc20) - fee:100 | 32,772,820 | 9,054 | 29,012,024 |
+| ExactInSingleSwapRoute(grc20) - fee:3000 | 28,246,964 | 9,054 | 24,562,197 |
+| ExactInSingleSwapRoute(grc20) - fee:500 | 28,108,678 | 9,054 | 24,443,466 |
+| ExactInSwapRoute(grc20) - fee:10000 | 27,420,626 | 9,054 | 23,763,289 |
+| ExactInSwapRoute(grc20) - fee:100 | 32,028,594 | 9,054 | 28,275,913 |
+| ExactInSwapRoute(grc20) - fee:3000 | 27,494,086 | 9,054 | 23,817,434 |
+| ExactInSwapRoute(grc20) - fee:500 | 27,364,452 | 9,054 | 23,707,355 |
+| ExactOutSingleSwapRoute(grc20) - fee:10000 | 30,015,181 | 9,054 | 26,323,910 |
+| ExactOutSingleSwapRoute(grc20) - fee:100 | 34,456,621 | 9,054 | 30,672,619 |
+| ExactOutSingleSwapRoute(grc20) - fee:3000 | 29,956,005 | 9,054 | 26,245,187 |
+| ExactOutSingleSwapRoute(grc20) - fee:500 | 29,851,267 | 9,054 | 26,160,004 |
+| ExactOutSwapRoute(grc20) - fee:10000 | 29,276,686 | 9,054 | 25,593,535 |
+| ExactOutSwapRoute(grc20) - fee:100 | 33,735,430 | 9,054 | 29,959,548 |
+| ExactOutSwapRoute(grc20) - fee:3000 | 29,226,162 | 9,054 | 25,523,464 |
+| ExactOutSwapRoute(grc20) - fee:500 | 29,130,076 | 9,054 | 25,446,933 |
+| BuildSingleHopRoutePath | 203,089 | 0 | 46,890 |
+| MultiHop ExactIn (2 hops) | 53,242,048 | 9,061 | 48,745,046 |
+| MultiHop ExactOut (2 hops) | 73,104,248 | 76 | 70,806,966 |
+| MultiHop ExactIn (3 hops) | 73,092,968 | 33 | 70,582,019 |
+| MultiHop ExactOut (3 hops) | 111,134,625 | 0 | 107,855,102 |
+| MultiRoute ExactIn (50:50 split) | 72,716,862 | 0 | 70,144,281 |
+| MultiRoute ExactOut (50:50 split) | 97,595,826 | 4 | 94,532,518 |
+| CollectReward (only Internal Reward) | 14,575,128 | 11,137 | 13,142,076 |
+| CollectReward 2nd (only Internal Reward) | 14,351,555 | 40 | 13,310,774 |
+| staker CollectReward (1 external-incentive token) | 14,733,065 | 10,026 | 13,456,429 |
+| staker CollectReward (2 external-incentive tokens) | 22,843,318 | 4,069 | 21,447,904 |
+| staker CollectReward (3 external-incentive tokens) | 31,272,318 | 4,502 | 29,369,895 |
+| staker CollectReward (4 external-incentive tokens) | 39,889,548 | 5,046 | 37,444,214 |
+| storage growth: CollectReward 20 staked positions | 15,885,186 | 62 | 14,978,079 |
+| storage growth: CollectReward 40 staked positions | 16,347,523 | 0 | 15,450,961 |
+| storage growth: CollectReward 60 staked positions | 16,350,017 | 0 | 15,453,455 |
+| storage growth: CollectReward 80 staked positions | 16,481,294 | 0 | 15,577,375 |
+| storage growth: CollectReward 100 staked positions | 16,466,989 | 0 | 15,563,070 |
+| CollectReward With External Rewards (1 incentives) | 23,346,166 | 12,691 | 21,327,760 |
+| CollectReward With External Rewards 2nd (1 incentives) | 22,831,350 | 31 | 21,290,367 |
+| CollectReward With External Rewards (5 incentives) | 57,263,026 | 32,801 | 53,019,239 |
+| CollectReward With External Rewards 2nd (5 incentives) | 55,784,229 | 52 | 52,327,911 |
+| CollectReward with Warmup Range (30% ~ 30%) | 14,613,128 | 11,119 | 13,174,135 |
+| CollectReward with Warmup Range (30% ~ 50%) | 16,711,456 | 58 | 15,608,236 |
+| CollectReward with Warmup Range (30% ~ 70%) | 19,100,353 | 18 | 17,935,220 |
+| CollectReward with Warmup Range (30% ~ 100%) | 21,513,201 | 18 | 20,286,151 |
+| CollectReward with Warmup Range (100% ~) | 14,024,621 | -6 | 13,064,462 |
+| CollectReward with Warmup Range 2nd (100% ~) | 13,909,008 | 0 | 12,948,870 |
+| CreateExternalIncentive | 4,131,906 | 68,677 | 3,437,861 |
+| EndExternalIncentive | 2,693,515 | -1,897 | 2,472,810 |
+| EndExternalIncentive (unclaimablePeriods=100) | 2,723,410 | 147 | 2,502,425 |
+| EndExternalIncentive (unclaimablePeriods=10) | 2,673,105 | 141 | 2,454,368 |
+| EndExternalIncentive (unclaimablePeriods=50) | 2,685,535 | 141 | 2,466,798 |
+| Swap (halving, 10 staked tick-crosses) | 104,032,669 | 3,729 | 99,626,440 |
+| Swap (halving, 1 staked tick-cross) | 31,995,076 | 2,813 | 30,315,838 |
+| Swap (halving, 50 staked tick-crosses) | 432,421,924 | 7,259 | 417,147,228 |
+| Swap (no halving, 10 staked tick-crosses) | 91,854,564 | -7,110 | 87,845,894 |
+| Swap (no halving, 1 staked tick-cross) | 25,797,588 | -7,684 | 24,395,624 |
+| Swap (no halving, 50 staked tick-crosses) | 393,663,257 | -5,109 | 379,320,762 |
+| RegisterInitializer (v1) | 71,548 | 0 | 49,682 |
+| RegisterInitializer (v2) | 55,268 | 0 | 52,396 |

@@ -99,8 +99,8 @@ func initializeSetup(cur realm) {
 	staker.AddToken(cross(cur), oblPath)
 	staker.AddToken(cross(cur), barPath)
 
-	// midnight-aligned start, 90 day duration (staker requires 90/180/365 days)
-	incentiveStart = (time.Now().Unix()/86400 + 1) * 86400
+	// Start at the first midnight that is safely beyond the 24-hour minimum.
+	incentiveStart = time.Now().Add(48 * time.Hour).Truncate(24 * time.Hour).Unix()
 	incentiveEnd = incentiveStart + 86400*90
 
 	// approve pool tokens and every reward token to pool + staker

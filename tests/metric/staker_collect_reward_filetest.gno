@@ -26,6 +26,7 @@ import (
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
 	"gno.land/r/gnoswap/staker"
+	"gno.land/r/gnoswap/scenarioutils"
 
 	"gno.land/r/onbloc/bar"
 	"gno.land/r/onbloc/foo"
@@ -64,6 +65,7 @@ func main(cur realm) {
 
 func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
+	scenarioutils.EnsureCanonicalDefaultPool(cross(cur))
 	pool.SetPoolCreationFee(cross(cur), 0)
 
 	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)

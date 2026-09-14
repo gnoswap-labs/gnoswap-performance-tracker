@@ -26,9 +26,13 @@ import (
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
 	"gno.land/r/gnoswap/staker"
+	"gno.land/r/gnoswap/scenarioutils"
 
 	"gno.land/r/onbloc/bar"
+	"gno.land/r/onbloc/baz"
 	"gno.land/r/onbloc/foo"
+	"gno.land/r/onbloc/obl"
+	"gno.land/r/onbloc/qux"
 
 	"gno.land/r/gnoswap/gns"
 
@@ -71,14 +75,21 @@ func main(cur realm) {
 
 func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
+	scenarioutils.EnsureCanonicalDefaultPool(cross(cur))
 	pool.SetPoolCreationFee(cross(cur), 0)
+	staker.AddToken(cross(cur), "gno.land/r/onbloc/baz.BAZ")
+	staker.AddToken(cross(cur), "gno.land/r/onbloc/obl.OBL")
+	staker.AddToken(cross(cur), "gno.land/r/onbloc/qux.QUX")
 
 	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
 	testing.SkipHeights(1)
 
 	bar.Transfer(cross(cur), aliceAddr, 10_000_000_000)
 	foo.Transfer(cross(cur), aliceAddr, 10_000_000_000)
-	gns.Transfer(cross(cur), aliceAddr, 10_000_000_000)
+	baz.Transfer(cross(cur), aliceAddr, 1_000_000_000)
+	obl.Transfer(cross(cur), aliceAddr, 1_000_000_000)
+	qux.Transfer(cross(cur), aliceAddr, 1_000_000_000)
+	gns.Transfer(cross(cur), aliceAddr, 10_000_000_000+incentiveCount*staker.GetDepositGnsAmount())
 
 	bar.Approve(cross(cur), poolAddr, maxInt64)
 	foo.Approve(cross(cur), poolAddr, maxInt64)
@@ -92,15 +103,25 @@ func initializeSetup(cur realm) {
 func createExternalIncentivesSetup(cur realm) {
 	testing.SetRealm(aliceRealm)
 	bar.Approve(cross(cur), stakerAddr, maxInt64)
+	foo.Approve(cross(cur), stakerAddr, maxInt64)
+	baz.Approve(cross(cur), stakerAddr, maxInt64)
+	obl.Approve(cross(cur), stakerAddr, maxInt64)
+	qux.Approve(cross(cur), stakerAddr, maxInt64)
 
-	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
+	incentiveStartTime := time.Now().AddDate(0, 0, 2).Truncate(24 * time.Hour).Unix()
 	incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
+
+	// Only one unfinished incentive per reward token is allowed in a pool.
+	rewardTokens := []string{
+		barPath, fooPath, "gno.land/r/onbloc/baz.BAZ",
+		"gno.land/r/onbloc/obl.OBL", "gno.land/r/onbloc/qux.QUX",
+	}
 
 	for i := 0; i < int(incentiveCount); i++ {
 		staker.CreateExternalIncentive(
 			cross(cur),
 			poolPath,
-			barPath,
+			rewardTokens[i],
 			1_000_000_000,
 			incentiveStartTime,
 			incentiveEndTime,

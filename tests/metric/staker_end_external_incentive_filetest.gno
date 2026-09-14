@@ -45,6 +45,9 @@ var (
 	fooPath = "gno.land/r/onbloc/foo.FOO"
 
 	maxInt64 int64 = 9223372036854775807
+	incentiveStartTime int64
+	incentiveEndTime   int64
+	incentiveID        string
 )
 
 var t *testing.T
@@ -100,7 +103,7 @@ func mintPositionMetric(cur realm) {
 func createExternalIncentiveMetric(cur realm) {
 	testing.SetRealm(adminRealm)
 	bar.Transfer(cross(cur), aliceAddr, 1000000000)
-	gns.Transfer(cross(cur), aliceAddr, 1000000000)
+	gns.Transfer(cross(cur), aliceAddr, staker.GetDepositGnsAmount())
 
 	testing.SetRealm(aliceRealm)
 
@@ -109,24 +112,31 @@ func createExternalIncentiveMetric(cur realm) {
 	bar.Approve(cross(cur), stakerAddr, maxInt64)
 	gns.Approve(cross(cur), stakerAddr, maxInt64)
 
+	// Start at the first midnight that is safely beyond the 24-hour minimum.
+	incentiveStartTime = time.Now().Add(48 * time.Hour).Truncate(24 * time.Hour).Unix()
+	incentiveEndTime = incentiveStartTime + 60*60*24*90
+
+	// incentiveID is creator:createTimestamp:counter; capture it at creation time.
+	createTimestamp := time.Now().Unix()
+	incentiveID = ufmt.Sprintf("%s:%d:%d", aliceAddr, createTimestamp, 1)
+
 	staker.CreateExternalIncentive(
 		cross(cur),
 		poolPath,
 		barPath,
 		int64(1000000000),
-		1234569600,
-		1234569600+60*60*24*90,
+		incentiveStartTime,
+		incentiveEndTime,
 	)
+
+	// EndExternalIncentive requires the incentive window to have elapsed.
+	testing.SkipHeights((incentiveEndTime-time.Now().Unix())/5 + 1)
 }
 
 func endExternalIncentiveMetric(cur realm) {
 	testing.SetRealm(aliceRealm)
 
 	poolPath := barPath + ":" + fooPath + ":100"
-
-	incentiveID := ufmt.Sprintf("%s:%d:%d", aliceAddr, time.Now().Unix(), 1)
-
-	testing.SkipHeights(1234569600 + 60*60*24*90/5)
 
 	metric.PrintMetricsBy("EndExternalIncentive", func() {
 		staker.EndExternalIncentive(cross(cur), poolPath, incentiveID, aliceAddr)
