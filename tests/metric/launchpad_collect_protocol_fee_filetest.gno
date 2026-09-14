@@ -64,9 +64,8 @@ func main(cur realm) {
 	for index := 0; index < tokenCount; index++ {
 		name := ufmt.Sprintf("Token%d", index)
 		symbol := ufmt.Sprintf("TKN%d", index)
-		tokenPath := ufmt.Sprintf("gno.land/r/onbloc/token%d.%s", index, symbol)
 		mintAmount := int64(1000)
-		addToProtocolFee(cur, tokenPath, name, symbol, mintAmount)
+		addToProtocolFee(cur, name, symbol, mintAmount)
 	}
 	testing.SkipHeights(1)
 
@@ -104,12 +103,13 @@ func createLaunchpadProject(cur realm) string {
 	return projectId
 }
 
-func addToProtocolFee(cur realm, tokenPath string, name string, symbol string, mintAmount int64) {
-	testing.SetRealm(testing.NewCodeRealm(tokenPath))
-
-	token, ledger := grc20.NewToken(name, symbol, 6, 0, cur)
-	ledger.Mint(stakerAddr, mintAmount)
-	grc20reg.Register(cross(cur), token, "")
+func addToProtocolFee(cur realm, name string, symbol string, mintAmount int64) {
+	var tokenPath string
+	func(cur realm) {
+		token, ledger := grc20.NewToken(name, symbol, 6, 0, cur)
+		ledger.Mint(stakerAddr, mintAmount)
+		tokenPath = grc20reg.Register(cross(cur), token, "")
+	}(cross(cur))
 
 	recordProtocolFees(cur, tokenPath, mintAmount)
 }

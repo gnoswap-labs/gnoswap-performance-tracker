@@ -26,6 +26,7 @@ import (
 	"gno.land/r/gnoswap/pool"
 	"gno.land/r/gnoswap/position"
 	"gno.land/r/gnoswap/staker"
+	"gno.land/r/gnoswap/scenarioutils"
 
 	"gno.land/r/onbloc/bar"
 	"gno.land/r/onbloc/foo"
@@ -71,6 +72,7 @@ func main(cur realm) {
 
 func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
+	scenarioutils.EnsureCanonicalDefaultPool(cross(cur))
 	pool.SetPoolCreationFee(cross(cur), 0)
 
 	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)
@@ -78,7 +80,7 @@ func initializeSetup(cur realm) {
 
 	bar.Transfer(cross(cur), aliceAddr, 10_000_000_000)
 	foo.Transfer(cross(cur), aliceAddr, 10_000_000_000)
-	gns.Transfer(cross(cur), aliceAddr, 10_000_000_000)
+	gns.Transfer(cross(cur), aliceAddr, 10_000_000_000+incentiveCount*staker.GetDepositGnsAmount())
 
 	bar.Approve(cross(cur), poolAddr, maxInt64)
 	foo.Approve(cross(cur), poolAddr, maxInt64)
@@ -93,7 +95,7 @@ func createExternalIncentivesSetup(cur realm) {
 	testing.SetRealm(aliceRealm)
 	bar.Approve(cross(cur), stakerAddr, maxInt64)
 
-	incentiveStartTime := time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
+	incentiveStartTime := time.Now().AddDate(0, 0, 2).Truncate(24 * time.Hour).Unix()
 	incentiveEndTime := incentiveStartTime + TIMESTAMP_90DAYS
 
 	for i := 0; i < int(incentiveCount); i++ {

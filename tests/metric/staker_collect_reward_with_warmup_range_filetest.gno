@@ -19,6 +19,7 @@ import (
 	"gno.land/r/gnoswap/position"
 	_ "gno.land/r/gnoswap/rbac"
 	"gno.land/r/gnoswap/staker"
+	"gno.land/r/gnoswap/scenarioutils"
 
 	_ "gno.land/r/gnoswap/pool/v1"
 	_ "gno.land/r/gnoswap/position/v1"
@@ -65,6 +66,7 @@ func main(cur realm) {
 
 func initializeSetup(cur realm) {
 	testing.SetRealm(adminRealm)
+	scenarioutils.EnsureCanonicalDefaultPool(cross(cur))
 	pool.SetPoolCreationFee(cross(cur), 0)
 
 	emission.SetDistributionStartTime(cross(cur), time.Now().Unix()+1)

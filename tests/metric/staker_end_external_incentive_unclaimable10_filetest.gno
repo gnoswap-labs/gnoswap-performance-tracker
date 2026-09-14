@@ -110,8 +110,8 @@ func createPoolAndSetTier(cur realm) {
 
 func createExternalIncentive(cur realm) {
 	testing.SetRealm(adminRealm)
-
-	incentiveStartTime = time.Now().AddDate(0, 0, 1).Truncate(24 * time.Hour).Unix()
+	// Start at the first midnight that is safely beyond the 24-hour minimum.
+	incentiveStartTime = time.Now().Add(48 * time.Hour).Truncate(24 * time.Hour).Unix()
 	incentiveEndTime = incentiveStartTime + TIMESTAMP_90DAYS
 
 	// incentiveID is creator:createTimestamp:counter; capture it at creation time.
@@ -170,6 +170,7 @@ func accumulateUnclaimablePeriods(cur realm) {
 	for i := 0; i < unclaimablePeriodCount; i++ {
 		testing.SkipHeights(2) // staked run
 		staker.UnStakeToken(cross(cur), stakedTokenId)
+		staker.CollectReward(cross(cur), stakedTokenId)
 
 		testing.SkipHeights(2) // unclaimable gap (start != end)
 		gnft.Approve(cross(cur), stakerAddr, tokenID)
