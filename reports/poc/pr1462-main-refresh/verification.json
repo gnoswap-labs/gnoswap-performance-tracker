@@ -717,5 +717,7 @@
       "sha256": "ff58d4da42f099ced285f01adbc98a30c36dd876583e1cad5b0727ad98e8846a"
     }
   },
-  "retry_notes": "Initial disk-exhausted/interrupted attempts were not counted. Metric evidence was recovered from retained generated filetests; unit/integration were rerun to completion with durable logs."
+  "retry_notes": "Initial disk-exhausted/interrupted attempts were not counted. Metric evidence was recovered from retained generated filetests; unit/integration were rerun to completion with durable logs.",
+  "main_at_publication": "4af5feced3778975c2332a3be859a267e6919b57",
+  "baseline_scope": "Main fetched at rebase start; later main movement is not included in the measured candidate."
 }

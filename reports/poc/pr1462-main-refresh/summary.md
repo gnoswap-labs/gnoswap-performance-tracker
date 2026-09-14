@@ -1,9 +1,10 @@
-# Delegation/reward value records rebased onto current main
+# Delegation/reward value records rebased onto main snapshot
 
 ## Provenance
 
 - Contract PR [#1462](https://github.com/gnoswap-labs/gnoswap/pull/1462): **`0df50727c2c5f391a1a26ee9d3509858d2b69789`**, rebased and pushed from previous head `f53f16f55c7007d77c60834d17a9038eeb8c59aa`.
-- Current main and PR merge base are both **`42691b2d593272f86b0638d31bacf5a6b7813e6a`**. This measures the PR applied to current main, not the older candidate compared with a newer main.
+- Main fetched at rebase start and the PR merge base are both **`42691b2d593272f86b0638d31bacf5a6b7813e6a`**. This measures the PR applied to that main snapshot, not the older candidate compared with a newer main.
+- During verification, remote main advanced to `4af5feced3778975c2332a3be859a267e6919b57` (confirmed at publication). That later commit is not included in this measured head; all results remain pinned to `42691b2` → `0df5072`.
 - Tracker PR [#65](https://github.com/gnoswap-labs/gnoswap-performance-tracker/pull/65) includes tracker main `babaa9e328c4fbb2cc5f7d3fbba0ac80509fa18b`.
 - Metric runtime: `a021c9ee3ccfc0ec74350614d0dca9c3e1ade504` (mainnet `9c8eb132` plus metric patches). Contract-test runtime: `1bf7282dd85ec089a2e9079132b1505a6d80a159`.
 - Rebase conflicts preserve main's value-typed Launchpad Deposit and this PR's value-typed RewardState storage. An obsolete pointer-based GetDeposit test was not reintroduced over main's cutover.
@@ -13,7 +14,7 @@
 
 Complete 32→128 record lifecycle: **13 measurement intervals**, **10 emitted state snapshots identical**.
 
-| Metric | Current main / merge base | Rebased candidate | Delta | Delta % |
+| Metric | Main snapshot / merge base | Rebased candidate | Delta | Delta % |
 |---|---:|---:|---:|---:|
 | Gas | 2,648,798,500 | 2,605,738,823 | -43,059,677 | -1.6256% |
 | Net storage bytes | 2,934,525 | 2,713,830 | -220,695 | -7.5206% |
