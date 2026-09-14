@@ -162,12 +162,17 @@ Raw research artifacts stay under `research/artifacts/` and `research/.runlogs/`
 - `gnoswap/` stays as the source repository for commit resolution.
 - Each benchmark resolves the requested ref to a full commit and reuses a cached detached `gnoswap` worktree under `.worktrees/gnoswap/{full_commit}`.
 - Each run also creates a temporary isolated `gno` worktree under `.worktrees/runs/` so copied scenario files and linked contracts do not mutate the shared `gno/` checkout.
-- Temporary run worktrees are removed automatically after each benchmark.
+- Temporary run worktrees are removed automatically after each benchmark. Set `KEEP_BENCHMARK_WORKTREES=1` to retain generated filetests and inspect their `Error`/`Output` sections; the runner prints the retained path.
+  Golden-update mode can accept a recorded panic, so a zero exit code alone does not establish that every scenario completed successfully.
 - To remove cached worktrees manually, run:
 
 ```bash
 make clean-worktrees
 ```
+
+The shared metric helper loads `common/v1` only when that implementation exists
+in the selected contract revision. This keeps the same scenarios runnable across
+the earlier monolithic common realm and the newer proxy/implementation layout.
 
 ### 7. Metric-enabled Gno Runtime
 
@@ -191,7 +196,12 @@ to `a021c9ee3ccfc0ec74350614d0dca9c3e1ade504` (`gas-9c8eb132`).
 The full active metric baseline for Gnoswap main
 `42691b2d593272f86b0638d31bacf5a6b7813e6a` is
 [`reports/metric/commits/42691b2.md`](reports/metric/commits/42691b2.md):
-85 passing filetests and 119 metric rows.
+86 executed filetests (including the delegation/reward PoC), 74 completed
+scenarios, 12 recorded errors, and 132 metric rows from completed scenarios.
+The same 12 errors occur on the PoC merge base and candidate; see the
+[full verification and matched PoC comparison](reports/poc/pr1462-main-refresh/summary.md).
+The earlier "passing filetests" count reflected golden-update acceptance,
+not the absence of recorded scenario errors.
 
 ```bash
 # Reproduce the pinned baseline without a fixture filter
@@ -201,7 +211,7 @@ make metric-force 42691b2d593272f86b0638d31bacf5a6b7813e6a
 make metric-force main
 ```
 
-Metric execution and report collection include only `*_filetest.gno`.
+Metric and stress execution and report collection include only `*_filetest.gno`.
 Intentionally disabled `.gnoa` fixtures remain disabled, and their historical
 golden output is not included in new reports. This is a new runtime/fixture
 baseline, not a like-for-like performance comparison with older reports.

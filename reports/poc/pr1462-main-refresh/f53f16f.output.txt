@@ -1,0 +1,62 @@
+DelegationRewards Gov Delegate stage=32 records=32
+- Gas Used: 134872864
+- Storage Diff: 355421
+- CPU Cycles: 105972733
+DelegationRewards Gov Undelegate Stage32
+- Gas Used: 2490628
+- Storage Diff: 1519
+- CPU Cycles: 1984443
+STATE delegation-rewards gov stage=32 delegation_count=32 total_delegated=63000000 total_locked=64000000 first_id=1 first_total=2000000 first_undelegated=1000000 first_collected=0 first_withdraw_count=1 middle_id=17 middle_total=2000000 middle_undelegated=0 middle_collected=0 middle_withdraw_count=0 last_id=32 last_total=2000000 last_undelegated=0 last_collected=0 last_withdraw_count=0
+DelegationRewards Gov CollectReward stage=32 records=32
+- Gas Used: 117301641
+- Storage Diff: 214748
+- CPU Cycles: 104860629
+STATE delegation-rewards gov_rewards stage=32 reward_state_count=32 first_before_bar=15873 first_after_bar=0 middle_before_bar=31746 middle_after_bar=0 last_before_bar=31746 last_after_bar=0 protocol_cursor=1234567905 emission_cursor=0
+DelegationRewards Gov Delegate stage=128 records=96
+- Gas Used: 431731118
+- Storage Diff: 1158552
+- CPU Cycles: 347125221
+DelegationRewards Gov Undelegate Stage128
+- Gas Used: 2762619
+- Storage Diff: 1532
+- CPU Cycles: 2216235
+STATE delegation-rewards gov stage=128 delegation_count=128 total_delegated=254000000 total_locked=256000000 first_id=1 first_total=2000000 first_undelegated=1000000 first_collected=0 first_withdraw_count=1 middle_id=65 middle_total=2000000 middle_undelegated=0 middle_collected=0 middle_withdraw_count=0 last_id=128 last_total=2000000 last_undelegated=1000000 last_collected=0 last_withdraw_count=1
+DelegationRewards Gov CollectUndelegatedGns Stage128 Samples
+- Gas Used: 3169927
+- Storage Diff: 2757
+- CPU Cycles: 2790942
+STATE delegation-rewards gov stage=128 delegation_count=128 total_delegated=254000000 total_locked=254000000 first_id=1 first_total=2000000 first_undelegated=1000000 first_collected=1000000 first_withdraw_count=0 middle_id=65 middle_total=2000000 middle_undelegated=0 middle_collected=0 middle_withdraw_count=0 last_id=128 last_total=2000000 last_undelegated=1000000 last_collected=1000000 last_withdraw_count=0
+DelegationRewards Gov CollectReward stage=128 records=128
+- Gas Used: 501003966
+- Storage Diff: 421357
+- CPU Cycles: 441552177
+STATE delegation-rewards gov_rewards stage=128 reward_state_count=128 first_before_bar=3937 first_after_bar=0 middle_before_bar=7874 middle_after_bar=0 last_before_bar=3937 last_after_bar=0 protocol_cursor=1235172725 emission_cursor=0
+DelegationRewards Launchpad CreateProject
+- Gas Used: 6182712
+- Storage Diff: 32769
+- CPU Cycles: 4989737
+DelegationRewards Launchpad DepositGns stage=32 records=32
+- Gas Used: 200072673
+- Storage Diff: 153667
+- CPU Cycles: 176070554
+STATE delegation-rewards launchpad stage=32 deposit_count=32 total_deposit=32000000 first_id=1 first_price_debt=0 first_deposit_amount=1000000 first_accumulated=0 first_claimed=0 middle_id=17 middle_price_debt=65640888680736586316237385692856522 middle_deposit_amount=1000000 middle_accumulated=0 middle_claimed=0 last_id=32 last_price_debt=65640888680736586316237385692856522 last_deposit_amount=1000000 last_accumulated=0 last_claimed=0 manager_total_claimed=0 manager_active_deposit=32000000 manager_accumulated_time=1235777530
+DelegationRewards Launchpad CollectReward stage=32 records=32
+- Gas Used: 91422896
+- Storage Diff: 2113
+- CPU Cycles: 84649289
+STATE delegation-rewards launchpad stage=32 deposit_count=32 total_deposit=32000000 first_id=1 first_price_debt=0 first_deposit_amount=1000000 first_accumulated=0 first_claimed=312704 middle_id=17 middle_price_debt=65640888680736586316237385692856522 middle_deposit_amount=1000000 middle_accumulated=0 middle_claimed=312512 last_id=32 last_price_debt=65640888680736586316237385692856522 last_deposit_amount=1000000 last_accumulated=0 last_claimed=312512 manager_total_claimed=10000576 manager_active_deposit=32000000 manager_accumulated_time=1236036740
+DelegationRewards Launchpad DepositGns stage=128 records=96
+- Gas Used: 621632844
+- Storage Diff: 420788
+- CPU Cycles: 547835655
+STATE delegation-rewards launchpad stage=128 deposit_count=128 total_deposit=128000000 first_id=1 first_price_debt=0 first_deposit_amount=1000000 first_accumulated=0 first_claimed=312704 middle_id=65 middle_price_debt=106407983107016552455265567044726226134 middle_deposit_amount=1000000 middle_accumulated=0 middle_claimed=0 last_id=128 last_price_debt=106407983107016552455265567044726226134 last_deposit_amount=1000000 last_accumulated=0 last_claimed=0 manager_total_claimed=10000576 manager_active_deposit=128000000 manager_accumulated_time=1236036740
+DelegationRewards Launchpad CollectReward stage=128 records=128
+- Gas Used: 367685764
+- Storage Diff: 440
+- CPU Cycles: 341577614
+STATE delegation-rewards launchpad stage=128 deposit_count=128 total_deposit=128000000 first_id=1 first_price_debt=0 first_deposit_amount=1000000 first_accumulated=0 first_claimed=390832 middle_id=65 middle_price_debt=106407983107016552455265567044726226134 middle_deposit_amount=1000000 middle_accumulated=0 middle_claimed=78128 last_id=128 last_price_debt=106407983107016552455265567044726226134 last_deposit_amount=1000000 last_accumulated=0 last_claimed=78128 manager_total_claimed=20000960 manager_active_deposit=128000000 manager_accumulated_time=1236295950
+DelegationRewards Launchpad CollectDepositGns Stage128 First
+- Gas Used: 8544631
+- Storage Diff: -3258
+- CPU Cycles: 7510200
+STATE delegation-rewards launchpad withdrawal deposit_id=1 project_tier=gno.land/r/onbloc/obl.OBL:121090:30 deposit_amount=0 withdrawn=1000000 withdrawn_height=760456 withdrawn_time=1238369555 reward_present=0 manager_total_claimed=20625953 manager_active_deposit=127000000 manager_accumulated_time=1238369525

@@ -155,6 +155,7 @@ gas-report:
 	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
 	eval "$$(./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
 	cleanup() { \
+		if [ "$${KEEP_BENCHMARK_WORKTREES:-0}" = 1 ]; then echo "Benchmark workspace retained: $$RUN_ROOT"; return; fi; \
 		git -C "$(CURDIR)/gno" worktree remove --force "$$GNO_WORKTREE" >/dev/null 2>&1 || true; \
 		git -C "$(CURDIR)/gno" worktree prune >/dev/null 2>&1 || true; \
 		rm -rf "$$RUN_ROOT"; \
@@ -163,6 +164,9 @@ gas-report:
 	(cd "$$GNOSWAP_WORKTREE" && python3 setup.py --exclude-tests -w "$$RUN_ROOT"); \
 	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
 	cp -r tests/metric "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
+	if [ -d "$$GNOSWAP_WORKTREE/contract/r/gnoswap/common/v1" ]; then \
+		printf 'package metric\nimport _ "gno.land/r/gnoswap/common/v1"\n' > "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/common_implementation.gno"; \
+	fi; \
 	mkdir -p "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests"; \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" -maxdepth 1 -type f -name '*_filetest.gno' -exec mv {} "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests/" \;; \
 	mkdir -p reports/metric/commits; \
@@ -183,6 +187,7 @@ stress-report:
 	REF="$(or $(word 2,$(MAKECMDGOALS)),main)"; \
 	eval "$$(./scripts/prepare_benchmark_workspace.sh "$$REF")"; \
 	cleanup() { \
+		if [ "$${KEEP_BENCHMARK_WORKTREES:-0}" = 1 ]; then echo "Benchmark workspace retained: $$RUN_ROOT"; return; fi; \
 		git -C "$(CURDIR)/gno" worktree remove --force "$$GNO_WORKTREE" >/dev/null 2>&1 || true; \
 		git -C "$(CURDIR)/gno" worktree prune >/dev/null 2>&1 || true; \
 		rm -rf "$$RUN_ROOT"; \
@@ -191,16 +196,19 @@ stress-report:
 	(cd "$$GNOSWAP_WORKTREE" && python3 setup.py --exclude-tests -w "$$RUN_ROOT"); \
 	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
 	cp -r tests/metric "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
+	if [ -d "$$GNOSWAP_WORKTREE/contract/r/gnoswap/common/v1" ]; then \
+		printf 'package metric\nimport _ "gno.land/r/gnoswap/common/v1"\n' > "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/common_implementation.gno"; \
+	fi; \
 	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress"; \
 	cp -r tests/stress "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress"; \
 	mkdir -p "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests"; \
-	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) -exec mv {} "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests/" \;; \
+	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" -maxdepth 1 -type f -name '*_filetest.gno' -exec mv {} "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests/" \;; \
 	mkdir -p reports/stress/commits; \
 	$(MAKE) --no-print-directory -C "$$GNO_WORKTREE/gnovm" build; \
 	GNO_BIN="$$GNO_WORKTREE/gnovm/build/gno"; \
 	test -x "$$GNO_BIN"; \
 	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress" && GNOROOT="$$GNO_WORKTREE" "$$GNO_BIN" test . -v -run . -update-golden-tests); \
-	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests" -maxdepth 1 -type f \( -name '*_filetest.gno' -o -name '*_filetest.gnoa' \) | sort | xargs cat | ./scripts/parse_metrics.sh > "reports/stress/commits/$$SHORT_COMMIT.md"; \
+	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/stress/filetests" -maxdepth 1 -type f -name '*_filetest.gno' | sort | xargs cat | ./scripts/parse_metrics.sh > "reports/stress/commits/$$SHORT_COMMIT.md"; \
 	if [ "$$(tail -n +3 "reports/stress/commits/$$SHORT_COMMIT.md" | wc -l | tr -d ' ')" -eq 0 ]; then \
 		echo "Stress report contained no metric rows" >&2; \
 		exit 1; \

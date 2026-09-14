@@ -1,0 +1,723 @@
+{
+  "candidate": "0df50727c2c5f391a1a26ee9d3509858d2b69789",
+  "baseline": "42691b2d593272f86b0638d31bacf5a6b7813e6a",
+  "merge_base": "42691b2d593272f86b0638d31bacf5a6b7813e6a",
+  "previous_candidate": "f53f16f55c7007d77c60834d17a9038eeb8c59aa",
+  "tracker_base": "babaa9e328c4fbb2cc5f7d3fbba0ac80509fa18b",
+  "metric_runtime": "a021c9ee3ccfc0ec74350614d0dca9c3e1ade504",
+  "contract_runtime": "1bf7282dd85ec089a2e9079132b1505a6d80a159",
+  "fixture_sha256": "dd491898a3f03ffa8a808e7cd85d6bd9ccae50bf10340e6ca2844d16ff402425",
+  "metric": {
+    "refs": {
+      "42691b2d593272f86b0638d31bacf5a6b7813e6a": {
+        "cases": 86,
+        "completed": 74,
+        "errors": 12,
+        "command_exit_code": 0
+      },
+      "0df50727c2c5f391a1a26ee9d3509858d2b69789": {
+        "cases": 86,
+        "completed": 74,
+        "errors": 12,
+        "command_exit_code": 0
+      }
+    },
+    "identical_outcomes_on_both_refs": true,
+    "scenario_outcomes": [
+      {
+        "file": "common_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gnsmath_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_governance_propose_community_pool_spend_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_governance_propose_parameter_change_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_governance_propose_text_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_governance_propose_text_with_incative_proposals_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_gns_delegation100_withdraw1_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_gns_delegation10_withdraw10_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_gns_delegation10_withdraw1_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_gns_delegation10_withdraw50_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_gns_delegation10_withdraw5_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_gns_delegation1_withdraw10_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_gns_delegation1_withdraw1_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_gns_delegation1_withdraw50_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_gns_delegation1_withdraw5_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_reward_delegation100_withdraw1_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_reward_delegation10_withdraw10_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_reward_delegation10_withdraw1_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_reward_delegation10_withdraw50_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_reward_delegation10_withdraw5_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_reward_delegation1_withdraw10_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_reward_delegation1_withdraw1_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_reward_delegation1_withdraw50_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_reward_delegation1_withdraw5_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_collect_reward_pf_token_count_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_delegate_undelegate_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_optimizations_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_redelegate_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_redelegate_many_delegations_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "gov_staker_undelegate_many_delegatees_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "launchpad_collect_deposit_gns_accumulation_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "launchpad_collect_deposit_gns_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "launchpad_collect_protocol_fee_1_token_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "launchpad_collect_protocol_fee_2_tokens_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "launchpad_collect_protocol_fee_5_tokens_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "launchpad_collect_protocol_fee_filetest.gno",
+        "status": "error",
+        "error": "should only be called for Realms"
+      },
+      {
+        "file": "launchpad_collect_reward_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "launchpad_create_project_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "launchpad_deposit_gns_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "launchpad_transfer_left_from_project_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "poc_delegation_rewards_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "pool_create_and_mint_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "pool_swap_wugnot_gns_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "position_decrease_liquidity_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "position_increase_liquidity_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "position_mint_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "position_mint_with_gnot_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "position_reposition_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "position_stake_position_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "raw_uint_tree_key_magnitude_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_in_single_swap_route_grc20_fee10000_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_in_single_swap_route_grc20_fee100_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_in_single_swap_route_grc20_fee3000_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_in_single_swap_route_grc20_fee500_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_in_swap_route_grc20_fee10000_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_in_swap_route_grc20_fee100_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_in_swap_route_grc20_fee3000_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_in_swap_route_grc20_fee500_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_out_single_swap_route_grc20_fee10000_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_out_single_swap_route_grc20_fee100_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_out_single_swap_route_grc20_fee3000_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_out_single_swap_route_grc20_fee500_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_out_swap_route_grc20_fee10000_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_out_swap_route_grc20_fee100_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_out_swap_route_grc20_fee3000_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_exact_out_swap_route_grc20_fee500_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_single_hop_route_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "router_swap_multi_hop_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "staker_collect_reward_filetest.gno",
+        "status": "error",
+        "error": "[GNOSWAP-EMISSION-005] invalid emission start || default initial pool does not exist: gno.land/r/gnoland/wugnot.wugnot:gno.land/r/gnoswap/gns.GNS:3000"
+      },
+      {
+        "file": "staker_collect_reward_incentive_token_count_filetest.gno",
+        "status": "error",
+        "error": "[GNOSWAP-STAKER-009] invalid incentive start time || startTimestamp(1234569600) must be at least 24 hours later"
+      },
+      {
+        "file": "staker_collect_reward_position_growth_filetest.gno",
+        "status": "error",
+        "error": "[GNOSWAP-EMISSION-005] invalid emission start || default initial pool does not exist: gno.land/r/gnoland/wugnot.wugnot:gno.land/r/gnoswap/gns.GNS:3000"
+      },
+      {
+        "file": "staker_collect_reward_with_external_rewards_1_filetest.gno",
+        "status": "error",
+        "error": "[GNOSWAP-EMISSION-005] invalid emission start || default initial pool does not exist: gno.land/r/gnoland/wugnot.wugnot:gno.land/r/gnoswap/gns.GNS:3000"
+      },
+      {
+        "file": "staker_collect_reward_with_external_rewards_5_filetest.gno",
+        "status": "error",
+        "error": "[GNOSWAP-EMISSION-005] invalid emission start || default initial pool does not exist: gno.land/r/gnoland/wugnot.wugnot:gno.land/r/gnoswap/gns.GNS:3000"
+      },
+      {
+        "file": "staker_collect_reward_with_warmup_range_filetest.gno",
+        "status": "error",
+        "error": "[GNOSWAP-EMISSION-005] invalid emission start || default initial pool does not exist: gno.land/r/gnoland/wugnot.wugnot:gno.land/r/gnoswap/gns.GNS:3000"
+      },
+      {
+        "file": "staker_create_external_incentive_filetest.gno",
+        "status": "error",
+        "error": "[GNOSWAP-STAKER-009] invalid incentive start time || startTimestamp(8640000000) exceeds the maximum start time policy"
+      },
+      {
+        "file": "staker_end_external_incentive_filetest.gno",
+        "status": "error",
+        "error": "[GNOSWAP-STAKER-009] invalid incentive start time || startTimestamp(1234569600) must be at least 24 hours later"
+      },
+      {
+        "file": "staker_end_external_incentive_unclaimable100_filetest.gno",
+        "status": "error",
+        "error": "[GNOSWAP-STAKER-009] invalid incentive start time || startTimestamp(1234569600) must be at least 24 hours later"
+      },
+      {
+        "file": "staker_end_external_incentive_unclaimable10_filetest.gno",
+        "status": "error",
+        "error": "[GNOSWAP-STAKER-009] invalid incentive start time || startTimestamp(1234569600) must be at least 24 hours later"
+      },
+      {
+        "file": "staker_end_external_incentive_unclaimable50_filetest.gno",
+        "status": "error",
+        "error": "[GNOSWAP-STAKER-009] invalid incentive start time || startTimestamp(1234569600) must be at least 24 hours later"
+      },
+      {
+        "file": "staker_halving_tick_cross_batch_10_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "staker_halving_tick_cross_batch_1_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "staker_halving_tick_cross_batch_50_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "staker_tick_cross_batch_no_halving_10_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "staker_tick_cross_batch_no_halving_1_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "staker_tick_cross_batch_no_halving_50_filetest.gno",
+        "status": "completed",
+        "error": null
+      },
+      {
+        "file": "version_manager_filetest.gno",
+        "status": "completed",
+        "error": null
+      }
+    ],
+    "normalized_rows_per_ref": 132
+  },
+  "poc": {
+    "intervals": 13,
+    "state_snapshots": 10,
+    "state_parity": true,
+    "totals": {
+      "42691b2d593272f86b0638d31bacf5a6b7813e6a": {
+        "gas": 2648798500,
+        "storage_bytes": 2934525,
+        "cpu_cycles": 2243715534
+      },
+      "0df50727c2c5f391a1a26ee9d3509858d2b69789": {
+        "gas": 2605738823,
+        "storage_bytes": 2713830,
+        "cpu_cycles": 2283644853
+      }
+    },
+    "delta": {
+      "gas": {
+        "absolute": -43059677,
+        "percent": -1.6256305264443482
+      },
+      "storage_bytes": {
+        "absolute": -220695,
+        "percent": -7.5206379226621
+      },
+      "cpu_cycles": {
+        "absolute": 39929319,
+        "percent": 1.7796070132302253
+      }
+    },
+    "model_gnot_delta": -22.112559677
+  },
+  "contract": {
+    "unit": {
+      "exit_code": 0,
+      "passed_packages": 52,
+      "no_test_packages": 90,
+      "filetests_passed": 410,
+      "named_and_subtest_pass_records": 9909,
+      "skipped_tests": [
+        "TestExactOutSwapBoundary",
+        "TestCompareExactInAndDrySwapWithNoLiquidityChanged",
+        "TestCompareExactInAndDrySwapWithWhenLiquidityAdded",
+        "TestCompareExactInAndDrySwapWithWhenZeroForOneIsFalse",
+        "TestProcessRoute_MultiHops",
+        "TestEndExternalIncentive",
+        "TestCanonicalTickCross_7",
+        "TestCanonicalSimulation_0"
+      ],
+      "failed_tests": []
+    },
+    "integration": {
+      "exit_code": 1,
+      "total": 77,
+      "passed": 75,
+      "failed": 2,
+      "failures": {
+        "gov_governance_create_parameter_change_proposal.txtar:113": "unable to vote out of voting period",
+        "gov_governance_execute_text_proposal_should_fail.txtar:79": "event regex mismatch"
+      }
+    },
+    "go": {
+      "exit_code": 1,
+      "deploy_generate": "FAIL TestPackageDiscovery: unexpected test_usdc; expected usdc missing",
+      "integration_bless": "PASS"
+    },
+    "supplemental_unskipped": [
+      {
+        "test": "TestExactOutSwapBoundary",
+        "package": "./gno.land/r/gnoswap/router/v1",
+        "exit_code": 1,
+        "failure": "[GNOSWAP-ROUTER-014] invalid route first token || firstToken: gno.land/r/onbloc/foo.FOO, inputToken: gno.land/r/onbloc/bar.BAR"
+      },
+      {
+        "test": "TestCompareExactInAndDrySwapWithNoLiquidityChanged",
+        "package": "./gno.land/r/gnoswap/router/v1",
+        "exit_code": 1,
+        "failure": "[GNOSWAP-ROUTER-018] insufficient balance for swap || token=gno.land/r/onbloc/bar.BAR, required=100000000, available=0, payer=g1t4nxt6gpyz3ysm9cr8n6w9gr9th7pld9jrzffg"
+      },
+      {
+        "test": "TestCompareExactInAndDrySwapWithWhenLiquidityAdded",
+        "package": "./gno.land/r/gnoswap/router/v1",
+        "exit_code": 1,
+        "failure": "[GNOSWAP-ROUTER-018] insufficient balance for swap || token=gno.land/r/onbloc/bar.BAR, required=50000000, available=0, payer=g1t4nxt6gpyz3ysm9cr8n6w9gr9th7pld9jrzffg"
+      },
+      {
+        "test": "TestCompareExactInAndDrySwapWithWhenZeroForOneIsFalse",
+        "package": "./gno.land/r/gnoswap/router/v1",
+        "exit_code": 1,
+        "failure": "[GNOSWAP-ROUTER-018] insufficient balance for swap || token=gno.land/r/gnoswap/gns.GNS, required=10000000, available=0, payer=g1t4nxt6gpyz3ysm9cr8n6w9gr9th7pld9jrzffg"
+      },
+      {
+        "test": "TestProcessRoute_MultiHops",
+        "package": "./gno.land/r/gnoswap/router/v1",
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "test": "TestEndExternalIncentive",
+        "package": "./gno.land/r/gnoswap/staker/v1",
+        "exit_code": 1,
+        "failure": "frame not found: cannot seek beyond origin caller override"
+      },
+      {
+        "test": "TestCanonicalTickCross_7",
+        "package": "./gno.land/r/gnoswap/staker/v1",
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "test": "TestCanonicalSimulation_0",
+        "package": "./gno.land/r/gnoswap/staker/v1",
+        "exit_code": 1,
+        "failure": "reward expected 3876666664, got 3969999999"
+      }
+    ],
+    "method": "All eight unconditional skips removed only from symlink-detached copies in a separate runtime, each body run individually; original links restored."
+  },
+  "stress": {
+    "active_fixtures": 58,
+    "disabled_gnoa_fixtures": 15,
+    "case_bodies_executed": 0,
+    "blocker": "missing gno.land/p/demo/tokens/grc721",
+    "refs_attempted": [
+      "42691b2d593272f86b0638d31bacf5a6b7813e6a",
+      "0df50727c2c5f391a1a26ee9d3509858d2b69789"
+    ],
+    "exit_code_per_ref": 2
+  },
+  "research": {
+    "ref": "0df50727c2c5f391a1a26ee9d3509858d2b69789",
+    "exit_code": 2,
+    "blocker": "No rule to make target 'deploy-bar'",
+    "environment_only_overrides": {
+      "builder": "golang:1.25-alpine",
+      "readiness_timeout_seconds": 60,
+      "rpc_port": 47657,
+      "rest_port": 49888
+    },
+    "case_bodies_executed": 0,
+    "isolated_resources_cleaned": true
+  },
+  "commands": {
+    "unit": {
+      "command": [
+        "make",
+        "test",
+        "WORKDIR=tmp/runtime-current",
+        "PKG=gno.land/p/gnoswap/... ./gno.land/r/gnoswap/... ./gno.land/r/onbloc/... ./gno.land/r/try_register_pool_initializer"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1130.26
+    },
+    "integration": {
+      "command": [
+        "bash",
+        "scripts/all-integration-tests.sh",
+        "tmp/integration-current/gno/gno.land/pkg/integration",
+        "."
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 1057.67
+    },
+    "go": {
+      "command": [
+        "go",
+        "test",
+        "-count=1",
+        "./..."
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 1.94
+    },
+    "research": {
+      "command": [
+        "make",
+        "research-test",
+        "0df50727c2c5f391a1a26ee9d3509858d2b69789"
+      ],
+      "exit_code": 2,
+      "elapsed_seconds": 228.7
+    },
+    "stress-42691b2": {
+      "command": [
+        "make",
+        "stress-report",
+        "42691b2d593272f86b0638d31bacf5a6b7813e6a"
+      ],
+      "exit_code": 2,
+      "elapsed_seconds": 43.11
+    },
+    "stress-0df5072": {
+      "command": [
+        "make",
+        "stress-report",
+        "0df50727c2c5f391a1a26ee9d3509858d2b69789"
+      ],
+      "exit_code": 2,
+      "elapsed_seconds": 49.75
+    }
+  },
+  "local_log_directory": "tmp/pr1462-rebased-verification (contract worktree)",
+  "logs": {
+    "skipped-TestCompareExactInAndDrySwapWithNoLiquidityChanged.log": {
+      "bytes": 203974,
+      "sha256": "4b804c2472e8dc68c9182478d7468ab8477eb59723711fc6280a44814f509a04"
+    },
+    "stress-42691b2.log": {
+      "bytes": 35995,
+      "sha256": "5a8a5499f8e37e921700946f8ce9646f564bbe93f38930515c1e8bc9a6d2089e"
+    },
+    "skipped-TestExactOutSwapBoundary.log": {
+      "bytes": 4136,
+      "sha256": "4f3bf0390381502299ad01a9170566f6a44cba69b11642e4ba5474c154b5863f"
+    },
+    "skipped-TestEndExternalIncentive.log": {
+      "bytes": 12344,
+      "sha256": "b165e60c40d0fc68a4cbc97ad365eee90be5b8cf6aee290e81f63452ee78381c"
+    },
+    "skipped-TestCanonicalSimulation_0.log": {
+      "bytes": 12105,
+      "sha256": "ae359a3360e83758158a954864c7bfe8d0826d3b7a9076ac27d611557ed3ccfa"
+    },
+    "go.log": {
+      "bytes": 371,
+      "sha256": "0bf9440643ca3d9e8d815ff164757c7e17ccc111c1e06a0a0e00369066610029"
+    },
+    "skipped-TestCanonicalTickCross_7.log": {
+      "bytes": 14316,
+      "sha256": "d7762c953f207fdcfc0d3d776901323bbe2162752a7d79fa261cb71ad35193b2"
+    },
+    "integration.log": {
+      "bytes": 2247971,
+      "sha256": "4f8b52421934440c7797dc5b4e300bca7eb130d16d798af7f78cb8d468a7d8fa"
+    },
+    "research.log": {
+      "bytes": 14065,
+      "sha256": "712395b6401155d445819d3381fd4d7ecf87ad55b6ee871898e952404f7a89de"
+    },
+    "stress-0df5072.log": {
+      "bytes": 36094,
+      "sha256": "18d71c13bf3c5f2190da28f2e9b66f0c3852c3c616f98abf5e112ba3c1eb6af4"
+    },
+    "skipped-TestProcessRoute_MultiHops.log": {
+      "bytes": 3295,
+      "sha256": "6b7f3b1054b385ca88c21b5727a58466d8e5958239099f894fb33d7b3f24b9a3"
+    },
+    "unit.log": {
+      "bytes": 4124569,
+      "sha256": "e58fbf4ab8ca11d03b3613c42599c9d8a669e7ca30708ea29704b71ff223d6aa"
+    },
+    "skipped-TestCompareExactInAndDrySwapWithWhenZeroForOneIsFalse.log": {
+      "bytes": 203480,
+      "sha256": "d62ec012de86884db7efb8a10806c96ddc7cd458f965f6aa7d1ff1ad0a49115b"
+    },
+    "skipped-TestCompareExactInAndDrySwapWithWhenLiquidityAdded.log": {
+      "bytes": 204063,
+      "sha256": "ff58d4da42f099ced285f01adbc98a30c36dd876583e1cad5b0727ad98e8846a"
+    }
+  },
+  "retry_notes": "Initial disk-exhausted/interrupted attempts were not counted. Metric evidence was recovered from retained generated filetests; unit/integration were rerun to completion with durable logs.",
+  "main_at_publication": "4af5feced3778975c2332a3be859a267e6919b57",
+  "baseline_scope": "Main fetched at rebase start; later main movement is not included in the measured candidate."
+}
