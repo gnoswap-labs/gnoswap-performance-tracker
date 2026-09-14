@@ -19,6 +19,12 @@
 | Execute | 2,806,197 | -3,333 | 1,614,513 |
 | Propose Text | 2,121,378 | 19,572 | 1,684,068 |
 | Propose Text with Inactive: 100 | 2,557,499 | 9,726 | 2,181,142 |
+| Accumulated vote text 8KiB #1 | 1,182,158 | 4,038 | 954,301 |
+| Accumulated vote text 8KiB #5 | 1,238,270 | 980 | 1,021,707 |
+| Accumulated vote text 8KiB #10 | 1,248,605 | 980 | 1,030,158 |
+| Accumulated vote parameter 4KiB #1 | 1,172,346 | 4,008 | 973,360 |
+| Accumulated vote parameter 4KiB #5 | 1,243,663 | 980 | 1,037,822 |
+| Accumulated vote parameter 4KiB #10 | 1,253,998 | 980 | 1,046,273 |
 | CollectUndelegatedGns (100 delegations, 1 withdraws) | 25,063,477 | 0 | 22,279,393 |
 | CollectUndelegatedGns (10 delegations, 10 withdraws) | 4,368,525 | 0 | 3,839,683 |
 | CollectUndelegatedGns (10 delegations, 1 withdraws) | 2,329,935 | 0 | 1,942,663 |
