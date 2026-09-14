@@ -13,18 +13,18 @@
 | GetAmount0Delta | 3,274,179 | 0 | 2,977,700 |
 | GetAmount1Delta | 2,329,750 | 0 | 2,298,269 |
 | SwapMathComputeSwapStep | 4,232,740 | 0 | 4,157,059 |
-| Propose Community Pool Spend | 2,762,115 | 23,971 | 2,185,308 |
-| Propose Parameter Change | 3,138,785 | 22,943 | 2,644,115 |
-| Vote | 1,006,257 | 4,074 | 844,222 |
-| Execute | 2,727,071 | -3,321 | 1,511,599 |
-| Propose Text | 2,076,572 | 21,744 | 1,676,203 |
-| Propose Text with Inactive: 100 | 2,490,239 | 11,912 | 2,173,645 |
-| Accumulated vote text 8KiB #1 | 994,311 | 4,074 | 846,040 |
-| Accumulated vote text 8KiB #5 | 1,050,423 | 980 | 913,446 |
-| Accumulated vote text 8KiB #10 | 1,060,758 | 980 | 921,897 |
-| Accumulated vote parameter 4KiB #1 | 993,186 | 4,038 | 861,876 |
-| Accumulated vote parameter 4KiB #5 | 1,064,503 | 980 | 926,338 |
-| Accumulated vote parameter 4KiB #10 | 1,074,838 | 980 | 934,789 |
+| Propose Community Pool Spend | 2,799,782 | 20,207 | 2,193,795 |
+| Propose Parameter Change | 3,186,086 | 19,993 | 2,657,839 |
+| Vote | 1,168,625 | 4,044 | 952,483 |
+| Execute | 2,806,197 | -3,333 | 1,614,513 |
+| Propose Text | 2,121,378 | 19,572 | 1,684,068 |
+| Propose Text with Inactive: 100 | 2,557,499 | 9,726 | 2,181,142 |
+| Accumulated vote text 8KiB #1 | 1,182,158 | 4,038 | 954,301 |
+| Accumulated vote text 8KiB #5 | 1,238,270 | 980 | 1,021,707 |
+| Accumulated vote text 8KiB #10 | 1,248,605 | 980 | 1,030,158 |
+| Accumulated vote parameter 4KiB #1 | 1,172,346 | 4,008 | 973,360 |
+| Accumulated vote parameter 4KiB #5 | 1,243,663 | 980 | 1,037,822 |
+| Accumulated vote parameter 4KiB #10 | 1,253,998 | 980 | 1,046,273 |
 | CollectUndelegatedGns (100 delegations, 1 withdraws) | 25,063,477 | 0 | 22,279,393 |
 | CollectUndelegatedGns (10 delegations, 10 withdraws) | 4,368,525 | 0 | 3,839,683 |
 | CollectUndelegatedGns (10 delegations, 1 withdraws) | 2,329,935 | 0 | 1,942,663 |
@@ -69,20 +69,20 @@
 | Create Launchpad Project | 9,152,701 | 37,161 | 6,652,301 |
 | Launchpad DepositGns | 6,414,293 | 23,842 | 4,166,476 |
 | Launchpad TransferLeftFromProjectByAdmin | 1,381,746 | 41 | 1,188,126 |
-| Proposal metadata lifecycle text (4KiB, 32 proposals) | 127,327,391 | 596,653 | 111,251,964 |
-| Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) | 406,095,522 | 1,767,131 | 353,326,435 |
-| Proposal metadata root Proposal reads (128 proposals) | 20,972,487 | 0 | 19,981,105 |
-| Proposal metadata nested metadata reads (128 proposals) | 25,045,571 | 0 | 24,202,722 |
-| Proposal metadata list and voting-info reads (128 proposals) | 22,758,474 | 0 | 21,604,176 |
-| Proposal metadata create text (8KiB, total 129) | 2,646,971 | 17,720 | 2,283,307 |
-| Proposal metadata root Proposal read (8KiB) | 237,605 | 0 | 224,771 |
-| Proposal metadata nested metadata reads (8KiB) | 269,884 | 0 | 259,579 |
-| Proposal metadata vote text (8KiB) | 1,264,228 | 4,056 | 1,072,614 |
-| Proposal metadata create spend (8KiB) | 3,333,437 | 19,961 | 2,792,742 |
-| Proposal metadata cancel spend | 952,918 | -270 | 656,733 |
-| Proposal metadata create parameter change (4KiB) | 3,658,901 | 14,529 | 3,216,908 |
-| Proposal metadata vote parameter change | 1,272,577 | 4,056 | 1,078,010 |
-| Proposal metadata execute parameter change | 2,962,375 | -300 | 1,645,137 |
+| Proposal metadata lifecycle text (4KiB, 32 proposals) | 135,736,151 | 526,174 | 115,485,127 |
+| Proposal metadata lifecycle text (4KiB, 96 proposals, total 128) | 433,510,012 | 1,553,811 | 368,063,667 |
+| Proposal metadata root Proposal reads (128 proposals) | 16,251,707 | 0 | 15,013,541 |
+| Proposal metadata nested metadata reads (128 proposals) | 26,551,107 | 0 | 24,155,618 |
+| Proposal metadata list and voting-info reads (128 proposals) | 18,033,782 | 0 | 16,784,068 |
+| Proposal metadata create text (8KiB, total 129) | 2,719,084 | 15,534 | 2,290,804 |
+| Proposal metadata root Proposal read (8KiB) | 200,712 | 0 | 185,950 |
+| Proposal metadata nested metadata reads (8KiB) | 281,646 | 0 | 259,211 |
+| Proposal metadata vote text (8KiB) | 1,508,802 | 4,020 | 1,236,123 |
+| Proposal metadata create spend (8KiB) | 3,401,657 | 16,173 | 2,800,861 |
+| Proposal metadata cancel spend | 1,048,173 | -300 | 810,732 |
+| Proposal metadata create parameter change (4KiB) | 3,730,642 | 11,561 | 3,230,264 |
+| Proposal metadata vote parameter change | 1,505,495 | 4,026 | 1,241,764 |
+| Proposal metadata execute parameter change | 3,052,414 | -312 | 1,803,544 |
 | CreatePool | 6,805,868 | 24,958 | 5,932,965 |
 | Mint (fee:3000, wide range) | 32,381,198 | 22,702 | 30,132,961 |
 | Swap (gns -> wugnot, fee:500) | 47,483,186 | 0 | 44,415,958 |
