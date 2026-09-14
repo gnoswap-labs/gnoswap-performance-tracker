@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"testing"
 
-	"gno.land/p/demo/tokens/grc721"
+	"gno.land/p/nt/grc721/v0"
 	prabc "gno.land/p/gnoswap/rbac"
 	"gno.land/p/nt/testutils/v0"
 	_ "gno.land/r/gnoswap/rbac"

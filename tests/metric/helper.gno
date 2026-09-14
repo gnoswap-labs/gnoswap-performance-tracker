@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"gno.land/p/nt/ufmt/v0"
+	_ "gno.land/r/gnoswap/common/v1"
 )
 
 func MetricsBy(name string, fn func()) (int64, int64, int64) {

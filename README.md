@@ -86,6 +86,10 @@ make compare-stress abc1234 def5678
 Each `<ref>` may be a commit hash, local ref, or `origin/<branch>` ref. The
 tracker resolves it to a commit before deriving report filenames, so branch
 names such as `fix/launchpad-refund-liability` are valid inputs.
+When an unqualified branch name exists both locally and on `origin`, metric
+and stress commands use the fetched `origin` branch instead of a stale local
+branch. Tags, explicit refs, commit expressions, and local-only branches retain
+their normal Git resolution; use `refs/heads/main` to request local `main`.
 
 #### Compare Multiple Commits
 Generate reports and compare multiple commits in sequence.
@@ -180,6 +184,27 @@ git commit -m "chore: pin metric-enabled gno runtime"
 `prepare-gno-gas` applies the tracker metric patches, verifies the resulting
 branch, and updates the pin. Normal `make metric`, `make stress`, and comparison
 commands then build and run the isolated pinned runtime automatically.
+
+The current runtime is based on `gnolang/gno` tag `chain/mainnet` at
+`9c8eb132e483d6fd324d92c193e629ad65a98a37`, plus the two metric patches, pinned
+to `a021c9ee3ccfc0ec74350614d0dca9c3e1ade504` (`gas-9c8eb132`).
+The full active metric baseline for Gnoswap main
+`42691b2d593272f86b0638d31bacf5a6b7813e6a` is
+[`reports/metric/commits/42691b2.md`](reports/metric/commits/42691b2.md):
+85 passing filetests and 119 metric rows.
+
+```bash
+# Reproduce the pinned baseline without a fixture filter
+make metric-force 42691b2d593272f86b0638d31bacf5a6b7813e6a
+
+# Refresh every active metric fixture against fetched Gnoswap main
+make metric-force main
+```
+
+Metric execution and report collection include only `*_filetest.gno`.
+Intentionally disabled `.gnoa` fixtures remain disabled, and their historical
+golden output is not included in new reports. This is a new runtime/fixture
+baseline, not a like-for-like performance comparison with older reports.
 
 #### Report Example
 

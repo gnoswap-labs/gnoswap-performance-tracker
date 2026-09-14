@@ -1,7 +1,7 @@
 [submodule "gno"]
 	path = gno
 	url = git@github.com:gnoswap-labs/gno.git
-	branch = gas-2ed70a20
+	branch = gas-9c8eb132
 	ignore = all
 [submodule "gnoswap"]
 	path = gnoswap
