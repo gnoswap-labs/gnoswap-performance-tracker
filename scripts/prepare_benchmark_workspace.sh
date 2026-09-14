@@ -26,6 +26,17 @@ require_repo() {
 resolve_ref() {
     local ref="$1"
 
+    # Prefer the fetched remote branch only when the unqualified name also
+    # names a local branch. Direct refs, tags, commit-ish expressions, and
+    # local-only branches keep their existing resolution behavior.
+    if [[ "$ref" != refs/* ]] \
+        && git -C "$GNOSWAP_REPO" show-ref --verify --quiet "refs/heads/$ref" \
+        && git -C "$GNOSWAP_REPO" show-ref --verify --quiet "refs/remotes/origin/$ref" \
+        && ! git -C "$GNOSWAP_REPO" show-ref --verify --quiet "refs/tags/$ref"; then
+        git -C "$GNOSWAP_REPO" rev-parse "refs/remotes/origin/$ref^{commit}"
+        return
+    fi
+
     if git -C "$GNOSWAP_REPO" rev-parse -q --verify "${ref}^{commit}" >/dev/null 2>&1; then
         git -C "$GNOSWAP_REPO" rev-parse "${ref}^{commit}"
         return

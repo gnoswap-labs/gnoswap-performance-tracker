@@ -64,7 +64,15 @@ fi
 resolve_commit() {
     local ref=$1 full_commit
 
-    if full_commit=$(git -C gnoswap rev-parse -q --verify "${ref}^{commit}"); then
+    # Prefer the fetched remote branch only when the unqualified name also
+    # names a local branch. Direct refs, tags, commit-ish expressions, and
+    # local-only branches keep their existing resolution behavior.
+    if [[ "$ref" != refs/* ]] \
+        && git -C gnoswap show-ref --verify --quiet "refs/heads/$ref" \
+        && git -C gnoswap show-ref --verify --quiet "refs/remotes/origin/$ref" \
+        && ! git -C gnoswap show-ref --verify --quiet "refs/tags/$ref"; then
+        full_commit=$(git -C gnoswap rev-parse "refs/remotes/origin/$ref^{commit}")
+    elif full_commit=$(git -C gnoswap rev-parse -q --verify "${ref}^{commit}"); then
         :
     elif full_commit=$(git -C gnoswap rev-parse -q --verify "origin/${ref}^{commit}"); then
         :
