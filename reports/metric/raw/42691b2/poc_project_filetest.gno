@@ -419,9 +419,9 @@ func readProjectValue(value interface{}) launchpad.Project {
 
 // Output:
 // Project create initial (conditions and tiers)
-// - Gas Used: 8792988
+// - Gas Used: 8856280
 // - Storage Diff: 37161
-// - CPU Cycles: 6620514
+// - CPU Cycles: 6672738
 // STATE project id=gno.land/r/onbloc/obl.OBL:123 name=Project value initial token=gno.land/r/onbloc/obl.OBL deposit=1000000000 recipient=g1wpex76n9vd6z6un9vd5hq6t9de697h6lghtgpc createdHeight=123 createdAtSet=true conditionToken=gno.land/r/onbloc/obl.OBL conditionAmount=1000000 ratios=10/20/70
 // STATE tier project=gno.land/r/onbloc/obl.OBL:123 duration=30 id=gno.land/r/onbloc/obl.OBL:123:30 perSecond=13128177736147317263247477138571304454320 distribute=100000000 startOffset=345600 endOffset=2937600
 // STATE tier project=gno.land/r/onbloc/obl.OBL:123 duration=90 id=gno.land/r/onbloc/obl.OBL:123:90 perSecond=8752118490764878175498318092380869636213 distribute=200000000 startOffset=345600 endOffset=8121600
@@ -435,17 +435,17 @@ func readProjectValue(value interface{}) launchpad.Project {
 // - Storage Diff: 0
 // - CPU Cycles: 1815654
 // Project create repeated insertion
-// - Gas Used: 5868778
+// - Gas Used: 5910385
 // - Storage Diff: 24690
-// - CPU Cycles: 5474697
+// - CPU Cycles: 5513865
 // STATE project id=gno.land/r/onbloc/obl.OBL:124 name=Project value repeated token=gno.land/r/onbloc/obl.OBL deposit=500000000 recipient=g1wpex76n9vd6z6un9vd5hq6t9de697h6lghtgpc createdHeight=124 createdAtSet=true conditionToken= conditionAmount=0 ratios=25/25/50
 // STATE tier project=gno.land/r/onbloc/obl.OBL:124 duration=30 id=gno.land/r/onbloc/obl.OBL:124:30 perSecond=16410222170184146579059346423214130567901 distribute=125000000 startOffset=345595 endOffset=2937595
 // STATE tier project=gno.land/r/onbloc/obl.OBL:124 duration=90 id=gno.land/r/onbloc/obl.OBL:124:90 perSecond=5470074056728048859686448807738043522633 distribute=125000000 startOffset=345595 endOffset=8121595
 // STATE tier project=gno.land/r/onbloc/obl.OBL:124 duration=180 id=gno.land/r/onbloc/obl.OBL:124:180 perSecond=5470074056728048859686448807738043522633 distribute=250000000 startOffset=345595 endOffset=15897595
 // Project create population (32)
-// - Gas Used: 207592378
+// - Gas Used: 208923802
 // - Storage Diff: 827545
-// - CPU Cycles: 192433566
+// - CPU Cycles: 193686942
 // STATE project-population stage=create-32 projects=34 batchProjects=32 projectDepositTotal=320000000 tierDistribute=32000000/64000000/224000000 rewardManagers=102
 // STATE project-samples stage=create-32 first=gno.land/r/onbloc/obl.OBL:125 middle=gno.land/r/onbloc/obl.OBL:141 last=gno.land/r/onbloc/obl.OBL:156
 // STATE project-population-samples stage=create-32 first=gno.land/r/onbloc/obl.OBL:125 middle=gno.land/r/onbloc/obl.OBL:141 last=gno.land/r/onbloc/obl.OBL:156
@@ -466,9 +466,9 @@ func readProjectValue(value interface{}) launchpad.Project {
 // - Storage Diff: 0
 // - CPU Cycles: 38613307
 // Project create population add 96 (128 total)
-// - Gas Used: 636185178
+// - Gas Used: 640179450
 // - Storage Diff: 2490381
-// - CPU Cycles: 586274020
+// - CPU Cycles: 590034148
 // STATE project-population stage=create-128 projects=130 batchProjects=128 projectDepositTotal=1280000000 tierDistribute=128000000/256000000/896000000 rewardManagers=390
 // STATE project-samples stage=create-128 first=gno.land/r/onbloc/obl.OBL:125 middle=gno.land/r/onbloc/obl.OBL:190 last=gno.land/r/onbloc/obl.OBL:253
 // STATE project-population-samples stage=create-128 first=gno.land/r/onbloc/obl.OBL:125 middle=gno.land/r/onbloc/obl.OBL:190 last=gno.land/r/onbloc/obl.OBL:253

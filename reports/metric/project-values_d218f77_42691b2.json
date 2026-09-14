@@ -2,15 +2,13 @@
   "baseline_commit": "42691b2d593272f86b0638d31bacf5a6b7813e6a",
   "baseline_selection": "merge-base of PR #1450 candidate and main",
   "candidate_commit": "d218f777502e8b5d372027e6c46161724704899c",
-  "gno_commit": "2c717335f1a62068faf1256309961345978586f3",
-  "gno_upstream_commit": "393b6f92ac151e31916c96fbe30f6bcdc2f1dc01",
+  "gno_commit": "a021c9ee3ccfc0ec74350614d0dca9c3e1ade504",
+  "gno_upstream_commit": "9c8eb132e483d6fd324d92c193e629ad65a98a37",
   "fixture": "tests/metric/poc_project_filetest.gno",
   "fixture_sha256": "190035d0faea67dbc68535e035073de2ac273a6fab237fc2c86fd0b085ccd463",
-  "helper_sha256": "2941021742dc8ee86f20502194c5ef1b0fbecb0f65c94ea682332b782603a3df",
+  "helper_sha256": "3489d5923c95eade6cf54b86de1edb492c22e9a891e6dfc92b26422d175aac35",
   "commands": [
-    "make gas-report 42691b2d593272f86b0638d31bacf5a6b7813e6a METRIC_FILES=poc_project_filetest.gno",
-    "make gas-report d218f777502e8b5d372027e6c46161724704899c METRIC_FILES=poc_project_filetest.gno",
-    "make compare-metric d218f777502e8b5d372027e6c46161724704899c 42691b2d593272f86b0638d31bacf5a6b7813e6a"
+    "make compare-metric-force d218f777502e8b5d372027e6c46161724704899c 42691b2d593272f86b0638d31bacf5a6b7813e6a"
   ],
   "same_fixture_source": true,
   "same_states": true,
@@ -56,25 +54,29 @@
     "STATE tier project=gno.land/r/onbloc/obl.OBL:253 duration=180 id=gno.land/r/onbloc/obl.OBL:253:180 perSecond=153162073588385368071220566616665218633 distribute=7000000 startOffset=345125 endOffset=15897125"
   ],
   "raw_sha256": {
-    "42691b2d593272f86b0638d31bacf5a6b7813e6a": "86bb0f6899410d749393fc0f846634cf053babbd38ac0e18eb1b831c2f516498",
-    "d218f777502e8b5d372027e6c46161724704899c": "28a26b6ce63272a88229b27c528d429586be4bc82aed0d687cb0d8a8a7d64c32"
+    "42691b2d593272f86b0638d31bacf5a6b7813e6a": "0223604e88b4c489c1d7e4811dc65cbd3da626a595c99eb5c3a8580b0e07be0d",
+    "d218f777502e8b5d372027e6c46161724704899c": "5273c944875fdc735cbe7de9a0f24f38bf563192f3c6b1db6cb5831ab7c0566e"
   },
   "rows": [
     {
+      "fixture": "tests/metric/poc_project_filetest.gno",
+      "index": 0,
       "label": "Project create initial (conditions and tiers)",
-      "baseline_gas": 8792988,
-      "candidate_gas": 8901667,
+      "baseline_gas": 8856280,
+      "candidate_gas": 8964959,
       "delta_gas": 108679,
       "baseline_storage_bytes": 37161,
       "candidate_storage_bytes": 35077,
       "delta_storage_bytes": -2084,
-      "baseline_cpu_cycles": 6620514,
-      "candidate_cpu_cycles": 6708774,
+      "baseline_cpu_cycles": 6672738,
+      "candidate_cpu_cycles": 6760998,
       "delta_cpu_cycles": 88260,
-      "delta_gas_percent": 1.2359734825067428,
-      "gas_cost_delta_ugnot": 109
+      "delta_gas_percent": 1.2271405149792012,
+      "gas_cost_delta_ugnot": 108
     },
     {
+      "fixture": "tests/metric/poc_project_filetest.gno",
+      "index": 1,
       "label": "Project getters initial",
       "baseline_gas": 1042674,
       "candidate_gas": 1020004,
@@ -89,6 +91,8 @@
       "gas_cost_delta_ugnot": -22
     },
     {
+      "fixture": "tests/metric/poc_project_filetest.gno",
+      "index": 2,
       "label": "Project getters repeated",
       "baseline_gas": 1929708,
       "candidate_gas": 1952194,
@@ -103,34 +107,40 @@
       "gas_cost_delta_ugnot": 23
     },
     {
+      "fixture": "tests/metric/poc_project_filetest.gno",
+      "index": 3,
       "label": "Project create repeated insertion",
-      "baseline_gas": 5868778,
-      "candidate_gas": 5967309,
+      "baseline_gas": 5910385,
+      "candidate_gas": 6008916,
       "delta_gas": 98531,
       "baseline_storage_bytes": 24690,
       "candidate_storage_bytes": 23019,
       "delta_storage_bytes": -1671,
-      "baseline_cpu_cycles": 5474697,
-      "candidate_cpu_cycles": 5552597,
+      "baseline_cpu_cycles": 5513865,
+      "candidate_cpu_cycles": 5591765,
       "delta_cpu_cycles": 77900,
-      "delta_gas_percent": 1.6789014680739331,
-      "gas_cost_delta_ugnot": 99
+      "delta_gas_percent": 1.6670826012180258,
+      "gas_cost_delta_ugnot": 98
     },
     {
+      "fixture": "tests/metric/poc_project_filetest.gno",
+      "index": 4,
       "label": "Project create population (32)",
-      "baseline_gas": 207592378,
-      "candidate_gas": 210739652,
+      "baseline_gas": 208923802,
+      "candidate_gas": 212071076,
       "delta_gas": 3147274,
       "baseline_storage_bytes": 827545,
       "candidate_storage_bytes": 773729,
       "delta_storage_bytes": -53816,
-      "baseline_cpu_cycles": 192433566,
-      "candidate_cpu_cycles": 194926366,
+      "baseline_cpu_cycles": 193686942,
+      "candidate_cpu_cycles": 196179742,
       "delta_cpu_cycles": 2492800,
-      "delta_gas_percent": 1.5160836011040828,
-      "gas_cost_delta_ugnot": 3147
+      "delta_gas_percent": 1.5064219442071995,
+      "gas_cost_delta_ugnot": 3148
     },
     {
+      "fixture": "tests/metric/poc_project_filetest.gno",
+      "index": 5,
       "label": "Project getters population (32)",
       "baseline_gas": 40564988,
       "candidate_gas": 39872240,
@@ -145,20 +155,24 @@
       "gas_cost_delta_ugnot": -692
     },
     {
+      "fixture": "tests/metric/poc_project_filetest.gno",
+      "index": 6,
       "label": "Project create population add 96 (128 total)",
-      "baseline_gas": 636185178,
-      "candidate_gas": 645626625,
+      "baseline_gas": 640179450,
+      "candidate_gas": 649620897,
       "delta_gas": 9441447,
       "baseline_storage_bytes": 2490381,
       "candidate_storage_bytes": 2328813,
       "delta_storage_bytes": -161568,
-      "baseline_cpu_cycles": 586274020,
-      "candidate_cpu_cycles": 593752420,
+      "baseline_cpu_cycles": 590034148,
+      "candidate_cpu_cycles": 597512548,
       "delta_cpu_cycles": 7478400,
-      "delta_gas_percent": 1.4840721422780458,
+      "delta_gas_percent": 1.474812570131703,
       "gas_cost_delta_ugnot": 9441
     },
     {
+      "fixture": "tests/metric/poc_project_filetest.gno",
+      "index": 7,
       "label": "Project getters population (128)",
       "baseline_gas": 170551222,
       "candidate_gas": 167780266,
@@ -174,20 +188,20 @@
     }
   ],
   "totals": {
-    "baseline_gas": 1072527914,
-    "candidate_gas": 1081859957,
+    "baseline_gas": 1077958509,
+    "candidate_gas": 1087290552,
     "delta_gas": 9332043,
     "baseline_storage_bytes": 3379777,
     "candidate_storage_bytes": 3160638,
     "delta_storage_bytes": -219139,
-    "baseline_cpu_cycles": 994969317,
-    "candidate_cpu_cycles": 998855291,
+    "baseline_cpu_cycles": 1000074213,
+    "candidate_cpu_cycles": 1003960187,
     "delta_cpu_cycles": 3885974,
-    "gas_cost_delta_ugnot": 9334,
-    "delta_gas_percent": 0.8700979133676888,
+    "gas_cost_delta_ugnot": 9333,
+    "delta_gas_percent": 0.8657144892021071,
     "delta_storage_percent": -6.483830146190119,
     "storage_cost_delta_ugnot": -21913900,
-    "total_cost_delta_ugnot": -21904566
+    "total_cost_delta_ugnot": -21904567
   },
   "notes": [
     "Eight measured sections; 128 population projects plus two reference projects (130 total, 390 tiers).",
@@ -195,7 +209,8 @@
     "CPU cycles are single-run samples.",
     "Fresh deployments only; not a migration benchmark.",
     "Historical b12f0f8/6d2ad08 results use a different baseline/runtime/fixture and are not directly comparable.",
-    "Fixture explicitly initializes common/v1; dual Project payload normalization is outside measured sections."
+    "Fixture explicitly initializes common/v1; dual Project payload normalization is outside measured sections.",
+    "Full metric suite executed without METRIC_FILES filtering: 74 of 86 fixtures produced metrics per revision; 12 identical golden errors are documented in full-suite_d218f77_42691b2.json. This Project fixture completed all eight sections."
   ],
   "cost_model": {
     "gas": "1 ugnot per 1000 gas, rounded up per measured section",
@@ -217,5 +232,7 @@
       "gno.land/r/gnoswap/scenario/getter",
       "gno.land/r/gnoswap/scenario/upgrade"
     ]
-  }
+  },
+  "tracker_source_commit": "5a795bab45e47f745a6016a4225f1d1e7a26259a",
+  "tracker_main_commit": "babaa9e328c4fbb2cc5f7d3fbba0ac80509fa18b"
 }
