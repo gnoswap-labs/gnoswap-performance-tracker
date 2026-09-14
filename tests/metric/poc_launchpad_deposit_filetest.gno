@@ -17,6 +17,7 @@ import (
 	_ "gno.land/r/gnoswap/gov/staker"
 	_ "gno.land/r/gnoswap/gov/staker/v1"
 	"gno.land/r/gnoswap/access"
+	_ "gno.land/r/gnoswap/common/v1"
 	"gno.land/r/gnoswap/gns"
 	_ "gno.land/r/gnoswap/launchpad/v1"
 	"gno.land/r/gnoswap/launchpad"
@@ -501,7 +502,7 @@ func assertAggregateState(activeDepositCount int) {
 func assertDepositRecord(projectIndex, depositIndex int, withdrawn bool) {
 	depositID := projectDepositIDs[projectIndex][depositIndex]
 	deposit, err := launchpad.GetDeposit(depositID)
-	if err != nil || deposit == nil {
+	if err != nil {
 		panic("missing boundary deposit record")
 	}
 	if deposit.ID() != depositID || deposit.ProjectID() != projectIDs[projectIndex] || deposit.Tier() != 30 {
