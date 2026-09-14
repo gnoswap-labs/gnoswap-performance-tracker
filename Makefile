@@ -163,6 +163,7 @@ gas-report:
 	(cd "$$GNOSWAP_WORKTREE" && python3 setup.py --exclude-tests -w "$$RUN_ROOT"); \
 	rm -rf "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
 	cp -r tests/metric "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric"; \
+	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" -maxdepth 1 -type f -name '*_filetest.gno*' ! -name "$(or $(METRIC_FILES),*_filetest.gno*)" -delete; \
 	mkdir -p "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests"; \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" -maxdepth 1 -type f -name '*_filetest.gno' -exec mv {} "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests/" \;; \
 	mkdir -p reports/metric/commits; \
@@ -170,6 +171,8 @@ gas-report:
 	GNO_BIN="$$GNO_WORKTREE/gnovm/build/gno"; \
 	test -x "$$GNO_BIN"; \
 	(cd "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric" && GNOROOT="$$GNO_WORKTREE" "$$GNO_BIN" test . -v -run . -update-golden-tests); \
+	mkdir -p "reports/metric/raw/$$SHORT_COMMIT"; \
+	cp "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests/"*_filetest.gno* "reports/metric/raw/$$SHORT_COMMIT/"; \
 	find "$$GNO_WORKTREE/examples/gno.land/r/gnoswap/scenario/metric/filetests" -maxdepth 1 -type f -name '*_filetest.gno' | sort | xargs cat | ./scripts/parse_metrics.sh > "reports/metric/commits/$$SHORT_COMMIT.md"; \
 	if [ "$$(tail -n +3 "reports/metric/commits/$$SHORT_COMMIT.md" | wc -l | tr -d ' ')" -eq 0 ]; then \
 		echo "Metric report contained no metric rows" >&2; \

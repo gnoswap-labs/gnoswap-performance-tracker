@@ -416,3 +416,75 @@ func readProjectValue(value interface{}) launchpad.Project {
 		panic("project getter returned an unexpected payload type")
 	}
 }
+
+// Output:
+// Project create initial (conditions and tiers)
+// - Gas Used: 8796552
+// - Storage Diff: 37161
+// - CPU Cycles: 6620514
+// STATE project id=gno.land/r/onbloc/obl.OBL:123 name=Project value initial token=gno.land/r/onbloc/obl.OBL deposit=1000000000 recipient=g1wpex76n9vd6z6un9vd5hq6t9de697h6lghtgpc createdHeight=123 createdAtSet=true conditionToken=gno.land/r/onbloc/obl.OBL conditionAmount=1000000 ratios=10/20/70
+// STATE tier project=gno.land/r/onbloc/obl.OBL:123 duration=30 id=gno.land/r/onbloc/obl.OBL:123:30 perSecond=13128177736147317263247477138571304454320 distribute=100000000 startOffset=345600 endOffset=2937600
+// STATE tier project=gno.land/r/onbloc/obl.OBL:123 duration=90 id=gno.land/r/onbloc/obl.OBL:123:90 perSecond=8752118490764878175498318092380869636213 distribute=200000000 startOffset=345600 endOffset=8121600
+// STATE tier project=gno.land/r/onbloc/obl.OBL:123 duration=180 id=gno.land/r/onbloc/obl.OBL:123:180 perSecond=15316207358838536807122056661666521863374 distribute=700000000 startOffset=345600 endOffset=15897600
+// Project getters initial
+// - Gas Used: 1042671
+// - Storage Diff: 0
+// - CPU Cycles: 974812
+// Project getters repeated
+// - Gas Used: 1929708
+// - Storage Diff: 0
+// - CPU Cycles: 1815654
+// Project create repeated insertion
+// - Gas Used: 5868754
+// - Storage Diff: 24690
+// - CPU Cycles: 5474697
+// STATE project id=gno.land/r/onbloc/obl.OBL:124 name=Project value repeated token=gno.land/r/onbloc/obl.OBL deposit=500000000 recipient=g1wpex76n9vd6z6un9vd5hq6t9de697h6lghtgpc createdHeight=124 createdAtSet=true conditionToken= conditionAmount=0 ratios=25/25/50
+// STATE tier project=gno.land/r/onbloc/obl.OBL:124 duration=30 id=gno.land/r/onbloc/obl.OBL:124:30 perSecond=16410222170184146579059346423214130567901 distribute=125000000 startOffset=345595 endOffset=2937595
+// STATE tier project=gno.land/r/onbloc/obl.OBL:124 duration=90 id=gno.land/r/onbloc/obl.OBL:124:90 perSecond=5470074056728048859686448807738043522633 distribute=125000000 startOffset=345595 endOffset=8121595
+// STATE tier project=gno.land/r/onbloc/obl.OBL:124 duration=180 id=gno.land/r/onbloc/obl.OBL:124:180 perSecond=5470074056728048859686448807738043522633 distribute=250000000 startOffset=345595 endOffset=15897595
+// Project create population (32)
+// - Gas Used: 207591604
+// - Storage Diff: 827544
+// - CPU Cycles: 192433566
+// STATE project-population stage=create-32 projects=34 batchProjects=32 projectDepositTotal=320000000 tierDistribute=32000000/64000000/224000000 rewardManagers=102
+// STATE project-samples stage=create-32 first=gno.land/r/onbloc/obl.OBL:125 middle=gno.land/r/onbloc/obl.OBL:141 last=gno.land/r/onbloc/obl.OBL:156
+// STATE project-population-samples stage=create-32 first=gno.land/r/onbloc/obl.OBL:125 middle=gno.land/r/onbloc/obl.OBL:141 last=gno.land/r/onbloc/obl.OBL:156
+// STATE project id=gno.land/r/onbloc/obl.OBL:125 name=Project value population 1 token=gno.land/r/onbloc/obl.OBL deposit=10000000 recipient=g1wpex76n9vd6z6un9vd5hq6t9de697h6lghtgpc createdHeight=125 createdAtSet=true conditionToken= conditionAmount=0 ratios=10/20/70
+// STATE tier project=gno.land/r/onbloc/obl.OBL:125 duration=30 id=gno.land/r/onbloc/obl.OBL:125:30 perSecond=131281777361473172632474771385713044543 distribute=1000000 startOffset=345600 endOffset=2937600
+// STATE tier project=gno.land/r/onbloc/obl.OBL:125 duration=90 id=gno.land/r/onbloc/obl.OBL:125:90 perSecond=87521184907648781754983180923808696362 distribute=2000000 startOffset=345600 endOffset=8121600
+// STATE tier project=gno.land/r/onbloc/obl.OBL:125 duration=180 id=gno.land/r/onbloc/obl.OBL:125:180 perSecond=153162073588385368071220566616665218633 distribute=7000000 startOffset=345600 endOffset=15897600
+// STATE project id=gno.land/r/onbloc/obl.OBL:141 name=Project value population 17 token=gno.land/r/onbloc/obl.OBL deposit=10000000 recipient=g1wpex76n9vd6z6un9vd5hq6t9de697h6lghtgpc createdHeight=141 createdAtSet=true conditionToken= conditionAmount=0 ratios=10/20/70
+// STATE tier project=gno.land/r/onbloc/obl.OBL:141 duration=30 id=gno.land/r/onbloc/obl.OBL:141:30 perSecond=131281777361473172632474771385713044543 distribute=1000000 startOffset=345520 endOffset=2937520
+// STATE tier project=gno.land/r/onbloc/obl.OBL:141 duration=90 id=gno.land/r/onbloc/obl.OBL:141:90 perSecond=87521184907648781754983180923808696362 distribute=2000000 startOffset=345520 endOffset=8121520
+// STATE tier project=gno.land/r/onbloc/obl.OBL:141 duration=180 id=gno.land/r/onbloc/obl.OBL:141:180 perSecond=153162073588385368071220566616665218633 distribute=7000000 startOffset=345520 endOffset=15897520
+// STATE project id=gno.land/r/onbloc/obl.OBL:156 name=Project value population 32 token=gno.land/r/onbloc/obl.OBL deposit=10000000 recipient=g1wpex76n9vd6z6un9vd5hq6t9de697h6lghtgpc createdHeight=156 createdAtSet=true conditionToken= conditionAmount=0 ratios=10/20/70
+// STATE tier project=gno.land/r/onbloc/obl.OBL:156 duration=30 id=gno.land/r/onbloc/obl.OBL:156:30 perSecond=131281777361473172632474771385713044543 distribute=1000000 startOffset=345445 endOffset=2937445
+// STATE tier project=gno.land/r/onbloc/obl.OBL:156 duration=90 id=gno.land/r/onbloc/obl.OBL:156:90 perSecond=87521184907648781754983180923808696362 distribute=2000000 startOffset=345445 endOffset=8121445
+// STATE tier project=gno.land/r/onbloc/obl.OBL:156 duration=180 id=gno.land/r/onbloc/obl.OBL:156:180 perSecond=153162073588385368071220566616665218633 distribute=7000000 startOffset=345445 endOffset=15897445
+// Project getters population (32)
+// - Gas Used: 40564988
+// - Storage Diff: 0
+// - CPU Cycles: 38613307
+// Project create population add 96 (128 total)
+// - Gas Used: 636182877
+// - Storage Diff: 2490381
+// - CPU Cycles: 586274020
+// STATE project-population stage=create-128 projects=130 batchProjects=128 projectDepositTotal=1280000000 tierDistribute=128000000/256000000/896000000 rewardManagers=390
+// STATE project-samples stage=create-128 first=gno.land/r/onbloc/obl.OBL:125 middle=gno.land/r/onbloc/obl.OBL:190 last=gno.land/r/onbloc/obl.OBL:253
+// STATE project-population-samples stage=create-128 first=gno.land/r/onbloc/obl.OBL:125 middle=gno.land/r/onbloc/obl.OBL:190 last=gno.land/r/onbloc/obl.OBL:253
+// STATE project id=gno.land/r/onbloc/obl.OBL:125 name=Project value population 1 token=gno.land/r/onbloc/obl.OBL deposit=10000000 recipient=g1wpex76n9vd6z6un9vd5hq6t9de697h6lghtgpc createdHeight=125 createdAtSet=true conditionToken= conditionAmount=0 ratios=10/20/70
+// STATE tier project=gno.land/r/onbloc/obl.OBL:125 duration=30 id=gno.land/r/onbloc/obl.OBL:125:30 perSecond=131281777361473172632474771385713044543 distribute=1000000 startOffset=345600 endOffset=2937600
+// STATE tier project=gno.land/r/onbloc/obl.OBL:125 duration=90 id=gno.land/r/onbloc/obl.OBL:125:90 perSecond=87521184907648781754983180923808696362 distribute=2000000 startOffset=345600 endOffset=8121600
+// STATE tier project=gno.land/r/onbloc/obl.OBL:125 duration=180 id=gno.land/r/onbloc/obl.OBL:125:180 perSecond=153162073588385368071220566616665218633 distribute=7000000 startOffset=345600 endOffset=15897600
+// STATE project id=gno.land/r/onbloc/obl.OBL:190 name=Project value population 65 token=gno.land/r/onbloc/obl.OBL deposit=10000000 recipient=g1wpex76n9vd6z6un9vd5hq6t9de697h6lghtgpc createdHeight=190 createdAtSet=true conditionToken= conditionAmount=0 ratios=10/20/70
+// STATE tier project=gno.land/r/onbloc/obl.OBL:190 duration=30 id=gno.land/r/onbloc/obl.OBL:190:30 perSecond=131281777361473172632474771385713044543 distribute=1000000 startOffset=345440 endOffset=2937440
+// STATE tier project=gno.land/r/onbloc/obl.OBL:190 duration=90 id=gno.land/r/onbloc/obl.OBL:190:90 perSecond=87521184907648781754983180923808696362 distribute=2000000 startOffset=345440 endOffset=8121440
+// STATE tier project=gno.land/r/onbloc/obl.OBL:190 duration=180 id=gno.land/r/onbloc/obl.OBL:190:180 perSecond=153162073588385368071220566616665218633 distribute=7000000 startOffset=345440 endOffset=15897440
+// STATE project id=gno.land/r/onbloc/obl.OBL:253 name=Project value population 128 token=gno.land/r/onbloc/obl.OBL deposit=10000000 recipient=g1wpex76n9vd6z6un9vd5hq6t9de697h6lghtgpc createdHeight=253 createdAtSet=true conditionToken= conditionAmount=0 ratios=10/20/70
+// STATE tier project=gno.land/r/onbloc/obl.OBL:253 duration=30 id=gno.land/r/onbloc/obl.OBL:253:30 perSecond=131281777361473172632474771385713044543 distribute=1000000 startOffset=345125 endOffset=2937125
+// STATE tier project=gno.land/r/onbloc/obl.OBL:253 duration=90 id=gno.land/r/onbloc/obl.OBL:253:90 perSecond=87521184907648781754983180923808696362 distribute=2000000 startOffset=345125 endOffset=8121125
+// STATE tier project=gno.land/r/onbloc/obl.OBL:253 duration=180 id=gno.land/r/onbloc/obl.OBL:253:180 perSecond=153162073588385368071220566616665218633 distribute=7000000 startOffset=345125 endOffset=15897125
+// Project getters population (128)
+// - Gas Used: 170551222
+// - Storage Diff: 0
+// - CPU Cycles: 162762747
