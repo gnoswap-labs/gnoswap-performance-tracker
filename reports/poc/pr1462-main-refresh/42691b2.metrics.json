@@ -1,0 +1,80 @@
+[
+  {
+    "label": "DelegationRewards Gov Delegate stage=32 records=32",
+    "gas": 132872899,
+    "storage_bytes": 395419,
+    "cpu_cycles": 104059741
+  },
+  {
+    "label": "DelegationRewards Gov Undelegate Stage32",
+    "gas": 2386879,
+    "storage_bytes": 1569,
+    "cpu_cycles": 1865484
+  },
+  {
+    "label": "DelegationRewards Gov CollectReward stage=32 records=32",
+    "gas": 142824047,
+    "storage_bytes": 215600,
+    "cpu_cycles": 124799913
+  },
+  {
+    "label": "DelegationRewards Gov Delegate stage=128 records=96",
+    "gas": 416975108,
+    "storage_bytes": 1278936,
+    "cpu_cycles": 332915877
+  },
+  {
+    "label": "DelegationRewards Gov Undelegate Stage128",
+    "gas": 2829711,
+    "storage_bytes": 1568,
+    "cpu_cycles": 1993341
+  },
+  {
+    "label": "DelegationRewards Gov CollectUndelegatedGns Stage128 Samples",
+    "gas": 3359684,
+    "storage_bytes": 4143,
+    "cpu_cycles": 2724216
+  },
+  {
+    "label": "DelegationRewards Gov CollectReward stage=128 records=128",
+    "gas": 624354844,
+    "storage_bytes": 425307,
+    "cpu_cycles": 519227973
+  },
+  {
+    "label": "DelegationRewards Launchpad CreateProject",
+    "gas": 6672805,
+    "storage_bytes": 36201,
+    "cpu_cycles": 5425014
+  },
+  {
+    "label": "DelegationRewards Launchpad DepositGns stage=32 records=32",
+    "gas": 200644986,
+    "storage_bytes": 154662,
+    "cpu_cycles": 169898392
+  },
+  {
+    "label": "DelegationRewards Launchpad CollectReward stage=32 records=32",
+    "gas": 96404141,
+    "storage_bytes": 2497,
+    "cpu_cycles": 88224809
+  },
+  {
+    "label": "DelegationRewards Launchpad DepositGns stage=128 records=96",
+    "gas": 623811846,
+    "storage_bytes": 421039,
+    "cpu_cycles": 529146983
+  },
+  {
+    "label": "DelegationRewards Launchpad CollectReward stage=128 records=128",
+    "gas": 386822230,
+    "storage_bytes": 1264,
+    "cpu_cycles": 355875278
+  },
+  {
+    "label": "DelegationRewards Launchpad CollectDepositGns Stage128 First",
+    "gas": 8839320,
+    "storage_bytes": -3680,
+    "cpu_cycles": 7558513
+  }
+]

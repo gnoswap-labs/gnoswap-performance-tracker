@@ -32,10 +32,10 @@ import (
 )
 
 const (
-	blockTimeSeconds      int64 = 5
-	delegationStageSmall        = 32
-	delegationStageLarge        = 128
-	govDelegationAmount   int64 = 2_000_000
+	blockTimeSeconds       int64 = 5
+	delegationStageSmall         = 32
+	delegationStageLarge         = 128
+	govDelegationAmount    int64 = 2_000_000
 	launchpadDepositAmount int64 = 1_000_000
 )
 
@@ -53,15 +53,15 @@ var (
 	aliceAddr  = testutils.TestAddress("alice")
 	aliceRealm = testing.NewUserRealm(aliceAddr)
 
-	govDelegateeAddr    = testutils.TestAddress("delegation-delegatee")
-	projectAddr         = testutils.TestAddress("delegation-project")
-	delegationUsers     []address
-	delegationIDs       []int64
-	depositIDs          []string
+	govDelegateeAddr = testutils.TestAddress("delegation-delegatee")
+	projectAddr      = testutils.TestAddress("delegation-project")
+	delegationUsers  []address
+	delegationIDs    []int64
+	depositIDs       []string
 
-	barPath = "gno.land/r/onbloc/bar.BAR"
-	bazPath = "gno.land/r/onbloc/baz.BAZ"
-	oblPath = "gno.land/r/onbloc/obl.OBL"
+	barPath        = "gno.land/r/onbloc/bar.BAR"
+	bazPath        = "gno.land/r/onbloc/baz.BAZ"
+	oblPath        = "gno.land/r/onbloc/obl.OBL"
 	maxInt64 int64 = 9223372036854775807
 )
 
@@ -333,7 +333,6 @@ func createProject(cur realm) string {
 	return projectID
 }
 
-
 func depositStage(cur realm, projectID string, start, end int) {
 	projectTierID := projectID + ":30"
 	testing.SetRealm(aliceRealm)
@@ -371,17 +370,17 @@ func printLaunchpadStage(projectID string, stage int) {
 		stage,
 		launchpad.GetDepositCount(),
 		totalDeposit,
-		depositIDs[0], first.PriceDebtX128().ToString(), first.DepositAmount(), first.AccumulatedRewardAmount(), first.ClaimedAmount(),
-		depositIDs[stage/2], middle.PriceDebtX128().ToString(), middle.DepositAmount(), middle.AccumulatedRewardAmount(), middle.ClaimedAmount(),
-		depositIDs[stage-1], last.PriceDebtX128().ToString(), last.DepositAmount(), last.AccumulatedRewardAmount(), last.ClaimedAmount(),
+		depositIDs[0], first.priceDebt, first.depositAmount, first.accumulated, first.claimed,
+		depositIDs[stage/2], middle.priceDebt, middle.depositAmount, middle.accumulated, middle.claimed,
+		depositIDs[stage-1], last.priceDebt, last.depositAmount, last.accumulated, last.claimed,
 		mustProjectTierRewardTotalClaimed(projectTierID),
 		mustProjectTierRewardActiveDeposit(projectTierID),
 		mustProjectTierRewardAccumulatedTime(projectTierID),
 	)
 }
 
-func assertRewardSample(state *launchpad.RewardState) {
-	if state == nil || state.PriceDebtX128() == nil || state.DepositAmount() != launchpadDepositAmount {
+func assertRewardSample(state rewardSample) {
+	if state.depositAmount != launchpadDepositAmount {
 		panic("launchpad reward state invariant failed")
 	}
 }
@@ -389,9 +388,9 @@ func assertRewardSample(state *launchpad.RewardState) {
 func collectLaunchpadRewardStage(cur realm, projectID string, start, end, stage int) {
 	projectTierID := projectID + ":30"
 	testing.SetRealm(aliceRealm)
-	firstBefore := mustRewardState(projectTierID, depositIDs[0]).ClaimedAmount()
-	middleBefore := mustRewardState(projectTierID, depositIDs[stage/2]).ClaimedAmount()
-	lastBefore := mustRewardState(projectTierID, depositIDs[stage-1]).ClaimedAmount()
+	firstBefore := mustRewardState(projectTierID, depositIDs[0]).claimed
+	middleBefore := mustRewardState(projectTierID, depositIDs[stage/2]).claimed
+	lastBefore := mustRewardState(projectTierID, depositIDs[stage-1]).claimed
 
 	metric.PrintMetricsBy(ufmt.Sprintf("DelegationRewards Launchpad CollectReward stage=%d records=%d", stage, end-start), func() {
 		for i := start; i < end; i++ {
@@ -399,9 +398,9 @@ func collectLaunchpadRewardStage(cur realm, projectID string, start, end, stage 
 		}
 	})
 
-	firstAfter := mustRewardState(projectTierID, depositIDs[0]).ClaimedAmount()
-	middleAfter := mustRewardState(projectTierID, depositIDs[stage/2]).ClaimedAmount()
-	lastAfter := mustRewardState(projectTierID, depositIDs[stage-1]).ClaimedAmount()
+	firstAfter := mustRewardState(projectTierID, depositIDs[0]).claimed
+	middleAfter := mustRewardState(projectTierID, depositIDs[stage/2]).claimed
+	lastAfter := mustRewardState(projectTierID, depositIDs[stage-1]).claimed
 	if firstAfter <= firstBefore || middleAfter <= middleBefore || lastAfter <= lastBefore {
 		panic("launchpad reward claim state did not advance")
 	}
@@ -439,21 +438,39 @@ func withdrawLaunchpadDeposit(cur realm, projectID, depositID string) {
 
 func getDelegation(delegationID int64) *govstaker.Delegation {
 	value := govstaker.GetDelegations().Get(strconv.FormatInt(delegationID, 10))
-	delegation, ok := value.(*govstaker.Delegation)
-	if !ok || delegation == nil {
-		panic("delegation record missing from public getter")
+	switch delegation := value.(type) {
+	case *govstaker.Delegation:
+		if delegation != nil {
+			return delegation
+		}
+	case govstaker.Delegation:
+		return &delegation
 	}
-	return delegation
+	panic("delegation record missing from public getter")
 }
 
-func mustRewardState(projectTierID, depositID string) *launchpad.RewardState {
+type rewardSample struct {
+	priceDebt     string
+	depositAmount int64
+	accumulated   int64
+	claimed       int64
+}
+
+func mustRewardState(projectTierID, depositID string) rewardSample {
 	state, err := launchpad.GetRewardState(projectTierID, depositID)
-	if err != nil || state == nil {
+	if err != nil {
 		panic("launchpad reward state missing from public getter")
 	}
-	return state
+	if state.PriceDebtX128() == nil {
+		panic("launchpad reward price debt missing")
+	}
+	return rewardSample{
+		priceDebt:     state.PriceDebtX128().ToString(),
+		depositAmount: state.DepositAmount(),
+		accumulated:   state.AccumulatedRewardAmount(),
+		claimed:       state.ClaimedAmount(),
+	}
 }
-
 
 func mustProjectTierRewardTotalClaimed(projectTierID string) int64 {
 	value, err := launchpad.GetProjectTierRewardTotalClaimedAmount(projectTierID)
