@@ -8,11 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"gno.land/p/nt/grc20/v0"
 	prabc "gno.land/p/gnoswap/rbac"
 	"gno.land/p/nt/testutils/v0"
 	"gno.land/p/nt/ufmt/v0"
-	"gno.land/r/nt/grc20reg/v0"
 	"gno.land/r/gnoswap/launchpad"
 	pf "gno.land/r/gnoswap/protocol_fee"
 	_ "gno.land/r/gnoswap/rbac"

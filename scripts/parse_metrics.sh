@@ -44,20 +44,6 @@ function format_number(num) {
     return sign result
 }
 
-# Skip lines after "unexpected output:" until next test
-/unexpected output:/ {
-    skip_duplicate = 1
-    next
-}
-
-# Reset skip flag on new test run
-/^=== RUN/ {
-    skip_duplicate = 0
-    next
-}
-
-# Skip if in duplicate section
-skip_duplicate { next }
 
 !/^[[:space:]]*$/ {
     line = normalize($0)

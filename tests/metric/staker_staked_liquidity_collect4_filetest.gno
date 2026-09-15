@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"gno.land/p/demo/tokens/grc721"
+	"gno.land/p/nt/grc721/v0"
 	"gno.land/p/gnoswap/gnsmath"
 	prabc "gno.land/p/gnoswap/rbac"
 	"gno.land/p/nt/testutils/v0"
