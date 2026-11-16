@@ -10,7 +10,7 @@ WORKDIR /src/gno
 RUN cd contribs/gnodev && go build -o /usr/local/bin/gnodev .
 RUN cd gno.land/cmd/gnokey && go build -o /usr/local/bin/gnokey .
 
-FROM alpine:3.21
+FROM alpine:3.24
 
 RUN apk add --no-cache bash coreutils curl git make && ln -sf /usr/bin/date /usr/bin/gdate
 
